@@ -1,0 +1,254 @@
+import React, { useState } from 'react';
+import { Info, Award, Clock, ExternalLink, Edit2, Bell, FileText, Users, BookOpen } from 'lucide-react';
+
+const ProbabilityStatisticsDashboard = () => {
+  const [courseInfo, setCourseInfo] = useState({
+    syllabus: {
+      courseTitle: '확률과 통계',
+      credits: 3,
+      instructor: '박도영',
+      office: '5층 교무센터',
+      classroom: '2-6교실'
+    },
+    evaluation: {
+      midterm: { weight: 30, description: '중간고사' },
+      final: { weight: 30, description: '기말고사' },
+      process1: { weight: 15, description: '단계별과정평가1' },
+      process2: { weight: 15, description: '단계별과정평가2' },
+      project: { weight: 10, description: '주제탐구발표 보고서' }
+    },
+    examInfo: [
+      { 
+        type: 'midterm', 
+        date: '', 
+        duration: '50분', 
+        location: '2-6교실', 
+        scope: 'Ⅲ-1. 확률분포 + 평가원 기출문제', 
+        period: '2025년 9월 25일~10월 2일' 
+      },
+      { 
+        type: 'final', 
+        date: '', 
+        duration: '50분', 
+        location: '2-6교실', 
+        scope: 'Ⅲ-2. 통계적 추정 + 평가원 기출문제', 
+        period: '2025년 12월 11일~12월 17일' 
+      }
+    ]
+  });
+
+  const [announcements, setAnnouncements] = useState([
+    { 
+      id: 1, 
+      title: '🎯 평균 맞히기 게임 결과 발표!', 
+      date: '2025-07-17', 
+      content: `📊 전체 평균 기준으로 분석한 평균 맞히기 게임 결과가 나왔습니다!
+
+🏆 게임 방식:
+• 모든 반 학생들의 답변으로 전체 평균 계산
+• 개별 학생의 답변과 전체 평균의 차이를 비교
+• 오차가 적을수록 높은 순위!
+
+🎉 참여해주신 모든 학생들 고생하셨습니다!`,
+      hasGameResult: true
+    },
+    { 
+      id: 2, 
+      title: '중간고사 시험 범위 안내', 
+      date: '2025-07-15', 
+      content: '중간고사 시험 범위: Ⅲ-1. 확률분포 + 평가원 기출문제입니다. 시험 기간은 9월 25일~10월 2일이며, 구체적인 날짜는 추후 공지예정입니다.',
+      hasGameResult: false
+    }
+  ]);
+
+  const gameResults = {
+    totalAverages: [
+      { question: "우리 반 평균 키는?", average: 168.5 },
+      { question: "우리 반 평균 몸무게는?", average: 62.3 },
+      { question: "하루 평균 스마트폰 사용시간은?", average: 4.2 },
+      { question: "수학 평균 점수는?", average: 78.6 }
+    ],
+    topStudents: [
+      { rank: 1, class: "3-1", name: "김○○", score: 2.1 },
+      { rank: 2, class: "3-2", name: "이○○", score: 2.3 },
+      { rank: 3, class: "3-1", name: "박○○", score: 2.8 },
+      { rank: 4, class: "3-3", name: "최○○", score: 3.1 },
+      { rank: 5, class: "3-2", name: "정○○", score: 3.4 },
+      { rank: 6, class: "3-1", name: "강○○", score: 3.7 },
+      { rank: 7, class: "3-3", name: "윤○○", score: 4.0 },
+      { rank: 8, class: "3-2", name: "임○○", score: 4.2 },
+      { rank: 9, class: "3-1", name: "한○○", score: 4.5 },
+      { rank: 10, class: "3-3", name: "송○○", score: 4.8 }
+    ]
+  };
+
+  const updateCourseInfo = (section, data) => {
+    setCourseInfo(prev => ({
+      ...prev,
+      [section]: { ...prev[section], ...data }
+    }));
+  };
+
+  const updateExamInfo = (index, data) => {
+    setCourseInfo(prev => ({
+      ...prev,
+      examInfo: prev.examInfo.map((exam, i) => i === index ? { ...exam, ...data } : exam)
+    }));
+  };
+
+  const handleViewOTMaterial = () => {
+    const popup = window.open(
+      'https://claude.ai/public/artifacts/08548503-f9cd-496c-918f-887d6d1ac935',
+      'otMaterial',
+      'width=800,height=600,scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no'
+    );
+    if (popup) {
+      popup.focus();
+    }
+  };
+
+  const handleViewSchedule = () => {
+    window.open('https://claude.ai/public/artifacts/b0a44c96-973c-4be2-9854-dc0a88d9e2f1', '_blank');
+  };
+
+  const handleViewGameResult = (url) => {
+    window.open(url, '_blank');
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg">
+            <h2 className="text-2xl font-bold mb-2">확률과 통계 수업</h2>
+            <p className="text-blue-100">2025년 2학기 • 담당: 박도영</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="space-y-6">
+            {/* OT 자료 링크 버튼 */}
+            <div className="bg-gradient-to-r from-green-500 to-blue-500 p-6 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">📋 2학기 OT 자료</h3>
+                  <p className="text-green-100">수업 규칙, 교재, 평가방법 등 상세 내용을 확인하세요</p>
+                </div>
+                <button
+                  onClick={handleViewOTMaterial}
+                  className="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center space-x-2"
+                >
+                  <span>OT 자료 보기</span>
+                  <ExternalLink size={20} />
+                </button>
+              </div>
+            </div>
+
+            {/* 선생님 시간표 버튼 */}
+            <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">🕐 선생님 시간표</h3>
+                  <p className="text-purple-100">박도영 선생님의 시간표를 확인하세요</p>
+                </div>
+                <button
+                  onClick={handleViewSchedule}
+                  className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center space-x-2"
+                >
+                  <span>시간표 보기</span>
+                  <ExternalLink size={20} />
+                </button>
+              </div>
+            </div>
+
+            {/* 강의 계획서 */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-xl font-semibold flex items-center mb-4">
+                <Info className="mr-2" size={24} />
+                강의 계획서
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span className="font-medium">강의명:</span> {courseInfo.syllabus.courseTitle}
+                </div>
+                <div>
+                  <span className="font-medium">시수:</span> {courseInfo.syllabus.credits}시간
+                </div>
+                <div>
+                  <span className="font-medium">담당 교수:</span> {courseInfo.syllabus.instructor || '미정'}
+                </div>
+                <div>
+                  <span className="font-medium">교무실:</span> {courseInfo.syllabus.office || '미정'}
+                </div>
+                <div>
+                  <span className="font-medium">강의실:</span> {courseInfo.syllabus.classroom || '미정'}
+                </div>
+              </div>
+            </div>
+
+            {/* 평가 방식 */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-xl font-semibold flex items-center mb-4">
+                <Award className="mr-2" size={24} />
+                평가 방식
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {Object.entries(courseInfo.evaluation).map(([key, value]) => (
+                  <div key={key} className="text-center p-4 bg-gray-50 rounded">
+                    <div className="text-2xl font-bold text-blue-600">{value.weight}%</div>
+                    <div className="text-sm text-gray-600">{value.description}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 시험 정보 */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center">
+                <Clock className="mr-2" size={24} />
+                시험 정보
+              </h3>
+              
+              <div className="space-y-4">
+                {courseInfo.examInfo.map((exam, index) => (
+                  <div key={index} className="border rounded-lg p-4">
+                    <h4 className="font-semibold text-lg mb-3">
+                      {exam.type === 'midterm' ? '중간고사' : '기말고사'}
+                    </h4>
+
+                    <div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+                        <div>
+                          <span className="font-medium">시험 기간:</span> {exam.period}
+                        </div>
+                        <div>
+                          <span className="font-medium">날짜:</span> {exam.date || '미정'}
+                        </div>
+                        <div>
+                          <span className="font-medium">시간:</span> {exam.duration}
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <span className="font-medium">장소:</span> {exam.location}
+                      </div>
+                      <div>
+                        <span className="font-medium">시험 범위:</span>
+                        <p className="mt-1 text-gray-700 whitespace-pre-wrap">
+                          {exam.scope || '시험 범위를 입력해주세요.'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProbabilityStatisticsDashboard;
