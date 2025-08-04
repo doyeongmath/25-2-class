@@ -1,254 +1,602 @@
-import React, { useState } from 'react';
-import { Info, Award, Clock, ExternalLink, Edit2, Bell, FileText, Users, BookOpen } from 'lucide-react';
-
-const ProbabilityStatisticsDashboard = () => {
-  const [courseInfo, setCourseInfo] = useState({
-    syllabus: {
-      courseTitle: '확률과 통계',
-      credits: 3,
-      instructor: '박도영',
-      office: '5층 교무센터',
-      classroom: '2-6교실'
-    },
-    evaluation: {
-      midterm: { weight: 30, description: '중간고사' },
-      final: { weight: 30, description: '기말고사' },
-      process1: { weight: 15, description: '단계별과정평가1' },
-      process2: { weight: 15, description: '단계별과정평가2' },
-      project: { weight: 10, description: '주제탐구발표 보고서' }
-    },
-    examInfo: [
-      { 
-        type: 'midterm', 
-        date: '', 
-        duration: '50분', 
-        location: '2-6교실', 
-        scope: 'Ⅲ-1. 확률분포 + 평가원 기출문제', 
-        period: '2025년 9월 25일~10월 2일' 
-      },
-      { 
-        type: 'final', 
-        date: '', 
-        duration: '50분', 
-        location: '2-6교실', 
-        scope: 'Ⅲ-2. 통계적 추정 + 평가원 기출문제', 
-        period: '2025년 12월 11일~12월 17일' 
-      }
-    ]
-  });
-
-  const [announcements, setAnnouncements] = useState([
-    { 
-      id: 1, 
-      title: '🎯 평균 맞히기 게임 결과 발표!', 
-      date: '2025-07-17', 
-      content: `📊 전체 평균 기준으로 분석한 평균 맞히기 게임 결과가 나왔습니다!
-
-🏆 게임 방식:
-• 모든 반 학생들의 답변으로 전체 평균 계산
-• 개별 학생의 답변과 전체 평균의 차이를 비교
-• 오차가 적을수록 높은 순위!
-
-🎉 참여해주신 모든 학생들 고생하셨습니다!`,
-      hasGameResult: true
-    },
-    { 
-      id: 2, 
-      title: '중간고사 시험 범위 안내', 
-      date: '2025-07-15', 
-      content: '중간고사 시험 범위: Ⅲ-1. 확률분포 + 평가원 기출문제입니다. 시험 기간은 9월 25일~10월 2일이며, 구체적인 날짜는 추후 공지예정입니다.',
-      hasGameResult: false
-    }
-  ]);
-
-  const gameResults = {
-    totalAverages: [
-      { question: "우리 반 평균 키는?", average: 168.5 },
-      { question: "우리 반 평균 몸무게는?", average: 62.3 },
-      { question: "하루 평균 스마트폰 사용시간은?", average: 4.2 },
-      { question: "수학 평균 점수는?", average: 78.6 }
-    ],
-    topStudents: [
-      { rank: 1, class: "3-1", name: "김○○", score: 2.1 },
-      { rank: 2, class: "3-2", name: "이○○", score: 2.3 },
-      { rank: 3, class: "3-1", name: "박○○", score: 2.8 },
-      { rank: 4, class: "3-3", name: "최○○", score: 3.1 },
-      { rank: 5, class: "3-2", name: "정○○", score: 3.4 },
-      { rank: 6, class: "3-1", name: "강○○", score: 3.7 },
-      { rank: 7, class: "3-3", name: "윤○○", score: 4.0 },
-      { rank: 8, class: "3-2", name: "임○○", score: 4.2 },
-      { rank: 9, class: "3-1", name: "한○○", score: 4.5 },
-      { rank: 10, class: "3-3", name: "송○○", score: 4.8 }
-    ]
-  };
-
-  const updateCourseInfo = (section, data) => {
-    setCourseInfo(prev => ({
-      ...prev,
-      [section]: { ...prev[section], ...data }
-    }));
-  };
-
-  const updateExamInfo = (index, data) => {
-    setCourseInfo(prev => ({
-      ...prev,
-      examInfo: prev.examInfo.map((exam, i) => i === index ? { ...exam, ...data } : exam)
-    }));
-  };
-
-  const handleViewOTMaterial = () => {
-    const popup = window.open(
-      'https://claude.ai/public/artifacts/08548503-f9cd-496c-918f-887d6d1ac935',
-      'otMaterial',
-      'width=800,height=600,scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no'
-    );
-    if (popup) {
-      popup.focus();
-    }
-  };
-
-  const handleViewSchedule = () => {
-    window.open('https://claude.ai/public/artifacts/b0a44c96-973c-4be2-9854-dc0a88d9e2f1', '_blank');
-  };
-
-  const handleViewGameResult = (url) => {
-    window.open(url, '_blank');
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg">
-            <h2 className="text-2xl font-bold mb-2">확률과 통계 수업</h2>
-            <p className="text-blue-100">2025년 2학기 • 담당: 박도영</p>
-          </div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>확률과 통계 수업 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* 한글 폰트 최적화 및 가독성 개선 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            word-break: keep-all;
+            word-wrap: break-word;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #2d3748;
+            letter-spacing: -0.01em;
+        }
+        
+        /* 제목과 텍스트 가독성 향상 */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.3;
+            color: #1a202c;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.875rem; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+        
+        /* 본문 텍스트 가독성 */
+        p, span, div {
+            line-height: 1.8;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        /* 강조 텍스트 */
+        .font-medium {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .font-semibold {
+            font-weight: 700;
+            color: #1a202c;
+        }
+        
+        .font-bold {
+            font-weight: 800;
+            color: #1a202c;
+        }
+        
+        /* 카드 및 섹션 간격 개선 */
+        .space-y-6 > * + * {
+            margin-top: 2rem;
+        }
+        
+        /* 그라데이션 헤더 개선 */
+        .bg-gradient-to-r.from-blue-600.to-purple-600 {
+            background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+        }
+        
+        .bg-gradient-to-r.from-green-500.to-blue-500 {
+            background: linear-gradient(135deg, #38a169 0%, #3182ce 100%);
+            box-shadow: 0 8px 20px rgba(56, 161, 105, 0.25);
+        }
+        
+        .bg-gradient-to-r.from-purple-500.to-pink-500 {
+            background: linear-gradient(135deg, #805ad5 0%, #d53f8c 100%);
+            box-shadow: 0 8px 20px rgba(128, 90, 213, 0.25);
+        }
+        
+        /* 버튼 개선 */
+        .gradient-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .gradient-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+        }
+        
+        .gradient-button:active {
+            transform: translateY(-1px);
+        }
+        
+        /* 아이콘 크기 및 색상 조정 */
+        .icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .icon-large {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* 카드 스타일 대폭 개선 */
+        .bg-white {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .rounded-lg {
+            border-radius: 16px;
+        }
+        
+        .border {
+            border: 2px solid #e2e8f0;
+            transition: border-color 0.2s ease;
+        }
+        
+        .border:hover {
+            border-color: #cbd5e0;
+        }
+        
+        /* 정보 표시 그리드 개선 */
+        .grid {
+            gap: 1.5rem;
+        }
+        
+        .grid > div {
+            padding: 1.25rem;
+            background: #f7fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        
+        .grid > div:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+            transform: translateY(-1px);
+        }
+        
+        /* 평가 방식 카드 개선 */
+        .bg-gray-50 {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .bg-gray-50:hover {
+            border-color: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(49, 130, 206, 0.15);
+        }
+        
+        .text-blue-600 {
+            color: #3182ce !important;
+            font-weight: 800;
+        }
+        
+        .text-gray-600 {
+            color: #4a5568 !important;
+            font-weight: 600;
+        }
+        
+        /* 공지사항 스타일 개선 */
+        .border-l-4 {
+            border-left-width: 5px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .border-blue-500 {
+            border-left-color: #3182ce;
+        }
+        
+        .border-orange-500 {
+            border-left-color: #dd6b20;
+        }
+        
+        .bg-blue-50 {
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+        }
+        
+        .bg-orange-50 {
+            background: linear-gradient(135deg, #fffaf0, #fbd38d);
+        }
+        
+        /* iframe 컨테이너 개선 */
+        .iframe-container {
+            display: none;
+            width: 100%;
+            height: 85vh;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+            margin-top: 1.5rem;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        
+        .iframe-container.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+        
+        /* 닫기 버튼 개선 */
+        .close-iframe {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            float: right;
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+        
+        .close-iframe:hover {
+            background: linear-gradient(135deg, #c53030, #9c2626);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(229, 62, 62, 0.4);
+        }
+        
+        /* 메인 콘텐츠 전환 효과 */
+        .main-content {
+            transition: all 0.3s ease;
+        }
+        
+        .main-content.hidden {
+            display: none;
+        }
+        
+        /* 반응형 개선 */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                line-height: 1.6;
+                padding: 0.75rem;
+            }
+            
+            h1 { font-size: 1.875rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+            h4 { font-size: 1.125rem; }
+            
+            .gradient-button {
+                font-size: 1rem;
+                padding: 0.875rem 1.5rem;
+            }
+            
+            .space-y-6 > * + * {
+                margin-top: 1.5rem;
+            }
+            
+            .grid {
+                gap: 1rem;
+            }
+            
+            .iframe-container {
+                height: 80vh;
+                margin-top: 1rem;
+            }
+            
+            .close-iframe {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* 추가 접근성 개선 */
+        button:focus {
+            outline: 3px solid #3182ce;
+            outline-offset: 2px;
+        }
+        
+        .gradient-button:focus {
+            outline: 3px solid rgba(49, 130, 206, 0.5);
+            outline-offset: 2px;
+        }
+        
+        /* 스크롤바 스타일링 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #cbd5e0, #a0aec0);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #a0aec0, #718096);
+        }
+        
+        /* 추가 시각적 개선 */
+        .max-w-7xl {
+            box-shadow: 0 0 40px rgba(0,0,0,0.05);
+        }
+        
+        .p-6 {
+            padding: 2rem;
+        }
+        
+        @media (max-width: 640px) {
+            .p-6 {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- 헤더 -->
+        <div class="mb-8">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-lg">
+                <h1 class="text-3xl font-bold mb-3">확률과 통계 수업</h1>
+                <p class="text-blue-100 text-lg font-semibold">2025년 2학기 • 담당: 박도영</p>
+            </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <div className="space-y-6">
-            {/* OT 자료 링크 버튼 */}
-            <div className="bg-gradient-to-r from-green-500 to-blue-500 p-6 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">📋 2학기 OT 자료</h3>
-                  <p className="text-green-100">수업 규칙, 교재, 평가방법 등 상세 내용을 확인하세요</p>
-                </div>
-                <button
-                  onClick={handleViewOTMaterial}
-                  className="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center space-x-2"
-                >
-                  <span>OT 자료 보기</span>
-                  <ExternalLink size={20} />
-                </button>
-              </div>
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <!-- iframe 컨테이너 (처음엔 숨김) -->
+            <div class="iframe-container" id="iframeContainer">
+                <button class="close-iframe" onclick="closeIframe()">✕ 닫기</button>
+                <iframe id="contentIframe" src="" title="OT 자료"></iframe>
             </div>
-
-            {/* 선생님 시간표 버튼 */}
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">🕐 선생님 시간표</h3>
-                  <p className="text-purple-100">박도영 선생님의 시간표를 확인하세요</p>
-                </div>
-                <button
-                  onClick={handleViewSchedule}
-                  className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center space-x-2"
-                >
-                  <span>시간표 보기</span>
-                  <ExternalLink size={20} />
-                </button>
-              </div>
-            </div>
-
-            {/* 강의 계획서 */}
-            <div className="bg-white p-6 rounded-lg border">
-              <h3 className="text-xl font-semibold flex items-center mb-4">
-                <Info className="mr-2" size={24} />
-                강의 계획서
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <span className="font-medium">강의명:</span> {courseInfo.syllabus.courseTitle}
-                </div>
-                <div>
-                  <span className="font-medium">시수:</span> {courseInfo.syllabus.credits}시간
-                </div>
-                <div>
-                  <span className="font-medium">담당 교수:</span> {courseInfo.syllabus.instructor || '미정'}
-                </div>
-                <div>
-                  <span className="font-medium">교무실:</span> {courseInfo.syllabus.office || '미정'}
-                </div>
-                <div>
-                  <span className="font-medium">강의실:</span> {courseInfo.syllabus.classroom || '미정'}
-                </div>
-              </div>
-            </div>
-
-            {/* 평가 방식 */}
-            <div className="bg-white p-6 rounded-lg border">
-              <h3 className="text-xl font-semibold flex items-center mb-4">
-                <Award className="mr-2" size={24} />
-                평가 방식
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                {Object.entries(courseInfo.evaluation).map(([key, value]) => (
-                  <div key={key} className="text-center p-4 bg-gray-50 rounded">
-                    <div className="text-2xl font-bold text-blue-600">{value.weight}%</div>
-                    <div className="text-sm text-gray-600">{value.description}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 시험 정보 */}
-            <div className="bg-white p-6 rounded-lg border">
-              <h3 className="text-xl font-semibold mb-4 flex items-center">
-                <Clock className="mr-2" size={24} />
-                시험 정보
-              </h3>
-              
-              <div className="space-y-4">
-                {courseInfo.examInfo.map((exam, index) => (
-                  <div key={index} className="border rounded-lg p-4">
-                    <h4 className="font-semibold text-lg mb-3">
-                      {exam.type === 'midterm' ? '중간고사' : '기말고사'}
-                    </h4>
-
-                    <div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+            
+            <!-- 메인 콘텐츠 -->
+            <div class="main-content" id="mainContent">
+                <div class="space-y-6">
+                <!-- OT 자료 링크 버튼 -->
+                <div class="bg-gradient-to-r from-green-500 to-blue-500 p-6 rounded-lg">
+                    <div class="flex items-center justify-between">
                         <div>
-                          <span className="font-medium">시험 기간:</span> {exam.period}
+                            <h3 class="text-xl font-bold text-white mb-2">📋 2학기 OT 자료</h3>
+                            <p class="text-green-100">수업 규칙, 교재, 평가방법 등 상세 내용을 확인하세요</p>
                         </div>
-                        <div>
-                          <span className="font-medium">날짜:</span> {exam.date || '미정'}
-                        </div>
-                        <div>
-                          <span className="font-medium">시간:</span> {exam.duration}
-                        </div>
-                      </div>
-                      <div className="mb-3">
-                        <span className="font-medium">장소:</span> {exam.location}
-                      </div>
-                      <div>
-                        <span className="font-medium">시험 범위:</span>
-                        <p className="mt-1 text-gray-700 whitespace-pre-wrap">
-                          {exam.scope || '시험 범위를 입력해주세요.'}
-                        </p>
-                      </div>
+                        <button
+                            onclick="handleViewOTMaterial()"
+                            class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 flex items-center space-x-2 gradient-button"
+                            type="button"
+                        >
+                            <span>OT 자료 보기</span>
+                            <i data-lucide="external-link" class="icon"></i>
+                        </button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+                </div>
 
-export default ProbabilityStatisticsDashboard;
+                <!-- 선생님 시간표 버튼 -->
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">🕐 선생님 시간표</h3>
+                            <p class="text-purple-100">박도영 선생님의 시간표를 확인하세요</p>
+                        </div>
+                        <button
+                            onclick="handleViewSchedule()"
+                            class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 flex items-center space-x-2 gradient-button"
+                            type="button"
+                        >
+                            <span>시간표 보기</span>
+                            <i data-lucide="external-link" class="icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 강의 계획서 -->
+                <div class="bg-white p-6 rounded-lg border">
+                    <h3 class="text-xl font-semibold flex items-center mb-4">
+                        <i data-lucide="info" class="icon mr-2"></i>
+                        강의 계획서
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <span class="font-medium">강의명:</span> 확률과 통계
+                        </div>
+                        <div>
+                            <span class="font-medium">시수:</span> 3시간
+                        </div>
+                        <div>
+                            <span class="font-medium">담당 교수:</span> 박도영
+                        </div>
+                        <div>
+                            <span class="font-medium">교무실:</span> 5층 교무센터
+                        </div>
+                        <div>
+                            <span class="font-medium">강의실:</span> 2-6교실
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 평가 방식 -->
+                <div class="bg-white p-6 rounded-lg border">
+                    <h3 class="text-xl font-semibold flex items-center mb-4">
+                        <i data-lucide="award" class="icon mr-2"></i>
+                        평가 방식
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div class="text-center p-4 bg-gray-50 rounded">
+                            <div class="text-2xl font-bold text-blue-600">30%</div>
+                            <div class="text-sm text-gray-600">중간고사</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded">
+                            <div class="text-2xl font-bold text-blue-600">30%</div>
+                            <div class="text-sm text-gray-600">기말고사</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded">
+                            <div class="text-2xl font-bold text-blue-600">15%</div>
+                            <div class="text-sm text-gray-600">단계별과정평가1</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded">
+                            <div class="text-2xl font-bold text-blue-600">15%</div>
+                            <div class="text-sm text-gray-600">단계별과정평가2</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded">
+                            <div class="text-2xl font-bold text-blue-600">10%</div>
+                            <div class="text-sm text-gray-600">주제탐구발표 보고서</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 시험 정보 -->
+                <div class="bg-white p-6 rounded-lg border">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i data-lucide="clock" class="icon mr-2"></i>
+                        시험 정보
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <!-- 중간고사 -->
+                        <div class="border rounded-lg p-4">
+                            <h4 class="font-semibold text-lg mb-3">중간고사</h4>
+                            <div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+                                    <div>
+                                        <span class="font-medium">시험 기간:</span> 2025년 9월 25일~10월 2일
+                                    </div>
+                                    <div>
+                                        <span class="font-medium">날짜:</span> 미정
+                                    </div>
+                                    <div>
+                                        <span class="font-medium">시간:</span> 50분
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="font-medium">장소:</span> 2-6교실
+                                </div>
+                                <div>
+                                    <span class="font-medium">시험 범위:</span>
+                                    <p class="mt-1 text-gray-700">
+                                        Ⅲ-1. 확률분포 + 평가원 기출문제
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 기말고사 -->
+                        <div class="border rounded-lg p-4">
+                            <h4 class="font-semibold text-lg mb-3">기말고사</h4>
+                            <div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+                                    <div>
+                                        <span class="font-medium">시험 기간:</span> 2025년 12월 11일~12월 17일
+                                    </div>
+                                    <div>
+                                        <span class="font-medium">날짜:</span> 미정
+                                    </div>
+                                    <div>
+                                        <span class="font-medium">시간:</span> 50분
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="font-medium">장소:</span> 2-6교실
+                                </div>
+                                <div>
+                                    <span class="font-medium">시험 범위:</span>
+                                    <p class="mt-1 text-gray-700">
+                                        Ⅲ-2. 통계적 추정 + 평가원 기출문제
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 공지사항 섹션 -->
+                <div class="bg-white p-6 rounded-lg border">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i data-lucide="bell" class="icon mr-2"></i>
+                        공지사항
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <!-- 평균 맞히기 게임 결과 -->
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-blue-800">🎯 평균 맞히기 게임 결과 발표!</h4>
+                                <span class="text-sm text-blue-600">2025-07-17</span>
+                            </div>
+                            <p class="text-blue-700 text-sm mb-3">
+                                📊 전체 평균 기준으로 분석한 평균 맞히기 게임 결과가 나왔습니다!
+                            </p>
+                            <div class="text-sm text-blue-600">
+                                <p>🏆 게임 방식:</p>
+                                <ul class="list-disc list-inside ml-2 space-y-1">
+                                    <li>모든 반 학생들의 답변으로 전체 평균 계산</li>
+                                    <li>개별 학생의 답변과 전체 평균의 차이를 비교</li>
+                                    <li>오차가 적을수록 높은 순위!</li>
+                                </ul>
+                                <p class="mt-2">🎉 참여해주신 모든 학생들 고생하셨습니다!</p>
+                            </div>
+                        </div>
+
+                        <!-- 시험 범위 안내 -->
+                        <div class="border-l-4 border-orange-500 bg-orange-50 p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-orange-800">중간고사 시험 범위 안내</h4>
+                                <span class="text-sm text-orange-600">2025-07-15</span>
+                            </div>
+                            <p class="text-orange-700 text-sm">
+                                중간고사 시험 범위: Ⅲ-1. 확률분포 + 평가원 기출문제입니다. 
+                                시험 기간은 9월 25일~10월 2일이며, 구체적인 날짜는 추후 공지예정입니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- 메인 콘텐츠 끝 -->
+        </div>
+    </div>
+
+    <script>
+        // Lucide 아이콘 초기화
+        lucide.createIcons();
+
+        // OT 자료 보기 함수
+        function handleViewOTMaterial() {
+            const url = 'https://claude.ai/public/artifacts/08548503-f9cd-496c-918f-887d6d1ac935';
+            const popup = window.open(
+                url,
+                'otMaterial',
+                'width=800,height=600,scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no'
+            );
+            if (popup) {
+                popup.focus();
+            }
+        }
+
+        // 시간표 보기 함수
+        function handleViewSchedule() {
+            const url = 'https://claude.ai/public/artifacts/b0a44c96-973c-4be2-9854-dc0a88d9e2f1';
+            window.open(url, '_blank');
+        }
+
+        // 게임 결과 보기 함수 (필요시 사용)
+        function handleViewGameResult(url) {
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // 페이지 로드 완료 후 아이콘 재초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
