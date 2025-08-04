@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 평균 맞히기 게임 결과 발표!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            word-break: keep-all;
+            word-wrap: break-word;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
+            background-size: 40px 40px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2d3748;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .game-info {
+            background: linear-gradient(135deg, #e8f4fd, #d1ecf1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 3px solid #3182ce;
+            text-align: center;
+        }
+
+        .game-info h3 {
+            color: #3182ce;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .game-info p {
+            color: #2d3748;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .averages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .average-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .average-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .average-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .average-card:hover::before {
+            left: 100%;
+        }
+
+        .average-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            opacity: 0.95;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .average-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .average-card small {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .ranking-section {
+            background: linear-gradient(135deg, #f8fafc, #edf2f7);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .podium {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            margin-bottom: 50px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .podium-place {
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            padding: 25px;
+            min-width: 180px;
+            position: relative;
+            animation: slideUp 1s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .first-place {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            height: 220px;
+            order: 2;
+        }
+
+        .second-place {
+            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+            height: 180px;
+            order: 1;
+        }
+
+        .third-place {
+            background: linear-gradient(135deg, #cd7f32 0%, #daa520 100%);
+            height: 160px;
+            order: 3;
+        }
+
+        .podium-rank {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .podium-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .podium-class {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .podium-score {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: rgba(0,0,0,0.25);
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+
+        .ranking-table {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 80px 100px 1fr 120px 120px;
+            gap: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .table-row {
+            padding: 20px 25px;
+            display: grid;
+            grid-template-columns: 80px 100px 1fr 120px 120px;
+            gap: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .table-row:hover {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            transform: translateX(5px);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .rank-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .rank-1-10 { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%); 
+            animation: pulse 2s infinite;
+        }
+        .rank-11-20 { 
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); 
+        }
+        .rank-21-30 { 
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%); 
+        }
+
+        .class-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .student-name {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 1.1rem;
+        }
+
+        .score {
+            font-weight: 800;
+            color: #3182ce;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .valid-answers {
+            text-align: center;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .congratulations {
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 100%);
+            color: #2d5a27;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 25px rgba(168, 230, 207, 0.3);
+        }
+
+        .congratulations h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .congratulations p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-15px, -15px) rotate(180deg); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(60px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* 반응형 디자인 대폭 개선 */
+        @media (max-width: 1024px) {
+            .content { padding: 40px; }
+            .section-title { font-size: 2rem; }
+            .averages-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 15px; font-size: 15px; }
+            .header { padding: 40px 25px; }
+            .header h1 { font-size: 2.2rem; }
+            .header p { font-size: 1.2rem; }
+            .content { padding: 30px; }
+            .section { margin-bottom: 40px; }
+            .section-title { font-size: 1.8rem; }
+            .averages-grid { grid-template-columns: 1fr; gap: 20px; }
+            .average-card { padding: 25px; }
+            .average-value { font-size: 2.4rem; }
+            
+            .podium { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 20px;
+            }
+            .podium-place { 
+                min-width: 250px; 
+                order: unset !important;
+            }
+            .first-place, .second-place, .third-place {
+                height: auto;
+                padding: 30px;
+            }
+            
+            .table-header, .table-row { 
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            .table-header div, .table-row div {
+                justify-self: center;
+            }
+            
+            .ranking-section { padding: 30px; }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.8rem; }
+            .content { padding: 20px; }
+            .section-title { font-size: 1.6rem; }
+            .average-card { padding: 20px; }
+            .average-value { font-size: 2rem; }
+            .congratulations { padding: 30px; }
+            .congratulations h3 { font-size: 1.5rem; }
+            .congratulations p { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 평균 맞히기 게임 결과!</h1>
+            <p>📊 전체 평균 기준으로 분석한 최종 결과입니다</p>
+        </div>
+
+        <div class="content">
+            <div class="game-info">
+                <h3>🏆 게임 방식 안내</h3>
+                <p>• 모든 반 학생들의 답변으로 전체 평균을 계산했습니다</p>
+                <p>• 개별 학생의 답변과 전체 평균의 차이를 비교했습니다</p>
+                <p>• 오차가 적을수록 높은 순위를 받았습니다</p>
+                <p><strong>총 8개 문항으로 진행되었으며, 점수가 낮을수록 정확한 예측입니다!</strong></p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📊 실제 전체 평균값</h2>
+                <div class="averages-grid">
+                    <div class="average-card">
+                        <h3>선생님의 나이는?</h3>
+                        <div class="average-value">32.5세</div>
+                    </div>
+                    <div class="average-card">
+                        <h3>우리 반 하루 평균 폰 사용시간은?</h3>
+                        <div class="average-value">5.3시간</div>
+                    </div>
+                    <div class="average-card">
+                        <h3>우리 반 평균 키는?</h3>
+                        <div class="average-value">167.2cm</div>
+                    </div>
+                    <div class="average-card">
+                        <h3>하루 평균 공부시간은?</h3>
+                        <div class="average-value">3.7시간</div>
+                    </div>
+                    <div class="average-card">
+                        <h3>학교생활 만족도는?</h3>
+                        <div class="average-value">6.7점</div>
+                        <small>(10점 만점)</small>
+                    </div>
+                    <div class="average-card">
+                        <h3>학교까지 오는 시간은?</h3>
+                        <div class="average-value">22.7분</div>
+                    </div>
+                    <div class="average-card">
+                        <h3>가족 구성원 수는?</h3>
+                        <div class="average-value">3.9명</div>
+                    </div>
+                    <div class="average-card">
+                        <h3>아침을 먹고 오는 학생 비율은?</h3>
+                        <div class="average-value">38.6%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="ranking-section">
+                    <h2 class="section-title">🏆 명예의 전당 - 상위 3명</h2>
+                    <div class="podium">
+                        <div class="podium-place second-place">
+                            <div class="podium-rank">🥈 2등</div>
+                            <div class="podium-name">이예루</div>
+                            <div class="podium-class">E반</div>
+                            <div class="podium-score">오차: 1.8점</div>
+                        </div>
+                        <div class="podium-place first-place">
+                            <div class="podium-rank">🥇 1등</div>
+                            <div class="podium-name">이우진</div>
+                            <div class="podium-class">D반</div>
+                            <div class="podium-score">오차: 1.6점</div>
+                        </div>
+                        <div class="podium-place third-place">
+                            <div class="podium-rank">🥉 3등</div>
+                            <div class="podium-name">도예담</div>
+                            <div class="podium-class">B반</div>
+                            <div class="podium-score">오차: 1.88점</div>
+                        </div>
+                    </div>
+
+                    <h3 class="section-title">📋 전체 순위표 (상위 30명)</h3>
+                    <div class="ranking-table">
+                        <div class="table-header">
+                            <div>순위</div>
+                            <div>반</div>
+                            <div>이름</div>
+                            <div>총 오차점수</div>
+                            <div>유효답변</div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">1</span></div>
+                            <div><span class="class-badge">D반</span></div>
+                            <div class="student-name">이우진</div>
+                            <div class="score">1.6점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">2</span></div>
+                            <div><span class="class-badge">E반</span></div>
+                            <div class="student-name">이예루</div>
+                            <div class="score">1.8점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">3</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">도예담</div>
+                            <div class="score">1.88점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">4</span></div>
+                            <div><span class="class-badge">D반</span></div>
+                            <div class="student-name">홍석현</div>
+                            <div class="score">1.92점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">5</span></div>
+                            <div><span class="class-badge">C반</span></div>
+                            <div class="student-name">손주성</div>
+                            <div class="score">2.39점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">6</span></div>
+                            <div><span class="class-badge">D반</span></div>
+                            <div class="student-name">문지희</div>
+                            <div class="score">2.46점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">7</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">민수아</div>
+                            <div class="score">2.67점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">8</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">서민서</div>
+                            <div class="score">2.9점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">9</span></div>
+                            <div><span class="class-badge">A반</span></div>
+                            <div class="student-name">최윤서</div>
+                            <div class="score">2.92점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-1-10">10</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">박진</div>
+                            <div class="score">2.96점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">11</span></div>
+                            <div><span class="class-badge">E반</span></div>
+                            <div class="student-name">이아림</div>
+                            <div class="score">3.15점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">12</span></div>
+                            <div><span class="class-badge">D반</span></div>
+                            <div class="student-name">신이안</div>
+                            <div class="score">3.18점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">13</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">양석진</div>
+                            <div class="score">3.18점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">14</span></div>
+                            <div><span class="class-badge">A반</span></div>
+                            <div class="student-name">김혜빈</div>
+                            <div class="score">3.28점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">15</span></div>
+                            <div><span class="class-badge">C반</span></div>
+                            <div class="student-name">신예준</div>
+                            <div class="score">3.33점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">16</span></div>
+                            <div><span class="class-badge">A반</span></div>
+                            <div class="student-name">김서광</div>
+                            <div class="score">3.38점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">17</span></div>
+                            <div><span class="class-badge">A반</span></div>
+                            <div class="student-name">송선율</div>
+                            <div class="score">3.41점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">18</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">유다원</div>
+                            <div class="score">3.42점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">19</span></div>
+                            <div><span class="class-badge">D반</span></div>
+                            <div class="student-name">박준우</div>
+                            <div class="score">3.45점</div>
+                            <div class="valid-answers">7개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-11-20">20</span></div>
+                            <div><span class="class-badge">E반</span></div>
+                            <div class="student-name">박준우</div>
+                            <div class="score">3.53점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">21</span></div>
+                            <div><span class="class-badge">A반</span></div>
+                            <div class="student-name">한우진</div>
+                            <div class="score">3.55점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">22</span></div>
+                            <div><span class="class-badge">D반</span></div>
+                            <div class="student-name">이상진</div>
+                            <div class="score">3.71점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">23</span></div>
+                            <div><span class="class-badge">C반</span></div>
+                            <div class="student-name">정승연</div>
+                            <div class="score">3.77점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">24</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">최부경</div>
+                            <div class="score">3.82점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">25</span></div>
+                            <div><span class="class-badge">B반</span></div>
+                            <div class="student-name">이은송</div>
+                            <div class="score">3.86점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">26</span></div>
+                            <div><span class="class-badge">C반</span></div>
+                            <div class="student-name">이윤혁</div>
+                            <div class="score">3.88점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">27</span></div>
+                            <div><span class="class-badge">E반</span></div>
+                            <div class="student-name">장은교</div>
+                            <div class="score">4.01점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">28</span></div>
+                            <div><span class="class-badge">E반</span></div>
+                            <div class="student-name">유예빈</div>
+                            <div class="score">4.03점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">29</span></div>
+                            <div><span class="class-badge">D반</span></div>
+                            <div class="student-name">김나은</div>
+                            <div class="score">4.1점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                        <div class="table-row">
+                            <div><span class="rank-badge rank-21-30">30</span></div>
+                            <div><span class="class-badge">E반</span></div>
+                            <div class="student-name">서유림</div>
+                            <div class="score">4.16점</div>
+                            <div class="valid-answers">8개</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="congratulations">
+                <h3>🎉 모든 참가자들에게 뜨거운 박수를!</h3>
+                <p>평균을 정확하게 예측하는 것은 생각보다 어려운 일입니다.</p>
+                <p>이번 게임을 통해 통계적 사고력과 추정 능력을 기를 수 있는 좋은 경험이 되었습니다!</p>
+                <p><strong>참여해주신 모든 학생들 정말 수고하셨습니다! 👏✨</strong></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
