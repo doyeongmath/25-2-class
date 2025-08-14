@@ -75,140 +75,72 @@
 
     .ranking-section{ background:linear-gradient(135deg,#f8fafc,#edf2f7); border-radius:18px; padding:32px; border:2px solid #e2e8f0; }
 
-/* 태블릿~모바일: 3열 유지, 대신 전체 크기를 살짝 줄여서 끼워 넣기 */
-@media (max-width: 768px){
-  .podium{
-    grid-template-columns: repeat(3, 1fr); /* 그대로 3칸 */
-    gap: 12px;
-  }
-  .podium-place{
-    padding: 14px;
-  }
-  .first-place{ height: 200px; transform: scale(1.04); }
-  .second-place{ height: 170px; }
-  .third-place{  height: 150px; }
+/* ========== Podium: CSS Grid로 고정 배치 (모바일 포함) ========== */
+.podium{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas: "second first third";   /* 2등-1등-3등 자리 확정 */
+  align-items: end;
+  justify-items: center;
+  gap: 18px;
+  margin-bottom: 30px;
 }
 
-/* 아주 좁은 화면(예: 360px 근처)에서도 3열을 유지하되, 요소 자체를 더 축소 */
+/* 자리 고정 (HTML 변경 없이 적용됨) */
+.first-place  { grid-area: first; }
+.second-place { grid-area: second; }
+.third-place  { grid-area: third; }
+
+/* 카드 공통: 유동형 크기 + 하단 정렬 */
+.podium-place{
+  width: 100%;
+  max-width: 220px;                 /* 너무 넓어지지 않게 상한 */
+  border-radius: 18px;
+  padding: clamp(12px, 2.5vw, 18px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 14px 34px rgba(0,0,0,.18);
+  animation: slideUp .7s ease;
+}
+
+/* 높이 비율: 1등 > 2등 > 3등 (뷰포트 기반 + 상/하한) */
+.first-place  { height: clamp(150px, 26vh, 240px); transform: translateZ(0); z-index: 3; border: 3px solid #ffed4e; }
+.second-place { height: clamp(120px, 22vh, 200px); z-index: 2; }
+.third-place  { height: clamp(105px, 19vh, 170px); z-index: 1; }
+
+/* 텍스트도 유동형으로 살짝 줄이기 */
+.podium-rank  { font-size: clamp(1rem, 2.8vw, 1.4rem); font-weight: 900; margin-bottom: 8px; }
+.podium-name  { font-size: clamp(.95rem, 2.6vw, 1.2rem); font-weight: 800; margin-bottom: 6px; }
+.podium-class { font-size: clamp(.9rem, 2.4vw, 1rem);   font-weight: 700; opacity: .95; margin-bottom: 10px; }
+.podium-score { font-size: clamp(.9rem, 2.4vw, 1.05rem); font-weight: 800; background: rgba(0,0,0,.25); padding: 6px 12px; border-radius: 999px; }
+
+/* ---------- 좁은 화면 대응 ---------- */
+/* 768px 이하: 간격/최대폭 살짝 줄여서 3열 유지 */
+@media (max-width: 768px){
+  .podium{ gap: 12px; }
+  .podium-place{ max-width: 180px; }
+}
+
+/* 420px 이하: 3열 유지가 빠듯한 폰에서도 줄바꿈 없이 보이도록
+   - 가로 스크롤을 아주 살짝 허용(디자인 보존 우선)
+   - 필요시 터치 스크롤로 좌우 살짝 이동 가능 */
 @media (max-width: 420px){
   .podium{
     gap: 10px;
-    /* 필요하면 살짝 좌우 스크롤 허용도 가능
-       overflow-x: auto;
-       padding-bottom: 6px;  // 스크롤바 여유
-    */
+    grid-auto-columns: 1fr;
+    overflow-x: auto;             /* ✅ 가로 스크롤 허용(줄바꿈 방지) */
+    padding-bottom: 6px;          /* 스크롤바 여유 */
+    scroll-snap-type: x mandatory;/* 스냅으로 정렬 깔끔 */
   }
   .podium-place{
-    transform: scale(0.92);      /* ✅ 과도한 줄바꿈 방지용 축소 */
-    transform-origin: bottom center;
-    min-width: 0;
-    padding: 12px 8px;
+    max-width: 160px;
+    scroll-snap-align: center;    /* 스크롤 시 카드가 중앙에 착 붙음 */
   }
-  .first-place{ height: 170px; }
-  .second-place{ height: 140px; }
-  .third-place{  height: 125px; }
 }
 
-
-    .podium-rank{ font-size:1.4rem; font-weight:900; margin-bottom:8px; }
-    .podium-name{ font-size:1.2rem; font-weight:800; margin-bottom:6px; }
-    .podium-class{ font-size:1rem; font-weight:700; opacity:.95; margin-bottom:10px; }
-    .podium-score{ font-size:1.05rem; font-weight:800; background:rgba(0,0,0,.25); padding:6px 12px; border-radius:999px; }
-
-    .ranking-table{
-      background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.12);
-    }
-    .table-header{
-      background:linear-gradient(135deg,#667eea 0%, #764ba2 100%); color:#fff;
-      padding:20px; display:grid; grid-template-columns:80px 100px 1fr 120px 120px; gap:18px; font-weight:800; font-size:1.05rem;
-    }
-    .table-row{
-      padding:18px 20px; display:grid; grid-template-columns:80px 100px 1fr 120px 120px; gap:18px;
-      border-bottom:1px solid #e5e7eb; align-items:center; transition:background .18s ease, transform .18s ease;
-      font-size:1.02rem;
-    }
-    .table-row:hover{ background:linear-gradient(135deg,#f7fafc,#edf2f7); transform:translateX(3px); }
-    .table-row:last-child{ border-bottom:none; }
-
-    .rank-badge{
-      width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-      color:#fff; font-weight:900; font-size:1rem; box-shadow:0 4px 12px rgba(0,0,0,.2);
-    }
-    .rank-1-10{ background:linear-gradient(135deg,#ff6b6b 0%, #ffa726 100%); animation:pulse 2s infinite; }
-    .rank-11-20{ background:linear-gradient(135deg,#4ecdc4 0%, #44a08d 100%); }
-    .rank-21-30{ background:linear-gradient(135deg,#a8e6cf 0%, #7fcdcd 100%); }
-
-    .class-badge{
-      background:linear-gradient(135deg,#667eea 0%, #764ba2 100%); color:#fff;
-      padding:8px 14px; border-radius:999px; font-weight:800; text-align:center;
-      box-shadow:0 4px 12px rgba(102,126,234,.28);
-    }
-    .student-name{ font-weight:800; color:#1f2937; }
-    .score{ font-weight:900; color:#2563eb; text-align:center; }
-    .valid-answers{ text-align:center; color:#475569; font-weight:700; }
-
-    .congratulations{
-      background:linear-gradient(135deg, #a8e6cf 0%, #88d8c0 100%);
-      color:#1e4630; padding:32px; border-radius:18px; text-align:center; margin-top:32px;
-      box-shadow:0 10px 24px rgba(168,230,207,.28);
-    }
-    .congratulations h3{ font-size:1.6rem; font-weight:900; margin-bottom:8px; }
-    .congratulations p{ font-size:1.08rem; font-weight:700; }
-
-    /* 애니메이션 */
-    @keyframes float{ 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(-14px,-14px) rotate(180deg)} }
-    @keyframes slideUp{ from{transform:translateY(50px); opacity:0} to{transform:translateY(0); opacity:1} }
-    @keyframes slideIn{ from{transform:translateY(24px); opacity:0} to{transform:translateY(0); opacity:1} }
-    @keyframes pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
-
-    /* 접근성: 모션 감소 선호 */
-    @media (prefers-reduced-motion: reduce){
-      .container, .podium-place, .average-card, .table-row { animation:none !important; transition:none !important; }
-      .header::before { animation:none !important; }
-    }
-
-    /* 반응형 */
-    @media (max-width:1024px){
-      .content{ padding:36px; }
-      .section-title{ font-size:1.85rem; }
-      .averages-grid{ grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); }
-    }
-    @media (max-width:768px){
-      body{ padding:14px; font-size:15px; }
-      .header{ padding:34px 22px; }
-      .header h1{ font-size:2.1rem; }
-      .header p{ font-size:1.08rem; }
-      .content{ padding:26px; }
-      .section{ margin-bottom:34px; }
-      .section-title{ font-size:1.6rem; }
-      .average-card{ padding:20px; }
-      .average-value{ font-size:1.9rem; }
-
-      .podium{ gap:14px; margin-bottom:24px; }
-      .podium-place{ min-width:120px; padding:14px; }
-      .first-place{ height:200px; transform:scale(1.04); }
-      .second-place{ height:170px; }
-      .third-place{ height:150px; }
-
-      .table-header, .table-row{
-        grid-template-columns: 1fr; text-align:center; gap:12px; padding:16px 18px;
-      }
-      .ranking-section{ padding:24px; }
-    }
-    @media (max-width:480px){
-      .header h1{ font-size:1.75rem; }
-      .content{ padding:20px; }
-      .average-value{ font-size:1.7rem; }
-      .congratulations{ padding:26px; }
-    }
-
-    /* 프린트 최적화 */
-    @media print{
-      body{ background:#fff; padding:0; }
-      .container{ box-shadow:none; border-radius:0; }
-      .header::before{ display:none; }
-      .average-card, .class-badge, .rank-badge{ box-shadow:none; }
-    }
   </style>
 </head>
 <body>
