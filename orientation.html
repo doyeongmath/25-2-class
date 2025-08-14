@@ -35,7 +35,7 @@
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             border-radius: 12px;
             padding: 15px;
-            text-align: center;
+            text-align: left;
             margin-bottom: 10px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
@@ -289,7 +289,7 @@
             border-radius: 10px;
             border-left: 4px solid #4facfe;
             box-shadow: 0 3px 10px rgba(79, 172, 254, 0.2);
-            text-align: center;
+            text-align: left;
         }
 
         .detail-card h4 {
@@ -297,12 +297,52 @@
             margin-bottom: 8px;
             font-size: 1em;
             font-weight: bold;
+            text-align: center;
         }
 
         .detail-card p {
             margin-bottom: 5px;
             line-height: 1.3;
             font-size: 0.85em;
+            font-weight: bold;
+            padding-left: 40px;
+        }
+
+        /* 지필평가 세부 섹션 */
+        .exam-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .exam-type-card {
+            background: linear-gradient(135deg, #f8f9ff, #e8f4fd);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #4facfe;
+            box-shadow: 0 3px 10px rgba(79, 172, 254, 0.2);
+        }
+
+        .exam-type-card h4 {
+            color: #4facfe;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .exam-type-card .score {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .exam-type-card .details {
+            font-size: 0.75em;
+            color: #666;
+            line-height: 1.3;
             font-weight: bold;
         }
 
@@ -471,6 +511,64 @@
             font-weight: bold;
         }
 
+        /* 특별 처리 사항 섹션 */
+        .special-cases {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .case-card {
+            background: linear-gradient(135deg, #fff8f0, #ffe8d0);
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #ff9500;
+            box-shadow: 0 3px 10px rgba(255, 149, 0, 0.2);
+        }
+
+        .case-card h4 {
+            color: #ff9500;
+            margin-bottom: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .case-content {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            line-height: 1.4;
+            font-weight: bold;
+            border: 1px solid #ff9500;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffe0e0, #ffb3b3);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+            text-align: center;
+            border: 2px solid #ff4757;
+            box-shadow: 0 3px 10px rgba(255, 71, 87, 0.2);
+        }
+
+        .warning-box h4 {
+            color: #ff4757;
+            margin-bottom: 8px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .warning-box p {
+            font-size: 0.85em;
+            line-height: 1.4;
+            color: #333;
+            font-weight: bold;
+        }
+
         /* 반응형 디자인 */
         @media (max-width: 1200px) {
             .main-content {
@@ -479,6 +577,10 @@
             }
             
             .evaluation-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .exam-detail-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -501,6 +603,10 @@
             }
             
             .evaluation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .exam-detail-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -594,7 +700,7 @@
                     <div class="textbook-card">
                         <h4>📖 주교재</h4>
                         <div class="textbook-image main-textbook">
-                            확률과 통계<br>금성출판사
+                            확률과 통계<br>교과서
                         </div>
                     </div>
                     <div class="textbook-card">
@@ -621,15 +727,47 @@
                     </div>
                     <div class="eval-card">
                         <div class="percentage">15%</div>
-                        <div class="description">과정평가1</div>
+                        <div class="description">단계별 과정평가 1</div>
                     </div>
                     <div class="eval-card">
                         <div class="percentage">15%</div>
-                        <div class="description">과정평가2</div>
+                        <div class="description">단계별 과정평가 2</div>
                     </div>
                     <div class="eval-card">
                         <div class="percentage">10%</div>
-                        <div class="description">탐구발표<br>보고서</div>
+                        <div class="description">주제탐구발표</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 지필평가 세부사항 섹션 -->
+            <div class="section">
+                <h3>📋 지필평가 세부사항</h3>
+                <div class="exam-detail-grid">
+                    <div class="exam-type-card">
+                        <h4>📝 선택형</h4>
+                        <div class="score">60점</div>
+                        <div class="details">
+                            13~17문항<br>
+                            5지 선다형<br>
+                            3~5점 차등배점
+                        </div>
+                    </div>
+                    <div class="exam-type-card">
+                        <h4>✏️ 단답형</h4>
+                        <div class="score">20점</div>
+                        <div class="details">
+                            3~5문항<br>
+                            문항당 3~7점
+                        </div>
+                    </div>
+                    <div class="exam-type-card">
+                        <h4>📄 서술형</h4>
+                        <div class="score">20점</div>
+                        <div class="details">
+                            2~4문항<br>
+                            문항당 4~10점
+                        </div>
                     </div>
                 </div>
             </div>
@@ -640,16 +778,52 @@
                 <div class="performance-details">
                     <div class="detail-card">
                         <h4>📋 단계별 과정평가</h4>
-                        <p>• 1회당 15점 만점</p>
-                        <p>• 총 2회 실시 (30점)</p>
-                        <p>• 서술형은 단계별 부분점수 부여</p>
+                        <p>• 1회당 15점 만점 (총 2회 실시)</p>
+                        <p>• 단답형 10문제 (1점씩, 10점)</p>
+                        <p>• 서술형 1문제 (5점, 단계별 부분점수 부여)</p>
                     </div>
                     <div class="detail-card">
-                        <h4>📄 탐구발표 자료 제출</h4>
+                        <h4>📄 주제탐구발표</h4>
                         <p>• 한글 파일 2쪽 이상</p>
                         <p>• 10점 만점</p>
                         <p>• 제출기한 초과 시 1일당 2점 감점</p>
                     </div>
+                </div>
+            </div>
+
+            <!-- 특별 처리 사항 섹션 -->
+            <div class="section">
+                <h3>⚠️ 특별 처리 사항</h3>
+                <div class="special-cases">
+                    <div class="case-card">
+                        <h4>🏥 결시자 처리</h4>
+                        <div class="case-content">
+                            <strong>단계별 과정평가:</strong> 등교 후 재평가 기회 부여 (불응 시 0점)<br>
+                            <strong>주제탐구발표:</strong> 예외 없음
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <h4>🆕 전입생 처리</h4>
+                        <div class="case-content">
+                            <strong>단계별 과정평가:</strong> 전입 후 평가기한 설정 (불응 시 0점)<br>
+                            <strong>주제탐구발표:</strong> 전입 후 제출기한 설정 (지각 시 매일 2점 감점)
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <h4>♿ 특수교육 대상 학생</h4>
+                        <div class="case-content">
+                            학생의 특성과 출석 상황을 고려하여<br>
+                            각 영역별 대체 수행평가 실시 가능
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>📢 평가 결과 공개</h4>
+                    <p>
+                        각 학생 개인별로 점수를 확인하고<br>
+                        이의 신청을 받아 최종 점수를 확정합니다
+                    </p>
                 </div>
             </div>
 
@@ -717,11 +891,11 @@
                 <div class="suneung-info">
                     <div class="suneung-card common-subject">
                         <h4 style="color: #4facfe;">공통과목 (22문항 74점)</h4>
-                        <p style="color: #666;">수학Ⅰ (11문항)<br>+<br>수학Ⅱ (11문항)</p>
+                        <p style="color: #666;">수학Ⅰ + 수학Ⅱ</p>
                     </div>
                     <div class="suneung-card optional-subject">
                         <h4 style="color: #ff4757;">선택과목 (8문항 26점)</h4>
-                        <p style="color: #666;">확률과 통계<br>/&nbsp;미적분&nbsp;/&nbsp;기하</p>
+                        <p style="color: #666;">확률과 통계 / 미적분 / 기하</p>
                     </div>
                 </div>
                 
