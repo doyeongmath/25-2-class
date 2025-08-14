@@ -1,452 +1,202 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎯 평균 맞히기 게임 결과!</title>
-  <meta name="color-scheme" content="light" />
-  <style>
-    /* 한국어 가독성 강화 */
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Inter:wght@400;600;800&display=swap');
-
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body{
-      font-family:'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height:100vh; padding:20px;
-      word-break:keep-all; font-size:16px; line-height:1.75; color:#1f2937;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
-
-    .container{
-      max-width:1200px; margin:0 auto; background:#fff; border-radius:20px;
-      box-shadow:0 16px 40px rgba(0,0,0,0.14); overflow:hidden;
-      animation:slideIn .6s ease-out;
-    }
-
-    .header{
-      background:linear-gradient(135deg,#ff6b6b 0%,#ffa726 100%);
-      color:#fff; text-align:center; padding:44px 28px; position:relative; overflow:hidden;
-    }
-    .header::before{
-      content:''; position:absolute; inset:-50% -50% auto auto; width:200%; height:200%;
-      background: radial-gradient(circle, rgba(255,255,255,.12) 2px, transparent 2px);
-      background-size:38px 38px; animation:float 15s ease-in-out infinite;
-    }
-    .header h1{ font-size:2.6rem; margin-bottom:10px; font-weight:800; text-shadow:0 2px 6px rgba(0,0,0,.28); position:relative; z-index:1;}
-    .header p{ font-size:1.2rem; font-weight:700; opacity:.95; position:relative; z-index:1;}
-
-    .content{ padding:40px 44px; }
-    .section{ margin-bottom:44px; }
-
-    .section-title{
-      font-size:2rem; font-weight:800; color:#1f2937; display:flex; align-items:center; gap:12px;
-      padding-bottom:12px; border-bottom:4px solid #667eea; margin-bottom:26px;
-    }
-
-    .game-info{
-      background:linear-gradient(135deg,#e8f4fd,#d1ecf1);
-      padding:24px; border-radius:14px; margin-bottom:34px; border:2px solid #3182ce; text-align:center;
-    }
-    .game-info h3{ color:#2563eb; font-size:1.4rem; font-weight:800; margin-bottom:12px; }
-    .game-info p{ font-weight:600; color:#2d3748; }
-
-    .averages-grid{
-      display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-      gap:22px; margin-bottom:34px;
-    }
-    .average-card{
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color:#fff; padding:24px; border-radius:16px; text-align:center;
-      box-shadow:0 10px 24px rgba(102,126,234,.28); position:relative; overflow:hidden;
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .average-card::before{
-      content:''; position:absolute; inset:0 auto 0 -100%; width:100%; height:100%;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
-      transition:left .45s ease;
-    }
-    .average-card:hover{ transform: translateY(-6px); box-shadow:0 16px 32px rgba(102,126,234,.35); }
-    .average-card:hover::before{ left:100%; }
-    .average-card h3{ font-size:1.15rem; font-weight:700; opacity:.95; margin-bottom:10px; }
-    .average-value{ font-size:2.2rem; font-weight:900; margin-bottom:6px; text-shadow:0 2px 4px rgba(0,0,0,.2); }
-    .average-card small{ opacity:.9; font-weight:600; }
-
-    .ranking-section{ background:linear-gradient(135deg,#f8fafc,#edf2f7); border-radius:18px; padding:32px; border:2px solid #e2e8f0; }
-
-/* ========== Podium: CSS Grid로 고정 배치 (모바일 포함) ========== */
-.podium{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-areas: "second first third";   /* 2등-1등-3등 자리 확정 */
-  align-items: end;
-  justify-items: center;
-  gap: 18px;
-  margin-bottom: 30px;
-}
-
-/* 자리 고정 (HTML 변경 없이 적용됨) */
-.first-place  { grid-area: first; }
-.second-place { grid-area: second; }
-.third-place  { grid-area: third; }
-
-/* 카드 공통: 유동형 크기 + 하단 정렬 */
-.podium-place{
-  width: 100%;
-  max-width: 220px;                 /* 너무 넓어지지 않게 상한 */
-  border-radius: 18px;
-  padding: clamp(12px, 2.5vw, 18px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  text-align: center;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>확률과 통계 대시보드 - 시상식 버전</title>
+<style>
+/* ================= 기본 스타일 ================= */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #121212;
   color: #fff;
-  box-shadow: 0 14px 34px rgba(0,0,0,.18);
-  animation: slideUp .7s ease;
+  margin: 0;
+  padding: 0;
 }
 
-/* 높이 비율: 1등 > 2등 > 3등 (뷰포트 기반 + 상/하한) */
-.first-place  { height: clamp(150px, 26vh, 240px); transform: translateZ(0); z-index: 3; border: 3px solid #ffed4e; }
-.second-place { height: clamp(120px, 22vh, 200px); z-index: 2; }
-.third-place  { height: clamp(105px, 19vh, 170px); z-index: 1; }
-
-/* 텍스트도 유동형으로 살짝 줄이기 */
-.podium-rank  { font-size: clamp(1rem, 2.8vw, 1.4rem); font-weight: 900; margin-bottom: 8px; }
-.podium-name  { font-size: clamp(.95rem, 2.6vw, 1.2rem); font-weight: 800; margin-bottom: 6px; }
-.podium-class { font-size: clamp(.9rem, 2.4vw, 1rem);   font-weight: 700; opacity: .95; margin-bottom: 10px; }
-.podium-score { font-size: clamp(.9rem, 2.4vw, 1.05rem); font-weight: 800; background: rgba(0,0,0,.25); padding: 6px 12px; border-radius: 999px; }
-
-/* ---------- 좁은 화면 대응 ---------- */
-/* 768px 이하: 간격/최대폭 살짝 줄여서 3열 유지 */
-@media (max-width: 768px){
-  .podium{ gap: 12px; }
-  .podium-place{ max-width: 180px; }
+h1 {
+  text-align: center;
+  padding: 20px;
 }
 
-/* 420px 이하: 3열 유지가 빠듯한 폰에서도 줄바꿈 없이 보이도록
-   - 가로 스크롤을 아주 살짝 허용(디자인 보존 우선)
-   - 필요시 터치 스크롤로 좌우 살짝 이동 가능 */
+/* 상위 3명 podium 영역 */
+.podium {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "second first third";
+  gap: 10px;
+  justify-items: center;
+  align-items: end;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.podium-place {
+  position: relative;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 18px 18px 10px 10px;
+  text-align: center;
+  min-width: 120px;
+}
+
+.podium-place img {
+  max-width: 80px;
+  border-radius: 50%;
+}
+
+.podium-rank {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.podium-name {
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+/* 1, 2, 3등 위치 지정 */
+.first-place { grid-area: first; }
+.second-place { grid-area: second; }
+.third-place { grid-area: third; }
+
+/* ================= 시상식 무드 강화 패치 ================= */
+/* 스포트라이트 */
+.ranking-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.ranking-section::before,
+.ranking-section::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(120% 60% at 20% -10%, rgba(255,255,255,0.10), transparent 60%),
+    radial-gradient(120% 60% at 80% -10%, rgba(255,255,255,0.10), transparent 60%);
+  animation: spotlightSweep 6s ease-in-out infinite;
+}
+@keyframes spotlightSweep {
+  0%,100%{ opacity:.75; }
+  50%{ opacity:.95; }
+}
+
+/* 바닥 그림자 */
+.podium::after {
+  content:"";
+  position:absolute;
+  left:50%; bottom:-16px;
+  transform: translateX(-50%);
+  width: min(700px, 90%);
+  height: 26px;
+  background: radial-gradient(60% 100% at 50% 50%, rgba(0,0,0,.22), rgba(0,0,0,0));
+  filter: blur(2px);
+  z-index: -1;
+}
+
+/* 왕관 */
+.first-place::before {
+  content: "👑";
+  position:absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-8deg);
+  font-size: 30px;
+  text-shadow: 0 4px 10px rgba(0,0,0,.25);
+}
+
+/* 리본 배지 */
+.second-place .podium-rank,
+.third-place .podium-rank {
+  position: relative;
+  display: inline-block;
+  padding: 4px 10px 4px 28px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.18);
+}
+.second-place .podium-rank::before,
+.third-place  .podium-rank::before {
+  content:"🎖️";
+  position:absolute;
+  left: 8px; top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 금빛 글로우 */
+.first-place {
+  box-shadow:
+    0 22px 44px rgba(255, 215, 0, .35),
+    0 0 0 1px rgba(255,255,255,.15) inset;
+}
+.first-place .podium-name {
+  position: relative;
+}
+.first-place .podium-name::after {
+  content:"";
+  position:absolute;
+  left: 50%; top: -6px;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.8), transparent);
+  opacity: .7;
+}
+
+/* 금가루 */
+@keyframes sparkle {
+  0%   { transform: translateY(0) translateX(0); opacity: .8; }
+  100% { transform: translateY(-18px) translateX(8px); opacity: 0; }
+}
+.sparkle {
+  position:absolute;
+  width:6px; height:6px; border-radius:50%;
+  background: radial-gradient(circle, #fff 0 40%, rgba(255,255,255,0) 60%);
+  box-shadow: 0 0 8px rgba(255,255,255,.8);
+  animation: sparkle 1.6s ease-out infinite;
+  opacity: .85;
+}
+.sparkle.s1{ left:12%; bottom:12%; animation-delay: .0s; }
+.sparkle.s2{ left:24%; bottom:18%; animation-delay: .3s; }
+.sparkle.s3{ left:66%; bottom:16%; animation-delay: .6s; }
+.sparkle.s4{ left:78%; bottom:10%; animation-delay: .9s; }
+
 @media (max-width: 420px){
-  .podium{
-    gap: 10px;
-    grid-auto-columns: 1fr;
-    overflow-x: auto;             /* ✅ 가로 스크롤 허용(줄바꿈 방지) */
-    padding-bottom: 6px;          /* 스크롤바 여유 */
-    scroll-snap-type: x mandatory;/* 스냅으로 정렬 깔끔 */
-  }
-  .podium-place{
-    max-width: 160px;
-    scroll-snap-align: center;    /* 스크롤 시 카드가 중앙에 착 붙음 */
-  }
+  .podium-place { max-width: 150px; }
 }
 
-  </style>
+</style>
 </head>
 <body>
-  <main class="container" role="main">
-    <header class="header">
-      <h1>🎯 평균 맞히기 게임 결과!</h1>
-      <p>📊 전체 평균 기준으로 분석한 최종 결과입니다</p>
-    </header>
 
-    <div class="content">
-      <section class="game-info" aria-labelledby="game-info-title">
-        <h3 id="game-info-title">🏆 게임 방식 안내</h3>
-        <p>• 모든 반 학생들의 답변으로 전체 평균을 계산했습니다</p>
-        <p>• 개별 학생의 답변과 전체 평균의 차이를 비교했습니다</p>
-        <p>• 오차가 적을수록 높은 순위를 받았습니다</p>
-        <p>• <strong>표준편차</strong>는 답변들이 평균에서 얼마나 퍼져있는지를 나타냅니다</p>
-        <p><strong>총 8개 문항으로 진행되었으며, 점수가 낮을수록 정확한 예측입니다!</strong></p>
-      </section>
-
-      <section class="section" aria-labelledby="avg-title">
-        <h2 id="avg-title" class="section-title">📊 실제 전체 평균값</h2>
-        <div class="averages-grid">
-          <article class="average-card" aria-label="선생님의 나이는? 평균 32.5세, 표준편차 8.9">
-            <h3>선생님의 나이는?</h3><div class="average-value">32.5세</div><small>표준편차 8.9</small>
-          </article>
-          <article class="average-card" aria-label="하루 평균 폰 사용시간은? 평균 5.3시간, 표준편차 3.0">
-            <h3>하루 평균 폰 사용시간은?</h3><div class="average-value">5.3시간</div><small>표준편차 3.0</small>
-          </article>
-          <article class="average-card" aria-label="우리 반 평균 키는? 평균 167.2cm, 표준편차 4.0">
-            <h3>우리 반 평균 키는?</h3><div class="average-value">167.2cm</div><small>표준편차 4.0</small>
-          </article>
-          <article class="average-card" aria-label="하루 평균 공부시간은? 평균 3.7시간, 표준편차 1.7">
-            <h3>하루 평균 공부시간은?</h3><div class="average-value">3.7시간</div><small>표준편차 1.7</small>
-          </article>
-          <article class="average-card" aria-label="학교생활 만족도는? 평균 6.7점, 표준편차 4.9">
-            <h3>학교생활 만족도는?</h3><div class="average-value">6.7점</div><small>표준편차 4.9</small>
-          </article>
-          <article class="average-card" aria-label="학교까지 오는 평균 시간은? 평균 22.7분, 표준편차 8.1">
-            <h3>학교까지 오는 평균 시간은?</h3><div class="average-value">22.7분</div><small>표준편차 8.1</small>
-          </article>
-          <article class="average-card" aria-label="가족 구성원 수는? 평균 3.9명, 표준편차 0.5">
-            <h3>가족 구성원 수는?</h3><div class="average-value">3.9명</div><small>표준편차 0.5</small>
-          </article>
-          <article class="average-card" aria-label="아침을 먹고 오는 학생 비율은? 평균 38.6%, 표준편차 17.4">
-            <h3>아침을 먹고 오는 학생 비율은?</h3><div class="average-value">38.6%</div><small>표준편차 17.4</small>
-          </article>
-        </div>
-      </section>
-
-      <section class="section ranking-section" aria-labelledby="hall-title">
-        <h2 id="hall-title" class="section-title">🏆 명예의 전당 - 상위 3명</h2>
-
-        <div class="podium" role="list">
-          <div class="podium-place second-place" role="listitem" aria-label="2등 E반 이예루, 오차 1.8점">
-            <div class="podium-rank">🥈 2등</div>
-            <div class="podium-name">이예루</div>
-            <div class="podium-class">E반</div>
-            <div class="podium-score">오차: 1.8점</div>
-          </div>
-          <div class="podium-place first-place" role="listitem" aria-label="1등 D반 이우진, 오차 1.6점">
-            <div class="podium-rank">🥇 1등</div>
-            <div class="podium-name">이우진</div>
-            <div class="podium-class">D반</div>
-            <div class="podium-score">오차: 1.6점</div>
-          </div>
-          <div class="podium-place third-place" role="listitem" aria-label="3등 B반 도예담, 오차 1.88점">
-            <div class="podium-rank">🥉 3등</div>
-            <div class="podium-name">도예담</div>
-            <div class="podium-class">B반</div>
-            <div class="podium-score">오차: 1.88점</div>
-          </div>
-        </div>
-
-        <h3 class="section-title" style="border-bottom-width:3px;">📋 전체 순위표 (상위 30명)</h3>
-
-        <div class="ranking-table" role="table" aria-label="전체 순위표 상위 30명">
-          <div class="table-header" role="row">
-            <div role="columnheader">순위</div>
-            <div role="columnheader">반</div>
-            <div role="columnheader">이름</div>
-            <div role="columnheader">총 오차점수</div>
-            <div role="columnheader">유효답변</div>
-          </div>
-
-          <!-- ↓↓↓ 표 데이터: 원본 그대로 유지 ↓↓↓ -->
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">1</span></div>
-            <div role="cell"><span class="class-badge">D반</span></div>
-            <div role="cell" class="student-name">이우진</div>
-            <div role="cell" class="score">1.6점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">2</span></div>
-            <div role="cell"><span class="class-badge">E반</span></div>
-            <div role="cell" class="student-name">이예루</div>
-            <div role="cell" class="score">1.8점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">3</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">도예담</div>
-            <div role="cell" class="score">1.88점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">4</span></div>
-            <div role="cell"><span class="class-badge">D반</span></div>
-            <div role="cell" class="student-name">홍석현</div>
-            <div role="cell" class="score">1.92점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">5</span></div>
-            <div role="cell"><span class="class-badge">C반</span></div>
-            <div role="cell" class="student-name">손주성</div>
-            <div role="cell" class="score">2.39점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">6</span></div>
-            <div role="cell"><span class="class-badge">D반</span></div>
-            <div role="cell" class="student-name">문지희</div>
-            <div role="cell" class="score">2.46점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">7</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">민수아</div>
-            <div role="cell" class="score">2.67점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">8</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">서민서</div>
-            <div role="cell" class="score">2.9점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">9</span></div>
-            <div role="cell"><span class="class-badge">A반</span></div>
-            <div role="cell" class="student-name">최윤서</div>
-            <div role="cell" class="score">2.92점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-1-10">10</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">박진</div>
-            <div role="cell" class="score">2.96점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">11</span></div>
-            <div role="cell"><span class="class-badge">E반</span></div>
-            <div role="cell" class="student-name">이아림</div>
-            <div role="cell" class="score">3.15점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">12</span></div>
-            <div role="cell"><span class="class-badge">D반</span></div>
-            <div role="cell" class="student-name">신이안</div>
-            <div role="cell" class="score">3.18점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">13</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">양석진</div>
-            <div role="cell" class="score">3.18점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">14</span></div>
-            <div role="cell"><span class="class-badge">A반</span></div>
-            <div role="cell" class="student-name">김혜빈</div>
-            <div role="cell" class="score">3.28점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">15</span></div>
-            <div role="cell"><span class="class-badge">C반</span></div>
-            <div role="cell" class="student-name">신예준</div>
-            <div role="cell" class="score">3.33점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">16</span></div>
-            <div role="cell"><span class="class-badge">A반</span></div>
-            <div role="cell" class="student-name">김서광</div>
-            <div role="cell" class="score">3.38점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">17</span></div>
-            <div role="cell"><span class="class-badge">A반</span></div>
-            <div role="cell" class="student-name">송선율</div>
-            <div role="cell" class="score">3.41점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">18</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">유다원</div>
-            <div role="cell" class="score">3.42점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">19</span></div>
-            <div role="cell"><span class="class-badge">D반</span></div>
-            <div role="cell" class="student-name">박준우</div>
-            <div role="cell" class="score">3.45점</div>
-            <div role="cell" class="valid-answers">7개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-11-20">20</span></div>
-            <div role="cell"><span class="class-badge">E반</span></div>
-            <div role="cell" class="student-name">박준우</div>
-            <div role="cell" class="score">3.53점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">21</span></div>
-            <div role="cell"><span class="class-badge">A반</span></div>
-            <div role="cell" class="student-name">한우진</div>
-            <div role="cell" class="score">3.55점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">22</span></div>
-            <div role="cell"><span class="class-badge">D반</span></div>
-            <div role="cell" class="student-name">이상진</div>
-            <div role="cell" class="score">3.71점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">23</span></div>
-            <div role="cell"><span class="class-badge">C반</span></div>
-            <div role="cell" class="student-name">정승연</div>
-            <div role="cell" class="score">3.77점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">24</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">최부경</div>
-            <div role="cell" class="score">3.82점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">25</span></div>
-            <div role="cell"><span class="class-badge">B반</span></div>
-            <div role="cell" class="student-name">이은송</div>
-            <div role="cell" class="score">3.86점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">26</span></div>
-            <div role="cell"><span class="class-badge">C반</span></div>
-            <div role="cell" class="student-name">이윤혁</div>
-            <div role="cell" class="score">3.88점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">27</span></div>
-            <div role="cell"><span class="class-badge">E반</span></div>
-            <div role="cell" class="student-name">장은교</div>
-            <div role="cell" class="score">4.01점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">28</span></div>
-            <div role="cell"><span class="class-badge">E반</span></div>
-            <div role="cell" class="student-name">유예빈</div>
-            <div role="cell" class="score">4.03점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">29</span></div>
-            <div role="cell"><span class="class-badge">D반</span></div>
-            <div role="cell" class="student-name">김나은</div>
-            <div role="cell" class="score">4.1점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <div class="table-row" role="row">
-            <div role="cell"><span class="rank-badge rank-21-30">30</span></div>
-            <div role="cell"><span class="class-badge">E반</span></div>
-            <div role="cell" class="student-name">서유림</div>
-            <div role="cell" class="score">4.16점</div>
-            <div role="cell" class="valid-answers">8개</div>
-          </div>
-          <!-- ↑↑↑ 표 데이터 끝 ↑↑↑ -->
-        </div>
-      </section>
-
-      <section class="congratulations" aria-labelledby="cheer-title">
-        <h3 id="cheer-title">🎉 모든 참가자들에게 뜨거운 박수를!</h3>
-        <p>평균을 정확하게 예측하는 것은 생각보다 어려운 일입니다.</p>
-        <p>이번 게임을 통해 통계적 사고력과 추정 능력을 기를 수 있는 좋은 경험이 되었습니다!</p>
-        <p><strong>참여해주신 모든 학생들 정말 수고하셨습니다! 👏✨</strong></p>
-      </section>
+<section class="ranking-section">
+  <h1>🏆 확률과 통계 - 상위 3명</h1>
+  <div class="podium" role="list">
+    <div class="podium-place second-place">
+      <div class="podium-rank">2등</div>
+      <img src="second.jpg" alt="2등 사진" />
+      <div class="podium-name">김이등</div>
     </div>
-  </main>
+    <div class="podium-place first-place">
+      <div class="podium-rank">1등</div>
+      <img src="first.jpg" alt="1등 사진" />
+      <div class="podium-name">홍일등</div>
+    </div>
+    <div class="podium-place third-place">
+      <div class="podium-rank">3등</div>
+      <img src="third.jpg" alt="3등 사진" />
+      <div class="podium-name">박삼등</div>
+    </div>
+
+    <!-- 시상식 금가루 -->
+    <span class="sparkle s1" aria-hidden="true"></span>
+    <span class="sparkle s2" aria-hidden="true"></span>
+    <span class="sparkle s3" aria-hidden="true"></span>
+    <span class="sparkle s4" aria-hidden="true"></span>
+  </div>
+</section>
+
 </body>
 </html>
