@@ -6,10 +6,19 @@
     <title>확률과 통계 수업 대시보드</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* 한글 폰트 최적화 및 가독성 개선 */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
                 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
                 sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
             word-break: keep-all;
@@ -18,6 +27,15 @@
             line-height: 1.7;
             color: #2d3748;
             letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* 다크모드 */
+        body.dark {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
         }
         
         /* 제목과 텍스트 가독성 향상 */
@@ -26,6 +44,10 @@
             color: #1a202c;
             font-weight: 700;
             margin-bottom: 0.75rem;
+        }
+        
+        body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5, body.dark h6 {
+            color: #f7fafc;
         }
         
         h1 { font-size: 2.25rem; }
@@ -38,6 +60,10 @@
             line-height: 1.8;
             color: #4a5568;
             font-weight: 500;
+        }
+        
+        body.dark p, body.dark span, body.dark div {
+            color: #e2e8f0;
         }
         
         /* 강조 텍스트 */
@@ -56,6 +82,14 @@
             color: #1a202c;
         }
         
+        body.dark .font-medium {
+            color: #e2e8f0;
+        }
+        
+        body.dark .font-semibold, body.dark .font-bold {
+            color: #f7fafc;
+        }
+        
         /* 카드 및 섹션 간격 개선 */
         .space-y-6 > * + * {
             margin-top: 2rem;
@@ -65,6 +99,24 @@
         .bg-gradient-to-r.from-blue-600.to-purple-600 {
             background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
             box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-gradient-to-r.from-blue-600.to-purple-600::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
         
         .bg-gradient-to-r.from-green-500.to-blue-500 {
@@ -87,15 +139,31 @@
             padding: 1rem 2rem;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+        }
+        
+        .gradient-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .gradient-button:hover::before {
+            left: 100%;
         }
         
         .gradient-button:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 12px 28px rgba(0,0,0,0.25);
         }
         
         .gradient-button:active {
-            transform: translateY(-1px);
+            transform: translateY(-1px) scale(0.98);
         }
         
         /* 아이콘 크기 및 색상 조정 */
@@ -121,16 +189,23 @@
             margin-top: 1.5rem;
             overflow: hidden;
             background: #ffffff;
+            position: relative;
         }
         
         .iframe-container.active {
             display: block;
-            animation: fadeIn 0.3s ease-out;
+            animation: slideInUp 0.5s ease-out;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
         
         .iframe-container iframe {
@@ -179,6 +254,25 @@
             text-align: center;
             margin-top: 16px;
             box-shadow: 0 8px 25px rgba(49, 130, 206, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-result-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(0.8); opacity: 0.5; }
         }
 
         .game-result-button button {
@@ -197,6 +291,8 @@
             gap: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .game-result-button button:hover {
@@ -209,6 +305,117 @@
             margin-top: 12px;
             font-weight: 600;
             font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 카드 호버 효과 */
+        .card-hover {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        /* 통계 카드 */
+        .stats-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        body.dark .stats-card {
+            background: #2d3748;
+            border-color: #4a5568;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            border-color: #3182ce;
+        }
+        
+        /* 다크모드 토글 */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        body.dark .theme-toggle {
+            background: #2d3748;
+            color: #f7fafc;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* 검색바 */
+        .search-container {
+            background: white;
+            border-radius: 25px;
+            padding: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark .search-container {
+            background: #2d3748;
+        }
+        
+        .search-container:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .search-input {
+            border: none;
+            outline: none;
+            padding: 12px 20px;
+            width: 100%;
+            font-size: 16px;
+            background: transparent;
+        }
+        
+        body.dark .search-input {
+            color: #f7fafc;
+        }
+        
+        .search-input::placeholder {
+            color: #a0aec0;
+        }
+        
+        /* 로딩 애니메이션 */
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         
         /* 반응형 개선 */
@@ -242,6 +449,14 @@
                 padding: 10px 20px;
                 font-size: 0.9rem;
             }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
         }
         
         /* 추가 접근성 개선 */
@@ -268,19 +483,82 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #a0aec0, #718096);
         }
+        
+        /* 차트 컨테이너 */
+        .chart-container {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        
+        body.dark .chart-container {
+            background: #2d3748;
+        }
+        
+        /* 애니메이션 클래스 */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen">
+    <!-- 다크모드 토글 -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">
+        🌙
+    </button>
+    
     <div class="max-w-7xl mx-auto p-6">
         <!-- 헤더 -->
-        <div class="mb-8">
-            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-lg">
-                <h1 class="text-3xl font-bold mb-3">확률과 통계 수업</h1>
-                <p class="text-blue-100 text-lg font-semibold">2025년 2학기 • 담당: 박도영</p>
+        <div class="mb-8 fade-in">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <h1 class="text-3xl font-bold mb-3">확률과 통계 수업</h1>
+                    <p class="text-blue-100 text-lg font-semibold">2025년 2학기 • 담당: 박도영</p>
+                    <div class="mt-4 flex items-center gap-4">
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">📚 수학</span>
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">⏰ 3시간</span>
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">🏫 2-6교실</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm p-6">
+        <!-- 검색바 -->
+        <div class="search-container slide-up">
+            <div class="flex items-center">
+                <i data-lucide="search" class="icon ml-4 text-gray-400"></i>
+                <input type="text" class="search-input" placeholder="수업 내용, 시험 정보, 공지사항 등을 검색해보세요..." id="searchInput">
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
             <!-- iframe 컨테이너 (처음엔 숨김) -->
             <div class="iframe-container" id="iframeContainer">
                 <button class="close-iframe" onclick="closeIframe()">✕ 닫기</button>
@@ -291,7 +569,7 @@
             <div class="main-content" id="mainContent">
                 <div class="space-y-8">
                 <!-- OT 자료 링크 버튼 -->
-                <div class="bg-gradient-to-r from-green-500 to-blue-500 p-8 rounded-lg">
+                <div class="bg-gradient-to-r from-green-500 to-blue-500 p-8 rounded-lg card-hover">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-3">📋 2학기 OT 자료</h3>
@@ -309,7 +587,7 @@
                 </div>
 
                 <!-- 선생님 시간표 버튼 -->
-                <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-8 rounded-lg">
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-8 rounded-lg card-hover">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-3">🕐 선생님 시간표</h3>
@@ -326,8 +604,31 @@
                     </div>
                 </div>
 
+                <!-- 통계 대시보드 -->
+                <div class="chart-container bounce-in">
+                    <h3 class="text-2xl font-semibold flex items-center mb-6">
+                        <i data-lucide="bar-chart-3" class="icon-large mr-3"></i>
+                        📊 수업 통계
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="stats-card text-center">
+                            <div class="text-4xl font-bold text-blue-600 mb-2">150+</div>
+                            <div class="text-gray-600 font-semibold">수강생</div>
+                        </div>
+                        <div class="stats-card text-center">
+                            <div class="text-4xl font-bold text-green-600 mb-2">85%</div>
+                            <div class="text-gray-600 font-semibold">평균 성적</div>
+                        </div>
+                        <div class="stats-card text-center">
+                            <div class="text-4xl font-bold text-purple-600 mb-2">92%</div>
+                            <div class="text-gray-600 font-semibold">만족도</div>
+                        </div>
+                    </div>
+                    <canvas id="gradeChart" width="400" height="200"></canvas>
+                </div>
+
                 <!-- 강의 계획서 -->
-                <div class="bg-white p-8 rounded-lg border">
+                <div class="bg-white p-8 rounded-lg border card-hover">
                     <h3 class="text-2xl font-semibold flex items-center mb-6">
                         <i data-lucide="info" class="icon-large mr-3"></i>
                         강의 계획서
@@ -358,30 +659,30 @@
                 </div>
 
                 <!-- 평가 방식 -->
-                <div class="bg-white p-8 rounded-lg border">
+                <div class="bg-white p-8 rounded-lg border card-hover">
                     <h3 class="text-2xl font-semibold flex items-center mb-6">
                         <i data-lucide="award" class="icon-large mr-3"></i>
                         평가 방식
                     </h3>
 
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200">
+                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200 card-hover">
                             <div class="text-4xl font-bold text-blue-600 mb-2">30%</div>
                             <div class="text-base text-gray-600 font-semibold">중간고사</div>
                         </div>
-                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200">
+                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200 card-hover">
                             <div class="text-4xl font-bold text-blue-600 mb-2">30%</div>
                             <div class="text-base text-gray-600 font-semibold">기말고사</div>
                         </div>
-                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200">
+                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200 card-hover">
                             <div class="text-4xl font-bold text-blue-600 mb-2">15%</div>
                             <div class="text-base text-gray-600 font-semibold">단계별과정평가1</div>
                         </div>
-                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200">
+                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200 card-hover">
                             <div class="text-4xl font-bold text-blue-600 mb-2">15%</div>
                             <div class="text-base text-gray-600 font-semibold">단계별과정평가2</div>
                         </div>
-                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200 col-span-2 md:col-span-1">
+                        <div class="text-center p-6 bg-gray-50 rounded hover:border-blue-500 hover:transform hover:translate-y-[-2px] transition-all duration-300 border-2 border-gray-200 col-span-2 md:col-span-1 card-hover">
                             <div class="text-4xl font-bold text-blue-600 mb-2">10%</div>
                             <div class="text-base text-gray-600 font-semibold">주제탐구발표<br>보고서</div>
                         </div>
@@ -389,7 +690,7 @@
                 </div>
 
                 <!-- 시험 정보 -->
-                <div class="bg-white p-8 rounded-lg border">
+                <div class="bg-white p-8 rounded-lg border card-hover">
                     <h3 class="text-2xl font-semibold mb-6 flex items-center">
                         <i data-lucide="clock" class="icon-large mr-3"></i>
                         시험 정보
@@ -397,7 +698,7 @@
                     
                     <div class="space-y-6">
                         <!-- 중간고사 -->
-                        <div class="border rounded-lg p-6">
+                        <div class="border rounded-lg p-6 card-hover">
                             <h4 class="font-semibold text-xl mb-4 text-blue-600">중간고사</h4>
                             <div>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
@@ -427,7 +728,7 @@
                         </div>
 
                         <!-- 기말고사 -->
-                        <div class="border rounded-lg p-6">
+                        <div class="border rounded-lg p-6 card-hover">
                             <h4 class="font-semibold text-xl mb-4 text-blue-600">기말고사</h4>
                             <div>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
@@ -458,7 +759,7 @@
                 </div>
 
                 <!-- 공지사항 섹션 -->
-                <div class="bg-white p-8 rounded-lg border">
+                <div class="bg-white p-8 rounded-lg border card-hover">
                     <h3 class="text-2xl font-semibold mb-6 flex items-center">
                         <i data-lucide="bell" class="icon-large mr-3"></i>
                         공지사항
@@ -466,7 +767,7 @@
                     
                     <div class="space-y-6">
                         <!-- 평균 맞히기 게임 결과 - 버튼 포함! -->
-                        <div class="border-l-4 border-blue-500 bg-blue-50 p-6">
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-6 card-hover">
                             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
                                 <h4 class="font-semibold text-blue-800 text-xl">🎯 평균 맞히기 게임 결과 발표!</h4>
                                 <div class="flex items-center gap-3 mt-2 md:mt-0">
@@ -497,7 +798,7 @@
                         </div>
 
                         <!-- 시험 범위 안내 -->
-                        <div class="border-l-4 border-orange-500 bg-orange-50 p-6">
+                        <div class="border-l-4 border-orange-500 bg-orange-50 p-6 card-hover">
                             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
                                 <h4 class="font-semibold text-orange-800 text-xl">중간고사 시험 범위 안내</h4>
                                 <span class="text-sm text-orange-600 font-medium mt-2 md:mt-0">2025-07-15</span>
@@ -518,6 +819,89 @@
     <script>
         // Lucide 아이콘 초기화
         lucide.createIcons();
+
+        // 다크모드 토글
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggle.innerHTML = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggle.innerHTML = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // 테마 초기화
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle').innerHTML = '☀️';
+            }
+        }
+
+        // 검색 기능
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const cards = document.querySelectorAll('.card-hover');
+            
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                cards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                    } else {
+                        card.style.opacity = '0.3';
+                    }
+                });
+            });
+        }
+
+        // 성적 차트 초기화
+        function initChart() {
+            const ctx = document.getElementById('gradeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['90점 이상', '80-89점', '70-79점', '60-69점', '60점 미만'],
+                    datasets: [{
+                        data: [25, 35, 25, 10, 5],
+                        backgroundColor: [
+                            '#10B981',
+                            '#3B82F6',
+                            '#F59E0B',
+                            '#EF4444',
+                            '#6B7280'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
         // iframe으로 콘텐츠 보여주기
         function showInIframe(url, title) {
@@ -547,9 +931,9 @@
             iframe.src = '';
         }
 
-        // OT 자료 보기 함수 (실제 깃허브 링크)
+        // OT 자료 보기 함수 (로컬 파일로 변경)
         function handleViewOTMaterial() {
-            const url = 'https://doyeongmath-commits.github.io/25-2-class/orientation';
+            const url = './orientation.html';
             showInIframe(url, 'OT 자료');
         }
 
@@ -572,9 +956,20 @@
             }
         });
 
-        // 페이지 로드 완료 후 아이콘 재초기화
+        // 페이지 로드 완료 후 초기화
         document.addEventListener('DOMContentLoaded', function() {
             lucide.createIcons();
+            initTheme();
+            initSearch();
+            initChart();
+            
+            // 애니메이션 지연 실행
+            setTimeout(() => {
+                document.querySelectorAll('.card-hover').forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.classList.add('fade-in');
+                });
+            }, 100);
         });
     </script>
 </body>
