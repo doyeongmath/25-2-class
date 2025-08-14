@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>확률과 통계 수업 대시보드</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <style>
     /* 폰트: 한국어 가독성 강화 */
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Inter:wght@500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Inter:wght@500;600;700;800;900&display=swap');
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family:'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-      color:#1f2937; /* slate-800 */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color:#1f2937;
       font-size:16px; line-height:1.8; letter-spacing:-.01em;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       min-height:100vh;
@@ -24,20 +24,19 @@
     h1,h2,h3,h4{line-height:1.35;margin-bottom:.5rem;font-weight:800}
     h1{font-size:2rem} h2{font-size:1.5rem} h3{font-size:1.25rem} h4{font-size:1.125rem}
 
+    /* 헤더 */
     .header-gradient{
       background:linear-gradient(135deg,#3182ce 0%,#805ad5 100%);
       box-shadow:0 12px 28px rgba(79,70,229,.25);
-      border-radius:14px;
-      color:white;
+      border-radius:14px; color:white;
     }
 
     /* 액션 타일 */
     .action-tile{
-      border-radius:16px; padding:24px; color:#fff;
+      border-radius:16px; padding:24px; color:#fff; width:100%;
       box-shadow:0 10px 28px rgba(0,0,0,.18);
       transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
-      position:relative; overflow:hidden;
-      text-align:center; cursor:pointer; border:0; width:100%;
+      position:relative; overflow:hidden; text-align:center; cursor:pointer; border:0;
     }
     .action-tile:hover{transform:translateY(-4px); box-shadow:0 18px 36px rgba(0,0,0,.22); filter:brightness(1.03)}
     .tile-blue{background:linear-gradient(135deg,#3b82f6 0%,#6366f1 100%)}
@@ -63,9 +62,51 @@
     .search-input{border:none; outline:none; width:100%; background:transparent; font-size:16px; color:inherit}
     .search-input::placeholder{color:#9aa3af}
 
-    /* 모션 감소 선호 시 */
+    /* ===== 인-모드 iframe 모달 =====
+       깜빡임 방지: display 고정, visibility/opacity 전환 + 스크롤 잠금시 padding-right 보정 */
+    .iframe-container{
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.6);
+      padding: 24px;
+      display: block;             /* 항상 DOM 상주 */
+      visibility: hidden;         /* 보이기/숨김만 토글 */
+      opacity: 0;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+    .iframe-container.is-open{
+      visibility: visible;
+      opacity: 1;
+    }
+    .iframe-modal{
+      background:#fff; color:#111827; border-radius:14px;
+      box-shadow:0 25px 70px rgba(0,0,0,.3);
+      width:100%; height:100%;
+      display:flex; flex-direction:column;
+    }
+    .iframe-header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 16px; border-bottom:1px solid #e5e7eb;
+    }
+    .iframe-title{font-weight:800; font-size:18px; margin:0;}
+    .iframe-actions{display:flex; gap:8px; align-items:center;}
+    .btn-primary{
+      background:#4f46e5; color:#fff; border:none; border-radius:8px;
+      padding:8px 12px; font-weight:700; cursor:pointer;
+    }
+    .btn-primary:hover{filter:brightness(1.05)}
+    .btn-close{
+      border:none; background:transparent; font-size:28px; line-height:1; cursor:pointer; color:#6b7280;
+    }
+    .btn-close:hover{ color:#111827; }
+    .iframe-body{flex:1;}
+    .iframe-body iframe{width:100%; height:100%; border:0; border-radius:0 0 14px 14px;}
+
+    /* 모션 감소 선호 */
     @media (prefers-reduced-motion: reduce){
-      *{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important}
+      .iframe-container{transition:none}
+      .search-container{transition:none}
+      .action-tile{transition:none}
+      .card{transition:none}
     }
   </style>
 </head>
@@ -91,21 +132,21 @@
       </div>
     </div>
 
-    <!-- 액션 버튼 (항상 새 창으로 열기) -->
+    <!-- 액션 버튼 (인-모드로 열고, 모달 상단에 '새 창으로 열기' 있음) -->
     <section class="grid grid-cols-1 md:grid-cols-3 gap-6 searchable" data-search-text="OT 자료 시간표 평균 맞히기 게임 결과">
-      <button class="action-tile tile-blue" data-url="./orientation.html" aria-label="OT 자료 열기">
+      <button class="action-tile tile-blue" onclick="handleViewOTMaterial()" aria-label="OT 자료 열기">
         <div class="text-3xl mb-2">📚</div>
         <h3 class="text-xl font-extrabold">OT 자료</h3>
         <p class="opacity-90">수업 소개 및 규칙</p>
       </button>
 
-      <button class="action-tile tile-green" data-url="./schedule.html" aria-label="선생님 시간표 열기">
+      <button class="action-tile tile-green" onclick="handleViewSchedule()" aria-label="선생님 시간표 열기">
         <div class="text-3xl mb-2">⏰</div>
         <h3 class="text-xl font-extrabold">선생님 시간표</h3>
         <p class="opacity-90">주간 수업 일정</p>
       </button>
 
-      <button class="action-tile tile-purple" data-url="./average-game-result.html" aria-label="평균 맞히기 게임 결과 열기">
+      <button class="action-tile tile-purple" onclick="handleViewGameResult()" aria-label="평균 맞히기 게임 결과 열기">
         <div class="text-3xl mb-2">🎯</div>
         <h3 class="text-xl font-extrabold">평균 맞히기 게임 결과</h3>
         <p class="opacity-90">학생별 순위 및 통계</p>
@@ -194,7 +235,6 @@
         <article class="border-l-4 border-blue-500 pl-4 py-2">
           <div class="flex items-center justify-between">
             <h4 class="font-bold">📚 교재 준비 안내</h4>
-            <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
           <p class="text-gray-700 mt-1">주교재: 확률과 통계 (금성출판사), 부교재: EBS 수능특강 확률과 통계</p>
         </article>
@@ -202,7 +242,6 @@
         <article class="border-l-4 border-green-500 pl-4 py-2">
           <div class="flex items-center justify-between">
             <h4 class="font-bold">🎯 수행평가 안내</h4>
-            <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
           <p class="text-gray-700 mt-1">탐구발표 자료 제출: 한글 파일 2쪽 이상, 제출기한 초과 시 1일당 2점 감점</p>
         </article>
@@ -210,7 +249,6 @@
         <article class="border-l-4 border-purple-500 pl-4 py-2">
           <div class="flex items-center justify-between">
             <h4 class="font-bold">🏆 발표 권장사항</h4>
-            <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
           <p class="text-gray-700 mt-1">교과서 문제 풀이, 증명 발표 시 세특 기재 가능 (필수는 아님, 적극 권장)</p>
         </article>
@@ -218,7 +256,6 @@
         <article class="border-l-4 border-orange-500 pl-4 py-2">
           <div class="flex items-center justify-between">
             <h4 class="font-bold">📊 수능 출제 비중</h4>
-            <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
           <p class="text-gray-700 mt-1">공통과목 22문항(74점), 선택과목 8문항(26점) - 확률과 통계/미적분/기하 중 선택</p>
         </article>
@@ -226,11 +263,27 @@
     </section>
   </div>
 
+  <!-- 인-모드 iframe 모달 -->
+  <div id="iframeContainer" class="iframe-container" aria-hidden="true">
+    <div class="iframe-modal">
+      <div class="iframe-header">
+        <h2 id="iframeTitle" class="iframe-title">문서</h2>
+        <div class="iframe-actions">
+          <button type="button" id="openNewTabBtn" class="btn-primary">새 창으로 열기</button>
+          <button type="button" id="closeIframeBtn" class="btn-close" aria-label="닫기">&times;</button>
+        </div>
+      </div>
+      <div class="iframe-body">
+        <iframe id="contentFrame" title="내장 문서 뷰어" allow="clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Lucide 아이콘 초기화
+    // 아이콘 1회 초기화
     lucide.createIcons();
 
-    // 검색: 섹션 단위로 필터링
+    // 검색: 섹션 단위 필터링
     const searchInput = document.getElementById('searchInput');
     const searchable = Array.from(document.querySelectorAll('.searchable'));
     searchInput.addEventListener('input', function(){
@@ -241,13 +294,79 @@
       });
     });
 
-    // 버튼 → 항상 새 창으로 열기 (모달 제거로 깜빡임 원천 차단)
-    document.querySelectorAll('.action-tile[data-url]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const url = btn.getAttribute('data-url');
-        if (url) window.open(url, '_blank', 'noopener');
-      });
+    // ===== 모달 요소 =====
+    const iframeContainer = document.getElementById('iframeContainer');
+    const iframeEl = document.getElementById('contentFrame');
+    const iframeTitle = document.getElementById('iframeTitle');
+    const closeBtn = document.getElementById('closeIframeBtn');
+    const openNewTabBtn = document.getElementById('openNewTabBtn');
+
+    // 스크롤바 폭 측정 (레이아웃 점프 방지)
+    function getScrollbarWidth(){
+      const outer = document.createElement('div');
+      outer.style.visibility = 'hidden';
+      outer.style.overflow = 'scroll';
+      outer.style.width = '100px';
+      document.body.appendChild(outer);
+      const inner = document.createElement('div');
+      inner.style.width = '100%';
+      outer.appendChild(inner);
+      const w = outer.offsetWidth - inner.offsetWidth;
+      outer.remove();
+      return w;
+    }
+
+    // 모달 열기 (인-모드)
+    function showInIframe(url, title){
+      const sbw = getScrollbarWidth();
+      document.documentElement.style.overflow = 'hidden';
+      if (sbw) document.body.style.paddingRight = `${sbw}px`;
+
+      iframeTitle.textContent = title || '문서';
+      iframeEl.src = url;
+
+      iframeContainer.classList.add('is-open');
+      iframeContainer.setAttribute('aria-hidden','false');
+
+      setTimeout(()=> closeBtn && closeBtn.focus(), 0);
+    }
+
+    // 모달 닫기
+    function closeIframe(){
+      iframeContainer.classList.remove('is-open');
+      iframeContainer.setAttribute('aria-hidden','true');
+      iframeEl.src = ''; // 로딩/오디오 등 중단
+
+      document.documentElement.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
+    // 새 창으로 열기
+    function openInNewTab(){
+      if (iframeEl && iframeEl.src) {
+        window.open(iframeEl.src, '_blank', 'noopener');
+      }
+    }
+
+    // 이벤트 바인딩
+    iframeContainer.addEventListener('click', (e)=>{
+      if(e.target === iframeContainer){ closeIframe(); }
     });
+    closeBtn.addEventListener('click', closeIframe);
+    openNewTabBtn.addEventListener('click', openInNewTab);
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && iframeContainer.classList.contains('is-open')) closeIframe();
+    });
+
+    // 버튼 핸들러 (인-모드로 먼저 열기)
+    function handleViewOTMaterial(){ showInIframe('./orientation.html', 'OT 자료'); }
+    function handleViewSchedule(){ showInIframe('./schedule.html', '선생님 시간표'); }
+    function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
+
+    // 전역 노출 (onclick용)
+    window.handleViewOTMaterial = handleViewOTMaterial;
+    window.handleViewSchedule = handleViewSchedule;
+    window.handleViewGameResult = handleViewGameResult;
   </script>
 </body>
 </html>
