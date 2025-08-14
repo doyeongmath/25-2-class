@@ -1,923 +1,414 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>확률과 통계 수업 대시보드</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    
-    <style>
-        /* 한글 폰트 최적화 및 가독성 개선 */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-                sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-            word-break: keep-all;
-            word-wrap: break-word;
-            font-size: 17px;
-            line-height: 1.7;
-            color: #2d3748;
-            letter-spacing: -0.01em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            transition: all 0.3s ease;
-        }
-        
-        /* 다크모드 */
-        body.dark {
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            color: #e2e8f0;
-        }
-        
-        /* 제목과 텍스트 가독성 향상 */
-        h1, h2, h3, h4, h5, h6 {
-            line-height: 1.3;
-            color: #1a202c;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-        
-        body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5, body.dark h6 {
-            color: #f7fafc;
-        }
-        
-        h1 { font-size: 2.25rem; }
-        h2 { font-size: 1.875rem; }
-        h3 { font-size: 1.5rem; }
-        h4 { font-size: 1.25rem; }
-        
-        /* 본문 텍스트 가독성 */
-        p, span, div {
-            line-height: 1.8;
-            color: #4a5568;
-            font-weight: 500;
-        }
-        
-        body.dark p, body.dark span, body.dark div {
-            color: #e2e8f0;
-        }
-        
-        /* 강조 텍스트 */
-        .font-medium {
-            font-weight: 600;
-            color: #2d3748;
-        }
-        
-        .font-semibold {
-            font-weight: 700;
-            color: #1a202c;
-        }
-        
-        .font-bold {
-            font-weight: 800;
-            color: #1a202c;
-        }
-        
-        body.dark .font-medium {
-            color: #e2e8f0;
-        }
-        
-        body.dark .font-semibold, body.dark .font-bold {
-            color: #f7fafc;
-        }
-        
-        /* 카드 및 섹션 간격 개선 */
-        .space-y-6 > * + * {
-            margin-top: 2rem;
-        }
-        
-        /* 그라데이션 헤더 개선 */
-        .bg-gradient-to-r.from-blue-600.to-purple-600 {
-            background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .bg-gradient-to-r.from-blue-600.to-purple-600::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            animation: float 20s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        .bg-gradient-to-r.from-green-500.to-blue-500 {
-            background: linear-gradient(135deg, #38a169 0%, #3182ce 100%);
-            box-shadow: 0 8px 20px rgba(56, 161, 105, 0.25);
-        }
-        
-        .bg-gradient-to-r.from-purple-500.to-pink-500 {
-            background: linear-gradient(135deg, #805ad5 0%, #d53f8c 100%);
-            box-shadow: 0 8px 20px rgba(128, 90, 213, 0.25);
-        }
-        
-        /* 버튼 개선 */
-        .gradient-button {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            cursor: pointer;
-        }
-        
-        .gradient-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .gradient-button:hover::before {
-            left: 100%;
-        }
-        
-        .gradient-button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.25);
-        }
-        
-        .gradient-button:active {
-            transform: translateY(-1px) scale(0.98);
-        }
-        
-        /* 아이콘 크기 및 색상 조정 */
-        .icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-        
-        .icon-large {
-            width: 24px;
-            height: 24px;
-        }
-        
-        /* iframe 컨테이너 개선 */
-        .iframe-container {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            background: rgba(0,0,0,0.6);
-            padding: 24px;
-        }
-        
-        .iframe-container.active {
-            display: block;
-            animation: slideInUp 0.5s ease-out;
-        }
-        
-        @keyframes slideInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-        
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 12px;
-        }
-        
-        /* 닫기 버튼 개선 */
-        .close-iframe {
-            background: linear-gradient(135deg, #e53e3e, #c53030);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            float: right;
-            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
-        }
-        
-        .close-iframe:hover {
-            background: linear-gradient(135deg, #c53030, #9c2626);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(229, 62, 62, 0.4);
-        }
-        
-        /* 메인 콘텐츠 전환 효과 */
-        .main-content {
-            transition: all 0.3s ease;
-        }
-        
-        .main-content.hidden {
-            display: none;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>확률과 통계 수업 대시보드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- 기본 설정 / 폰트 ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html:focus-within { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+      font-size: 17px; line-height: 1.7; letter-spacing: -0.01em;
+      color: #2d3748; min-height: 100vh; word-break: keep-all; word-wrap: break-word;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .dark body, body.dark { color: #e2e8f0; background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%); }
 
-        /* 게임 결과 버튼 특별 스타일 */
-        .game-result-button {
-            background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
-            padding: 24px;
-            border-radius: 16px;
-            text-align: center;
-            margin-top: 16px;
-            box-shadow: 0 8px 25px rgba(49, 130, 206, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .game-result-button::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-            100% { transform: scale(0.8); opacity: 0.5; }
-        }
+    /* ---------- 헤딩 ---------- */
+    h1, h2, h3, h4, h5, h6 { line-height: 1.3; font-weight: 800; margin-bottom: .75rem; color: #1a202c; }
+    body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5, body.dark h6 { color: #f7fafc; }
+    h1 { font-size: 2.25rem } h2 { font-size: 1.875rem } h3 { font-size: 1.5rem } h4 { font-size: 1.25rem }
 
-        .game-result-button button {
-            width: 100%;
-            background: white;
-            color: #3182ce;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
+    /* ---------- 본문 ---------- */
+    p, span, div { line-height: 1.8; color: #4a5568; font-weight: 500; }
+    body.dark p, body.dark span, body.dark div { color: #e2e8f0; }
 
-        .game-result-button button:hover {
-            background: #f7fafc;
-            transform: scale(1.02);
-        }
+    /* ---------- 카드 공통 ---------- */
+    .card-hover { transition: transform .3s ease, box-shadow .3s ease; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,.1); }
+    .stats-card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,.1); border: 2px solid transparent; transition: .3s; }
+    body.dark .stats-card { background: #2d3748; border-color: #4a5568; }
+    .stats-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,.15); border-color: #3182ce; }
 
-        .game-result-button p {
-            color: white;
-            margin-top: 12px;
-            font-weight: 600;
-            font-size: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* 카드 호버 효과 */
-        .card-hover {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        /* 통계 카드 */
-        .stats-card {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        body.dark .stats-card {
-            background: #2d3748;
-            border-color: #4a5568;
-        }
-        
-        .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-            border-color: #3182ce;
-        }
-        
-        /* 다크모드 토글 */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        
-        body.dark .theme-toggle {
-            background: #2d3748;
-            color: #f7fafc;
-        }
-        
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-        
-        /* 검색바 */
-        .search-container {
-            background: white;
-            border-radius: 25px;
-            padding: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin-bottom: 24px;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark .search-container {
-            background: #2d3748;
-        }
-        
-        .search-container:focus-within {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-        }
-        
-        .search-input {
-            border: none;
-            outline: none;
-            padding: 12px 20px;
-            width: 100%;
-            font-size: 16px;
-            background: transparent;
-        }
-        
-        body.dark .search-input {
-            color: #f7fafc;
-        }
-        
-        .search-input::placeholder {
-            color: #a0aec0;
-        }
-        
-        /* 로딩 애니메이션 */
-        .loading-skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-        
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
-        /* 반응형 개선 */
-        @media (max-width: 768px) {
-            body {
-                font-size: 16px;
-                line-height: 1.6;
-                padding: 0.75rem;
-            }
-            
-            h1 { font-size: 1.875rem; }
-            h2 { font-size: 1.5rem; }
-            h3 { font-size: 1.25rem; }
-            h4 { font-size: 1.125rem; }
-            
-            .gradient-button {
-                font-size: 1rem;
-                padding: 0.875rem 1.5rem;
-            }
-            
-            .space-y-6 > * + * {
-                margin-top: 1.5rem;
-            }
-            
-            .iframe-container {
-                height: 80vh;
-                margin-top: 1rem;
-            }
-            
-            .close-iframe {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .theme-toggle {
-                top: 10px;
-                right: 10px;
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-        }
-        
-        /* 추가 접근성 개선 */
-        button:focus {
-            outline: 3px solid #3182ce;
-            outline-offset: 2px;
-        }
-        
-        /* 스크롤바 스타일링 */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #cbd5e0, #a0aec0);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #a0aec0, #718096);
-        }
-        
-        /* 차트 컨테이너 */
-        .chart-container {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin-bottom: 24px;
-        }
-        
-        body.dark .chart-container {
-            background: #2d3748;
-        }
-        
-        /* 애니메이션 클래스 */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
-        }
-        
-        .slide-up {
-            animation: slideUp 0.6s ease-out;
-        }
-        
-        .bounce-in {
-            animation: bounceIn 0.8s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-    </style>
+    /* ---------- 그라데이션 헤더(유틸 클래스 조합 선택자) ---------- */
+    .bg-gradient-to-r.from-blue-600.to-purple-600 { background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%); box-shadow: 0 10px 25px rgba(79, 70, 229, .25); position: relative; overflow: hidden; }
+    .bg-gradient-to-r.from-blue-600.to-purple-600::before {
+      content: ""; position: absolute; inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      animation: float 20s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{ transform: translateY(0) rotate(0) } 50%{ transform: translateY(-20px) rotate(180deg) } }
+
+    .bg-gradient-to-r.from-green-500.to-blue-500 { background: linear-gradient(135deg, #38a169 0%, #3182ce 100%); box-shadow: 0 8px 20px rgba(56,161,105,.25); }
+    .bg-gradient-to-r.from-purple-500.to-pink-500 { background: linear-gradient(135deg, #805ad5 0%, #d53f8c 100%); box-shadow: 0 8px 20px rgba(128,90,213,.25); }
+
+    /* ---------- 액션 타일 (이전: .game-result-button) ---------- */
+    .action-tile { position: relative; overflow: hidden; border-radius: 16px; padding: 24px; text-align: center; color: #fff; box-shadow: 0 8px 25px rgba(0,0,0,.2); transition: transform .3s ease; }
+    .action-tile:hover { transform: translateY(-4px) scale(1.02); }
+    .action-tile::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 70%); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%{ transform: scale(.8); opacity:.5 } 50%{ transform: scale(1.2); opacity:.8 } 100%{ transform: scale(.8); opacity:.5 } }
+    .action-tile__button { position: relative; z-index: 1; width: 100%; background: #fff; color: #2b6cb0; padding: 16px 32px; border-radius: 12px; font-size: 18px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.15); transition: transform .2s ease, background .2s ease; }
+    .action-tile__button:hover { background: #f7fafc; transform: scale(1.02); }
+    .action-tile__caption { position: relative; z-index: 1; margin-top: 12px; font-weight: 700; font-size: 16px; color: #fff; }
+
+    /* ---------- 다크모드 토글 버튼 ---------- */
+    .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 1000; background: #fff; border: none; border-radius: 50%; width: 50px; height: 50px; box-shadow: 0 4px 20px rgba(0,0,0,.1); cursor: pointer; transition: transform .2s ease; display: grid; place-items: center; font-size: 20px; }
+    body.dark .theme-toggle { background: #2d3748; color: #f7fafc; }
+    .theme-toggle:hover { transform: scale(1.08); }
+    button:focus-visible { outline: 3px solid #3182ce; outline-offset: 3px; border-radius: 12px; }
+
+    /* ---------- 검색창 ---------- */
+    .search-container { background: #fff; border-radius: 25px; padding: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.1); margin-bottom: 24px; transition: transform .2s ease, box-shadow .2s ease; }
+    body.dark .search-container { background: #2d3748; }
+    .search-container:focus-within { transform: scale(1.02); box-shadow: 0 8px 30px rgba(0,0,0,.15); }
+    .search-input { border: none; outline: none; padding: 12px 20px; width: 100%; font-size: 16px; background: transparent; color: inherit; }
+    .search-input::placeholder { color: #a0aec0; }
+
+    /* ---------- Iframe 모달 ---------- */
+    .iframe-backdrop { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.6); padding: 24px; }
+    .iframe-backdrop.active { display: block; animation: slideInUp .35s ease-out; }
+    @keyframes slideInUp { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }
+    .iframe-modal { background: #fff; border-radius: 14px; box-shadow: 0 25px 70px rgba(0,0,0,.3); width: 100%; height: 100%; display: flex; flex-direction: column; }
+    body.dark .iframe-modal { background: #1f2937; }
+
+    /* ---------- 접근성 / 애니메이션 선호 ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* ---------- 스크롤바 ---------- */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #cbd5e0, #a0aec0); border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #a0aec0, #718096); }
+  </style>
 </head>
 <body class="min-h-screen">
-    <!-- 다크모드 토글 -->
-    <button class="theme-toggle" onclick="toggleTheme()" title="테마 변경">
-        🌙
-    </button>
-    
-    <div class="max-w-7xl mx-auto p-6">
-        <!-- 헤더 -->
-        <div class="mb-8 fade-in">
-            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-lg relative overflow-hidden">
-                <div class="relative z-10">
-                    <h1 class="text-3xl font-bold mb-3">확률과 통계 수업</h1>
-                    <p class="text-blue-100 text-lg font-semibold">2025년 2학기 • 담당: 박도영</p>
-                    <div class="mt-4 flex items-center gap-4">
-                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">📚 수학</span>
-                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">⏰ 3시간</span>
-                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">🏫 2-6교실</span>
-                    </div>
-                </div>
-            </div>
+  <!-- 다크모드 토글 -->
+  <button class="theme-toggle" id="themeToggle" aria-label="테마 변경">🌙</button>
+
+  <div class="max-w-7xl mx-auto p-6">
+    <!-- 헤더 -->
+    <header class="mb-8">
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-lg relative overflow-hidden">
+        <div class="relative z-10">
+          <h1 class="text-3xl font-bold mb-3">확률과 통계 수업</h1>
+          <p class="text-blue-100 text-lg font-semibold">2025년 2학기 • 담당: 박도영</p>
+          <div class="mt-4 flex items-center gap-4">
+            <span class="bg-white/20 px-3 py-1 rounded-full text-sm">📚 수학</span>
+            <span class="bg-white/20 px-3 py-1 rounded-full text-sm">⏰ 3시간</span>
+            <span class="bg-white/20 px-3 py-1 rounded-full text-sm">🏫 2-6교실</span>
+          </div>
         </div>
+      </div>
+    </header>
 
-        <!-- 검색바 -->
-        <div class="search-container slide-up">
-            <div class="flex items-center">
-                <i data-lucide="search" class="icon ml-4 text-gray-400"></i>
-                <input type="text" class="search-input" placeholder="수업 내용, 시험 정보, 공지사항 등을 검색해보세요..." id="searchInput">
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
-            <!-- OT 자료와 시간표 버튼 -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <button onclick="handleViewOTMaterial()" class="game-result-button bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105">
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">📚</div>
-                        <h3 class="text-xl font-bold mb-2">OT 자료</h3>
-                        <p class="text-blue-100">수업 소개 및 규칙</p>
-                    </div>
-                </button>
-                
-                <button onclick="handleViewSchedule()" class="game-result-button bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-lg shadow-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">⏰</div>
-                        <h3 class="text-xl font-bold mb-2">선생님 시간표</h3>
-                        <p class="text-green-100">주간 수업 일정</p>
-                    </div>
-                </button>
-                
-                <button onclick="handleViewGameResult()" class="game-result-button bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-lg shadow-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">🎯</div>
-                        <h3 class="text-xl font-bold mb-2">평균 맞히기 게임 결과</h3>
-                        <p class="text-purple-100">학생별 순위 및 통계</p>
-                    </div>
-                </button>
-            </div>
-
-            <!-- iframe 컨테이너 -->
-            <div id="iframeContainer" class="iframe-container hidden">
-                <div class="iframe-modal bg-white rounded-xl shadow-2xl w-full h-full flex flex-col">
-                    <div class="flex justify-between items-center p-4 border-b">
-                        <h2 id="iframeTitle" class="text-xl font-bold text-gray-800"></h2>
-                        <div class="flex items-center gap-2">
-                            <button onclick="openInNewTab()" class="px-3 py-1.5 rounded-md bg-indigo-600 text-white text-sm hover:bg-indigo-700">새 창으로 열기</button>
-                            <button onclick="closeIframe()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <iframe id="contentFrame" class="w-full h-full border-0"></iframe>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 수업 정보 -->
-            <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
-                <h3 class="text-2xl font-semibold flex items-center mb-6">
-                    <i data-lucide="book-open" class="icon-large mr-3"></i>
-                    📖 수업 정보
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-blue-100 p-2 rounded-lg">
-                                <i data-lucide="calendar" class="icon text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">수업 기간</h4>
-                                <p class="text-gray-600">2025년 2학기 (9월 ~ 12월)</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-green-100 p-2 rounded-lg">
-                                <i data-lucide="clock" class="icon text-green-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">수업 시간</h4>
-                                <p class="text-gray-600">주 3시간 (화, 수, 목)</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-purple-100 p-2 rounded-lg">
-                                <i data-lucide="map-pin" class="icon text-purple-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">강의실</h4>
-                                <p class="text-gray-600">2-6교실</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-yellow-100 p-2 rounded-lg">
-                                <i data-lucide="users" class="icon text-yellow-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">수강 대상</h4>
-                                <p class="text-gray-600">2학년 A, B, C, D, E반</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-red-100 p-2 rounded-lg">
-                                <i data-lucide="target" class="icon text-red-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">수업 목표</h4>
-                                <p class="text-gray-600">확률과 통계의 기초 개념 습득</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-indigo-100 p-2 rounded-lg">
-                                <i data-lucide="award" class="icon text-indigo-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">기대 성과</h4>
-                                <p class="text-gray-600">수능 및 대학 수학 준비</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 평가 방법 -->
-            <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
-                <h3 class="text-2xl font-semibold flex items-center mb-6">
-                    <i data-lucide="clipboard-list" class="icon-large mr-3"></i>
-                    📊 평가 방법
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-                        <div class="text-3xl mb-2">📝</div>
-                        <h4 class="font-semibold text-blue-800 mb-2">중간고사</h4>
-                        <p class="text-blue-600 font-bold text-xl">30%</p>
-                        <p class="text-blue-500 text-sm mt-1">9월 25일~10월 2일</p>
-                    </div>
-                    <div class="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
-                        <div class="text-3xl mb-2">📝</div>
-                        <h4 class="font-semibold text-green-800 mb-2">기말고사</h4>
-                        <p class="text-green-600 font-bold text-xl">30%</p>
-                        <p class="text-green-500 text-sm mt-1">12월 11일~17일</p>
-                    </div>
-                    <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 col-span-1 md:col-span-3">
-                        <div class="text-3xl mb-2">🎯</div>
-                        <h4 class="font-semibold text-purple-800 mb-2">수행평가</h4>
-                        <p class="text-purple-600 font-bold text-xl">40%</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                            <div class="bg-white bg-opacity-50 p-3 rounded-lg">
-                                <p class="text-purple-700 font-semibold">📋 과정평가</p>
-                                <p class="text-purple-600 text-sm">단계별 평가 2회 (30%)</p>
-                            </div>
-                            <div class="bg-white bg-opacity-50 p-3 rounded-lg">
-                                <p class="text-purple-700 font-semibold">🎤 탐구발표</p>
-                                <p class="text-purple-600 text-sm">자료 제출 (10%)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 시험 정보 -->
-            <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
-                <h3 class="text-2xl font-semibold flex items-center mb-6">
-                    <i data-lucide="calendar-days" class="icon-large mr-3"></i>
-                    📅 시험 정보
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
-                        <h4 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
-                            <i data-lucide="calendar" class="icon mr-2"></i>
-                            중간고사
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-blue-700">시험 기간:</span>
-                                <span class="text-blue-600">9월 25일 ~ 10월 2일</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-blue-700">시험 시간:</span>
-                                <span class="text-blue-600">50분</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-blue-700">시험 범위:</span>
-                                <span class="text-blue-600">Ⅲ-1. 확률분포</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-blue-700">특이사항:</span>
-                                <span class="text-blue-600">평가원 기출문제 포함</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
-                        <h4 class="text-xl font-bold text-green-800 mb-4 flex items-center">
-                            <i data-lucide="calendar" class="icon mr-2"></i>
-                            기말고사
-                        </h4>
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-green-700">시험 기간:</span>
-                                <span class="text-green-600">12월 11일 ~ 17일</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-green-700">시험 시간:</span>
-                                <span class="text-green-600">50분</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-green-700">시험 범위:</span>
-                                <span class="text-green-600">Ⅲ-2. 통계적 추정</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium text-green-700">특이사항:</span>
-                                <span class="text-green-600">평가원 기출문제 포함</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 공지사항 -->
-            <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
-                <h3 class="text-2xl font-semibold flex items-center mb-6">
-                    <i data-lucide="megaphone" class="icon-large mr-3"></i>
-                    📢 공지사항
-                </h3>
-                <div class="space-y-4">
-                    <div class="border-l-4 border-blue-500 pl-4 py-2">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-semibold text-gray-800">📚 교재 준비 안내</h4>
-                            <span class="text-sm text-gray-500">2025.02.20</span>
-                        </div>
-                        <p class="text-gray-600 mt-1">주교재: 확률과 통계 (금성출판사), 부교재: EBS 수능특강 확률과 통계</p>
-                    </div>
-                    <div class="border-l-4 border-green-500 pl-4 py-2">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-semibold text-gray-800">🎯 수행평가 안내</h4>
-                            <span class="text-sm text-gray-500">2025.02.20</span>
-                        </div>
-                        <p class="text-gray-600 mt-1">탐구발표 자료 제출: 한글 파일 2쪽 이상, 제출기한 초과 시 1일당 2점 감점</p>
-                    </div>
-                    <div class="border-l-4 border-purple-500 pl-4 py-2">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-semibold text-gray-800">🏆 발표 권장사항</h4>
-                            <span class="text-sm text-gray-500">2025.02.20</span>
-                        </div>
-                        <p class="text-gray-600 mt-1">교과서 문제 풀이, 증명 발표 시 세특 기재 가능 (필수는 아님, 적극 권장)</p>
-                    </div>
-                    <div class="border-l-4 border-orange-500 pl-4 py-2">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-semibold text-gray-800">📊 수능 출제 비중</h4>
-                            <span class="text-sm text-gray-500">2025.02.20</span>
-                        </div>
-                        <p class="text-gray-600 mt-1">공통과목 22문항(74점), 선택과목 8문항(26점) - 확률과 통계/미적분/기하 중 선택</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- 검색바 -->
+    <div class="search-container">
+      <div class="flex items-center">
+        <i data-lucide="search" class="w-5 h-5 ml-4 text-gray-400" aria-hidden="true"></i>
+        <input id="searchInput" type="text" class="search-input" placeholder="수업 내용, 시험 정보, 공지사항 등을 검색해보세요…" aria-label="콘텐츠 검색" />
+      </div>
     </div>
 
-    <script>
-        // Lucide 아이콘 초기화
-        lucide.createIcons();
+    <main id="main" class="space-y-6">
+      <!-- 3 액션 버튼 영역 -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 searchable" data-section-title="바로가기">
+        <div class="action-tile bg-gradient-to-r from-blue-500 to-blue-600" role="group" aria-label="OT 자료">
+          <div class="text-center select-none">
+            <div class="text-3xl mb-2" aria-hidden="true">📚</div>
+            <h3 class="text-xl font-bold mb-2">OT 자료</h3>
+            <p class="opacity-90">수업 소개 및 규칙</p>
+          </div>
+          <button type="button" class="action-tile__button mt-4" onclick="handleViewOTMaterial()" aria-haspopup="dialog">
+            <i data-lucide="book-open" class="w-5 h-5" aria-hidden="true"></i> 열기
+          </button>
+          <p class="action-tile__caption">클릭하여 내부 뷰어로 확인</p>
+        </div>
 
-        // 다크모드 토글
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.querySelector('.theme-toggle');
-            
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                themeToggle.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark');
-                themeToggle.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
+        <div class="action-tile bg-gradient-to-r from-green-500 to-green-600" role="group" aria-label="선생님 시간표">
+          <div class="text-center select-none">
+            <div class="text-3xl mb-2" aria-hidden="true">⏰</div>
+            <h3 class="text-xl font-bold mb-2">선생님 시간표</h3>
+            <p class="opacity-90">주간 수업 일정</p>
+          </div>
+          <button type="button" class="action-tile__button mt-4" onclick="handleViewSchedule()" aria-haspopup="dialog">
+            <i data-lucide="calendar" class="w-5 h-5" aria-hidden="true"></i> 열기
+          </button>
+          <p class="action-tile__caption">새 창으로도 열 수 있어요</p>
+        </div>
 
-        // 테마 초기화
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark');
-                document.querySelector('.theme-toggle').textContent = '☀️';
-            }
-        }
+        <div class="action-tile bg-gradient-to-r from-purple-500 to-purple-600" role="group" aria-label="평균 맞히기 게임 결과">
+          <div class="text-center select-none">
+            <div class="text-3xl mb-2" aria-hidden="true">🎯</div>
+            <h3 class="text-xl font-bold mb-2">평균 맞히기 게임 결과</h3>
+            <p class="opacity-90">학생별 순위 및 통계</p>
+          </div>
+          <button type="button" class="action-tile__button mt-4" onclick="handleViewGameResult()" aria-haspopup="dialog">
+            <i data-lucide="bar-chart-3" class="w-5 h-5" aria-hidden="true"></i> 열기
+          </button>
+          <p class="action-tile__caption">결과는 실시간으로 반영</p>
+        </div>
+      </section>
 
-        // 검색 기능
-        function initSearch() {
-            const searchInput = document.getElementById('searchInput');
-            const cards = document.querySelectorAll('.card-hover');
-            
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                
-                cards.forEach(card => {
-                    const text = card.textContent.toLowerCase();
-                    if (text.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        }
+      <!-- 수업 정보 -->
+      <section class="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 card-hover searchable" data-section-title="수업 정보">
+        <h3 class="text-2xl font-semibold flex items-center mb-6">
+          <i data-lucide="book-open" class="w-6 h-6 mr-3" aria-hidden="true"></i>
+          📖 수업 정보
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="bg-blue-100 dark:bg-blue-900/40 p-2 rounded-lg"><i data-lucide="calendar" class="w-5 h-5 text-blue-600 dark:text-blue-300" aria-hidden="true"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-slate-100">수업 기간</h4>
+                <p class="text-gray-600 dark:text-slate-300">2025년 2학기 (9월 ~ 12월)</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="bg-green-100 dark:bg-green-900/40 p-2 rounded-lg"><i data-lucide="clock" class="w-5 h-5 text-green-600 dark:text-green-300" aria-hidden="true"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-slate-100">수업 시간</h4>
+                <p class="text-gray-600 dark:text-slate-300">주 3시간 (화, 수, 목)</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="bg-purple-100 dark:bg-purple-900/40 p-2 rounded-lg"><i data-lucide="map-pin" class="w-5 h-5 text-purple-600 dark:text-purple-300" aria-hidden="true"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-slate-100">강의실</h4>
+                <p class="text-gray-600 dark:text-slate-300">2-6교실</p>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="bg-yellow-100 dark:bg-yellow-900/40 p-2 rounded-lg"><i data-lucide="users" class="w-5 h-5 text-yellow-600 dark:text-yellow-300" aria-hidden="true"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-slate-100">수강 대상</h4>
+                <p class="text-gray-600 dark:text-slate-300">2학년 A, B, C, D, E반</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="bg-red-100 dark:bg-red-900/40 p-2 rounded-lg"><i data-lucide="target" class="w-5 h-5 text-red-600 dark:text-red-300" aria-hidden="true"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-slate-100">수업 목표</h4>
+                <p class="text-gray-600 dark:text-slate-300">확률과 통계의 기초 개념 습득</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="bg-indigo-100 dark:bg-indigo-900/40 p-2 rounded-lg"><i data-lucide="award" class="w-5 h-5 text-indigo-600 dark:text-indigo-300" aria-hidden="true"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-800 dark:text-slate-100">기대 성과</h4>
+                <p class="text-gray-600 dark:text-slate-300">수능 및 대학 수학 준비</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        // iframe으로 콘텐츠 보여주기
-        function showInIframe(url, title) {
-            const iframe = document.getElementById('contentFrame');
-            const iframeContainer = document.getElementById('iframeContainer');
-            const iframeTitle = document.getElementById('iframeTitle');
-            
-            iframe.src = url;
-            iframeTitle.textContent = title;
-            
-            // iframe 컨테이너 보이기
-            iframeContainer.classList.remove('hidden');
-            iframeContainer.classList.add('active');
-        }
+      <!-- 평가 방법 -->
+      <section class="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 card-hover searchable" data-section-title="평가 방법">
+        <h3 class="text-2xl font-semibold flex items-center mb-6">
+          <i data-lucide="clipboard-list" class="w-6 h-6 mr-3" aria-hidden="true"></i>
+          📊 평가 방법
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 dark:border-blue-800 dark:from-blue-900/30 dark:to-blue-900/10">
+            <div class="text-3xl mb-2" aria-hidden="true">📝</div>
+            <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">중간고사</h4>
+            <p class="text-blue-600 dark:text-blue-300 font-extrabold text-xl">30%</p>
+            <p class="text-blue-500 dark:text-blue-400 text-sm mt-1">9월 25일~10월 2일</p>
+          </div>
+          <div class="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200 dark:border-green-800 dark:from-green-900/30 dark:to-green-900/10">
+            <div class="text-3xl mb-2" aria-hidden="true">📝</div>
+            <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">기말고사</h4>
+            <p class="text-green-600 dark:text-green-300 font-extrabold text-xl">30%</p>
+            <p class="text-green-500 dark:text-green-400 text-sm mt-1">12월 11일~17일</p>
+          </div>
+          <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 dark:border-purple-800 dark:from-purple-900/30 dark:to-purple-900/10 md:col-span-2 lg:col-span-1 xl:col-span-3">
+            <div class="text-3xl mb-2" aria-hidden="true">🎯</div>
+            <h4 class="font-semibold text-purple-800 dark:text-purple-200 mb-2">수행평가</h4>
+            <p class="text-purple-600 dark:text-purple-300 font-extrabold text-xl">40%</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+              <div class="bg-white/60 dark:bg-white/5 p-3 rounded-lg">
+                <p class="text-purple-700 dark:text-purple-200 font-semibold">📋 과정평가</p>
+                <p class="text-purple-600 dark:text-purple-300 text-sm">단계별 평가 2회 (30%)</p>
+              </div>
+              <div class="bg-white/60 dark:bg-white/5 p-3 rounded-lg">
+                <p class="text-purple-700 dark:text-purple-200 font-semibold">🎤 탐구발표</p>
+                <p class="text-purple-600 dark:text-purple-300 text-sm">자료 제출 (10%)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        // iframe 닫기
-        function closeIframe() {
-            const iframe = document.getElementById('contentFrame');
-            const iframeContainer = document.getElementById('iframeContainer');
-            
-            // iframe 숨기기
-            iframeContainer.classList.remove('active');
-            iframeContainer.classList.add('hidden');
-            
-            // iframe src 초기화 (로딩 중지)
-            iframe.src = '';
-        }
+      <!-- 시험 정보 -->
+      <section class="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 card-hover searchable" data-section-title="시험 정보">
+        <h3 class="text-2xl font-semibold flex items-center mb-6">
+          <i data-lucide="calendar-days" class="w-6 h-6 mr-3" aria-hidden="true"></i>
+          📅 시험 정보
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200 dark:border-blue-800 dark:from-blue-900/30 dark:to-blue-900/10">
+            <h4 class="text-xl font-bold text-blue-800 dark:text-blue-200 mb-4 flex items-center">
+              <i data-lucide="calendar" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+              중간고사
+            </h4>
+            <dl class="space-y-3 text-blue-900 dark:text-blue-100">
+              <div class="flex justify-between items-center"><dt class="font-medium">시험 기간</dt><dd class="opacity-90">9월 25일 ~ 10월 2일</dd></div>
+              <div class="flex justify-between items-center"><dt class="font-medium">시험 시간</dt><dd class="opacity-90">50분</dd></div>
+              <div class="flex justify-between items-center"><dt class="font-medium">시험 범위</dt><dd class="opacity-90">Ⅲ-1. 확률분포</dd></div>
+              <div class="flex justify-between items-center"><dt class="font-medium">특이사항</dt><dd class="opacity-90">평가원 기출문제 포함</dd></div>
+            </dl>
+          </div>
+          <div class="bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-lg border border-green-200 dark:border-green-800 dark:from-green-900/30 dark:to-green-900/10">
+            <h4 class="text-xl font-bold text-green-800 dark:text-green-200 mb-4 flex items-center">
+              <i data-lucide="calendar" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+              기말고사
+            </h4>
+            <dl class="space-y-3 text-green-900 dark:text-green-100">
+              <div class="flex justify-between items-center"><dt class="font-medium">시험 기간</dt><dd class="opacity-90">12월 11일 ~ 17일</dd></div>
+              <div class="flex justify-between items-center"><dt class="font-medium">시험 시간</dt><dd class="opacity-90">50분</dd></div>
+              <div class="flex justify-between items-center"><dt class="font-medium">시험 범위</dt><dd class="opacity-90">Ⅲ-2. 통계적 추정</dd></div>
+              <div class="flex justify-between items-center"><dt class="font-medium">특이사항</dt><dd class="opacity-90">평가원 기출문제 포함</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
 
-        // OT 자료 보기
-        function handleViewOTMaterial() {
-            const url = './orientation.html';
-            showInIframe(url, 'OT 자료');
-        }
+      <!-- 공지사항 -->
+      <section class="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-6 card-hover searchable" data-section-title="공지사항">
+        <h3 class="text-2xl font-semibold flex items-center mb-6">
+          <i data-lucide="megaphone" class="w-6 h-6 mr-3" aria-hidden="true"></i>
+          📢 공지사항
+        </h3>
+        <ul class="space-y-4">
+          <li class="border-l-4 border-blue-500 pl-4 py-2">
+            <div class="flex items-center justify-between"><h4 class="font-semibold text-gray-800 dark:text-slate-100">📚 교재 준비 안내</h4><time class="text-sm text-gray-500">2025.02.20</time></div>
+            <p class="text-gray-600 dark:text-slate-300 mt-1">주교재: 확률과 통계 (금성출판사), 부교재: EBS 수능특강 확률과 통계</p>
+          </li>
+          <li class="border-l-4 border-green-500 pl-4 py-2">
+            <div class="flex items-center justify-between"><h4 class="font-semibold text-gray-800 dark:text-slate-100">🎯 수행평가 안내</h4><time class="text-sm text-gray-500">2025.02.20</time></div>
+            <p class="text-gray-600 dark:text-slate-300 mt-1">탐구발표 자료 제출: 한글 파일 2쪽 이상, 제출기한 초과 시 1일당 2점 감점</p>
+          </li>
+          <li class="border-l-4 border-purple-500 pl-4 py-2">
+            <div class="flex items-center justify-between"><h4 class="font-semibold text-gray-800 dark:text-slate-100">🏆 발표 권장사항</h4><time class="text-sm text-gray-500">2025.02.20</time></div>
+            <p class="text-gray-600 dark:text-slate-300 mt-1">교과서 문제 풀이, 증명 발표 시 세특 기재 가능 (필수는 아님, 적극 권장)</p>
+          </li>
+          <li class="border-l-4 border-orange-500 pl-4 py-2">
+            <div class="flex items-center justify-between"><h4 class="font-semibold text-gray-800 dark:text-slate-100">📊 수능 출제 비중</h4><time class="text-sm text-gray-500">2025.02.20</time></div>
+            <p class="text-gray-600 dark:text-slate-300 mt-1">공통과목 22문항(74점), 선택과목 8문항(26점) - 확률과 통계/미적분/기하 중 선택</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
 
-        // 시간표 보기
-        function handleViewSchedule() {
-            const url = './schedule.html';
-            showInIframe(url, '선생님 시간표');
-        }
+  <!-- Iframe 컨테이너 (모달) -->
+  <div id="iframeBackdrop" class="iframe-backdrop" role="dialog" aria-modal="true" aria-labelledby="iframeTitle" aria-hidden="true">
+    <div class="iframe-modal">
+      <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-700">
+        <h2 id="iframeTitle" class="text-xl font-bold text-gray-800 dark:text-slate-100">문서</h2>
+        <div class="flex items-center gap-2">
+          <button type="button" id="openNewTabBtn" class="px-3 py-1.5 rounded-md bg-indigo-600 text-white text-sm hover:bg-indigo-700">새 창으로 열기</button>
+          <button type="button" id="closeIframeBtn" class="text-gray-500 hover:text-gray-700 dark:text-slate-300 dark:hover:text-white text-2xl font-bold" aria-label="닫기">&times;</button>
+        </div>
+      </div>
+      <div class="flex-1">
+        <iframe id="contentFrame" class="w-full h-full border-0" title="내장 문서 뷰어" allow="clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+  </div>
 
-        // 게임 결과 보기
-        function handleViewGameResult() {
-            const url = './average-game-result.html';
-            showInIframe(url, '평균 맞히기 게임 결과');
-        }
+  <script>
+    // --------- 아이콘 초기화 ---------
+    function initIcons(){ if(window.lucide){ window.lucide.createIcons(); } }
 
-        // 새 창으로 열기
-        function openInNewTab() {
-            const iframe = document.getElementById('contentFrame');
-            if (iframe && iframe.src) {
-                window.open(iframe.src, '_blank');
-            }
-        }
+    // --------- 테마 토글 ---------
+    const bodyEl = document.body;
+    const toggleBtn = document.getElementById('themeToggle');
+    function applyTheme(theme){
+      if(theme === 'dark'){ bodyEl.classList.add('dark'); toggleBtn.textContent = '☀️'; }
+      else { bodyEl.classList.remove('dark'); toggleBtn.textContent = '🌙'; }
+      localStorage.setItem('theme', theme);
+    }
+    function initTheme(){
+      const saved = localStorage.getItem('theme');
+      if(saved){ applyTheme(saved); }
+      else {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+      }
+    }
+    toggleBtn.addEventListener('click', () => {
+      applyTheme(bodyEl.classList.contains('dark') ? 'light' : 'dark');
+    });
 
-        // 페이지 로드 시 초기화
-        document.addEventListener('DOMContentLoaded', function() {
-            lucide.createIcons();
-            initTheme();
-            initSearch();
-            
-            // 카드 애니메이션
-            setTimeout(() => {
-                const cards = document.querySelectorAll('.card-hover');
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('fade-in');
-                    }, index * 100);
-                });
-            }, 100);
+    // --------- 검색 ---------
+    function initSearch(){
+      const input = document.getElementById('searchInput');
+      const sections = Array.from(document.querySelectorAll('.searchable'));
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        sections.forEach(sec => {
+          const hay = (sec.dataset.sectionTitle + ' ' + sec.textContent).toLowerCase();
+          sec.classList.toggle('hidden', q && !hay.includes(q));
         });
-    </script>
+      });
+    }
+
+    // --------- 모달/iframe ---------
+    const iframeBackdrop = document.getElementById('iframeBackdrop');
+    const iframeEl = document.getElementById('contentFrame');
+    const iframeTitleEl = document.getElementById('iframeTitle');
+    const closeBtn = document.getElementById('closeIframeBtn');
+    const openNewBtn = document.getElementById('openNewTabBtn');
+
+    function showInIframe(url, title){
+      iframeEl.src = url; iframeTitleEl.textContent = title || '문서';
+      iframeBackdrop.classList.add('active');
+      iframeBackdrop.removeAttribute('aria-hidden');
+      document.documentElement.style.overflow = 'hidden'; // 배경 스크롤 방지
+      closeBtn.focus();
+    }
+    function closeIframe(){
+      iframeBackdrop.classList.remove('active');
+      iframeBackdrop.setAttribute('aria-hidden','true');
+      iframeEl.src = '';
+      document.documentElement.style.overflow = '';
+      toggleBtn.focus();
+    }
+    function openInNewTab(){ if(iframeEl && iframeEl.src){ window.open(iframeEl.src, '_blank', 'noopener'); } }
+
+    // 바깥 영역 클릭 시 닫기
+    iframeBackdrop.addEventListener('click', (e) => { if(e.target === iframeBackdrop){ closeIframe(); } });
+    closeBtn.addEventListener('click', closeIframe);
+    openNewBtn.addEventListener('click', openInNewTab);
+    window.addEventListener('keydown', (e) => { if(e.key === 'Escape' && iframeBackdrop.classList.contains('active')) closeIframe(); });
+
+    // --------- 핸들러 (경로는 동일하게 유지) ---------
+    function handleViewOTMaterial(){ showInIframe('./orientation.html', 'OT 자료'); }
+    function handleViewSchedule(){ showInIframe('./schedule.html', '선생님 시간표'); }
+    function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
+    window.handleViewOTMaterial = handleViewOTMaterial;
+    window.handleViewSchedule = handleViewSchedule;
+    window.handleViewGameResult = handleViewGameResult;
+
+    // --------- 초기화 ---------
+    document.addEventListener('DOMContentLoaded', () => {
+      initIcons();
+      initTheme();
+      initSearch();
+    });
+  </script>
 </body>
 </html>
