@@ -6,116 +6,74 @@
   <title>확률과 통계 수업 대시보드</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
   <style>
     /* 폰트: 한국어 가독성 강화 */
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Inter:wght@500;600;700;800;900&display=swap');
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-
-    body {
-      font-family: 'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #2d3748;
-      font-size: 16px;
-      line-height: 1.8;
-      letter-spacing: -0.01em;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: background 0.3s ease, color 0.3s ease;
-      min-height: 100vh;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      color:#1f2937; /* slate-800 */
+      font-size:16px; line-height:1.8; letter-spacing:-.01em;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
     }
 
-    /* 시스템 다크모드 기본 반영 + 저장값 우선 */
-    @media (prefers-color-scheme: dark) {
-      body:not(.light) {
-        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-        color: #e2e8f0;
-      }
-    }
-    body.dark {
-      background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-      color: #e2e8f0;
-    }
+    h1,h2,h3,h4{line-height:1.35;margin-bottom:.5rem;font-weight:800}
+    h1{font-size:2rem} h2{font-size:1.5rem} h3{font-size:1.25rem} h4{font-size:1.125rem}
 
-    h1, h2, h3, h4 { line-height: 1.35; margin-bottom: .5rem; font-weight: 800; }
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.25rem; }
-    h4 { font-size: 1.125rem; }
-
-    .theme-toggle {
-      position: fixed; top: 16px; right: 16px; z-index: 50;
-      width: 44px; height: 44px; border-radius: 9999px;
-      display: grid; place-items: center; border: none;
-      background: white; color:#111827; box-shadow: 0 6px 24px rgba(0,0,0,.15);
-      cursor: pointer; transition: transform .15s ease;
-    }
-    body.dark .theme-toggle { background:#2d3748; color:#f7fafc; }
-    .theme-toggle:hover { transform: scale(1.06); }
-
-    .header-gradient {
-      background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
-      box-shadow: 0 12px 28px rgba(79, 70, 229, 0.25);
-      border-radius: 14px;
+    .header-gradient{
+      background:linear-gradient(135deg,#3182ce 0%,#805ad5 100%);
+      box-shadow:0 12px 28px rgba(79,70,229,.25);
+      border-radius:14px;
+      color:white;
     }
 
     /* 액션 타일 */
-    .action-tile {
-      border-radius: 16px;
-      padding: 24px;
-      color: #fff;
-      box-shadow: 0 10px 28px rgba(0,0,0,.18);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-      position: relative; overflow: hidden;
+    .action-tile{
+      border-radius:16px; padding:24px; color:#fff;
+      box-shadow:0 10px 28px rgba(0,0,0,.18);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      position:relative; overflow:hidden;
+      text-align:center; cursor:pointer; border:0; width:100%;
     }
-    .action-tile:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 36px rgba(0,0,0,.22);
-      filter: brightness(1.03);
-    }
-    .tile-blue  { background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%); }
-    .tile-green { background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%); }
-    .tile-purple{ background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); }
+    .action-tile:hover{transform:translateY(-4px); box-shadow:0 18px 36px rgba(0,0,0,.22); filter:brightness(1.03)}
+    .tile-blue{background:linear-gradient(135deg,#3b82f6 0%,#6366f1 100%)}
+    .tile-green{background:linear-gradient(135deg,#22c55e 0%,#3b82f6 100%)}
+    .tile-purple{background:linear-gradient(135deg,#8b5cf6 0%,#a855f7 100%)}
 
     /* 카드 공통 */
-    .card {
-      background: #ffffff; border-radius: 16px; padding: 24px;
-      box-shadow: 0 6px 20px rgba(0,0,0,.08);
-      border: 1px solid rgba(0,0,0,.04);
-      transition: transform .18s ease, box-shadow .18s ease;
+    .card{
+      background:#ffffff; border-radius:16px; padding:24px;
+      box-shadow:0 6px 20px rgba(0,0,0,.08);
+      border:1px solid rgba(0,0,0,.05);
+      transition:transform .18s ease, box-shadow .18s ease;
     }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.12); }
-    body.dark .card { background: #2d3748; border-color: #4a5568; }
+    .card:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.12)}
 
     /* 검색바 */
-    .search-container {
-      background: white; border-radius: 9999px; padding: 10px 14px;
-      box-shadow: 0 6px 20px rgba(0,0,0,.10);
-      transition: box-shadow .18s ease, transform .18s ease;
+    .search-container{
+      background:#fff; border-radius:9999px; padding:10px 14px;
+      box-shadow:0 6px 20px rgba(0,0,0,.10);
+      transition:box-shadow .18s ease, transform .18s ease;
     }
-    body.dark .search-container { background:#2d3748; }
-    .search-container:focus-within { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(0,0,0,.14); }
-    .search-input {
-      border: none; outline: none; width: 100%; background: transparent; font-size: 16px; color: inherit;
-    }
-    .search-input::placeholder { color: #9aa3af; }
+    .search-container:focus-within{transform:translateY(-1px); box-shadow:0 10px 28px rgba(0,0,0,.14)}
+    .search-input{border:none; outline:none; width:100%; background:transparent; font-size:16px; color:inherit}
+    .search-input::placeholder{color:#9aa3af}
 
-    /* 접근성: 모션 감소 선호 시 애니메이션 최소화 */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    /* 모션 감소 선호 시 */
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important}
     }
   </style>
 </head>
-<body class="min-h-screen">
-
-  <!-- 다크모드 토글 -->
-  <button class="theme-toggle" id="themeToggle" title="테마 변경">🌙</button>
+<body>
 
   <div class="max-w-7xl mx-auto p-6">
     <!-- 헤더 -->
-    <header class="header-gradient text-white p-8 mb-8">
+    <header class="header-gradient p-8 mb-8">
       <h1 class="text-3xl font-extrabold">확률과 통계 수업</h1>
       <p class="text-indigo-100 font-semibold mt-1">2025년 2학기 • 담당: 박도영</p>
       <div class="mt-4 flex items-center gap-2 text-sm">
@@ -133,21 +91,21 @@
       </div>
     </div>
 
-    <!-- 액션 버튼 -->
+    <!-- 액션 버튼 (항상 새 창으로 열기) -->
     <section class="grid grid-cols-1 md:grid-cols-3 gap-6 searchable" data-search-text="OT 자료 시간표 평균 맞히기 게임 결과">
-      <button class="action-tile tile-blue" data-url="./orientation.html">
+      <button class="action-tile tile-blue" data-url="./orientation.html" aria-label="OT 자료 열기">
         <div class="text-3xl mb-2">📚</div>
         <h3 class="text-xl font-extrabold">OT 자료</h3>
         <p class="opacity-90">수업 소개 및 규칙</p>
       </button>
 
-      <button class="action-tile tile-green" data-url="./schedule.html">
+      <button class="action-tile tile-green" data-url="./schedule.html" aria-label="선생님 시간표 열기">
         <div class="text-3xl mb-2">⏰</div>
         <h3 class="text-xl font-extrabold">선생님 시간표</h3>
         <p class="opacity-90">주간 수업 일정</p>
       </button>
 
-      <button class="action-tile tile-purple" data-url="./average-game-result.html">
+      <button class="action-tile tile-purple" data-url="./average-game-result.html" aria-label="평균 맞히기 게임 결과 열기">
         <div class="text-3xl mb-2">🎯</div>
         <h3 class="text-xl font-extrabold">평균 맞히기 게임 결과</h3>
         <p class="opacity-90">학생별 순위 및 통계</p>
@@ -161,32 +119,32 @@
       </h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="text-center p-5 rounded-xl border bg-blue-50/70 border-blue-200 dark:bg-blue-900/20 dark:border-blue-700">
+        <div class="text-center p-5 rounded-xl border bg-blue-50/70 border-blue-200">
           <div class="text-3xl mb-2">📝</div>
-          <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-1">중간고사</h4>
-          <p class="text-blue-700 dark:text-blue-300 text-lg font-extrabold">30%</p>
-          <p class="text-blue-600 dark:text-blue-300 text-sm mt-1">9월 25일~10월 2일</p>
+          <h4 class="font-bold text-blue-800 mb-1">중간고사</h4>
+          <p class="text-blue-700 text-lg font-extrabold">30%</p>
+          <p class="text-blue-600 text-sm mt-1">9월 25일~10월 2일</p>
         </div>
 
-        <div class="text-center p-5 rounded-xl border bg-green-50/70 border-green-200 dark:bg-green-900/20 dark:border-green-700">
+        <div class="text-center p-5 rounded-xl border bg-green-50/70 border-green-200">
           <div class="text-3xl mb-2">📝</div>
-          <h4 class="font-bold text-green-800 dark:text-green-200 mb-1">기말고사</h4>
-          <p class="text-green-700 dark:text-green-300 text-lg font-extrabold">30%</p>
-          <p class="text-green-600 dark:text-green-300 text-sm mt-1">12월 11일~17일</p>
+          <h4 class="font-bold text-green-800 mb-1">기말고사</h4>
+          <p class="text-green-700 text-lg font-extrabold">30%</p>
+          <p class="text-green-600 text-sm mt-1">12월 11일~17일</p>
         </div>
 
-        <div class="text-center p-5 rounded-xl border bg-purple-50/70 border-purple-200 dark:bg-purple-900/20 dark:border-purple-700 md:col-span-2 lg:col-span-1">
+        <div class="text-center p-5 rounded-xl border bg-purple-50/70 border-purple-200 md:col-span-2 lg:col-span-1">
           <div class="text-3xl mb-2">🎯</div>
-          <h4 class="font-bold text-purple-800 dark:text-purple-200 mb-1">수행평가</h4>
-          <p class="text-purple-700 dark:text-purple-300 text-lg font-extrabold">40%</p>
+          <h4 class="font-bold text-purple-800 mb-1">수행평가</h4>
+          <p class="text-purple-700 text-lg font-extrabold">40%</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-            <div class="rounded-lg p-3 bg-white/60 dark:bg-white/10">
-              <p class="font-semibold text-purple-700 dark:text-purple-200">📋 과정평가</p>
-              <p class="text-purple-600 dark:text-purple-300 text-sm">단계별 평가 2회 (30%)</p>
+            <div class="rounded-lg p-3 bg-white/60">
+              <p class="font-semibold text-purple-700">📋 과정평가</p>
+              <p class="text-purple-600 text-sm">단계별 평가 2회 (30%)</p>
             </div>
-            <div class="rounded-lg p-3 bg-white/60 dark:bg-white/10">
-              <p class="font-semibold text-purple-700 dark:text-purple-200">🎤 탐구발표</p>
-              <p class="text-purple-600 dark:text-purple-300 text-sm">자료 제출 (10%)</p>
+            <div class="rounded-lg p-3 bg-white/60">
+              <p class="font-semibold text-purple-700">🎤 탐구발표</p>
+              <p class="text-purple-600 text-sm">자료 제출 (10%)</p>
             </div>
           </div>
         </div>
@@ -200,11 +158,11 @@
       </h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="rounded-xl border p-6 bg-blue-50/70 border-blue-200 dark:bg-blue-900/20 dark:border-blue-700">
-          <h4 class="text-xl font-extrabold text-blue-800 dark:text-blue-200 mb-3 flex items-center gap-2">
+        <div class="rounded-xl border p-6 bg-blue-50/70 border-blue-200">
+          <h4 class="text-xl font-extrabold text-blue-800 mb-3 flex items-center gap-2">
             <i data-lucide="calendar" class="w-5 h-5"></i> 중간고사
           </h4>
-          <ul class="space-y-2 text-blue-900 dark:text-blue-100">
+          <ul class="space-y-2 text-blue-900">
             <li class="flex justify-between"><span class="font-semibold">시험 기간</span><span>9월 25일 ~ 10월 2일</span></li>
             <li class="flex justify-between"><span class="font-semibold">시험 시간</span><span>50분</span></li>
             <li class="flex justify-between"><span class="font-semibold">시험 범위</span><span>Ⅲ-1. 확률분포</span></li>
@@ -212,11 +170,11 @@
           </ul>
         </div>
 
-        <div class="rounded-xl border p-6 bg-green-50/70 border-green-200 dark:bg-green-900/20 dark:border-green-700">
-          <h4 class="text-xl font-extrabold text-green-800 dark:text-green-200 mb-3 flex items-center gap-2">
+        <div class="rounded-xl border p-6 bg-green-50/70 border-green-200">
+          <h4 class="text-xl font-extrabold text-green-800 mb-3 flex items-center gap-2">
             <i data-lucide="calendar" class="w-5 h-5"></i> 기말고사
           </h4>
-          <ul class="space-y-2 text-green-900 dark:text-green-100">
+          <ul class="space-y-2 text-green-900">
             <li class="flex justify-between"><span class="font-semibold">시험 기간</span><span>12월 11일 ~ 17일</span></li>
             <li class="flex justify-between"><span class="font-semibold">시험 시간</span><span>50분</span></li>
             <li class="flex justify-between"><span class="font-semibold">시험 범위</span><span>Ⅲ-2. 통계적 추정</span></li>
@@ -238,7 +196,7 @@
             <h4 class="font-bold">📚 교재 준비 안내</h4>
             <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
-          <p class="text-gray-700 dark:text-gray-200 mt-1">주교재: 확률과 통계 (금성출판사), 부교재: EBS 수능특강 확률과 통계</p>
+          <p class="text-gray-700 mt-1">주교재: 확률과 통계 (금성출판사), 부교재: EBS 수능특강 확률과 통계</p>
         </article>
 
         <article class="border-l-4 border-green-500 pl-4 py-2">
@@ -246,7 +204,7 @@
             <h4 class="font-bold">🎯 수행평가 안내</h4>
             <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
-          <p class="text-gray-700 dark:text-gray-200 mt-1">탐구발표 자료 제출: 한글 파일 2쪽 이상, 제출기한 초과 시 1일당 2점 감점</p>
+          <p class="text-gray-700 mt-1">탐구발표 자료 제출: 한글 파일 2쪽 이상, 제출기한 초과 시 1일당 2점 감점</p>
         </article>
 
         <article class="border-l-4 border-purple-500 pl-4 py-2">
@@ -254,7 +212,7 @@
             <h4 class="font-bold">🏆 발표 권장사항</h4>
             <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
-          <p class="text-gray-700 dark:text-gray-200 mt-1">교과서 문제 풀이, 증명 발표 시 세특 기재 가능 (필수는 아님, 적극 권장)</p>
+          <p class="text-gray-700 mt-1">교과서 문제 풀이, 증명 발표 시 세특 기재 가능 (필수는 아님, 적극 권장)</p>
         </article>
 
         <article class="border-l-4 border-orange-500 pl-4 py-2">
@@ -262,41 +220,17 @@
             <h4 class="font-bold">📊 수능 출제 비중</h4>
             <time class="text-sm text-gray-500">2025.02.20</time>
           </div>
-          <p class="text-gray-700 dark:text-gray-200 mt-1">공통과목 22문항(74점), 선택과목 8문항(26점) - 확률과 통계/미적분/기하 중 선택</p>
+          <p class="text-gray-700 mt-1">공통과목 22문항(74점), 선택과목 8문항(26점) - 확률과 통계/미적분/기하 중 선택</p>
         </article>
       </div>
     </section>
   </div>
 
   <script>
-    // Lucide 아이콘 1회 초기화
+    // Lucide 아이콘 초기화
     lucide.createIcons();
 
-    // 다크모드 토글: 저장된 값 우선, 없으면 시스템 선호 반영
-    const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-    (function initTheme() {
-      const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
-      if (saved === 'dark') body.classList.add('dark');
-      if (saved === 'light') body.classList.add('light'); // 시스템 다크 무시
-      themeToggle.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
-    })();
-
-    themeToggle.addEventListener('click', () => {
-      if (body.classList.contains('dark')) {
-        body.classList.remove('dark');
-        body.classList.add('light');
-        localStorage.setItem('theme','light');
-        themeToggle.textContent = '🌙';
-      } else {
-        body.classList.add('dark');
-        body.classList.remove('light');
-        localStorage.setItem('theme','dark');
-        themeToggle.textContent = '☀️';
-      }
-    });
-
-    // 검색: 섹션 단위로 필터링 (레이아웃 깨짐 방지)
+    // 검색: 섹션 단위로 필터링
     const searchInput = document.getElementById('searchInput');
     const searchable = Array.from(document.querySelectorAll('.searchable'));
     searchInput.addEventListener('input', function(){
