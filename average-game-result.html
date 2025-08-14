@@ -191,7 +191,7 @@
             justify-content: center;
             align-items: end;
             margin-bottom: 50px;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
@@ -200,28 +200,36 @@
             color: white;
             border-radius: 20px;
             padding: 25px;
-            min-width: 180px;
+            min-width: 200px;
             position: relative;
             animation: slideUp 1s ease;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
 
         .first-place {
             background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            height: 220px;
+            height: 280px;
             order: 2;
+            transform: scale(1.1);
+            z-index: 3;
+            border: 4px solid #ffed4e;
         }
 
         .second-place {
             background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
-            height: 180px;
+            height: 220px;
             order: 1;
+            z-index: 2;
         }
 
         .third-place {
             background: linear-gradient(135deg, #cd7f32 0%, #daa520 100%);
-            height: 160px;
+            height: 180px;
             order: 3;
+            z-index: 1;
         }
 
         .podium-rank {
@@ -407,17 +415,51 @@
             .average-value { font-size: 2.4rem; }
             
             .podium { 
-                flex-direction: column; 
-                align-items: center; 
-                gap: 20px;
+                flex-direction: row;
+                justify-content: center;
+                align-items: end;
+                gap: 15px;
+                margin-bottom: 30px;
             }
+            
             .podium-place { 
-                min-width: 250px; 
-                order: unset !important;
+                min-width: 110px;
+                padding: 15px 10px;
+                font-size: 0.9em;
             }
-            .first-place, .second-place, .third-place {
-                height: auto;
-                padding: 30px;
+            
+            .first-place {
+                height: 200px;
+                min-width: 130px;
+                transform: scale(1.05);
+            }
+            
+            .second-place {
+                height: 160px;
+            }
+            
+            .third-place {
+                height: 140px;
+            }
+            
+            .podium-rank {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+            
+            .podium-name {
+                font-size: 1.1rem;
+                margin-bottom: 6px;
+            }
+            
+            .podium-class {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+            
+            .podium-score {
+                font-size: 1rem;
+                padding: 6px 12px;
             }
             
             .table-header, .table-row { 
@@ -443,6 +485,49 @@
             .congratulations { padding: 30px; }
             .congratulations h3 { font-size: 1.5rem; }
             .congratulations p { font-size: 1.1rem; }
+            
+            .podium { 
+                gap: 10px;
+            }
+            
+            .podium-place { 
+                min-width: 90px;
+                padding: 12px 8px;
+                font-size: 0.8em;
+            }
+            
+            .first-place {
+                height: 160px;
+                min-width: 100px;
+            }
+            
+            .second-place {
+                height: 130px;
+            }
+            
+            .third-place {
+                height: 110px;
+            }
+            
+            .podium-rank {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+            
+            .podium-name {
+                font-size: 1rem;
+                margin-bottom: 4px;
+            }
+            
+            .podium-class {
+                font-size: 0.8rem;
+                margin-bottom: 8px;
+            }
+            
+            .podium-score {
+                font-size: 0.9rem;
+                padding: 5px 10px;
+            }
         }
     </style>
 </head>
