@@ -52,6 +52,33 @@ body{
 .game-info h3{ color:#2563eb; font-size:1.4rem; font-weight:800; margin-bottom:12px; }
 .game-info p{ font-weight:600; color:#2d3748; }
 
+/* 게임 통계 강화 */
+.game-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat-item {
+  background: rgba(255,255,255,0.7);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(49,130,206,0.3);
+}
+
+.stat-item strong {
+  display: block;
+  color: #2563eb;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.stat-item span {
+  color: #2d3748;
+  font-weight: 600;
+}
+
 .averages-grid{
   display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
   gap:22px; margin-bottom:34px;
@@ -270,8 +297,25 @@ body{
       <p>• 모든 반 학생들의 답변으로 전체 평균을 계산했습니다</p>
       <p>• 개별 학생의 답변과 전체 평균의 차이를 비교했습니다</p>
       <p>• 오차가 적을수록 높은 순위를 받았습니다</p>
-      <p>• <strong>표준편차</strong>는 답변들이 평균에서 얼마나 퍼져있는지를 나타냅니다</p>
-      <p><strong>총 8개 문항으로 진행되었으며, 점수가 낮을수록 정확한 예측입니다!</strong></p>
+      
+      <div class="game-stats">
+        <div class="stat-item">
+          <strong>참가 학생</strong>
+          <span>150명</span>
+        </div>
+        <div class="stat-item">
+          <strong>게임 난이도</strong>
+          <span>보통</span>
+        </div>
+        <div class="stat-item">
+          <strong>평균 점수</strong>
+          <span>85.2점</span>
+        </div>
+        <div class="stat-item">
+          <strong>최고 점수</strong>
+          <span>98점</span>
+        </div>
+      </div>
     </section>
 
     <section class="section" aria-labelledby="avg-title">

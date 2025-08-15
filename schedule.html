@@ -80,6 +80,47 @@
             background: #f8f9fa;
         }
         
+        /* 시간 정보 강화 */
+        .time-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(102,126,234,0.3);
+        }
+        
+        .time-info h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+        
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .time-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .time-item strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .time-item span {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
         .schedule-table {
             width: 100%;
             border-collapse: separate;
@@ -420,6 +461,27 @@
         </div>
 
         <div class="schedule-container">
+            <div class="time-info">
+                <h3>📅 2025년 2학기 확률과 통계 시간표</h3>
+                <div class="time-grid">
+                    <div class="time-item">
+                        <strong>시작 시간</strong>
+                        <span>08:20</span>
+                    </div>
+                    <div class="time-item">
+                        <strong>종료 시간</strong>
+                        <span>16:00</span>
+                    </div>
+                    <div class="time-item">
+                        <strong>총 수업 시간</strong>
+                        <span>7시간 40분</span>
+                    </div>
+                    <div class="time-item">
+                        <strong>주 수업 시간</strong>
+                        <span>3시간</span>
+                    </div>
+                </div>
+            </div>
             <table class="schedule-table">
                 <thead>
                     <tr>

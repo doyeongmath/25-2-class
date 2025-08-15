@@ -62,6 +62,66 @@
     .search-input{border:none; outline:none; width:100%; background:transparent; font-size:16px; color:inherit}
     .search-input::placeholder{color:#9aa3af}
 
+    /* 다크모드 스타일 */
+    body.dark {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #e5e7eb;
+    }
+    
+    body.dark .card {
+      background: #1f2937;
+      border-color: rgba(255,255,255,.1);
+      color: #e5e7eb;
+    }
+    
+    body.dark .search-container {
+      background: #1f2937;
+      color: #e5e7eb;
+    }
+    
+    body.dark .search-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    body.dark .iframe-modal {
+      background: #1f2937;
+      color: #e5e7eb;
+    }
+    
+    body.dark .iframe-header {
+      border-bottom-color: #374151;
+    }
+    
+    /* 테마 토글 버튼 */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .theme-toggle {
+      background: rgba(31,41,55,0.9);
+      color: #e5e7eb;
+    }
+
     /* ===== 인-모드 iframe 모달 =====
        깜빡임 방지: display 고정, visibility/opacity 전환 + 스크롤 잠금시 padding-right 보정 */
     .iframe-container{
@@ -111,6 +171,11 @@
   </style>
 </head>
 <body>
+
+  <!-- 다크모드 토글 버튼 -->
+  <button id="themeToggle" class="theme-toggle" aria-label="테마 변경">
+    🌙
+  </button>
 
   <div class="max-w-7xl mx-auto p-6">
     <!-- 헤더 -->
@@ -282,6 +347,33 @@
   <script>
     // 아이콘 1회 초기화
     lucide.createIcons();
+
+    // 다크모드 토글
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // 저장된 테마 불러오기
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark');
+      themeToggle.textContent = '☀️';
+    }
+    
+    // 테마 토글 함수
+    function toggleTheme() {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      
+      if (isDark) {
+        themeToggle.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    
+    themeToggle.addEventListener('click', toggleTheme);
 
     // 검색: 섹션 단위 필터링
     const searchInput = document.getElementById('searchInput');
