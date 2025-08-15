@@ -46,39 +46,24 @@ body{
 }
 
 .game-info{
-  background:linear-gradient(135deg,#e8f4fd,#d1ecf1);
-  padding:24px; border-radius:14px; margin-bottom:34px; border:2px solid #3182ce; text-align:center;
+  background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+  padding:28px; border-radius:16px; margin-bottom:40px; 
+  border:2px solid #cbd5e1; text-align:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
 }
-.game-info h3{ color:#2563eb; font-size:1.4rem; font-weight:800; margin-bottom:12px; }
-.game-info p{ font-weight:600; color:#2d3748; }
-
-/* 게임 통계 강화 */
-.game-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+.game-info h3{ 
+  color:#1e40af; font-size:1.5rem; font-weight:800; margin-bottom:16px; 
+  text-shadow:0 1px 2px rgba(0,0,0,0.1);
 }
-
-.stat-item {
-  background: rgba(255,255,255,0.7);
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid rgba(49,130,206,0.3);
+.game-info p{ 
+  font-weight:600; color:#374151; margin-bottom:8px; line-height:1.6;
 }
-
-.stat-item strong {
-  display: block;
-  color: #2563eb;
-  font-size: 1.1em;
-  margin-bottom: 5px;
+.game-info p:last-child{ 
+  margin-bottom:0; color:#059669; font-weight:700; 
+  background:rgba(5,150,105,0.1); padding:8px 16px; border-radius:8px;
+  display:inline-block; margin-top:12px;
 }
-
-.stat-item span {
-  color: #2d3748;
-  font-weight: 600;
-}
-
+    
 .averages-grid{
   display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
   gap:22px; margin-bottom:34px;
@@ -297,25 +282,7 @@ body{
       <p>• 모든 반 학생들의 답변으로 전체 평균을 계산했습니다</p>
       <p>• 개별 학생의 답변과 전체 평균의 차이를 비교했습니다</p>
       <p>• 오차가 적을수록 높은 순위를 받았습니다</p>
-      
-      <div class="game-stats">
-        <div class="stat-item">
-          <strong>참가 학생</strong>
-          <span>150명</span>
-        </div>
-        <div class="stat-item">
-          <strong>게임 난이도</strong>
-          <span>보통</span>
-        </div>
-        <div class="stat-item">
-          <strong>평균 점수</strong>
-          <span>85.2점</span>
-        </div>
-        <div class="stat-item">
-          <strong>최고 점수</strong>
-          <span>98점</span>
-        </div>
-      </div>
+      <p>• 총 8개 문항으로 진행되었으며, 점수가 낮을수록 정확한 예측입니다!</p>
     </section>
 
     <section class="section" aria-labelledby="avg-title">
