@@ -42,6 +42,7 @@
     .tile-blue{background:linear-gradient(135deg,#3b82f6 0%,#6366f1 100%)}
     .tile-green{background:linear-gradient(135deg,#22c55e 0%,#3b82f6 100%)}
     .tile-purple{background:linear-gradient(135deg,#8b5cf6 0%,#a855f7 100%)}
+    .tile-orange{background:linear-gradient(135deg,#f59e0b 0%,#f97316 100%)}
 
     /* 카드 공통 */
     .card{
@@ -198,7 +199,7 @@
     </div>
 
     <!-- 액션 버튼 (인-모드로 열고, 모달 상단에 '새 창으로 열기' 있음) -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto searchable" data-search-text="OT 자료 시간표 자기평가">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto searchable" data-search-text="OT 자료 시간표 자기평가 평균맞히기">
       <button class="action-tile tile-blue" onclick="handleViewOTMaterial()" aria-label="OT 자료 열기">
         <div class="text-3xl mb-2">📚</div>
         <h3 class="text-xl font-extrabold">OT 자료</h3>
@@ -215,6 +216,12 @@
         <div class="text-3xl mb-2">📊</div>
         <h3 class="text-xl font-extrabold">자기평가 결과</h3>
         <p class="opacity-90">1학기 학생 의견 분석</p>
+      </button>
+
+      <button class="action-tile tile-orange" onclick="handleViewGameResult()" aria-label="평균 맞히기 게임 결과 열기">
+        <div class="text-3xl mb-2">🎯</div>
+        <h3 class="text-xl font-extrabold">평균 맞히기 게임</h3>
+        <p class="opacity-90">통계적 추정 능력 측정</p>
       </button>
     </section>
 
@@ -323,16 +330,6 @@
             <h4 class="font-bold">📊 수능 출제 비중</h4>
           </div>
           <p class="text-gray-700 mt-1">공통과목 22문항(74점), 선택과목 8문항(26점) - 확률과 통계/미적분/기하 중 선택</p>
-        </article>
-
-        <article class="border-l-4 border-purple-500 pl-4 py-2">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold">🎯 평균 맞히기 게임 결과</h4>
-            <button onclick="handleViewGameResult()" class="text-purple-600 hover:text-purple-800 font-semibold text-sm px-3 py-1 rounded-lg hover:bg-purple-50 transition-colors">
-              결과 보기 →
-            </button>
-          </div>
-          <p class="text-gray-700 mt-1">전체 학생들의 통계적 추정 능력을 측정한 게임 결과를 확인할 수 있습니다</p>
         </article>
       </div>
     </section>
