@@ -460,14 +460,15 @@
     // 버튼 핸들러 (인-모드로 먼저 열기)
     function handleViewOTMaterial(){ showInIframe('./orientation.html', 'OT 자료'); }
     function handleViewSchedule(){ showInIframe('./schedule.html', '선생님 시간표'); }
-    function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
     function handleViewSelfEvaluation(){ showInIframe('./self-evaluation.html', '자기평가 결과'); }
+    function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
+    
 
     // 전역 노출 (onclick용)
     window.handleViewOTMaterial = handleViewOTMaterial;
     window.handleViewSchedule = handleViewSchedule;
-    window.handleViewGameResult = handleViewGameResult;
     window.handleViewSelfEvaluation = handleViewSelfEvaluation;
+    window.handleViewGameResult = handleViewGameResult;
   </script>
 </body>
 </html>
