@@ -192,34 +192,11 @@
           </div>
         </div>
         
-        <!-- 간단한 시간표 -->
+        <!-- 전체 시간표 보기 버튼 -->
         <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-          <h3 class="text-lg font-bold text-white mb-3">📅 이번 주 수업</h3>
-          <div class="grid grid-cols-5 gap-2 text-xs text-white/90">
-            <div class="text-center">
-              <div class="font-semibold">월</div>
-              <div class="bg-white/20 rounded px-1 py-1">1교시</div>
-            </div>
-            <div class="text-center">
-              <div class="font-semibold">화</div>
-              <div class="bg-white/20 rounded px-1 py-1">2교시</div>
-            </div>
-            <div class="text-center">
-              <div class="font-semibold">수</div>
-              <div class="bg-white/20 rounded px-1 py-1">3교시</div>
-            </div>
-            <div class="text-center">
-              <div class="font-semibold">목</div>
-              <div class="bg-white/20 rounded px-1 py-1">4교시</div>
-            </div>
-            <div class="text-center">
-              <div class="font-semibold">금</div>
-              <div class="bg-white/20 rounded px-1 py-1">창체</div>
-            </div>
-          </div>
-          <div class="mt-3 text-center">
-            <button onclick="handleViewSchedule()" class="bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-1 rounded-lg transition-colors">
-              전체 시간표 보기 →
+          <div class="text-center">
+            <button onclick="handleViewSchedule()" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors font-semibold">
+              📅 전체 시간표 보기 →
             </button>
           </div>
         </div>
@@ -235,12 +212,8 @@
     </div>
 
     <!-- 액션 버튼 (인-모드로 열고, 모달 상단에 '새 창으로 열기' 있음) -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto searchable" data-search-text="시간표 OT 자료 자기평가 평균맞히기">
-      <button class="action-tile tile-green" onclick="handleViewSchedule()" aria-label="선생님 시간표 열기">
-        <div class="text-3xl mb-2">⏰</div>
-        <h3 class="text-xl font-extrabold">선생님 시간표</h3>
-        <p class="opacity-90">주간 수업 일정</p>
-      </button>
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto searchable" data-search-text="OT 자료 자기평가 평균맞히기">
+
 
       <button class="action-tile tile-blue" onclick="handleViewOTMaterial()" aria-label="OT 자료 열기">
         <div class="text-3xl mb-2">📚</div>
