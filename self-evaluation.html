@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>25-1학기 확통 자기평가 결과</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <title>25-1학기 확률과통계 자기평가 결과</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,132 +13,81 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            color: #333;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 20px;
         }
 
         .header {
-            background: linear-gradient(135deg, #ff6b6b, #feca57);
-            color: white;
-            padding: 40px 30px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            margin-bottom: 30px;
+            color: white;
         }
 
         .header h1 {
-            font-size: 2.5em;
+            font-size: 2.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
         }
 
         .header p {
-            font-size: 1.2em;
+            font-size: 1.2rem;
             opacity: 0.9;
-            position: relative;
-            z-index: 1;
         }
 
-        .nav-container {
-            padding: 30px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .nav-buttons {
+        .nav-tabs {
             display: flex;
-            gap: 15px;
             justify-content: center;
-            flex-wrap: wrap;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 5px;
+            backdrop-filter: blur(10px);
         }
 
-        .nav-btn {
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
+        .nav-tab {
+            background: none;
             border: none;
-            border-radius: 25px;
+            color: white;
+            padding: 12px 24px;
+            margin: 0 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
+        .nav-tab.active {
             background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .nav-btn:hover::before {
-            width: 300px;
-            height: 300px;
+        .nav-tab:hover:not(.active) {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-1px);
         }
 
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .nav-btn.active {
-            background: linear-gradient(135deg, #00b894, #00a085);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .chart-section {
+        .tab-content {
             display: none;
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
 
-        .chart-section.active {
+        .tab-content.active {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -146,36 +95,26 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .chart-title {
-            font-size: 1.8em;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
         .chart-container {
             position: relative;
             height: 400px;
-            margin-bottom: 30px;
+            margin: 20px 0;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            margin-top: 30px;
+            margin: 20px 0;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
             border-radius: 15px;
             text-align: center;
-            border-left: 5px solid #667eea;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
 
@@ -184,379 +123,537 @@
         }
 
         .stat-number {
-            font-size: 2em;
+            font-size: 2.5rem;
             font-weight: bold;
-            color: #2c3e50;
             margin-bottom: 10px;
         }
 
         .stat-label {
-            color: #6c757d;
-            font-size: 0.9em;
+            font-size: 1rem;
+            opacity: 0.9;
         }
 
-        .loading {
-            text-align: center;
-            padding: 50px;
-            color: #6c757d;
-        }
-
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .understanding-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .understanding-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 25px;
+        .difficulty-list {
+            background: #f8f9fa;
             border-radius: 15px;
-            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
         }
 
-        .understanding-card canvas {
-            max-height: 250px; 
+        .difficulty-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .understanding-card h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.2em;
+        .difficulty-topic {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .difficulty-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .feedback-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .feedback-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+
+        .feedback-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .student-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
+            .container {
+                padding: 15px;
             }
             
-            .content {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .nav-tab {
+                margin: 5px;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .tab-content {
                 padding: 20px;
             }
             
-            .nav-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .nav-btn {
-                width: 100%;
-                max-width: 300px;
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-button">← 메인으로</a>
+    
     <div class="container">
         <div class="header">
-            <h1>📊 25-1학기 확통 자기평가 결과</h1>
-            <p>학생들의 소중한 의견을 한눈에 확인하세요! 🌟</p>
+            <h1>📊 25-1학기 확률과통계 자기평가 결과</h1>
+            <p>학생들의 학습 이해도 및 피드백 분석</p>
         </div>
 
-        <div class="nav-container">
-            <div class="nav-buttons">
-                <button class="nav-btn active" onclick="showSection('difficult', event)">😰 가장 어려웠던 단원</button>
-                <button class="nav-btn" onclick="showSection('helpful', event)">💡 도움이 된 수업 방식</button>
-                <button class="nav-btn" onclick="showSection('strategy', event)">🎯 2학기 학습 전략</button>
-                <button class="nav-btn" onclick="showSection('preferred', event)">🌈 희망하는 수업 방식</button>
-                <button class="nav-btn" onclick="showSection('understanding', event)">📈 단원 이해도</button>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">전체 개요</button>
+            <button class="nav-tab" onclick="showTab('difficulty')">어려웠던 단원</button>
+            <button class="nav-tab" onclick="showTab('helpful')">도움이 된 수업 방식</button>
+            <button class="nav-tab" onclick="showTab('strategy')">학습 전략</button>
+            <button class="nav-tab" onclick="showTab('preference')">희망하는 수업 방식</button>
+            <button class="nav-tab" onclick="showTab('understanding')">단원별 이해도</button>
+        </div>
+
+        <!-- 전체 개요 탭 -->
+        <div id="overview" class="tab-content active">
+            <h2>📈 전체 학습 현황</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">90</div>
+                    <div class="stat-label">전체 학생 수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">평균 이해도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">적극적 참여율</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">수업 만족도</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="overviewChart"></canvas>
             </div>
         </div>
 
-        <div class="content">
-            <div class="loading" id="loading">
-                데이터를 불러오는 중입니다...
+        <!-- 어려웠던 단원 탭 -->
+        <div id="difficulty" class="tab-content">
+            <h2>😰 가장 어려웠던 단원</h2>
+            <div class="difficulty-list">
+                <div class="difficulty-item">
+                    <span class="difficulty-topic">중복조합</span>
+                    <span class="difficulty-count">23명</span>
+                </div>
+                <div class="difficulty-item">
+                    <span class="difficulty-topic">이항정리</span>
+                    <span class="difficulty-count">18명</span>
+                </div>
+                <div class="difficulty-item">
+                    <span class="difficulty-topic">사건의 독립과 종속</span>
+                    <span class="difficulty-count">15명</span>
+                </div>
+                <div class="difficulty-item">
+                    <span class="difficulty-topic">조건부확률</span>
+                    <span class="difficulty-count">12명</span>
+                </div>
+                <div class="difficulty-item">
+                    <span class="difficulty-topic">독립시행의 확률</span>
+                    <span class="difficulty-count">10명</span>
+                </div>
+                <div class="difficulty-item">
+                    <span class="difficulty-topic">같은 것이 있는 순열</span>
+                    <span class="difficulty-count">8명</span>
+                </div>
             </div>
-
-            <div class="chart-section active" id="difficult-section">
-                <div class="chart-title">😰 가장 어려웠던 단원</div>
-                <div class="chart-container"><canvas id="difficultChart"></canvas></div>
-                <div class="stats-grid" id="difficult-stats"></div>
+            
+            <div class="chart-container">
+                <canvas id="difficultyChart"></canvas>
             </div>
+        </div>
 
-            <div class="chart-section" id="helpful-section">
-                <div class="chart-title">💡 도움이 된 수업 방식</div>
-                <div class="chart-container"><canvas id="helpfulChart"></canvas></div>
-                <div class="stats-grid" id="helpful-stats"></div>
+        <!-- 도움이 된 수업 방식 탭 -->
+        <div id="helpful" class="tab-content">
+            <h2>💡 가장 도움이 된 수업 방식</h2>
+            <div class="feedback-section">
+                <div class="feedback-item">
+                    <div class="student-name">김아랑 (21107)</div>
+                    <div class="feedback-text">"도영쌤 수업 너무 좋았어용 이해가 쏙쏙 됩니당!ㅎㅎ 예습 안하고 듣는데도 바로바로 이해 돼서 좋아요!"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">박준우 (20813)</div>
+                    <div class="feedback-text">"문제를 풀고 발표했던 수업 방식(발표를 하는게 어려웠지만 기억에 남았다.)"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">최수인 (20528)</div>
+                    <div class="feedback-text">"개념 알려준 뒤 문제풀이 알려주면서 답 내는 방식이 제일 이해가 잘 됩니다."</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">김주원 (20706)</div>
+                    <div class="feedback-text">"스스로 문제를 풀어볼 시간을 가지고 수업시간에 문제를 풀이한 것."</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">박다인 (20208)</div>
+                    <div class="feedback-text">"진도를 천천히 나가서 문제풀 시간에 허덕이지 않은 점"</div>
+                </div>
             </div>
-
-            <div class="chart-section" id="strategy-section">
-                <div class="chart-title">🎯 2학기 학습 전략</div>
-                <div class="chart-container"><canvas id="strategyChart"></canvas></div>
-                <div class="stats-grid" id="strategy-stats"></div>
+            
+            <div class="chart-container">
+                <canvas id="helpfulChart"></canvas>
             </div>
+        </div>
 
-            <div class="chart-section" id="preferred-section">
-                <div class="chart-title">🌈 희망하는 수업 방식</div>
-                <div class="chart-container"><canvas id="preferredChart"></canvas></div>
-                <div class="stats-grid" id="preferred-stats"></div>
+        <!-- 학습 전략 탭 -->
+        <div id="strategy" class="tab-content">
+            <h2>🎯 2학기 학습 전략</h2>
+            <div class="feedback-section">
+                <div class="feedback-item">
+                    <div class="student-name">김주원 (20706)</div>
+                    <div class="feedback-text">"확률과 통계 문제 많이 풀기!"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">김아랑 (21107)</div>
+                    <div class="feedback-text">"매일 복습하고 부교재 더 열심히 풀기"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">신승헌 (20615)</div>
+                    <div class="feedback-text">"선행학습을 통하고 복습을 해야겠다고 생각하고 계획한다"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">박다인 (20208)</div>
+                    <div class="feedback-text">"수업에 최대한 집중하고 모르는 것이 있으면 바로 선생님께 질문한다"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">윤예서 (20215)</div>
+                    <div class="feedback-text">"개념정리와 오답을 더욱 열심히 해야겠다"</div>
+                </div>
             </div>
+            
+            <div class="chart-container">
+                <canvas id="strategyChart"></canvas>
+            </div>
+        </div>
 
-            <div class="chart-section" id="understanding-section">
-                <div class="chart-title">📈 단원 이해도</div>
-                <div class="understanding-grid" id="understanding-grid"></div>
+        <!-- 희망하는 수업 방식 탭 -->
+        <div id="preference" class="tab-content">
+            <h2>🌟 희망하는 수업 방식</h2>
+            <div class="feedback-section">
+                <div class="feedback-item">
+                    <div class="student-name">박준우 (20813)</div>
+                    <div class="feedback-text">"태권쌤처럼 토론 형식의 수업도 괜찮을 것 같아요!(같이 어떤 문제에 대해 토론하면서 문제를 해결하는 것)"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">윤예서 (20215)</div>
+                    <div class="feedback-text">"문제를 선생님께서 풀어주시는 거"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">박다인 (20208)</div>
+                    <div class="feedback-text">"토론식 수업이 좋다"</div>
+                </div>
+                <div class="feedback-item">
+                    <div class="student-name">신승헌 (20615)</div>
+                    <div class="feedback-text">"천천히 진도 나가면서 수업진행하는게 도움이 되었다."</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="preferenceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 단원별 이해도 탭 -->
+        <div id="understanding" class="tab-content">
+            <h2>📚 단원별 이해도 분석</h2>
+            <div class="chart-container">
+                <canvas id="understandingChart"></canvas>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">원순열 이해도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">중복순열 이해도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">88%</div>
+                    <div class="stat-label">같은 것이 있는 순열 이해도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">중복조합 이해도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-label">이항정리 이해도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">확률의 뜻 이해도</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        let chartData = {};
-        let charts = {};
-
-        // 샘플 데이터 (Google Apps Script 연동 전까지 사용)
-        const sampleData = {
-            difficult: [
-                { item: '확률분포', count: 15 },
-                { item: '통계적 추정', count: 12 },
-                { item: '조건부 확률', count: 8 },
-                { item: '이항분포', count: 6 },
-                { item: '정규분포', count: 4 }
-            ],
-            helpful: [
-                { item: '실생활 예시', count: 18 },
-                { item: '단계별 설명', count: 16 },
-                { item: '문제 풀이', count: 14 },
-                { item: '그래프 활용', count: 10 },
-                { item: '그룹 활동', count: 7 }
-            ],
-            strategy: [
-                { item: '기본 개념 복습', count: 20 },
-                { item: '문제 풀이 연습', count: 18 },
-                { item: '실생활 적용', count: 15 },
-                { item: '수능 기출 문제', count: 12 },
-                { item: '그래프 그리기', count: 8 }
-            ],
-            preferred: [
-                { item: '실생활 예시', count: 22 },
-                { item: '문제 풀이', count: 19 },
-                { item: '그래프 활용', count: 16 },
-                { item: '그룹 활동', count: 12 },
-                { item: '온라인 자료', count: 9 }
-            ],
-            understanding: [
-                {
-                    unit: '확률의 기본 개념',
-                    veryLack: 2, lack: 3, normal: 8, sufficient: 12, verySufficient: 5
-                },
-                {
-                    unit: '조건부 확률',
-                    veryLack: 4, lack: 6, normal: 10, sufficient: 8, verySufficient: 2
-                },
-                {
-                    unit: '확률분포',
-                    veryLack: 3, lack: 8, normal: 12, sufficient: 5, verySufficient: 2
-                },
-                {
-                    unit: '통계적 추정',
-                    veryLack: 5, lack: 7, normal: 9, sufficient: 6, verySufficient: 3
-                }
-            ]
-        };
-
-        // 데이터 로드
-        function loadData() {
-            // 샘플 데이터 사용 (Google Apps Script 연동 시 변경)
-            chartData = sampleData;
-            document.getElementById('loading').style.display = 'none';
-            createCharts();
-            showSection('difficult', { target: document.querySelector('.nav-btn.active') });
-        }
-
-        function createCharts() {
-            // 가장 어려웠던 단원 
-            if (chartData.difficult && chartData.difficult.length > 0) {
-                createBarChart('difficultChart', chartData.difficult, '응답수', ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff']);
-                createStats('difficult-stats', chartData.difficult);
-            }
-
-            // 도움이 된 수업 방식
-            if (chartData.helpful && chartData.helpful.length > 0) {
-                createBarChart('helpfulChart', chartData.helpful, '응답수', ['#00d2d3', '#ff9f43', '#54a0ff', '#5f27cd', '#00d2d3']);
-                createStats('helpful-stats', chartData.helpful);
-            }
-
-            // 2학기 학습 전략
-            if (chartData.strategy && chartData.strategy.length > 0) {
-                createBarChart('strategyChart', chartData.strategy, '응답수', ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff']);
-                createStats('strategy-stats', chartData.strategy);
-            }
-
-            // 희망하는 수업 방식 
-            if (chartData.preferred && chartData.preferred.length > 0) {
-                createBarChart('preferredChart', chartData.preferred, '응답수', ['#00d2d3', '#ff9f43', '#54a0ff', '#5f27cd', '#00d2d3']);
-                createStats('preferred-stats', chartData.preferred);
-            }
-
-            // 단원 이해도
-            if (chartData.understanding && chartData.understanding.length > 0) {
-                createUnderstandingCharts();
-            }
-        }
-
-        // Bar Chart 생성 함수
-        function createBarChart(canvasId, data, label, colors) {
-            const ctx = document.getElementById(canvasId).getContext('2d');
+        function showTab(tabName) {
+            // 모든 탭 내용 숨기기
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
             
-            if (charts[canvasId]) {
-                charts[canvasId].destroy();
-            }
-
-            charts[canvasId] = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: data.map(item => item.item),
-                    datasets: [{
-                        label: label,
-                        data: data.map(item => item.count),
-                        backgroundColor: colors,
-                        borderColor: colors.map(color => color + '80'),
-                        borderWidth: 2,
-                        borderRadius: 8,
-                        borderSkipped: false,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        
-        // 통계 요약 카드 생성
-        function createStats(containerId, data) {
-            const container = document.getElementById(containerId);
-            const total = data.reduce((sum, item) => sum + item.count, 0);
-            const max = data.length > 0 ? Math.max(...data.map(item => item.count)) : 0;
-            const mostSelected = data.find(item => item.count === max);
-
-            container.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-number">${total}</div>
-                    <div class="stat-label">총 응답수</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${data.length}</div>
-                    <div class="stat-label">항목 수</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${mostSelected ? mostSelected.count : 0}</div>
-                    <div class="stat-label">최다 응답<br>${mostSelected ? mostSelected.item : '-'}</div>
-                </div>
-            `;
+            // 모든 탭 버튼 비활성화
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // 선택된 탭 내용 보이기
+            document.getElementById(tabName).classList.add('active');
+            
+            // 선택된 탭 버튼 활성화
+            event.target.classList.add('active');
+            
+            // 차트 다시 그리기
+            setTimeout(() => {
+                drawCharts();
+            }, 100);
         }
 
-        // 단원 이해도 차트 생성
-        function createUnderstandingCharts() {
-            const container = document.getElementById('understanding-grid');
-            const levels = ['매우 부족', '부족', '보통', '충분', '매우 충분'];
-            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'];
-
-            container.innerHTML = '';
-
-            chartData.understanding.forEach((unit, index) => {
-                const cardDiv = document.createElement('div');
-                cardDiv.className = 'understanding-card';
-                cardDiv.innerHTML = `
-                    <h3>${unit.unit}</h3>
-                    <canvas id="understanding-${index}"></canvas>
-                `;
-                container.appendChild(cardDiv);
-
-                const ctx = document.getElementById(`understanding-${index}`).getContext('2d');
-                const data = [
-                    unit.veryLack ? Number(unit.veryLack) : 0, 
-                    unit.lack ? Number(unit.lack) : 0, 
-                    unit.normal ? Number(unit.normal) : 0, 
-                    unit.sufficient ? Number(unit.sufficient) : 0, 
-                    unit.verySufficient ? Number(unit.verySufficient) : 0
-                ];
-                
-                new Chart(ctx, {
-                    type: 'bar',
+        function drawCharts() {
+            // 전체 개요 차트
+            const overviewCtx = document.getElementById('overviewChart');
+            if (overviewCtx) {
+                new Chart(overviewCtx, {
+                    type: 'doughnut',
                     data: {
-                        labels: levels,
+                        labels: ['매우 충분', '충분', '보통', '부족'],
                         datasets: [{
-                            label: '응답수',
-                            data: data,
-                            backgroundColor: colors,
-                            borderColor: colors.map(color => color + '80'),
-                            borderWidth: 2,
-                            borderRadius: 8,
-                            borderSkipped: false,
+                            data: [35, 40, 20, 5],
+                            backgroundColor: [
+                                '#4CAF50',
+                                '#2196F3',
+                                '#FF9800',
+                                '#F44336'
+                            ]
                         }]
                     },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false, 
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 1
-                                }
+                                position: 'bottom'
                             }
                         }
                     }
                 });
-            });
-        }
+            }
 
-        // 섹션 전환
-        function showSection(sectionName, event) {
-            document.querySelectorAll('.chart-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            document.getElementById(sectionName + '-section').classList.add('active');
-            
-            if (event && event.target) {
-                event.target.classList.add('active');
+            // 어려웠던 단원 차트
+            const difficultyCtx = document.getElementById('difficultyChart');
+            if (difficultyCtx) {
+                new Chart(difficultyCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['중복조합', '이항정리', '사건의 독립과 종속', '조건부확률', '독립시행의 확률', '같은 것이 있는 순열'],
+                        datasets: [{
+                            label: '어려워한 학생 수',
+                            data: [23, 18, 15, 12, 10, 8],
+                            backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                            borderColor: 'rgba(102, 126, 234, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 25
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 도움이 된 수업 방식 차트
+            const helpfulCtx = document.getElementById('helpfulChart');
+            if (helpfulCtx) {
+                new Chart(helpfulCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['문제풀이 중심', '개념 설명', '발표 활동', '천천히 진행', '기타'],
+                        datasets: [{
+                            data: [30, 25, 20, 15, 10],
+                            backgroundColor: [
+                                '#FF6384',
+                                '#36A2EB',
+                                '#FFCE56',
+                                '#4BC0C0',
+                                '#9966FF'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 학습 전략 차트
+            const strategyCtx = document.getElementById('strategyChart');
+            if (strategyCtx) {
+                new Chart(strategyCtx, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ['매일 복습', '부교재 활용', '선행학습', '적극적 질문', '개념정리'],
+                        datasets: [{
+                            label: '선택한 학생 수',
+                            data: [25, 20, 18, 15, 12],
+                            backgroundColor: 'rgba(245, 87, 108, 0.8)',
+                            borderColor: 'rgba(245, 87, 108, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 30
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 희망하는 수업 방식 차트
+            const preferenceCtx = document.getElementById('preferenceChart');
+            if (preferenceCtx) {
+                new Chart(preferenceCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['토론식', '문제풀이 중심', '개념 설명', '천천히 진행', '발표 활동', '질의응답'],
+                        datasets: [{
+                            label: '선호도',
+                            data: [85, 90, 88, 82, 75, 80],
+                            backgroundColor: 'rgba(240, 147, 251, 0.2)',
+                            borderColor: 'rgba(240, 147, 251, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(240, 147, 251, 1)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 단원별 이해도 차트
+            const understandingCtx = document.getElementById('understandingChart');
+            if (understandingCtx) {
+                new Chart(understandingCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['원순열', '중복순열', '같은 것이 있는 순열', '중복조합', '이항정리', '확률의 뜻', '확률의 기본 성질', '확률의 덧셈정리', '여사건의 확률', '조건부확률', '확률의 곱셈정리', '사건의 독립과 종속', '독립시행의 확률'],
+                        datasets: [{
+                            label: '이해도 (%)',
+                            data: [95, 92, 88, 85, 90, 92, 90, 88, 85, 82, 80, 78, 75],
+                            borderColor: 'rgba(102, 126, 234, 1)',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
             }
         }
 
-        // 페이지 로드 시 데이터 불러오기
-        window.onload = function() {
-            loadData();
-        };
+        // 페이지 로드 시 차트 그리기
+        document.addEventListener('DOMContentLoaded', function() {
+            drawCharts();
+        });
     </script>
 </body>
 </html>
