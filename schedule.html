@@ -161,10 +161,7 @@
             border-top: 3px solid rgba(0,0,0,0.4);
         }
         
-        /* 3,4교시 구분선에 배경색 추가 */
-        .schedule-table tr:nth-child(4) td {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        }
+
         
         .schedule-table th {
             background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
@@ -245,6 +242,18 @@
         .creative-cell:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .creative-text {
+            color: #666;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-align: center;
+            display: block;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
         }
         
         .class-room {
@@ -545,7 +554,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><div class="creative-cell">창체</div></td>
+                        <td><span class="creative-text">창체</span></td>
                     </tr>
                     <tr>
                         <td class="time-cell">7교시<br>15:10-16:00</td>
@@ -553,7 +562,7 @@
                         <td><div class="class-cell class-c">C</div></td>
                         <td></td>
                         <td></td>
-                        <td><div class="creative-cell">창체</div></td>
+                        <td><span class="creative-text">창체</span></td>
                     </tr>
                 </tbody>
             </table>
