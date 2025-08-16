@@ -130,6 +130,7 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            table-layout: fixed;
         }
         
         .schedule-table th, .schedule-table td {
@@ -137,6 +138,11 @@
             text-align: center;
             border: none;
             position: relative;
+            width: 16.66%;
+        }
+        
+        .schedule-table th:first-child, .schedule-table td:first-child {
+            width: 20%;
         }
         
         /* 월화수목금 열 구분선 */
@@ -150,9 +156,33 @@
             border-top: 1px solid rgba(0,0,0,0.1);
         }
         
-        /* 오전/오후 구분선 (3교시와 4교시 사이) */
+        /* 오전/오후 구분선 (3교시와 4교시 사이) - 더 두껍고 명확하게 */
         .schedule-table tr:nth-child(4) {
-            border-top: 2px solid rgba(0,0,0,0.3);
+            border-top: 3px solid rgba(0,0,0,0.4);
+        }
+        
+        /* 오전/오후 구분선에 배경색 추가 */
+        .schedule-table tr:nth-child(4) td {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+        
+        /* 오전/오후 라벨 추가 */
+        .schedule-table tr:nth-child(4) td:first-child::after {
+            content: '🌅 오후';
+            display: block;
+            font-size: 0.8em;
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .schedule-table tr:nth-child(3) td:first-child::after {
+            content: '🌞 오전';
+            display: block;
+            font-size: 0.8em;
+            color: #f39c12;
+            font-weight: 600;
+            margin-top: 5px;
         }
         
         .schedule-table th {
