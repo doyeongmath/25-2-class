@@ -553,8 +553,8 @@
             <h2>🌟 희망하는 수업 방식</h2>
             
             <div class="highlight-box">
-                <div class="highlight-number">토론식 수업</div>
-                <div class="highlight-text">학생들이 가장 선호하는 수업 방식</div>
+                <div class="highlight-number">문제풀이 중심</div>
+                <div class="highlight-text">학생들이 가장 선호하는 수업 방식 (90점)</div>
             </div>
             
             <div class="feedback-section">
@@ -696,6 +696,17 @@
                                         weight: 'bold'
                                     }
                                 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.parsed;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${label}: ${value}명 (${percentage}%)`;
+                                    }
+                                }
                             }
                         },
                         animation: {
@@ -714,7 +725,6 @@
                     data: {
                         labels: ['중복조합', '이항정리', '사건의 독립과 종속', '조건부확률', '독립시행의 확률', '같은 것이 있는 순열'],
                         datasets: [{
-                            label: '어려워한 학생 수',
                             data: [23, 18, 15, 12, 10, 8],
                             backgroundColor: [
                                 'rgba(102, 126, 234, 0.8)',
@@ -724,16 +734,8 @@
                                 'rgba(255, 152, 0, 0.8)',
                                 'rgba(76, 175, 80, 0.8)'
                             ],
-                            borderColor: [
-                                'rgba(102, 126, 234, 1)',
-                                'rgba(118, 75, 162, 1)',
-                                'rgba(240, 147, 251, 1)',
-                                'rgba(245, 87, 108, 1)',
-                                'rgba(255, 152, 0, 1)',
-                                'rgba(76, 175, 80, 1)'
-                            ],
-                            borderWidth: 2,
-                            borderRadius: 8
+                            borderWidth: 1,
+                            borderColor: 'rgba(255, 255, 255, 0.3)'
                         }]
                     },
                     options: {
@@ -797,6 +799,17 @@
                                     font: {
                                         size: 14,
                                         weight: 'bold'
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.parsed;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${label}: ${value}명 (${percentage}%)`;
                                     }
                                 }
                             }
