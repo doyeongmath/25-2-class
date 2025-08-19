@@ -204,9 +204,12 @@ function endGame() {
     const correctCount = gameState.results.filter(r => r.isCorrect).length;
     const finalScore = calculateFinalScore();
     
+    // 추측한 MBTI 조합 생성
+    const guessedMBTI = gameState.results.map(r => r.guess).join('');
+    
     // 결과 표시 업데이트
     elements.resultEmoji.textContent = correctCount === 4 ? '🎉' : correctCount >= 2 ? '👏' : '🤔';
-    elements.resultText.textContent = `${correctCount}개 맞춤! (4개 중)`;
+    elements.resultText.textContent = `추측한 MBTI: ${guessedMBTI} (${correctCount}개 맞춤! / 4개 중)`;
     elements.finalScore.textContent = `최종 점수: ${finalScore}점`;
     
     const minutes = Math.floor(gameState.timeSpent / 60);
