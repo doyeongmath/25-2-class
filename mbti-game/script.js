@@ -257,6 +257,25 @@ function showAnswers() {
         
         elements.detailedResults.appendChild(resultDiv);
     });
+    
+    // 진행 중 표시된 결과들도 정답/오답으로 업데이트
+    updateResultsDisplayWithAnswers();
+}
+
+// 정답 공개 후 결과 표시 업데이트
+function updateResultsDisplayWithAnswers() {
+    if (elements.resultsContainer) {
+        elements.resultsContainer.innerHTML = '';
+        gameState.results.forEach((result, index) => {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
+                result.isCorrect ? 'bg-green-500 shadow-lg' : 'bg-red-500 shadow-lg'
+            }`;
+            resultDiv.textContent = result.guess;
+            resultDiv.title = `${result.dimension}: ${result.guess} ${result.isCorrect ? '✓' : '✗'}`;
+            elements.resultsContainer.appendChild(resultDiv);
+        });
+    }
 }
 
 // 게임 리셋
@@ -332,11 +351,9 @@ function updateResultsDisplay() {
     
     gameState.results.forEach((result, index) => {
         const resultDiv = document.createElement('div');
-        resultDiv.className = `w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
-            result.isCorrect ? 'bg-green-500 shadow-lg' : 'bg-red-500 shadow-lg'
-        }`;
+        resultDiv.className = `w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 bg-indigo-500 shadow-lg`;
         resultDiv.textContent = result.guess;
-        resultDiv.title = `${result.dimension}: ${result.guess} ${result.isCorrect ? '✓' : '✗'}`;
+        resultDiv.title = `${result.dimension}: ${result.guess}`;
         elements.resultsContainer.appendChild(resultDiv);
     });
 }
