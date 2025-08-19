@@ -204,9 +204,12 @@ function endGame() {
     const correctCount = gameState.results.filter(r => r.isCorrect).length;
     const finalScore = calculateFinalScore();
     
+    // 추측한 MBTI 조합 생성
+    const guessedMBTI = gameState.results.map(r => r.guess).join('');
+    
     // 결과 표시 업데이트
     elements.resultEmoji.textContent = correctCount === 4 ? '🎉' : correctCount >= 2 ? '👏' : '🤔';
-    elements.resultText.textContent = `${correctCount}개 맞춤! (4개 중)`;
+    elements.resultText.textContent = `추측한 MBTI: ${guessedMBTI} (${correctCount}개 맞춤! / 4개 중)`;
     elements.finalScore.textContent = `최종 점수: ${finalScore}점`;
     
     const minutes = Math.floor(gameState.timeSpent / 60);
@@ -257,6 +260,25 @@ function showAnswers() {
         
         elements.detailedResults.appendChild(resultDiv);
     });
+    
+    // 진행 중 표시된 결과들도 정답/오답으로 업데이트
+    updateResultsDisplayWithAnswers();
+}
+
+// 정답 공개 후 결과 표시 업데이트
+function updateResultsDisplayWithAnswers() {
+    if (elements.resultsContainer) {
+        elements.resultsContainer.innerHTML = '';
+        gameState.results.forEach((result, index) => {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
+                result.isCorrect ? 'bg-green-500 shadow-lg' : 'bg-red-500 shadow-lg'
+            }`;
+            resultDiv.textContent = result.guess;
+            resultDiv.title = `${result.dimension}: ${result.guess} ${result.isCorrect ? '✓' : '✗'}`;
+            elements.resultsContainer.appendChild(resultDiv);
+        });
+    }
 }
 
 // 게임 리셋
@@ -332,11 +354,9 @@ function updateResultsDisplay() {
     
     gameState.results.forEach((result, index) => {
         const resultDiv = document.createElement('div');
-        resultDiv.className = `w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
-            result.isCorrect ? 'bg-green-500 shadow-lg' : 'bg-red-500 shadow-lg'
-        }`;
+        resultDiv.className = `w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 bg-indigo-500 shadow-lg`;
         resultDiv.textContent = result.guess;
-        resultDiv.title = `${result.dimension}: ${result.guess} ${result.isCorrect ? '✓' : '✗'}`;
+        resultDiv.title = `${result.dimension}: ${result.guess}`;
         elements.resultsContainer.appendChild(resultDiv);
     });
 }
