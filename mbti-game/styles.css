@@ -84,6 +84,124 @@
   transition-duration: 150ms;
 }
 
+/* Dark mode styles */
+.dark {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #1e3a8a 100%);
+}
+
+.dark #gameContainer {
+  background-color: #1f2937;
+  color: #f9fafb;
+}
+
+.dark .text-gray-800 {
+  color: #f9fafb;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db;
+}
+
+.dark .text-gray-500 {
+  color: #9ca3af;
+}
+
+.dark .bg-indigo-100 {
+  background-color: #312e81;
+}
+
+.dark .text-indigo-800 {
+  color: #c7d2fe;
+}
+
+.dark .text-indigo-700 {
+  color: #a5b4fc;
+}
+
+.dark .bg-blue-50 {
+  background-color: #1e3a8a;
+}
+
+.dark .border-blue-200 {
+  border-color: #3b82f6;
+}
+
+.dark .text-blue-800 {
+  color: #93c5fd;
+}
+
+.dark .text-blue-700 {
+  color: #60a5fa;
+}
+
+.dark .bg-purple-100 {
+  background-color: #581c87;
+}
+
+.dark .text-purple-800 {
+  color: #c4b5fd;
+}
+
+.dark .text-purple-600 {
+  color: #a78bfa;
+}
+
+.dark .text-purple-500 {
+  color: #8b5cf6;
+}
+
+.dark .bg-green-100 {
+  background-color: #064e3b;
+}
+
+.dark .border-green-300 {
+  border-color: #10b981;
+}
+
+.dark .text-green-600 {
+  color: #34d399;
+}
+
+.dark .bg-red-100 {
+  background-color: #7f1d1d;
+}
+
+.dark .border-red-300 {
+  border-color: #f87171;
+}
+
+.dark .text-red-600 {
+  color: #fca5a5;
+}
+
+.dark .bg-gray-50 {
+  background-color: #374151;
+}
+
+.dark .border-gray-200 {
+  border-color: #6b7280;
+}
+
+.dark .hover\:bg-indigo-50:hover {
+  background-color: #4c1d95;
+}
+
+.dark .hover\:border-indigo-300:hover {
+  border-color: #8b5cf6;
+}
+
+.dark .hover\:bg-gray-50:hover {
+  background-color: #4b5563;
+}
+
+.dark .border-gray-300 {
+  border-color: #6b7280;
+}
+
+.dark .hover\:bg-gray-50:hover {
+  background-color: #4b5563;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -168,6 +286,14 @@ textarea:focus {
   .text-2xl {
     font-size: 1.5rem;
   }
+  
+  .text-4xl {
+    font-size: 2.25rem;
+  }
+  
+  .text-8xl {
+    font-size: 4.5rem;
+  }
 }
 
 /* Print styles */
@@ -183,4 +309,103 @@ textarea:focus {
   .bg-gradient-to-br {
     background: white !important;
   }
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+/* Button hover effects */
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Card hover effects */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* Focus ring for better accessibility */
+.focus\:ring-4:focus {
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
+}
+
+/* Smooth hover transitions */
+.hover\:shadow-lg:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode toggle button */
+#darkModeToggle {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.dark #darkModeToggle {
+  background-color: rgba(31, 41, 55, 0.8);
+  color: #fbbf24;
+}
+
+/* Progress bar animation */
+#progressBar {
+  transition: width 0.5s ease-out;
+}
+
+/* Results display animation */
+#resultsContainer > div {
+  animation: scaleIn 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+#resultsContainer > div:nth-child(1) { animation-delay: 0.1s; }
+#resultsContainer > div:nth-child(2) { animation-delay: 0.2s; }
+#resultsContainer > div:nth-child(3) { animation-delay: 0.3s; }
+#resultsContainer > div:nth-child(4) { animation-delay: 0.4s; }
+
+/* Hint box animation */
+#hintBox {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Game screen transitions */
+#gameScreen {
+  animation: fadeIn 0.5s ease-out;
+}
+
+#resultScreen {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Start screen animation */
+#startScreen {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Button animations */
+button:active {
+  transform: scale(0.98);
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Success animation */
+.success {
+  animation: pulse 0.5s ease-out;
+}
+
+/* Error animation */
+.error {
+  animation: shake 0.5s ease-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }

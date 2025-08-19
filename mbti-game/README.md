@@ -29,9 +29,9 @@ MBTI 성격 유형을 맞추는 인터랙티브 웹 게임입니다. 4가지 차
 
 ## 🛠️ 기술 스택
 
-- **React 18**: 최신 React 기능 활용
-- **Tailwind CSS**: 유틸리티 퍼스트 CSS 프레임워크
-- **CSS 애니메이션**: 커스텀 키프레임 애니메이션
+- **HTML5**: 시맨틱 마크업과 접근성
+- **CSS3**: Tailwind CSS와 커스텀 애니메이션
+- **JavaScript (ES6+)**: 바닐라 JavaScript로 구현
 - **반응형 디자인**: 모바일 퍼스트 접근법
 
 ## 📱 반응형 지원
@@ -52,54 +52,52 @@ MBTI 성격 유형을 맞추는 인터랙티브 웹 게임입니다. 4가지 차
 
 ## 🚀 시작하기
 
-### 1. 프로젝트 클론
+### 1. 프로젝트 다운로드
 ```bash
 git clone [repository-url]
 cd mbti-game
 ```
 
-### 2. 의존성 설치
+### 2. 웹 브라우저에서 실행
 ```bash
-npm install
+# index.html 파일을 웹 브라우저에서 열기
+# 또는 로컬 서버 실행
+python -m http.server 8000
 # 또는
-yarn install
+npx serve .
 ```
 
-### 3. 개발 서버 실행
-```bash
-npm start
-# 또는
-yarn start
-```
-
-### 4. 빌드
-```bash
-npm run build
-# 또는
-yarn build
-```
+### 3. 바로 사용 가능
+- 별도의 빌드 과정 없이 즉시 실행
+- 모든 브라우저에서 지원
+- 오프라인에서도 작동
 
 ## 📁 파일 구조
 
 ```
 mbti-game/
-├── MBTIGuessGame.jsx    # 메인 게임 컴포넌트
+├── index.html           # 메인 게임 페이지
+├── script.js            # 게임 로직 및 인터랙션
 ├── styles.css           # 커스텀 CSS 애니메이션
 ├── README.md            # 프로젝트 문서
-└── package.json         # 프로젝트 설정
+└── package.json         # 프로젝트 설정 (선택사항)
 ```
 
 ## 🎨 커스터마이징
 
 ### 색상 테마 변경
-`MBTIGuessGame.jsx`에서 다음 부분을 수정하여 색상을 변경할 수 있습니다:
+`script.js`에서 다음 부분을 수정하여 색상을 변경할 수 있습니다:
 
-```jsx
-// 라이트 모드 그라데이션
-'bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600'
+```css
+/* 라이트 모드 그라데이션 */
+body {
+  background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 50%, #ec4899 100%);
+}
 
-// 다크 모드 그라데이션
-'bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900'
+/* 다크 모드 그라데이션 */
+.dark body {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #1e3a8a 100%);
+}
 ```
 
 ### 애니메이션 속도 조정
