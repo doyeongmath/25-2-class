@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NK7JXGN417"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NK7JXGN417');
-</script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>확률과 통계 수업 대시보드</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NK7JXGN417"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NK7JXGN417');
+  </script>
   <style>
     /* 폰트: 한국어 가독성 강화 */
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&family=Inter:wght@500;600;700;800;900&display=swap');
@@ -221,7 +221,7 @@
     </div>
 
     <!-- 액션 버튼 (인-모드로 열고, 모달 상단에 '새 창으로 열기' 있음) -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto searchable" data-search-text="OT 자료 자기평가 평균맞히기">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto searchable" data-search-text="OT 자료 자기평가 평균맞히기 큰수의법칙 실험기 동전던지기 시뮬레이션">
 
 
       <button class="action-tile tile-blue" onclick="handleViewOTMaterial()" aria-label="OT 자료 열기">
@@ -240,6 +240,12 @@
         <div class="text-3xl mb-2">🎯</div>
         <h3 class="text-xl font-extrabold">평균 맞히기 게임</h3>
         <p class="opacity-90">통계적 추정 능력 측정</p>
+      </button>
+
+      <button class="action-tile tile-green" onclick="handleViewLawOfLargeNumbers()" aria-label="큰수의 법칙 실험기 열기">
+        <div class="text-3xl mb-2">🔢</div>
+        <h3 class="text-xl font-extrabold">큰수의 법칙 실험기</h3>
+        <p class="opacity-90">동전 던지기 시뮬레이션</p>
       </button>
     </section>
 
@@ -479,6 +485,7 @@
     function handleViewSchedule(){ showInIframe('./schedule.html', '선생님 시간표'); }
     function handleViewSelfEvaluation(){ showInIframe('./self-evaluation.html', '자기평가 결과'); }
     function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
+    function handleViewLawOfLargeNumbers(){ showInIframe('./law-of-large-numbers.html', '큰수의 법칙 실험기'); }
     
 
     // 전역 노출 (onclick용)
@@ -486,6 +493,7 @@
     window.handleViewSchedule = handleViewSchedule;
     window.handleViewSelfEvaluation = handleViewSelfEvaluation;
     window.handleViewGameResult = handleViewGameResult;
+    window.handleViewLawOfLargeNumbers = handleViewLawOfLargeNumbers;
   </script>
 </body>
 </html>
