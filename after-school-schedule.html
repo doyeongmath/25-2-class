@@ -47,6 +47,68 @@
             font-size: 1.1em;
             opacity: 0.95;
             font-weight: 400;
+            margin-bottom: 20px;
+        }
+        
+        .class-info {
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            font-size: 1em;
+            margin-bottom: 8px;
+            opacity: 0.95;
+        }
+        
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .target-students {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .target-students h3 {
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .student-description {
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .highlight {
+            background: rgba(255,255,255,0.3);
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .benefits {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .benefit-tag {
+            background: rgba(255,255,255,0.25);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.4);
         }
         
         .calendar-container {
@@ -223,7 +285,14 @@
             margin-bottom: 20px;
             font-size: 1.3em;
             font-weight: 700;
-            text-align: center;
+            text-align: left;
+        }
+        
+        .class-info-summary {
+            text-align: left;
+            margin-bottom: 15px;
+            color: #22543d;
+            font-weight: 500;
         }
         
         .class-dates {
@@ -339,6 +408,18 @@
             .header h1 {
                 font-size: 1.8em;
             }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .class-info {
+                padding: 15px;
+            }
+            
+            .target-students {
+                padding: 15px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -371,6 +452,17 @@
                 padding: 8px 2px;
                 font-size: 12px;
             }
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .class-info {
+                padding: 15px;
+            }
+            
+            .target-students {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -379,6 +471,23 @@
         <div class="header">
             <h1>📚 2학기 방과후 확률과 통계 문제 풀이 수업</h1>
             <p>2025년 9~11월 수업 계획</p>
+            <div class="class-info">
+                <div class="info-item">📖 교재: EBS 수능 기출의 미래 확률과 통계(2025)(2026 수능 대비)</div>
+                <div class="info-item">⏰ 수업 시간: 매주 수요일 15:30 ~ 17:00</div>
+                <div class="info-item">📍 장소: 2학년 1반 교실</div>
+            </div>
+            <div class="target-students">
+                <h3>🎯 추천 대상 학생</h3>
+                <div class="student-description">
+                    <span class="highlight">중위권 학생</span>으로서 <span class="highlight">확률과 통계 문제 풀이</span>를 통해 
+                    <span class="highlight">성적 향상</span>을 목표로 하는 학생들을 위한 수업입니다
+                </div>
+                <div class="benefits">
+                    <span class="benefit-tag">✨ 체계적 문제 해결</span>
+                    <span class="benefit-tag">📈 성적 향상</span>
+                    <span class="benefit-tag">🔥 수능 완벽 대비</span>
+                </div>
+            </div>
         </div>
         
         <div class="calendar-container">
@@ -577,6 +686,9 @@
         
         <div class="class-schedule">
             <h4>✅ 2학기 방과후 확률과 통계 문제 풀이 수업 일정</h4>
+            <div class="class-info-summary">
+                ⏰ 매주 수요일 15:30~17:00 | 📍 2학년 1반 교실 | 📖 EBS 수능 기출의 미래 확률과 통계
+            </div>
             <div class="class-dates">
                 <div class="class-date">9/10 (수)<br>1. 이산확률변수</div>
                 <div class="class-date">9/17 (수)<br>2. 연속확률변수</div>
