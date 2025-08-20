@@ -102,6 +102,7 @@
         .calendar-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
         }
         
         .calendar-table td {
@@ -114,6 +115,8 @@
             padding: 4px;
             background: white;
             transition: background-color 0.2s ease;
+            word-wrap: break-word;
+            overflow: hidden;
         }
         
         .day-number {
@@ -296,10 +299,27 @@
             .month {
                 width: 100%;
                 margin: 0 0 30px 0;
+                max-width: none;
             }
             
             .calendar-container {
                 padding: 20px 15px;
+            }
+            
+            .calendar-table td {
+                height: 70px;
+                padding: 2px;
+            }
+            
+            .day-number {
+                font-size: 14px;
+                margin-bottom: 4px;
+            }
+            
+            .event-indicator {
+                font-size: 9px;
+                padding: 2px 3px;
+                max-width: 90%;
             }
             
             .class-schedule {
@@ -320,6 +340,38 @@
                 font-size: 1.8em;
             }
         }
+        
+        @media (max-width: 480px) {
+            .calendar-table td {
+                height: 60px;
+                padding: 1px;
+            }
+            
+            .day-number {
+                font-size: 13px;
+                margin-bottom: 3px;
+            }
+            
+            .event-indicator {
+                font-size: 8px;
+                padding: 1px 2px;
+                max-width: 85%;
+            }
+            
+            .month-header {
+                padding: 15px;
+                font-size: 1.2em;
+            }
+            
+            .days-header {
+                padding: 8px 4px;
+            }
+            
+            .day-name {
+                padding: 8px 2px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -332,7 +384,7 @@
         <div class="calendar-container">
             <!-- 9월 달력 -->
             <div class="month">
-                <div class="month-header">9월 2025</div>
+                                 <div class="month-header">2025년 9월</div>
                 <div class="days-header">
                     <div class="day-name sunday">일</div>
                     <div class="day-name">월</div>
@@ -393,7 +445,7 @@
             
             <!-- 10월 달력 -->
             <div class="month">
-                <div class="month-header">10월 2025</div>
+                                 <div class="month-header">2025년 10월</div>
                 <div class="days-header">
                     <div class="day-name sunday">일</div>
                     <div class="day-name">월</div>
@@ -454,7 +506,7 @@
             
             <!-- 11월 달력 -->
             <div class="month">
-                <div class="month-header">11월 2025</div>
+                                 <div class="month-header">2025년 11월</div>
                 <div class="days-header">
                     <div class="day-name sunday">일</div>
                     <div class="day-name">월</div>
