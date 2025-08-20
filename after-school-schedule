@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2학기 방과후 확률과 통계 문제 풀이 수업</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .calendar-container {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .month {
+            display: inline-block;
+            vertical-align: top;
+            width: 350px;
+            margin: 0 10px 30px 10px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 2px solid #e9ecef;
+        }
+        
+        .month-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .days-header {
+            background: #f8f9fa;
+            display: flex;
+        }
+        
+        .day-name {
+            flex: 1;
+            padding: 12px 5px;
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            font-size: 12px;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .day-name:last-child {
+            border-right: none;
+        }
+        
+        .day-name.sunday { color: #dc3545; }
+        .day-name.saturday { color: #007bff; }
+        .day-name.wednesday { color: #28a745; font-weight: 900; }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .calendar-table td {
+            width: 14.28%;
+            height: 70px;
+            border: 1px solid #e9ecef;
+            text-align: center;
+            vertical-align: middle;
+            position: relative;
+            padding: 3px;
+            background: white;
+        }
+        
+        .day-number {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 2px;
+            display: block;
+        }
+        
+        .event-indicator {
+            font-size: 8px;
+            font-weight: bold;
+            padding: 1px 2px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            text-align: center;
+            line-height: 1;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        .other-month {
+            color: #ccc !important;
+            background: #f8f9fa !important;
+        }
+        
+        .class-day {
+            background: linear-gradient(135deg, #28a745, #20c997) !important;
+            color: white !important;
+            font-weight: bold;
+        }
+        
+        .class-day .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #28a745;
+            font-weight: 900;
+        }
+        
+        .no-class-exam {
+            background: linear-gradient(135deg, #dc3545, #e74c3c) !important;
+            color: white !important;
+            font-weight: bold;
+        }
+        
+        .no-class-exam .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #dc3545;
+        }
+        
+        .no-class-holiday {
+            background: linear-gradient(135deg, #6c757d, #495057) !important;
+            color: white !important;
+            font-weight: bold;
+        }
+        
+        .no-class-holiday .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #6c757d;
+        }
+        
+        .school-event {
+            background: linear-gradient(135deg, #ffc107, #ffb74d) !important;
+            color: #333 !important;
+            font-weight: bold;
+        }
+        
+        .school-event .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #856404;
+        }
+        
+        .class-schedule {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 30px;
+        }
+        
+        .class-schedule h4 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .class-dates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            color: #155724;
+            font-weight: 600;
+        }
+        
+        .class-date {
+            background: white;
+            padding: 12px 8px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #28a745;
+            font-size: 0.9em;
+            line-height: 1.3;
+        }
+        
+        .summary {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .summary h3 {
+            margin-bottom: 15px;
+            color: #495057;
+            font-size: 1.3em;
+        }
+        
+        .summary-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 2학기 방과후 확률과 통계 문제 풀이 수업</h1>
+            <p>2025년 9~11월 수업 계획</p>
+        </div>
+        
+        <div class="calendar-container">
+            <!-- 9월 달력 -->
+            <div class="month">
+                <div class="month-header">9월 2025</div>
+                <div class="days-header">
+                    <div class="day-name sunday">일</div>
+                    <div class="day-name">월</div>
+                    <div class="day-name">화</div>
+                    <div class="day-name wednesday">수</div>
+                    <div class="day-name">목</div>
+                    <div class="day-name">금</div>
+                    <div class="day-name saturday">토</div>
+                </div>
+                <table class="calendar-table">
+                    <tr>
+                        <td class="other-month"><span class="day-number">31</span></td>
+                        <td><span class="day-number">1</span></td>
+                        <td><span class="day-number">2</span></td>
+                        <td><span class="day-number">3</span></td>
+                        <td><span class="day-number">4</span></td>
+                        <td><span class="day-number">5</span></td>
+                        <td><span class="day-number">6</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">7</span></td>
+                        <td><span class="day-number">8</span></td>
+                        <td><span class="day-number">9</span></td>
+                        <td class="class-day"><span class="day-number">10</span><span class="event-indicator">1. 이산확률변수</span></td>
+                        <td><span class="day-number">11</span></td>
+                        <td><span class="day-number">12</span></td>
+                        <td><span class="day-number">13</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">14</span></td>
+                        <td><span class="day-number">15</span></td>
+                        <td><span class="day-number">16</span></td>
+                        <td class="class-day"><span class="day-number">17</span><span class="event-indicator">2. 연속확률변수</span></td>
+                        <td><span class="day-number">18</span></td>
+                        <td><span class="day-number">19</span></td>
+                        <td><span class="day-number">20</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">21</span></td>
+                        <td><span class="day-number">22</span></td>
+                        <td><span class="day-number">23</span></td>
+                        <td><span class="day-number">24</span></td>
+                        <td class="no-class-exam"><span class="day-number">25</span><span class="event-indicator">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">26</span><span class="event-indicator">중간고사</span></td>
+                        <td><span class="day-number">27</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">28</span></td>
+                        <td class="no-class-exam"><span class="day-number">29</span><span class="event-indicator">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">30</span><span class="event-indicator">중간고사</span></td>
+                        <td class="other-month"><span class="day-number">1</span></td>
+                        <td class="other-month"><span class="day-number">2</span></td>
+                        <td class="other-month"><span class="day-number">3</span></td>
+                        <td class="other-month"><span class="day-number">4</span></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- 10월 달력 -->
+            <div class="month">
+                <div class="month-header">10월 2025</div>
+                <div class="days-header">
+                    <div class="day-name sunday">일</div>
+                    <div class="day-name">월</div>
+                    <div class="day-name">화</div>
+                    <div class="day-name wednesday">수</div>
+                    <div class="day-name">목</div>
+                    <div class="day-name">금</div>
+                    <div class="day-name saturday">토</div>
+                </div>
+                <table class="calendar-table">
+                    <tr>
+                        <td class="other-month"><span class="day-number">28</span></td>
+                        <td class="other-month"><span class="day-number">29</span></td>
+                        <td class="other-month"><span class="day-number">30</span></td>
+                        <td class="no-class-exam"><span class="day-number">1</span><span class="event-indicator">중간고사</span></td>
+                        <td class="school-event"><span class="day-number">2</span><span class="event-indicator">🏃‍♂️ 한마음운동회</span></td>
+                        <td class="no-class-holiday"><span class="day-number">3</span><span class="event-indicator">개천절</span></td>
+                        <td><span class="day-number">4</span></td>
+                    </tr>
+                    <tr>
+                        <td class="no-class-holiday"><span class="day-number">5</span><span class="event-indicator">추석연휴</span></td>
+                        <td class="no-class-holiday"><span class="day-number">6</span><span class="event-indicator">추석</span></td>
+                        <td class="no-class-holiday"><span class="day-number">7</span><span class="event-indicator">추석연휴</span></td>
+                        <td class="no-class-holiday"><span class="day-number">8</span><span class="event-indicator">대체공휴일</span></td>
+                        <td class="no-class-holiday"><span class="day-number">9</span><span class="event-indicator">한글날</span></td>
+                        <td class="school-event"><span class="day-number">10</span><span class="event-indicator">😴 재량휴업일</span></td>
+                        <td><span class="day-number">11</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">12</span></td>
+                        <td><span class="day-number">13</span></td>
+                        <td><span class="day-number">14</span></td>
+                        <td class="class-day"><span class="day-number">15</span><span class="event-indicator">3. 중간고사 풀이</span></td>
+                        <td><span class="day-number">16</span></td>
+                        <td><span class="day-number">17</span></td>
+                        <td><span class="day-number">18</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">19</span></td>
+                        <td><span class="day-number">20</span></td>
+                        <td><span class="day-number">21</span></td>
+                        <td class="class-day"><span class="day-number">22</span><span class="event-indicator">4. 이산확률변수</span></td>
+                        <td><span class="day-number">23</span></td>
+                        <td><span class="day-number">24</span></td>
+                        <td><span class="day-number">25</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">26</span></td>
+                        <td><span class="day-number">27</span></td>
+                        <td><span class="day-number">28</span></td>
+                        <td class="class-day"><span class="day-number">29</span><span class="event-indicator">5. 연속확률변수</span></td>
+                        <td><span class="day-number">30</span></td>
+                        <td><span class="day-number">31</span></td>
+                        <td class="other-month"><span class="day-number">1</span></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- 11월 달력 -->
+            <div class="month">
+                <div class="month-header">11월 2025</div>
+                <div class="days-header">
+                    <div class="day-name sunday">일</div>
+                    <div class="day-name">월</div>
+                    <div class="day-name">화</div>
+                    <div class="day-name wednesday">수</div>
+                    <div class="day-name">목</div>
+                    <div class="day-name">금</div>
+                    <div class="day-name saturday">토</div>
+                </div>
+                <table class="calendar-table">
+                    <tr>
+                        <td class="other-month"><span class="day-number">26</span></td>
+                        <td class="other-month"><span class="day-number">27</span></td>
+                        <td class="other-month"><span class="day-number">28</span></td>
+                        <td class="other-month"><span class="day-number">29</span></td>
+                        <td class="other-month"><span class="day-number">30</span></td>
+                        <td class="other-month"><span class="day-number">31</span></td>
+                        <td><span class="day-number">1</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">2</span></td>
+                        <td><span class="day-number">3</span></td>
+                        <td><span class="day-number">4</span></td>
+                        <td class="class-day"><span class="day-number">5</span><span class="event-indicator">6. 정규분포</span></td>
+                        <td><span class="day-number">6</span></td>
+                        <td><span class="day-number">7</span></td>
+                        <td><span class="day-number">8</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">9</span></td>
+                        <td><span class="day-number">10</span></td>
+                        <td><span class="day-number">11</span></td>
+                        <td class="class-day"><span class="day-number">12</span><span class="event-indicator">7. 표본평균의 분포</span></td>
+                        <td class="no-class-exam"><span class="day-number">13</span><span class="event-indicator">수능시험</span></td>
+                        <td><span class="day-number">14</span></td>
+                        <td><span class="day-number">15</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">16</span></td>
+                        <td><span class="day-number">17</span></td>
+                        <td><span class="day-number">18</span></td>
+                        <td class="class-day"><span class="day-number">19</span><span class="event-indicator">8. 모평균의 추정</span></td>
+                        <td><span class="day-number">20</span></td>
+                        <td><span class="day-number">21</span></td>
+                        <td><span class="day-number">22</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">23</span></td>
+                        <td><span class="day-number">24</span></td>
+                        <td><span class="day-number">25</span></td>
+                        <td class="class-day"><span class="day-number">26</span><span class="event-indicator">9. 총정리</span></td>
+                        <td><span class="day-number">27</span></td>
+                        <td><span class="day-number">28</span></td>
+                        <td><span class="day-number">29</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">30</span></td>
+                        <td class="other-month"><span class="day-number">1</span></td>
+                        <td class="other-month"><span class="day-number">2</span></td>
+                        <td class="other-month"><span class="day-number">3</span></td>
+                        <td class="other-month"><span class="day-number">4</span></td>
+                        <td class="other-month"><span class="day-number">5</span></td>
+                        <td class="other-month"><span class="day-number">6</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="class-schedule">
+            <h4>✅ 2학기 방과후 확률과 통계 문제 풀이 수업 일정</h4>
+            <div class="class-dates">
+                <div class="class-date">9/10 (수)<br>1. 이산확률변수</div>
+                <div class="class-date">9/17 (수)<br>2. 연속확률변수</div>
+                <div class="class-date">10/15 (수)<br>3. 중간고사 풀이</div>
+                <div class="class-date">10/22 (수)<br>4. 이산확률변수</div>
+                <div class="class-date">10/29 (수)<br>5. 연속확률변수</div>
+                <div class="class-date">11/5 (수)<br>6. 정규분포</div>
+                <div class="class-date">11/12 (수)<br>7. 표본평균의 분포</div>
+                <div class="class-date">11/19 (수)<br>8. 모평균의 추정</div>
+                <div class="class-date">11/26 (수)<br>9. 총정리</div>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <h3>📊 2학기 방과후 확률과 통계 수업 통계</h3>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">총 수업 횟수</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">9월 수업</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">10월 수업</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">11월 수업</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
