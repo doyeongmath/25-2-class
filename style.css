@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 30px auto;
   padding: 20px;
   background-color: white;
@@ -17,6 +17,68 @@ body {
 h1 {
   text-align: center;
   color: #2b3e50;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #2b3e50;
+  border-bottom: 2px solid #357edd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.theory-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border-left: 5px solid #357edd;
+}
+
+.theory-chart {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.theory-table {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+.theory-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.theory-table th,
+.theory-table td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+}
+
+.theory-table th {
+  background-color: #357edd;
+  color: white;
+  font-weight: bold;
+}
+
+.theory-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.experiment-section {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 5px solid #28a745;
 }
 
 .controls {
@@ -24,35 +86,93 @@ h1 {
   flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 20px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 label {
   flex: 1;
   min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label span {
+  font-weight: bold;
+  color: #495057;
 }
 
 input {
-  width: 80px;
-  padding: 5px;
-  margin-left: 5px;
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #357edd;
+  box-shadow: 0 0 0 3px rgba(53, 126, 221, 0.1);
 }
 
 button {
-  padding: 8px 16px;
-  background-color: #357edd;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #357edd 0%, #2a5db0 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  min-width: 120px;
 }
 
 button:hover {
-  background-color: #2a5db0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(53, 126, 221, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 #result {
-  font-size: 1.1em;
-  margin-bottom: 15px;
-  color: #333;
+  font-size: 1.2em;
+  margin: 20px 0;
+  padding: 15px;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-radius: 8px;
+  border-left: 5px solid #28a745;
+  color: #155724;
+  font-weight: bold;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    margin: 15px;
+    padding: 15px;
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+  
+  label {
+    min-width: auto;
+  }
+  
+  .theory-table {
+    font-size: 14px;
+  }
+  
+  .theory-table th,
+  .theory-table td {
+    padding: 8px 6px;
+  }
 }
