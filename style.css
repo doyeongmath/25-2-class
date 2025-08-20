@@ -27,6 +27,14 @@ h2 {
   margin-bottom: 20px;
 }
 
+h3 {
+  color: #2b3e50;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
 .theory-section {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   padding: 25px;
@@ -74,11 +82,47 @@ h2 {
   background-color: #f8f9fa;
 }
 
+.math-explanation {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 5px solid #2196f3;
+}
+
+.math-explanation h3 {
+  color: #1565c0;
+  border-bottom-color: #2196f3;
+}
+
+.math-explanation p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
 .experiment-section {
   background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
   padding: 25px;
   border-radius: 12px;
   border-left: 5px solid #28a745;
+}
+
+.experiment-explanation {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 5px solid #9c27b0;
+}
+
+.experiment-explanation h3 {
+  color: #7b1fa2;
+  border-bottom-color: #9c27b0;
+}
+
+.experiment-explanation p {
+  margin-bottom: 15px;
+  line-height: 1.6;
 }
 
 .controls {
@@ -152,6 +196,11 @@ button:active {
   font-weight: bold;
 }
 
+/* MathJax 스타일 개선 */
+.MathJax {
+  font-size: 1.1em;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .container {
@@ -174,5 +223,10 @@ button:active {
   .theory-table th,
   .theory-table td {
     padding: 8px 6px;
+  }
+  
+  .math-explanation,
+  .experiment-explanation {
+    padding: 15px;
   }
 }
