@@ -43,6 +43,17 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
+        .title-part1 {
+            color: #e2e8f0;
+            opacity: 0.9;
+        }
+        
+        .title-part2 {
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+        
         .header p {
             font-size: 1.1em;
             opacity: 0.95;
@@ -558,7 +569,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📚 2학기 방과후 확률과 통계 문제 풀이 수업</h1>
+            <h1>📚 <span class="title-part1">2학기 방과후</span> <span class="title-part2">확률과 통계 문제 풀이 수업</span></h1>
             <p>2025년 9~11월 수업 계획</p>
             <div class="class-info">
                 <div class="info-item">📖 교재: EBS 수능 기출의 미래 확률과 통계</div>
@@ -815,85 +826,93 @@
     </div>
     
     <script>
-        // 터치/클릭 이벤트 처리
+        // 간단한 툴팁 시스템
         document.addEventListener('DOMContentLoaded', function() {
             const eventIndicators = document.querySelectorAll('.event-indicator');
             
             eventIndicators.forEach(function(indicator) {
-                let tooltip = null;
-                let tooltipArrow = null;
-                
-                // 터치/클릭 시작
+                // 툴팁 표시 함수
                 function showTooltip() {
                     const text = indicator.getAttribute('data-full-text');
                     if (!text) return;
                     
                     // 기존 툴팁 제거
-                    if (tooltip) {
-                        tooltip.remove();
-                        tooltipArrow.remove();
+                    const existingTooltip = document.querySelector('.active-tooltip');
+                    if (existingTooltip) {
+                        existingTooltip.remove();
                     }
                     
-                    // 툴팁 생성
-                    tooltip = document.createElement('div');
-                    tooltip.className = 'custom-tooltip';
+                    // 새 툴팁 생성
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'active-tooltip';
                     tooltip.textContent = text;
                     tooltip.style.cssText = `
-                        position: absolute;
-                        bottom: 100%;
+                        position: fixed;
+                        top: 50%;
                         left: 50%;
-                        transform: translateX(-50%);
+                        transform: translate(-50%, -50%);
                         background: rgba(0,0,0,0.95);
                         color: white;
-                        padding: 10px 14px;
-                        border-radius: 8px;
-                        font-size: 13px;
-                        white-space: nowrap;
-                        z-index: 1000;
-                        margin-bottom: 8px;
-                        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-                        max-width: 200px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                        padding: 15px 20px;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        z-index: 10000;
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+                        max-width: 300px;
+                        text-align: center;
+                        border: 2px solid white;
                     `;
                     
-                    // 화살표 생성
-                    tooltipArrow = document.createElement('div');
-                    tooltipArrow.style.cssText = `
+                    // 닫기 버튼 추가
+                    const closeBtn = document.createElement('div');
+                    closeBtn.innerHTML = '✕';
+                    closeBtn.style.cssText = `
                         position: absolute;
-                        bottom: 100%;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        border: 6px solid transparent;
-                        border-top-color: rgba(0,0,0,0.95);
-                        margin-bottom: -6px;
-                        z-index: 1000;
+                        top: -10px;
+                        right: -10px;
+                        background: red;
+                        color: white;
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-weight: bold;
                     `;
                     
-                    indicator.appendChild(tooltip);
-                    indicator.appendChild(tooltipArrow);
-                }
-                
-                // 터치/클릭 종료
-                function hideTooltip() {
-                    if (tooltip) {
+                    closeBtn.addEventListener('click', function() {
                         tooltip.remove();
-                        tooltipArrow.remove();
-                        tooltip = null;
-                        tooltipArrow = null;
-                    }
+                    });
+                    
+                    tooltip.appendChild(closeBtn);
+                    document.body.appendChild(tooltip);
+                    
+                    // 3초 후 자동으로 사라지게
+                    setTimeout(function() {
+                        if (tooltip.parentNode) {
+                            tooltip.remove();
+                        }
+                    }, 3000);
                 }
                 
                 // 이벤트 리스너 추가
-                indicator.addEventListener('touchstart', showTooltip);
-                indicator.addEventListener('mousedown', showTooltip);
-                indicator.addEventListener('touchend', hideTooltip);
-                indicator.addEventListener('mouseup', hideTooltip);
-                indicator.addEventListener('mouseleave', hideTooltip);
+                indicator.addEventListener('click', showTooltip);
+                indicator.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    showTooltip();
+                });
                 
-                // 포커스 이벤트
-                indicator.addEventListener('focus', showTooltip);
-                indicator.addEventListener('blur', hideTooltip);
+                // 키보드 접근성
+                indicator.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        showTooltip();
+                    }
+                });
             });
         });
     </script>
