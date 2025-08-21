@@ -409,19 +409,20 @@
             }
             
             .calendar-table td {
-                height: 70px;
-                padding: 2px;
+                height: 80px;
+                padding: 3px;
             }
             
             .day-number {
-                font-size: 14px;
-                margin-bottom: 4px;
+                font-size: 15px;
+                margin-bottom: 5px;
             }
             
             .event-indicator {
-                font-size: 11px;
-                padding: 2px 3px;
-                max-width: 90%;
+                font-size: 12px;
+                padding: 3px 4px;
+                max-width: 95%;
+                line-height: 1.2;
             }
             
             .class-schedule {
@@ -457,19 +458,20 @@
         
         @media (max-width: 480px) {
             .calendar-table td {
-                height: 65px;
-                padding: 1px;
+                height: 75px;
+                padding: 2px;
             }
             
             .day-number {
-                font-size: 13px;
-                margin-bottom: 3px;
+                font-size: 14px;
+                margin-bottom: 4px;
             }
             
             .event-indicator {
-                font-size: 10px;
-                padding: 1px 2px;
-                max-width: 85%;
+                font-size: 11px;
+                padding: 2px 3px;
+                max-width: 90%;
+                line-height: 1.1;
             }
             
             .month-header {
@@ -507,15 +509,18 @@
                 bottom: 100%;
                 left: 50%;
                 transform: translateX(-50%);
-                background: rgba(0,0,0,0.9);
+                background: rgba(0,0,0,0.95);
                 color: white;
-                padding: 8px 12px;
-                border-radius: 6px;
-                font-size: 12px;
+                padding: 10px 14px;
+                border-radius: 8px;
+                font-size: 13px;
                 white-space: nowrap;
                 z-index: 1000;
-                margin-bottom: 5px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                margin-bottom: 8px;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
             .event-indicator:active::before {
@@ -524,9 +529,9 @@
                 bottom: 100%;
                 left: 50%;
                 transform: translateX(-50%);
-                border: 5px solid transparent;
-                border-top-color: rgba(0,0,0,0.9);
-                margin-bottom: -5px;
+                border: 6px solid transparent;
+                border-top-color: rgba(0,0,0,0.95);
+                margin-bottom: -6px;
                 z-index: 1000;
             }
         }
@@ -538,7 +543,7 @@
             <h1>📚 2학기 방과후 확률과 통계 문제 풀이 수업</h1>
             <p>2025년 9~11월 수업 계획</p>
             <div class="class-info">
-                <div class="info-item">📖 교재: EBS 수능 기출의 미래 확률과 통계(2025)(2026 수능 대비)</div>
+                <div class="info-item">📖 교재: EBS 수능 기출의 미래 확률과 통계</div>
                 <div class="info-item">⏰ 수업 시간: 매주 수요일 15:30 ~ 17:00</div>
                 <div class="info-item">📍 장소: 2학년 1반 교실</div>
             </div>
