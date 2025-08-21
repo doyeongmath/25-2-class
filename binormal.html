@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>이항↔정규 분포 근사 비교</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 이항분포와 정규분포의 관계</h1>
+    <p class="note">
+      B(n,p)는 n이 크고 p가 0이나 1에 치우치지 않을 때 정규분포 N(μ=np, σ²=npq)로 근사됩니다.
+      아래에서 샘플링한 이항 분포(막대)와 정규 근사(선)를 비교합니다. (연속성 보정 옵션 포함)
+    </p>
+
+    <div class="controls">
+      <label>n <input type="number" id="n" value="60" min="1"></label>
+      <label>p <input type="number" id="p" value="0.5" min="0" max="1" step="0.01"></label>
+      <label>샘플 수 repeat <input type="number" id="repeat" value="5000" min="100"></label>
+      <label><input type="checkbox" id="cc" checked> 연속성 보정</label>
+      <label><input type="checkbox" id="showExact"> 정확 이항 PMF도 표시</label>
+      <button id="run">비교 실행</button>
+    </div>
+
+    <p id="meta"></p>
+    <canvas id="chart" height="170"></canvas>
+
+    <div class="footer">
+      <a href="index.html">← 돌아가기</a>
+    </div>
+  </div>
+  <script src="binormal.js"></script>
+</body>
+</html>
