@@ -188,38 +188,41 @@
   </button>
 
   <div class="max-w-7xl mx-auto p-6">
-    <!-- 헤더 -->
-    <header class="header-gradient p-8 mb-8">
-      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-        <div>
-          <h1 class="text-3xl font-extrabold">확률과 통계 수업</h1>
-          <p class="text-indigo-100 font-semibold mt-1">2025년 2학기 • 담당: 박도영</p>
-          <div class="mt-4 flex items-center gap-2 text-sm">
-            <span class="bg-white/20 px-3 py-1 rounded-full">📚 수학</span>
-            <span class="bg-white/20 px-3 py-1 rounded-full">⏰ 3시간</span>
-            <span class="bg-white/20 px-3 py-1 rounded-full">🏫 2-6교실</span>
-          </div>
-        </div>
-        
-        <!-- 전체 시간표 보기 버튼 -->
-        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-          <div class="text-center">
-            <button onclick="handleViewSchedule()" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors font-semibold">
-              📅 전체 시간표 보기 →
-            </button>
-          </div>
-        </div>
-        
-        <!-- 방과후 수업 보기 버튼 -->
-        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-          <div class="text-center">
-            <button onclick="handleViewAfterSchoolSchedule()" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors font-semibold">
-              📚 방과후 수업 보기 →
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
+         <!-- 헤더 -->
+     <header class="header-gradient p-8 mb-8">
+       <div class="flex flex-col gap-6">
+         <div>
+           <h1 class="text-3xl font-extrabold">확률과 통계 수업</h1>
+           <p class="text-indigo-100 font-semibold mt-1">2025년 2학기 • 담당: 박도영</p>
+           <div class="mt-4 flex items-center gap-2 text-sm">
+             <span class="bg-white/20 px-3 py-1 rounded-full">📚 수학</span>
+             <span class="bg-white/20 px-3 py-1 rounded-full">⏰ 3시간</span>
+             <span class="bg-white/20 px-3 py-1 rounded-full">🏫 2-6교실</span>
+           </div>
+         </div>
+         
+         <!-- 버튼들을 세로로 정렬 -->
+         <div class="flex flex-col sm:flex-row gap-4">
+           <!-- 전체 시간표 보기 버튼 -->
+           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+             <div class="text-center">
+               <button onclick="handleViewSchedule()" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors font-semibold">
+                 📅 전체 시간표 보기 →
+               </button>
+             </div>
+           </div>
+           
+           <!-- 방과후 수업 상세보기 버튼 -->
+           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+             <div class="text-center">
+               <button onclick="handleViewAfterSchoolSchedule()" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors font-semibold">
+                 📚 방과후 수업 상세보기 →
+               </button>
+             </div>
+           </div>
+         </div>
+       </div>
+     </header>
 
     <!-- 검색 -->
     <div class="search-container mb-6">

@@ -437,35 +437,6 @@
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
-                }
-        
-        .action-buttons {
-            text-align: center;
-            padding: 40px 30px;
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-        }
-        
-        .main-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 18px 36px;
-            font-size: 1.2em;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            transition: all 0.3s ease;
-            font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif;
-        }
-        
-        .main-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
-        }
-        
-        .main-button:active {
-            transform: translateY(-1px);
         }
         
         .stat-item {
@@ -865,12 +836,6 @@
             </div>
                 </div>
         
-        <div class="action-buttons">
-            <button class="main-button" onclick="scrollToClassSchedule()">
-                📚 방과후 수업 상세보기
-            </button>
-        </div>
-        
         <div class="class-schedule">
             <h4>✅ 2학기 방과후 확률과 통계 문제 풀이 수업 일정</h4>
             <div class="class-info-summary">
@@ -967,17 +932,6 @@
                 });
                         });
         });
-        
-        // 방과후 수업 상세보기로 스크롤
-        function scrollToClassSchedule() {
-            const classSchedule = document.querySelector('.class-schedule');
-            if (classSchedule) {
-                classSchedule.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
     </script>
 </body>
 </html>
