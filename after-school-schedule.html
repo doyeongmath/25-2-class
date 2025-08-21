@@ -826,7 +826,7 @@
     </div>
     
     <script>
-        // 확대/축소 시스템
+        // 확대/축소 토글 시스템
         document.addEventListener('DOMContentLoaded', function() {
             const eventIndicators = document.querySelectorAll('.event-indicator');
             
@@ -835,59 +835,48 @@
                 let originalText = '';
                 let originalStyle = '';
                 
-                // 확대 함수
-                function expandText() {
-                    if (isExpanded) return;
-                    
-                    isExpanded = true;
-                    originalText = indicator.textContent;
-                    originalStyle = indicator.style.cssText;
-                    
-                    const fullText = indicator.getAttribute('data-full-text');
-                    if (fullText) {
-                        indicator.textContent = fullText;
+                // 확대/축소 토글 함수
+                function toggleText() {
+                    if (!isExpanded) {
+                        // 확대
+                        isExpanded = true;
+                        originalText = indicator.textContent;
+                        originalStyle = indicator.style.cssText;
+                        
+                        const fullText = indicator.getAttribute('data-full-text');
+                        if (fullText) {
+                            indicator.textContent = fullText;
+                        }
+                        
+                        indicator.style.cssText = `
+                            ${originalStyle}
+                            transform: scale(1.2);
+                            z-index: 1000;
+                            background: rgba(255,255,255,1) !important;
+                            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                            transition: all 0.3s ease;
+                            position: relative;
+                        `;
+                    } else {
+                        // 축소
+                        isExpanded = false;
+                        indicator.textContent = originalText;
+                        indicator.style.cssText = originalStyle;
                     }
-                    
-                    indicator.style.cssText = `
-                        ${originalStyle}
-                        transform: scale(1.2);
-                        z-index: 1000;
-                        background: rgba(255,255,255,1) !important;
-                        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-                        transition: all 0.3s ease;
-                        position: relative;
-                    `;
-                }
-                
-                // 축소 함수
-                function collapseText() {
-                    if (!isExpanded) return;
-                    
-                    isExpanded = false;
-                    indicator.textContent = originalText;
-                    indicator.style.cssText = originalStyle;
                 }
                 
                 // 이벤트 리스너 추가
-                indicator.addEventListener('mousedown', expandText);
+                indicator.addEventListener('click', toggleText);
                 indicator.addEventListener('touchstart', function(e) {
                     e.preventDefault();
-                    expandText();
+                    toggleText();
                 });
-                
-                indicator.addEventListener('mouseup', collapseText);
-                indicator.addEventListener('touchend', collapseText);
-                indicator.addEventListener('mouseleave', collapseText);
                 
                 // 키보드 접근성
                 indicator.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        if (!isExpanded) {
-                            expandText();
-                        } else {
-                            collapseText();
-                        }
+                        toggleText();
                     }
                 });
             });
