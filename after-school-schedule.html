@@ -207,6 +207,36 @@
             text-overflow: ellipsis;
             max-width: 95%;
             margin: 0 auto;
+            position: relative;
+        }
+        
+        .event-indicator:hover::after {
+            content: attr(data-full-text);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .event-indicator:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(0,0,0,0.9);
+            margin-bottom: -5px;
+            z-index: 1000;
         }
         
         .other-month {
@@ -389,7 +419,7 @@
             }
             
             .event-indicator {
-                font-size: 9px;
+                font-size: 11px;
                 padding: 2px 3px;
                 max-width: 90%;
             }
@@ -427,7 +457,7 @@
         
         @media (max-width: 480px) {
             .calendar-table td {
-                height: 60px;
+                height: 65px;
                 padding: 1px;
             }
             
@@ -437,7 +467,7 @@
             }
             
             .event-indicator {
-                font-size: 8px;
+                font-size: 10px;
                 padding: 1px 2px;
                 max-width: 85%;
             }
@@ -455,6 +485,7 @@
                 padding: 8px 2px;
                 font-size: 12px;
             }
+            
             .header {
                 padding: 25px 15px;
             }
@@ -465,6 +496,38 @@
             
             .target-students {
                 padding: 15px;
+            }
+        }
+        
+        /* 툴팁이 모바일에서도 작동하도록 터치 이벤트 지원 */
+        @media (hover: none) and (pointer: coarse) {
+            .event-indicator:active::after {
+                content: attr(data-full-text);
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0,0,0,0.9);
+                color: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-size: 12px;
+                white-space: nowrap;
+                z-index: 1000;
+                margin-bottom: 5px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            }
+            
+            .event-indicator:active::before {
+                content: '';
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border: 5px solid transparent;
+                border-top-color: rgba(0,0,0,0.9);
+                margin-bottom: -5px;
+                z-index: 1000;
             }
         }
     </style>
@@ -480,9 +543,9 @@
                 <div class="info-item">📍 장소: 2학년 1반 교실</div>
             </div>
             <div class="target-students">
-                <h3>🎯 추천 대상 학생</h3>
+                <h3>🎯 추천 대상 학생: <span class="highlight">중위권 학생</span></h3>
                 <div class="student-description">
-                    <span class="highlight">중위권 학생</span>으로서 <span class="highlight">확률과 통계 문제 풀이</span>를 통해 
+                    <span class="highlight">확률과 통계 문제 풀이</span>를 통해 
                     <span class="highlight">성적 향상</span>을 목표로 하는 학생들을 위한 수업입니다
                 </div>
                 <div class="benefits">
@@ -520,7 +583,7 @@
                         <td><span class="day-number">7</span></td>
                         <td><span class="day-number">8</span></td>
                         <td><span class="day-number">9</span></td>
-                        <td class="class-day"><span class="day-number">10</span><span class="event-indicator">1. 이산확률변수</span></td>
+                        <td class="class-day"><span class="day-number">10</span><span class="event-indicator" data-full-text="1. 이산확률변수">1. 이산확률변수</span></td>
                         <td><span class="day-number">11</span></td>
                         <td><span class="day-number">12</span></td>
                         <td><span class="day-number">13</span></td>
@@ -529,7 +592,7 @@
                         <td><span class="day-number">14</span></td>
                         <td><span class="day-number">15</span></td>
                         <td><span class="day-number">16</span></td>
-                        <td class="class-day"><span class="day-number">17</span><span class="event-indicator">2. 연속확률변수</span></td>
+                        <td class="class-day"><span class="day-number">17</span><span class="event-indicator" data-full-text="2. 연속확률변수">2. 연속확률변수</span></td>
                         <td><span class="day-number">18</span></td>
                         <td><span class="day-number">19</span></td>
                         <td><span class="day-number">20</span></td>
@@ -539,14 +602,14 @@
                         <td><span class="day-number">22</span></td>
                         <td><span class="day-number">23</span></td>
                         <td><span class="day-number">24</span></td>
-                        <td class="no-class-exam"><span class="day-number">25</span><span class="event-indicator">중간고사</span></td>
-                        <td class="no-class-exam"><span class="day-number">26</span><span class="event-indicator">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">25</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">26</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
                         <td><span class="day-number">27</span></td>
                     </tr>
                     <tr>
                         <td><span class="day-number">28</span></td>
-                        <td class="no-class-exam"><span class="day-number">29</span><span class="event-indicator">중간고사</span></td>
-                        <td class="no-class-exam"><span class="day-number">30</span><span class="event-indicator">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">29</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">30</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
                         <td class="other-month"><span class="day-number">1</span></td>
                         <td class="other-month"><span class="day-number">2</span></td>
                         <td class="other-month"><span class="day-number">3</span></td>
@@ -572,25 +635,25 @@
                         <td class="other-month"><span class="day-number">28</span></td>
                         <td class="other-month"><span class="day-number">29</span></td>
                         <td class="other-month"><span class="day-number">30</span></td>
-                        <td class="no-class-exam"><span class="day-number">1</span><span class="event-indicator">중간고사</span></td>
-                        <td class="school-event"><span class="day-number">2</span><span class="event-indicator">🏃‍♂️ 한마음운동회</span></td>
-                        <td class="no-class-holiday"><span class="day-number">3</span><span class="event-indicator">개천절</span></td>
+                        <td class="no-class-exam"><span class="day-number">1</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td class="school-event"><span class="day-number">2</span><span class="event-indicator" data-full-text="🏃‍♂️ 한마음운동회">🏃‍♂️ 한마음운동회</span></td>
+                        <td class="no-class-holiday"><span class="day-number">3</span><span class="event-indicator" data-full-text="개천절">개천절</span></td>
                         <td><span class="day-number">4</span></td>
                     </tr>
                     <tr>
-                        <td class="no-class-holiday"><span class="day-number">5</span><span class="event-indicator">추석연휴</span></td>
-                        <td class="no-class-holiday"><span class="day-number">6</span><span class="event-indicator">추석</span></td>
-                        <td class="no-class-holiday"><span class="day-number">7</span><span class="event-indicator">추석연휴</span></td>
-                        <td class="no-class-holiday"><span class="day-number">8</span><span class="event-indicator">대체공휴일</span></td>
-                        <td class="no-class-holiday"><span class="day-number">9</span><span class="event-indicator">한글날</span></td>
-                        <td class="school-event"><span class="day-number">10</span><span class="event-indicator">😴 재량휴업일</span></td>
+                        <td class="no-class-holiday"><span class="day-number">5</span><span class="event-indicator" data-full-text="추석연휴">추석연휴</span></td>
+                        <td class="no-class-holiday"><span class="day-number">6</span><span class="event-indicator" data-full-text="추석">추석</span></td>
+                        <td class="no-class-holiday"><span class="day-number">7</span><span class="event-indicator" data-full-text="추석연휴">추석연휴</span></td>
+                        <td class="no-class-holiday"><span class="day-number">8</span><span class="event-indicator" data-full-text="대체공휴일">대체공휴일</span></td>
+                        <td class="no-class-holiday"><span class="day-number">9</span><span class="event-indicator" data-full-text="한글날">한글날</span></td>
+                        <td class="school-event"><span class="day-number">10</span><span class="event-indicator" data-full-text="😴 재량휴업일">😴 재량휴업일</span></td>
                         <td><span class="day-number">11</span></td>
                     </tr>
                     <tr>
                         <td><span class="day-number">12</span></td>
                         <td><span class="day-number">13</span></td>
                         <td><span class="day-number">14</span></td>
-                        <td class="class-day"><span class="day-number">15</span><span class="event-indicator">3. 중간고사 풀이</span></td>
+                        <td class="class-day"><span class="day-number">15</span><span class="event-indicator" data-full-text="3. 중간고사 풀이">3. 중간고사 풀이</span></td>
                         <td><span class="day-number">16</span></td>
                         <td><span class="day-number">17</span></td>
                         <td><span class="day-number">18</span></td>
@@ -599,7 +662,7 @@
                         <td><span class="day-number">19</span></td>
                         <td><span class="day-number">20</span></td>
                         <td><span class="day-number">21</span></td>
-                        <td class="class-day"><span class="day-number">22</span><span class="event-indicator">4. 이산확률변수</span></td>
+                        <td class="class-day"><span class="day-number">22</span><span class="event-indicator" data-full-text="4. 이산확률변수">4. 이산확률변수</span></td>
                         <td><span class="day-number">23</span></td>
                         <td><span class="day-number">24</span></td>
                         <td><span class="day-number">25</span></td>
@@ -608,7 +671,7 @@
                         <td><span class="day-number">26</span></td>
                         <td><span class="day-number">27</span></td>
                         <td><span class="day-number">28</span></td>
-                        <td class="class-day"><span class="day-number">29</span><span class="event-indicator">5. 연속확률변수</span></td>
+                        <td class="class-day"><span class="day-number">29</span><span class="event-indicator" data-full-text="5. 연속확률변수">5. 연속확률변수</span></td>
                         <td><span class="day-number">30</span></td>
                         <td><span class="day-number">31</span></td>
                         <td class="other-month"><span class="day-number">1</span></td>
@@ -642,7 +705,7 @@
                         <td><span class="day-number">2</span></td>
                         <td><span class="day-number">3</span></td>
                         <td><span class="day-number">4</span></td>
-                        <td class="class-day"><span class="day-number">5</span><span class="event-indicator">6. 정규분포</span></td>
+                        <td class="class-day"><span class="day-number">5</span><span class="event-indicator" data-full-text="6. 정규분포">6. 정규분포</span></td>
                         <td><span class="day-number">6</span></td>
                         <td><span class="day-number">7</span></td>
                         <td><span class="day-number">8</span></td>
@@ -651,8 +714,8 @@
                         <td><span class="day-number">9</span></td>
                         <td><span class="day-number">10</span></td>
                         <td><span class="day-number">11</span></td>
-                        <td class="class-day"><span class="day-number">12</span><span class="event-indicator">7. 표본평균의 분포</span></td>
-                        <td class="no-class-exam"><span class="day-number">13</span><span class="event-indicator">수능시험</span></td>
+                        <td class="class-day"><span class="day-number">12</span><span class="event-indicator" data-full-text="7. 표본평균의 분포">7. 표본평균의 분포</span></td>
+                        <td class="no-class-exam"><span class="day-number">13</span><span class="event-indicator" data-full-text="수능시험">수능시험</span></td>
                         <td><span class="day-number">14</span></td>
                         <td><span class="day-number">15</span></td>
                     </tr>
@@ -660,7 +723,7 @@
                         <td><span class="day-number">16</span></td>
                         <td><span class="day-number">17</span></td>
                         <td><span class="day-number">18</span></td>
-                        <td class="class-day"><span class="day-number">19</span><span class="event-indicator">8. 모평균의 추정</span></td>
+                        <td class="class-day"><span class="day-number">19</span><span class="event-indicator" data-full-text="8. 모평균의 추정">8. 모평균의 추정</span></td>
                         <td><span class="day-number">20</span></td>
                         <td><span class="day-number">21</span></td>
                         <td><span class="day-number">22</span></td>
@@ -669,7 +732,7 @@
                         <td><span class="day-number">23</span></td>
                         <td><span class="day-number">24</span></td>
                         <td><span class="day-number">25</span></td>
-                        <td class="class-day"><span class="day-number">26</span><span class="event-indicator">9. 총정리</span></td>
+                        <td class="class-day"><span class="day-number">26</span><span class="event-indicator" data-full-text="9. 총정리">9. 총정리</span></td>
                         <td><span class="day-number">27</span></td>
                         <td><span class="day-number">28</span></td>
                         <td><span class="day-number">29</span></td>
