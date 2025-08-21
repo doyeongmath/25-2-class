@@ -259,6 +259,12 @@
         <h3 class="text-xl font-extrabold">큰수의 법칙 실험기</h3>
         <p class="opacity-90">주사위 던지기 시뮬레이션</p>
       </button>
+
+      <button class="action-tile tile-indigo" onclick="handleViewBinormal()" aria-label="이항분포와 정규분포 비교 열기">
+        <div class="text-3xl mb-2">📊</div>
+        <h3 class="text-xl font-extrabold">이항↔정규 분포 비교</h3>
+        <p class="opacity-90">이항분포의 정규근사 시뮬레이션</p>
+      </button>
     </section>
 
     <!-- 평가 방법 -->
@@ -498,6 +504,7 @@
     function handleViewSelfEvaluation(){ showInIframe('./self-evaluation.html', '자기평가 결과'); }
     function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
     function handleViewLawOfLargeNumbers(){ showInIframe('./law-of-large-numbers.html', '큰수의 법칙 실험기'); }
+    function handleViewBinormal(){ showInIframe('./binormal.html', '이항↔정규 분포 비교'); }
     function handleViewAfterSchoolSchedule(){ showInIframe('./after-school-schedule.html', '방과후 수업 계획'); }
     
 
@@ -507,6 +514,7 @@
     window.handleViewSelfEvaluation = handleViewSelfEvaluation;
     window.handleViewGameResult = handleViewGameResult;
     window.handleViewLawOfLargeNumbers = handleViewLawOfLargeNumbers;
+    window.handleViewBinormal = handleViewBinormal;
     window.handleViewAfterSchoolSchedule = handleViewAfterSchoolSchedule;
   </script>
 </body>
