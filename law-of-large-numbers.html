@@ -72,6 +72,7 @@
       <div class="math-explanation">
         <h3>📚 수학적 정의</h3>
         <p>
+<<<<<<< HEAD
           <strong>큰수의 법칙:</strong> 주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 하면,
           이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
         </p>
@@ -81,6 +82,17 @@
         <p>
           <strong>수렴 조건:</strong> 임의의 작은 양수 \(h\)에 대하여,
           \[P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) \to 1 \quad (n \to \infty)\]
+=======
+          <strong>큰수의 법칙:</strong> 주사위를 $n$번 던질 때 3의 눈이 나오는 횟수를 $X$라고 하면,
+          이항분포 $B(n, \frac{1}{6})$를 따릅니다.
+        </p>
+        <p>
+          <strong>상대도수:</strong> $\frac{X}{n}$은 $n$이 커질수록 이론적 확률 $\frac{1}{6}$에 수렴합니다.
+        </p>
+        <p>
+          <strong>수렴 조건:</strong> 임의의 작은 양수 $h$에 대하여,
+          $$P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) \to 1 \quad (n \to \infty)$$
+>>>>>>> 6d3907b6ddf07de854bd8f2eb7704f1f3760ff7f
         </p>
       </div>
     </div>
@@ -88,6 +100,7 @@
     <div class="experiment-section">
       <h2>🔬 실험 프로그램</h2>
       <p>
+<<<<<<< HEAD
         <strong>실험 설명:</strong> 주사위를 \(n\)번 던져서 3의 눈이 나오는 횟수 \(X\)를 구하고, 
         상대도수 \(\frac{X}{n}\)이 이론적 확률 \(\frac{1}{6}\)에 수렴하는지 확인합니다.<br>
         사용자가 설정한 오차 범위 \(h\) 안에 들어오는 비율을 계산하여 큰수의 법칙을 체험할 수 있습니다.
@@ -96,6 +109,16 @@
       <div class="controls">
         <label>던진 횟수 \(n\): <input type="number" id="n" value="50" min="10" max="1000"></label>
         <label>허용 오차 \(h\): <input type="number" step="0.01" id="h" value="0.1" min="0.01" max="0.5"></label>
+=======
+        <strong>실험 설명:</strong> 주사위를 $n$번 던져서 3의 눈이 나오는 횟수 $X$를 구하고, 
+        상대도수 $\frac{X}{n}$이 이론적 확률 $\frac{1}{6}$에 수렴하는지 확인합니다.<br>
+        사용자가 설정한 오차 범위 $h$ 안에 들어오는 비율을 계산하여 큰수의 법칙을 체험할 수 있습니다.
+      </p>
+
+      <div class="controls">
+        <label>던진 횟수 $n$: <input type="number" id="n" value="50" min="10" max="1000"></label>
+        <label>허용 오차 $h$: <input type="number" step="0.01" id="h" value="0.1" min="0.01" max="0.5"></label>
+>>>>>>> 6d3907b6ddf07de854bd8f2eb7704f1f3760ff7f
         <label>반복 횟수 repeat: <input type="number" id="repeat" value="1000" min="100" max="10000"></label>
         <button onclick="runSimulation()">실험 시작</button>
       </div>
@@ -106,6 +129,7 @@
       <div class="experiment-explanation">
         <h3>🎯 실험 결과 해석</h3>
         <p>
+<<<<<<< HEAD
           <strong>이론적 기댓값:</strong> \(E\left[\frac{X}{n}\right] = \frac{1}{6} \approx 0.1667\)
         </p>
         <p>
@@ -113,6 +137,15 @@
         </p>
         <p>
           <strong>중심극한정리:</strong> \(n\)이 충분히 클 때, \(\frac{X}{n}\)은 정규분포 \(N\left(\frac{1}{6}, \frac{5}{36n}\right)\)에 근사합니다.
+=======
+          <strong>이론적 기댓값:</strong> $E\left[\frac{X}{n}\right] = \frac{1}{6} \approx 0.1667$
+        </p>
+        <p>
+          <strong>이론적 분산:</strong> $V\left[\frac{X}{n}\right] = \frac{1}{n} \cdot \frac{1}{6} \cdot \frac{5}{6} = \frac{5}{36n}$
+        </p>
+        <p>
+          <strong>중심극한정리:</strong> $n$이 충분히 클 때, $\frac{X}{n}$은 정규분포 $N\left(\frac{1}{6}, \frac{5}{36n}\right)$에 근사합니다.
+>>>>>>> 6d3907b6ddf07de854bd8f2eb7704f1f3760ff7f
         </p>
       </div>
     </div>
