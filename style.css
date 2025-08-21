@@ -199,6 +199,33 @@ button:active {
 /* MathJax 스타일 개선 */
 .MathJax {
   font-size: 1.1em;
+  line-height: 1.4;
+}
+
+.MathJax_Display {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.MathJax_Display .MathJax {
+  font-size: 1.2em;
+}
+
+/* 분수 표현 개선 */
+.MathJax .mfrac {
+  margin: 0 0.2em;
+}
+
+/* 테이블 내 수식 개선 */
+.theory-table .MathJax {
+  font-size: 1em;
+}
+
+/* 수학 설명 섹션의 수식 개선 */
+.math-explanation .MathJax,
+.experiment-explanation .MathJax {
+  font-size: 1.1em;
+  line-height: 1.6;
 }
 
 /* 반응형 디자인 */
