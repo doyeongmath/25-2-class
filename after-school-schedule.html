@@ -208,9 +208,11 @@
             max-width: 95%;
             margin: 0 auto;
             position: relative;
+            cursor: pointer;
         }
         
-        .event-indicator:hover::after {
+        .event-indicator:hover::after,
+        .event-indicator:focus::after {
             content: attr(data-full-text);
             position: absolute;
             bottom: 100%;
@@ -227,7 +229,8 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         
-        .event-indicator:hover::before {
+        .event-indicator:hover::before,
+        .event-indicator:focus::before {
             content: '';
             position: absolute;
             bottom: 100%;
@@ -503,7 +506,8 @@
         
         /* 툴팁이 모바일에서도 작동하도록 터치 이벤트 지원 */
         @media (hover: none) and (pointer: coarse) {
-            .event-indicator:active::after {
+            .event-indicator:active::after,
+            .event-indicator:focus::after {
                 content: attr(data-full-text);
                 position: absolute;
                 bottom: 100%;
@@ -523,7 +527,8 @@
                 text-overflow: ellipsis;
             }
             
-            .event-indicator:active::before {
+            .event-indicator:active::before,
+            .event-indicator:focus::before {
                 content: '';
                 position: absolute;
                 bottom: 100%;
@@ -534,6 +539,19 @@
                 margin-bottom: -6px;
                 z-index: 1000;
             }
+            
+            .event-indicator:active {
+                background: rgba(255,255,255,1) !important;
+                transform: scale(1.05);
+                transition: all 0.2s ease;
+            }
+        }
+        
+        /* 모든 기기에서 터치/클릭 시 스타일 개선 */
+        .event-indicator:active,
+        .event-indicator:focus {
+            outline: 2px solid #3182ce;
+            outline-offset: 2px;
         }
     </style>
 </head>
@@ -795,5 +813,89 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        // 터치/클릭 이벤트 처리
+        document.addEventListener('DOMContentLoaded', function() {
+            const eventIndicators = document.querySelectorAll('.event-indicator');
+            
+            eventIndicators.forEach(function(indicator) {
+                let tooltip = null;
+                let tooltipArrow = null;
+                
+                // 터치/클릭 시작
+                function showTooltip() {
+                    const text = indicator.getAttribute('data-full-text');
+                    if (!text) return;
+                    
+                    // 기존 툴팁 제거
+                    if (tooltip) {
+                        tooltip.remove();
+                        tooltipArrow.remove();
+                    }
+                    
+                    // 툴팁 생성
+                    tooltip = document.createElement('div');
+                    tooltip.className = 'custom-tooltip';
+                    tooltip.textContent = text;
+                    tooltip.style.cssText = `
+                        position: absolute;
+                        bottom: 100%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: rgba(0,0,0,0.95);
+                        color: white;
+                        padding: 10px 14px;
+                        border-radius: 8px;
+                        font-size: 13px;
+                        white-space: nowrap;
+                        z-index: 1000;
+                        margin-bottom: 8px;
+                        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+                        max-width: 200px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    `;
+                    
+                    // 화살표 생성
+                    tooltipArrow = document.createElement('div');
+                    tooltipArrow.style.cssText = `
+                        position: absolute;
+                        bottom: 100%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        border: 6px solid transparent;
+                        border-top-color: rgba(0,0,0,0.95);
+                        margin-bottom: -6px;
+                        z-index: 1000;
+                    `;
+                    
+                    indicator.appendChild(tooltip);
+                    indicator.appendChild(tooltipArrow);
+                }
+                
+                // 터치/클릭 종료
+                function hideTooltip() {
+                    if (tooltip) {
+                        tooltip.remove();
+                        tooltipArrow.remove();
+                        tooltip = null;
+                        tooltipArrow = null;
+                    }
+                }
+                
+                // 이벤트 리스너 추가
+                indicator.addEventListener('touchstart', showTooltip);
+                indicator.addEventListener('mousedown', showTooltip);
+                indicator.addEventListener('touchend', hideTooltip);
+                indicator.addEventListener('mouseup', hideTooltip);
+                indicator.addEventListener('mouseleave', hideTooltip);
+                
+                // 포커스 이벤트
+                indicator.addEventListener('focus', showTooltip);
+                indicator.addEventListener('blur', hideTooltip);
+            });
+        });
+    </script>
 </body>
 </html>
