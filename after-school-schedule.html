@@ -192,7 +192,7 @@
             background: white;
             transition: background-color 0.2s ease;
             word-wrap: break-word;
-            overflow: hidden;
+            overflow: visible;
         }
         
         .day-number {
@@ -234,6 +234,16 @@
             overflow: visible !important;
             text-overflow: clip !important;
             max-width: none !important;
+            position: absolute !important;
+            left: 50% !important;
+            transform: translateX(-50%) scale(1.2) !important;
+            top: -10px !important;
+            width: auto !important;
+            min-width: 200px !important;
+            border-radius: 8px !important;
+            border: 2px solid #3182ce !important;
+            color: #2d3748 !important;
+            font-weight: 700 !important;
         }
         
         .event-indicator:hover::after,
