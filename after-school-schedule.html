@@ -1,259 +1,898 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f2f5f7;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-h1 {
-  text-align: center;
-  color: #2b3e50;
-  margin-bottom: 30px;
-}
-
-h2 {
-  color: #2b3e50;
-  border-bottom: 2px solid #357edd;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-h3 {
-  color: #2b3e50;
-  border-bottom: 1px solid #dee2e6;
-  padding-bottom: 8px;
-  margin-bottom: 15px;
-  font-size: 1.3rem;
-}
-
-.theory-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 25px;
-  border-radius: 12px;
-  margin-bottom: 30px;
-  border-left: 5px solid #357edd;
-}
-
-.theory-chart {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.theory-table {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  overflow-x: auto;
-}
-
-.theory-table table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-.theory-table th,
-.theory-table td {
-  padding: 12px;
-  border: 1px solid #dee2e6;
-}
-
-.theory-table th {
-  background-color: #357edd;
-  color: white;
-  font-weight: bold;
-}
-
-.theory-table tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-.math-explanation {
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px 0;
-  border-left: 5px solid #2196f3;
-}
-
-.math-explanation h3 {
-  color: #1565c0;
-  border-bottom-color: #2196f3;
-}
-
-.math-explanation p {
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-.experiment-section {
-  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-  padding: 25px;
-  border-radius: 12px;
-  border-left: 5px solid #28a745;
-}
-
-.experiment-explanation {
-  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px 0;
-  border-left: 5px solid #9c27b0;
-}
-
-.experiment-explanation h3 {
-  color: #7b1fa2;
-  border-bottom-color: #9c27b0;
-}
-
-.experiment-explanation p {
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 20px;
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-label {
-  flex: 1;
-  min-width: 150px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-label span {
-  font-weight: bold;
-  color: #495057;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 2px solid #dee2e6;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-
-input:focus {
-  outline: none;
-  border-color: #357edd;
-  box-shadow: 0 0 0 3px rgba(53, 126, 221, 0.1);
-}
-
-button {
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #357edd 0%, #2a5db0 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  min-width: 120px;
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(53, 126, 221, 0.3);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-#result {
-  font-size: 1.2em;
-  margin: 20px 0;
-  padding: 15px;
-  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-  border-radius: 8px;
-  border-left: 5px solid #28a745;
-  color: #155724;
-  font-weight: bold;
-}
-
-/* MathJax 스타일 개선 */
-.MathJax {
-  font-size: 1.1em;
-  line-height: 1.4;
-}
-
-.MathJax_Display {
-  margin: 1em 0;
-  text-align: center;
-}
-
-.MathJax_Display .MathJax {
-  font-size: 1.2em;
-}
-
-/* 분수 표현 개선 */
-.MathJax .mfrac {
-  margin: 0 0.2em;
-}
-
-/* 테이블 내 수식 개선 */
-.theory-table .MathJax {
-  font-size: 1em;
-}
-
-/* 수학 설명 섹션의 수식 개선 */
-.math-explanation .MathJax,
-.experiment-explanation .MathJax {
-  font-size: 1.1em;
-  line-height: 1.6;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-  .container {
-    margin: 15px;
-    padding: 15px;
-  }
-  
-  .controls {
-    flex-direction: column;
-  }
-  
-  label {
-    min-width: auto;
-  }
-  
-  .theory-table {
-    font-size: 14px;
-  }
-  
-  .theory-table th,
-  .theory-table td {
-    padding: 8px 6px;
-  }
-  
-  .math-explanation,
-  .experiment-explanation {
-    padding: 15px;
-  }
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2학기 방과후 확률과 통계 문제 풀이 수업</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }ㄹ
+        
+        body {
+            font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .title-part1 {
+            color: #e2e8f0;
+            opacity: 0.9;
+        }
+        
+        .title-part2 {
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        
+        .class-info {
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .info-item {
+            font-size: 1em;
+            margin-bottom: 8px;
+            opacity: 0.95;
+            text-align: left;
+        }
+        
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .target-students {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            text-align: left;
+        }
+        
+        .target-students h3 {
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .student-description {
+            font-size: 1.1em;
+            text-align: left;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .highlight {
+            background: rgba(255,255,255,0.3);
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .benefits {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .benefit-tag {
+            background: rgba(255,255,255,0.25);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        
+        .calendar-container {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .month {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .month-header {
+            background: linear-gradient(135deg, #4c51bf 0%, #553c9a 100%);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .days-header {
+            background: #f7fafc;
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .day-name {
+            flex: 1;
+            padding: 12px 6px;
+            text-align: center;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 13px;
+            border-right: 1px solid #e2e8f0;
+        }
+        
+        .day-name:last-child {
+            border-right: none;
+        }
+        
+        .day-name.sunday { color: #e53e3e; }
+        .day-name.saturday { color: #3182ce; }
+        .day-name.wednesday { color: #38a169; font-weight: 700; }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        
+        .calendar-table td {
+            width: 14.28%;
+            height: 85px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            vertical-align: middle;
+            position: relative;
+            padding: 4px;
+            background: white;
+            transition: background-color 0.2s ease;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        
+        .day-number {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: #2d3748;
+        }
+        
+        .event-indicator {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 5px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.95);
+            color: #2d3748;
+            text-align: center;
+            line-height: 1.3;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 95%;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .event-indicator.expanded {
+            transform: scale(1.2) !important;
+            z-index: 1000 !important;
+            background: rgba(255,255,255,1) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+            font-size: 14px !important;
+            padding: 8px 10px !important;
+            white-space: nowrap !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            max-width: none !important;
+        }
+        
+        .event-indicator:hover::after,
+        .event-indicator:focus::after {
+            content: attr(data-full-text);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .event-indicator:hover::before,
+        .event-indicator:focus::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(0,0,0,0.9);
+            margin-bottom: -5px;
+            z-index: 1000;
+        }
+        
+        .other-month {
+            color: #a0aec0 !important;
+            background: #f7fafc !important;
+        }
+        
+        .class-day {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .class-day .day-number {
+            color: white !important;
+        }
+        
+        .class-day .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #38a169;
+            font-weight: 700;
+        }
+        
+        .no-class-exam {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%) !important;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .no-class-exam .day-number {
+            color: white !important;
+        }
+        
+        .no-class-exam .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #e53e3e;
+        }
+        
+        .no-class-holiday {
+            background: linear-gradient(135deg, #718096 0%, #4a5568 100%) !important;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .no-class-holiday .day-number {
+            color: white !important;
+        }
+        
+        .no-class-holiday .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #4a5568;
+        }
+        
+        .school-event {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%) !important;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .school-event .day-number {
+            color: white !important;
+        }
+        
+        .school-event .event-indicator {
+            background: rgba(255,255,255,0.95);
+            color: #dd6b20;
+        }
+        
+        .class-schedule {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border: 2px solid #68d391;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px;
+        }
+        
+        .class-schedule h4 {
+            color: #22543d;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 700;
+            text-align: left;
+        }
+        
+        .class-info-summary {
+            text-align: left;
+            margin-bottom: 15px;
+            color: #22543d;
+            font-weight: 500;
+        }
+        
+        .class-dates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            color: #22543d;
+        }
+        
+        .class-date {
+            background: white;
+            padding: 16px 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #68d391;
+            font-size: 0.95em;
+            line-height: 1.4;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(104, 211, 145, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .class-date:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(104, 211, 145, 0.25);
+        }
+        
+        .summary {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .summary h3 {
+            margin-bottom: 25px;
+            color: #2d3748;
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+        
+        .summary-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #38a169;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #4a5568;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .month {
+                width: 100%;
+                margin: 0 0 30px 0;
+                max-width: none;
+            }
+            
+            .calendar-container {
+                padding: 20px 15px;
+            }
+            
+            .calendar-table td {
+                height: 80px;
+                padding: 3px;
+            }
+            
+            .day-number {
+                font-size: 15px;
+                margin-bottom: 5px;
+            }
+            
+            .event-indicator {
+                font-size: 12px;
+                padding: 3px 4px;
+                max-width: 95%;
+                line-height: 1.2;
+            }
+            
+            .class-schedule {
+                margin: 20px 15px;
+                padding: 20px;
+            }
+            
+            .summary-stats {
+                gap: 20px;
+            }
+            
+            .stat-item {
+                padding: 15px 20px;
+                min-width: 100px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .class-info {
+                padding: 15px;
+            }
+            
+            .target-students {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .calendar-table td {
+                height: 75px;
+                padding: 2px;
+            }
+            
+            .day-number {
+                font-size: 14px;
+                margin-bottom: 4px;
+            }
+            
+            .event-indicator {
+                font-size: 11px;
+                padding: 2px 3px;
+                max-width: 90%;
+                line-height: 1.1;
+            }
+            
+            .month-header {
+                padding: 15px;
+                font-size: 1.2em;
+            }
+            
+            .days-header {
+                padding: 8px 4px;
+            }
+            
+            .day-name {
+                padding: 8px 2px;
+                font-size: 12px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .class-info {
+                padding: 15px;
+            }
+            
+            .target-students {
+                padding: 15px;
+            }
+        }
+        
+        /* 툴팁이 모바일에서도 작동하도록 터치 이벤트 지원 */
+        @media (hover: none) and (pointer: coarse) {
+            .event-indicator:active::after,
+            .event-indicator:focus::after {
+                content: attr(data-full-text);
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0,0,0,0.95);
+                color: white;
+                padding: 10px 14px;
+                border-radius: 8px;
+                font-size: 13px;
+                white-space: nowrap;
+                z-index: 1000;
+                margin-bottom: 8px;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .event-indicator:active::before,
+            .event-indicator:focus::before {
+                content: '';
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border: 6px solid transparent;
+                border-top-color: rgba(0,0,0,0.95);
+                margin-bottom: -6px;
+                z-index: 1000;
+            }
+            
+            .event-indicator:active {
+                background: rgba(255,255,255,1) !important;
+                transform: scale(1.05);
+                transition: all 0.2s ease;
+            }
+        }
+        
+        /* 모든 기기에서 터치/클릭 시 스타일 개선 */
+        .event-indicator:active,
+        .event-indicator:focus {
+            outline: 2px solid #3182ce;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 <span class="title-part1">2학기 방과후</span> <span class="title-part2">확률과 통계 문제 풀이 수업</span></h1>
+            <p>2025년 9~11월 수업 계획</p>
+            <div class="class-info">
+                <div class="info-item">📖 교재: EBS 수능 기출의 미래 확률과 통계</div>
+                <div class="info-item">⏰ 수업 시간: 매주 수요일 15:30 ~ 17:00</div>
+                <div class="info-item">📍 장소: 2학년 1반 교실</div>
+            </div>
+            <div class="target-students">
+                <h3>🎯 추천 대상 학생: <span class="highlight">중위권 학생</span></h3>
+                <div class="student-description">
+                    <span class="highlight">확률과 통계 문제 풀이</span>를 통해 
+                    <span class="highlight">성적 향상</span>을 목표로 하는 학생들을 위한 수업입니다
+                </div>
+                <div class="benefits">
+                    <span class="benefit-tag">✨ 체계적 문제 해결</span>
+                    <span class="benefit-tag">📈 성적 향상</span>
+                    <span class="benefit-tag">🔥 수능 완벽 대비</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="calendar-container">
+            <!-- 9월 달력 -->
+            <div class="month">
+                                 <div class="month-header">2025년 9월</div>
+                <div class="days-header">
+                    <div class="day-name sunday">일</div>
+                    <div class="day-name">월</div>
+                    <div class="day-name">화</div>
+                    <div class="day-name wednesday">수</div>
+                    <div class="day-name">목</div>
+                    <div class="day-name">금</div>
+                    <div class="day-name saturday">토</div>
+                </div>
+                <table class="calendar-table">
+                    <tr>
+                        <td class="other-month"><span class="day-number">31</span></td>
+                        <td><span class="day-number">1</span></td>
+                        <td><span class="day-number">2</span></td>
+                        <td><span class="day-number">3</span></td>
+                        <td><span class="day-number">4</span></td>
+                        <td><span class="day-number">5</span></td>
+                        <td><span class="day-number">6</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">7</span></td>
+                        <td><span class="day-number">8</span></td>
+                        <td><span class="day-number">9</span></td>
+                        <td class="class-day"><span class="day-number">10</span><span class="event-indicator" data-full-text="1. 이산확률변수">1. 이산확률변수</span></td>
+                        <td><span class="day-number">11</span></td>
+                        <td><span class="day-number">12</span></td>
+                        <td><span class="day-number">13</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">14</span></td>
+                        <td><span class="day-number">15</span></td>
+                        <td><span class="day-number">16</span></td>
+                        <td class="class-day"><span class="day-number">17</span><span class="event-indicator" data-full-text="2. 연속확률변수">2. 연속확률변수</span></td>
+                        <td><span class="day-number">18</span></td>
+                        <td><span class="day-number">19</span></td>
+                        <td><span class="day-number">20</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">21</span></td>
+                        <td><span class="day-number">22</span></td>
+                        <td><span class="day-number">23</span></td>
+                        <td><span class="day-number">24</span></td>
+                        <td class="no-class-exam"><span class="day-number">25</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">26</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td><span class="day-number">27</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">28</span></td>
+                        <td class="no-class-exam"><span class="day-number">29</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td class="no-class-exam"><span class="day-number">30</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td class="other-month"><span class="day-number">1</span></td>
+                        <td class="other-month"><span class="day-number">2</span></td>
+                        <td class="other-month"><span class="day-number">3</span></td>
+                        <td class="other-month"><span class="day-number">4</span></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- 10월 달력 -->
+            <div class="month">
+                                 <div class="month-header">2025년 10월</div>
+                <div class="days-header">
+                    <div class="day-name sunday">일</div>
+                    <div class="day-name">월</div>
+                    <div class="day-name">화</div>
+                    <div class="day-name wednesday">수</div>
+                    <div class="day-name">목</div>
+                    <div class="day-name">금</div>
+                    <div class="day-name saturday">토</div>
+                </div>
+                <table class="calendar-table">
+                    <tr>
+                        <td class="other-month"><span class="day-number">28</span></td>
+                        <td class="other-month"><span class="day-number">29</span></td>
+                        <td class="other-month"><span class="day-number">30</span></td>
+                        <td class="no-class-exam"><span class="day-number">1</span><span class="event-indicator" data-full-text="중간고사">중간고사</span></td>
+                        <td class="school-event"><span class="day-number">2</span><span class="event-indicator" data-full-text="🏃‍♂️ 한마음운동회">🏃‍♂️ 한마음운동회</span></td>
+                        <td class="no-class-holiday"><span class="day-number">3</span><span class="event-indicator" data-full-text="개천절">개천절</span></td>
+                        <td><span class="day-number">4</span></td>
+                    </tr>
+                    <tr>
+                        <td class="no-class-holiday"><span class="day-number">5</span><span class="event-indicator" data-full-text="추석연휴">추석연휴</span></td>
+                        <td class="no-class-holiday"><span class="day-number">6</span><span class="event-indicator" data-full-text="추석">추석</span></td>
+                        <td class="no-class-holiday"><span class="day-number">7</span><span class="event-indicator" data-full-text="추석연휴">추석연휴</span></td>
+                        <td class="no-class-holiday"><span class="day-number">8</span><span class="event-indicator" data-full-text="대체공휴일">대체공휴일</span></td>
+                        <td class="no-class-holiday"><span class="day-number">9</span><span class="event-indicator" data-full-text="한글날">한글날</span></td>
+                        <td class="school-event"><span class="day-number">10</span><span class="event-indicator" data-full-text="😴 재량휴업일">😴 재량휴업일</span></td>
+                        <td><span class="day-number">11</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">12</span></td>
+                        <td><span class="day-number">13</span></td>
+                        <td><span class="day-number">14</span></td>
+                        <td class="class-day"><span class="day-number">15</span><span class="event-indicator" data-full-text="3. 중간고사 풀이">3. 중간고사 풀이</span></td>
+                        <td><span class="day-number">16</span></td>
+                        <td><span class="day-number">17</span></td>
+                        <td><span class="day-number">18</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">19</span></td>
+                        <td><span class="day-number">20</span></td>
+                        <td><span class="day-number">21</span></td>
+                        <td class="class-day"><span class="day-number">22</span><span class="event-indicator" data-full-text="4. 이산확률변수">4. 이산확률변수</span></td>
+                        <td><span class="day-number">23</span></td>
+                        <td><span class="day-number">24</span></td>
+                        <td><span class="day-number">25</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">26</span></td>
+                        <td><span class="day-number">27</span></td>
+                        <td><span class="day-number">28</span></td>
+                        <td class="class-day"><span class="day-number">29</span><span class="event-indicator" data-full-text="5. 연속확률변수">5. 연속확률변수</span></td>
+                        <td><span class="day-number">30</span></td>
+                        <td><span class="day-number">31</span></td>
+                        <td class="other-month"><span class="day-number">1</span></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- 11월 달력 -->
+            <div class="month">
+                                 <div class="month-header">2025년 11월</div>
+                <div class="days-header">
+                    <div class="day-name sunday">일</div>
+                    <div class="day-name">월</div>
+                    <div class="day-name">화</div>
+                    <div class="day-name wednesday">수</div>
+                    <div class="day-name">목</div>
+                    <div class="day-name">금</div>
+                    <div class="day-name saturday">토</div>
+                </div>
+                <table class="calendar-table">
+                    <tr>
+                        <td class="other-month"><span class="day-number">26</span></td>
+                        <td class="other-month"><span class="day-number">27</span></td>
+                        <td class="other-month"><span class="day-number">28</span></td>
+                        <td class="other-month"><span class="day-number">29</span></td>
+                        <td class="other-month"><span class="day-number">30</span></td>
+                        <td class="other-month"><span class="day-number">31</span></td>
+                        <td><span class="day-number">1</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">2</span></td>
+                        <td><span class="day-number">3</span></td>
+                        <td><span class="day-number">4</span></td>
+                        <td class="class-day"><span class="day-number">5</span><span class="event-indicator" data-full-text="6. 정규분포">6. 정규분포</span></td>
+                        <td><span class="day-number">6</span></td>
+                        <td><span class="day-number">7</span></td>
+                        <td><span class="day-number">8</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">9</span></td>
+                        <td><span class="day-number">10</span></td>
+                        <td><span class="day-number">11</span></td>
+                        <td class="class-day"><span class="day-number">12</span><span class="event-indicator" data-full-text="7. 표본평균의 분포">7. 표본평균의 분포</span></td>
+                        <td class="no-class-exam"><span class="day-number">13</span><span class="event-indicator" data-full-text="수능시험">수능시험</span></td>
+                        <td><span class="day-number">14</span></td>
+                        <td><span class="day-number">15</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">16</span></td>
+                        <td><span class="day-number">17</span></td>
+                        <td><span class="day-number">18</span></td>
+                        <td class="class-day"><span class="day-number">19</span><span class="event-indicator" data-full-text="8. 모평균의 추정">8. 모평균의 추정</span></td>
+                        <td><span class="day-number">20</span></td>
+                        <td><span class="day-number">21</span></td>
+                        <td><span class="day-number">22</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">23</span></td>
+                        <td><span class="day-number">24</span></td>
+                        <td><span class="day-number">25</span></td>
+                        <td class="class-day"><span class="day-number">26</span><span class="event-indicator" data-full-text="9. 총정리">9. 총정리</span></td>
+                        <td><span class="day-number">27</span></td>
+                        <td><span class="day-number">28</span></td>
+                        <td><span class="day-number">29</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="day-number">30</span></td>
+                        <td class="other-month"><span class="day-number">1</span></td>
+                        <td class="other-month"><span class="day-number">2</span></td>
+                        <td class="other-month"><span class="day-number">3</span></td>
+                        <td class="other-month"><span class="day-number">4</span></td>
+                        <td class="other-month"><span class="day-number">5</span></td>
+                        <td class="other-month"><span class="day-number">6</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="class-schedule">
+            <h4>✅ 2학기 방과후 확률과 통계 문제 풀이 수업 일정</h4>
+            <div class="class-info-summary">
+                ⏰ 매주 수요일 15:30~17:00 | 📍 2학년 1반 교실 | 📖 EBS 수능 기출의 미래 확률과 통계
+            </div>
+            <div class="class-dates">
+                <div class="class-date">9/10 (수)<br>1. 이산확률변수</div>
+                <div class="class-date">9/17 (수)<br>2. 연속확률변수</div>
+                <div class="class-date">10/15 (수)<br>3. 중간고사 풀이</div>
+                <div class="class-date">10/22 (수)<br>4. 이산확률변수</div>
+                <div class="class-date">10/29 (수)<br>5. 연속확률변수</div>
+                <div class="class-date">11/5 (수)<br>6. 정규분포</div>
+                <div class="class-date">11/12 (수)<br>7. 표본평균의 분포</div>
+                <div class="class-date">11/19 (수)<br>8. 모평균의 추정</div>
+                <div class="class-date">11/26 (수)<br>9. 총정리</div>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <h3>📊 2학기 방과후 확률과 통계 수업 통계</h3>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">총 수업 횟수</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">9월 수업</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">10월 수업</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">11월 수업</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 확대/축소 토글 시스템
+        document.addEventListener('DOMContentLoaded', function() {
+            const eventIndicators = document.querySelectorAll('.event-indicator');
+            
+            eventIndicators.forEach(function(indicator) {
+                let isExpanded = false;
+                let originalText = '';
+                
+                // 확대/축소 토글 함수
+                function toggleText() {
+                    if (!isExpanded) {
+                        // 확대
+                        isExpanded = true;
+                        originalText = indicator.textContent;
+                        
+                        const fullText = indicator.getAttribute('data-full-text');
+                        console.log('확대 시도:', fullText); // 디버깅용
+                        
+                        if (fullText) {
+                            indicator.textContent = fullText;
+                            console.log('텍스트 변경됨:', indicator.textContent); // 디버깅용
+                        }
+                        
+                        // CSS 클래스 추가로 확대
+                        indicator.classList.add('expanded');
+                        
+                    } else {
+                        // 축소
+                        isExpanded = false;
+                        indicator.textContent = originalText;
+                        console.log('축소됨:', indicator.textContent); // 디버깅용
+                        
+                        // CSS 클래스 제거로 축소
+                        indicator.classList.remove('expanded');
+                    }
+                }
+                
+                // 이벤트 리스너 추가
+                indicator.addEventListener('click', toggleText);
+                indicator.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    toggleText();
+                });
+                
+                // 키보드 접근성
+                indicator.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleText();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
