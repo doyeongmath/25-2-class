@@ -409,6 +409,34 @@
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .main-stat {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
+            color: white !important;
+            border: 3px solid #68d391 !important;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(56, 161, 105, 0.4) !important;
+        }
+        
+        .main-stat .stat-number {
+            color: white !important;
+            font-size: 2.5em !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+        }
+        
+        .main-stat .stat-label {
+            color: white !important;
+            font-size: 1.1em !important;
+            font-weight: 700 !important;
+        }
+        
+        .monthly-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
         .stat-item {
@@ -829,10 +857,12 @@
         <div class="summary">
             <h3>📊 2학기 방과후 확률과 통계 수업 통계</h3>
             <div class="summary-stats">
-                <div class="stat-item">
+                <div class="stat-item main-stat">
                     <div class="stat-number">9</div>
                     <div class="stat-label">총 수업 횟수</div>
                 </div>
+            </div>
+            <div class="monthly-stats">
                 <div class="stat-item">
                     <div class="stat-number">2</div>
                     <div class="stat-label">9월 수업</div>
