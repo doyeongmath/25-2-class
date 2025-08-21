@@ -3,27 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>큰수의 법칙 실험기</title>
+  <title>큰수의 법칙 실험기 - 주사위</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- MathJax 설정 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: ['base', 'ams', 'noerrors', 'noundefined']
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            console.log('MathJax 초기화 완료');
+          });
+        }
+      }
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🔢 큰수의 법칙 시뮬레이터</h1>
-    <p>
-      <strong>실험 설명:</strong> n번 시행되는 동전 던지기를 여러 번 반복하여, 상대도수 X/n이 확률 p=0.5에 수렴하는지 확인합니다.<br>
-      사용자가 설정한 오차 범위 h 안에 들어오는 비율을 계산하여 큰수의 법칙을 체험할 수 있습니다.
-    </p>
-
-    <div class="controls">
-      <label>시행 횟수 n: <input type="number" id="n" value="100"></label>
-      <label>허용 오차 h: <input type="number" step="0.01" id="h" value="0.05"></label>
-      <label>반복 횟수 repeat: <input type="number" id="repeat" value="1000"></label>
-      <button onclick="runSimulation()">실험 시작</button>
+    <h1>🎲 큰수의 법칙 실험기 - 주사위</h1>
+    
+    <!-- 이론적 확률분포 결과 -->
+    <div class="theory-section">
+      <h2>📊 이론적 확률분포 결과</h2>
+      <p>
+        주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 할 때, 
+        \(n=10, 20, 30, 40, 50\)일 때의 확률분포:
+      </p>
+      
+      <div class="theory-chart">
+        <canvas id="theoryChart" height="200"></canvas>
+      </div>
+      
+      <div class="theory-table">
+        <table>
+          <thead>
+            <tr>
+              <th>\(n\) (던진 횟수)</th>
+              <th>\(X\) (3의 눈 횟수)</th>
+              <th>\(P(|\frac{X}{n} - \frac{1}{6}| < 0.1)\)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>10</td><td>1, 2</td><td>0.6137</td></tr>
+            <tr><td>20</td><td>2, 3, 4, 5</td><td>0.7835</td></tr>
+            <tr><td>30</td><td>3, 4, 5, 6, 7</td><td>0.7835</td></tr>
+            <tr><td>40</td><td>4, 5, 6, 7, 8, 9</td><td>0.9455</td></tr>
+            <tr><td>50</td><td>5, 6, 7, 8, 9, 10, 11</td><td>0.9455</td></tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="math-explanation">
+        <h3>📚 수학적 정의</h3>
+        <p>
+          <strong>큰수의 법칙:</strong> 주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 하면,
+          이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
+        </p>
+        <p>
+          <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
+        </p>
+        <p>
+          <strong>수렴 조건:</strong> 임의의 작은 양수 \(h\)에 대하여,
+          \[P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) \to 1 \quad (n \to \infty)\]
+        </p>
+      </div>
     </div>
 
-    <p id="result"></p>
-    <canvas id="chart" height="120"></canvas>
+    <div class="experiment-section">
+      <h2>🔬 실험 프로그램</h2>
+      <p>
+        <strong>실험 설명:</strong> 주사위를 \(n\)번 던져서 3의 눈이 나오는 횟수 \(X\)를 구하고, 
+        상대도수 \(\frac{X}{n}\)이 이론적 확률 \(\frac{1}{6}\)에 수렴하는지 확인합니다.<br>
+        사용자가 설정한 오차 범위 \(h\) 안에 들어오는 비율을 계산하여 큰수의 법칙을 체험할 수 있습니다.
+      </p>
+
+      <div class="controls">
+        <label>던진 횟수 \(n\): <input type="number" id="n" value="50" min="10" max="1000"></label>
+        <label>허용 오차 \(h\): <input type="number" step="0.01" id="h" value="0.1" min="0.01" max="0.5"></label>
+        <label>반복 횟수 repeat: <input type="number" id="repeat" value="1000" min="100" max="10000"></label>
+        <button onclick="runSimulation()">실험 시작</button>
+      </div>
+
+      <p id="result"></p>
+      <canvas id="chart" height="200"></canvas>
+      
+      <div class="experiment-explanation">
+        <h3>🎯 실험 결과 해석</h3>
+        <p>
+          <strong>이론적 기댓값:</strong> \(E\left[\frac{X}{n}\right] = \frac{1}{6} \approx 0.1667\)
+        </p>
+        <p>
+          <strong>이론적 분산:</strong> \(V\left[\frac{X}{n}\right] = \frac{1}{n} \cdot \frac{1}{6} \cdot \frac{5}{6} = \frac{5}{36n}\)
+        </p>
+        <p>
+          <strong>중심극한정리:</strong> \(n\)이 충분히 클 때, \(\frac{X}{n}\)은 정규분포 \(N\left(\frac{1}{6}, \frac{5}{36n}\right)\)에 근사합니다.
+        </p>
+      </div>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 30px auto;
   padding: 20px;
   background-color: white;
@@ -17,6 +17,112 @@ body {
 h1 {
   text-align: center;
   color: #2b3e50;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #2b3e50;
+  border-bottom: 2px solid #357edd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #2b3e50;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.theory-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border-left: 5px solid #357edd;
+}
+
+.theory-chart {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.theory-table {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+.theory-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.theory-table th,
+.theory-table td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+}
+
+.theory-table th {
+  background-color: #357edd;
+  color: white;
+  font-weight: bold;
+}
+
+.theory-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.math-explanation {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 5px solid #2196f3;
+}
+
+.math-explanation h3 {
+  color: #1565c0;
+  border-bottom-color: #2196f3;
+}
+
+.math-explanation p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.experiment-section {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 5px solid #28a745;
+}
+
+.experiment-explanation {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 5px solid #9c27b0;
+}
+
+.experiment-explanation h3 {
+  color: #7b1fa2;
+  border-bottom-color: #9c27b0;
+}
+
+.experiment-explanation p {
+  margin-bottom: 15px;
+  line-height: 1.6;
 }
 
 .controls {
@@ -24,35 +130,130 @@ h1 {
   flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 20px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 label {
   flex: 1;
   min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label span {
+  font-weight: bold;
+  color: #495057;
 }
 
 input {
-  width: 80px;
-  padding: 5px;
-  margin-left: 5px;
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #357edd;
+  box-shadow: 0 0 0 3px rgba(53, 126, 221, 0.1);
 }
 
 button {
-  padding: 8px 16px;
-  background-color: #357edd;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #357edd 0%, #2a5db0 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  min-width: 120px;
 }
 
 button:hover {
-  background-color: #2a5db0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(53, 126, 221, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 #result {
+  font-size: 1.2em;
+  margin: 20px 0;
+  padding: 15px;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-radius: 8px;
+  border-left: 5px solid #28a745;
+  color: #155724;
+  font-weight: bold;
+}
+
+/* MathJax 스타일 개선 */
+.MathJax {
   font-size: 1.1em;
-  margin-bottom: 15px;
-  color: #333;
+  line-height: 1.4;
+}
+
+.MathJax_Display {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.MathJax_Display .MathJax {
+  font-size: 1.2em;
+}
+
+/* 분수 표현 개선 */
+.MathJax .mfrac {
+  margin: 0 0.2em;
+}
+
+/* 테이블 내 수식 개선 */
+.theory-table .MathJax {
+  font-size: 1em;
+}
+
+/* 수학 설명 섹션의 수식 개선 */
+.math-explanation .MathJax,
+.experiment-explanation .MathJax {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    margin: 15px;
+    padding: 15px;
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+  
+  label {
+    min-width: auto;
+  }
+  
+  .theory-table {
+    font-size: 14px;
+  }
+  
+  .theory-table th,
+  .theory-table td {
+    padding: 8px 6px;
+  }
+  
+  .math-explanation,
+  .experiment-explanation {
+    padding: 15px;
+  }
 }

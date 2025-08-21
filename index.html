@@ -209,6 +209,15 @@
             </button>
           </div>
         </div>
+        
+        <!-- 방과후 수업 보기 버튼 -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+          <div class="text-center">
+            <button onclick="handleViewAfterSchoolSchedule()" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors font-semibold">
+              📚 방과후 수업 보기 →
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -243,10 +252,16 @@
       </button>
 
       <button class="action-tile tile-green" onclick="handleViewLawOfLargeNumbers()" aria-label="큰수의 법칙 실험기 열기">
-        <div class="text-3xl mb-2">🔢</div>
+        <div class="text-3xl mb-2">🎲</div>
         <h3 class="text-xl font-extrabold">큰수의 법칙 실험기</h3>
-        <p class="opacity-90">동전 던지기 시뮬레이션</p>
+        <p class="opacity-90">주사위 던지기 시뮬레이션</p>
       </button>
+                
+      <div class="action-tile" data-search-text="방과후 수업 계획 확률 통계 문제 풀이 일정">
+          <h3>📚 방과후 수업 계획</h3>
+          <p>2학기 방과후 확률과 통계 문제 풀이 수업 일정을 확인하세요.</p>
+          <button onclick="handleViewAfterSchoolSchedule()">일정 보기</button>
+      </div>
     </section>
 
     <!-- 평가 방법 -->
@@ -486,6 +501,7 @@
     function handleViewSelfEvaluation(){ showInIframe('./self-evaluation.html', '자기평가 결과'); }
     function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
     function handleViewLawOfLargeNumbers(){ showInIframe('./law-of-large-numbers.html', '큰수의 법칙 실험기'); }
+    function handleViewAfterSchoolSchedule(){ showInIframe('./after-school-schedule.html', '방과후 수업 계획'); }
     
 
     // 전역 노출 (onclick용)
@@ -494,6 +510,7 @@
     window.handleViewSelfEvaluation = handleViewSelfEvaluation;
     window.handleViewGameResult = handleViewGameResult;
     window.handleViewLawOfLargeNumbers = handleViewLawOfLargeNumbers;
+    window.handleViewAfterSchoolSchedule = handleViewAfterSchoolSchedule;
   </script>
 </body>
 </html>
