@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>큰수의 법칙 실험기 - 주사위</title>
   <link rel="stylesheet" href="common-styles.css">
+  <!-- Chart.js 먼저 로드 (동기적으로) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <!-- MathJax 설정 -->
@@ -79,7 +80,7 @@
           <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
         </p>
         <p>
-          <strong>수렴 조건:</strong> 임의의 작은 양수 \(h\)에 대하여,
+          <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
           \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
         </p>
       </div>
