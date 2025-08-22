@@ -69,50 +69,74 @@ function drawChart(data, p, h) {
 
 // 이론적 확률분포 결과 그래프 그리기
 function drawTheoryChart() {
-  const ctx = document.getElementById('theoryChart').getContext('2d');
+  const ctx = document.getElementById('theoryChart');
+  if (!ctx) {
+    console.error('theoryChart canvas를 찾을 수 없음');
+    return;
+  }
+  
+  console.log('이론적 그래프 그리기 시작');
   
   // n 값들
   const nValues = [10, 20, 30, 40, 50];
+  const p = 1/6; // 3의 눈이 나올 확률
   
-  // 각 n에 대한 이항분포 확률 계산
+  // 모든 x 값의 범위 결정 (가장 큰 n에 대해)
+  const maxN = Math.max(...nValues);
+  const maxX = Math.min(maxN, Math.floor(maxN * p * 4)); // 그래프 범위 조정
+  
+  // x축 레이블 생성
+  const xLabels = [];
+  for (let x = 0; x <= maxX; x++) {
+    xLabels.push(x.toString());
+  }
+  
+  // 각 n에 대한 데이터셋 생성
   const datasets = nValues.map((n, index) => {
-    const p = 1/6; // 3의 눈이 나올 확률
-    const maxX = Math.min(n, Math.floor(n * p * 3)); // 그래프 범위 조정
-    
     const data = [];
-    const labels = [];
     
     for (let x = 0; x <= maxX; x++) {
-      const prob = binomialPMF(n, p, x);
-      data.push(prob);
-      labels.push(x);
+      if (x <= n) {
+        const prob = binomialPMF(n, p, x);
+        data.push(prob);
+      } else {
+        data.push(0); // n보다 큰 x 값은 0
+      }
     }
     
     const colors = [
-      'rgba(255, 99, 132, 0.7)',
-      'rgba(54, 162, 235, 0.7)',
-      'rgba(255, 206, 86, 0.7)',
-      'rgba(75, 192, 192, 0.7)',
-      'rgba(153, 102, 255, 0.7)'
+      'rgba(255, 99, 132, 0.8)',
+      'rgba(54, 162, 235, 0.8)',
+      'rgba(255, 206, 86, 0.8)',
+      'rgba(75, 192, 192, 0.8)',
+      'rgba(153, 102, 255, 0.8)'
     ];
+    
+    console.log(`n=${n} 데이터:`, data.slice(0, 10)); // 처음 10개만 로그
     
     return {
       label: `n = ${n}`,
       data: data,
-      backgroundColor: colors[index],
-      borderColor: colors[index].replace('0.7', '1'),
-      borderWidth: 1,
+      borderColor: colors[index],
+      backgroundColor: colors[index].replace('0.8', '0.3'),
+      borderWidth: 2,
       fill: false,
-      tension: 0.1
+      tension: 0.1,
+      pointRadius: 3
     };
   });
   
-  if (window.theoryChart) window.theoryChart.destroy();
+  // 기존 차트가 있으면 제거
+  if (window.theoryChart) {
+    window.theoryChart.destroy();
+  }
+  
+  console.log('Chart 생성 시작, 레이블:', xLabels.slice(0, 10));
   
   window.theoryChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: datasets[0].data.map((_, i) => i),
+      labels: xLabels,
       datasets: datasets
     },
     options: {
@@ -128,14 +152,25 @@ function drawTheoryChart() {
       },
       scales: {
         x: {
-          title: { display: true, text: '3의 눈이 나온 횟수 (X)' }
+          title: { 
+            display: true, 
+            text: '3의 눈이 나온 횟수 (X)' 
+          },
+          type: 'linear',
+          position: 'bottom'
         },
         y: {
-          title: { display: true, text: '확률 P(X = x)' }
+          title: { 
+            display: true, 
+            text: '확률 P(X = x)' 
+          },
+          beginAtZero: true
         }
       }
     }
   });
+  
+  console.log('이론적 그래프 완성');
 }
 
 // 이항분포 확률질량함수
@@ -161,9 +196,6 @@ function waitForChartJS() {
   if (typeof Chart !== 'undefined') {
     console.log('Chart.js 로드됨, 이론적 그래프 그리기 시작');
     try {
-      // 간단한 테스트 그래프 먼저 그리기
-      drawSimpleTestChart();
-      // 그 다음 이론적 그래프 그리기
       drawTheoryChart();
       console.log('이론적 그래프 그리기 완료');
     } catch (error) {
@@ -175,41 +207,7 @@ function waitForChartJS() {
   }
 }
 
-// 간단한 테스트 그래프 그리기
-function drawSimpleTestChart() {
-  const ctx = document.getElementById('theoryChart');
-  if (!ctx) {
-    console.error('theoryChart canvas를 찾을 수 없음');
-    return;
-  }
-  
-  console.log('테스트 그래프 그리기 시작');
-  
-  const testChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['0', '1', '2', '3', '4', '5'],
-      datasets: [{
-        label: '테스트 데이터',
-        data: [0.1, 0.2, 0.3, 0.2, 0.1, 0.1],
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        tension: 0.1
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true,
-          text: '테스트 그래프'
-        }
-      }
-    }
-  });
-  
-  console.log('테스트 그래프 완성');
-}
+
 
 // 페이지 로드 시 실행
 document.addEventListener('DOMContentLoaded', function() {
