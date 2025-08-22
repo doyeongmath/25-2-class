@@ -43,31 +43,43 @@
       <p>
         <strong>이항분포 \(B(n,p)\):</strong> \(n\)번의 독립 시행에서 성공 확률이 \(p\)인 확률분포
       </p>
-      <p>
-        <strong>평균:</strong> \(\mu = np\), <strong>분산:</strong> \(\sigma^2 = np(1-p)\)
-      </p>
+             <p>
+         <strong>평균:</strong> \(m = np\), <strong>분산:</strong> \(\sigma^2 = npq\) (여기서 \(q = 1-p\))
+       </p>
       <p>
         <strong>De Moivre–Laplace 정리:</strong> \(n\)이 충분히 크고 \(p\)가 0이나 1에 치우치지 않으면,
         이항분포는 정규분포로 근사됩니다:
       </p>
       <p class="math-center">
-        \[B(n,p) \approx N(\mu, \sigma^2)\]
+        \[B(n,p) \approx N(m, \sigma^2)\]
       </p>
       <p>
-        즉, 이항분포 \(B(n,p)\)가 정규분포 \(N(\mu, \sigma^2)\)로 근사됩니다. 
-        이는 중심극한정리의 특수한 경우입니다.
+                 즉, 이항분포 \(B(n,p)\)가 정규분포 \(N(m, \sigma^2)\)로 근사됩니다. 
+         이는 중심극한정리의 특수한 경우입니다.
       </p>
     </div>
 
 
-    <div class="controls">
-      <label>n <input type="number" id="n" value="60" min="1"></label>
-      <label>p <input type="number" id="p" value="0.5" min="0" max="1" step="0.01"></label>
-      <label>샘플 수 repeat <input type="number" id="repeat" value="5000" min="100"></label>
-      <label><input type="checkbox" id="cc" checked> 연속성 보정</label>
-      <label><input type="checkbox" id="showExact"> 정확 이항 PMF도 표시</label>
-      <button id="run">비교 실행</button>
-    </div>
+         <div class="controls">
+       <label>n <input type="number" id="n" value="60" min="1"></label>
+       <label>p <input type="number" id="p" value="0.5" min="0" max="1" step="0.01"></label>
+       <label>샘플 수 repeat <input type="number" id="repeat" value="5000" min="100"></label>
+       <label><input type="checkbox" id="cc" checked> 연속성 보정</label>
+       <label><input type="checkbox" id="showExact"> 정확 이항 PMF도 표시</label>
+       <button id="run">비교 실행</button>
+     </div>
+     
+     <!-- 차이점 설명 -->
+     <div class="explanation-section">
+       <h3>📊 그래프 설명</h3>
+       <ul>
+         <li><strong>이항분포 샘플링 (파란 막대):</strong> 실제 시뮬레이션으로 얻은 상대도수</li>
+         <li><strong>정규분포 근사 (빨간 선):</strong> \(N(m, \sigma^2)\)로 근사한 연속 확률분포</li>
+         <li><strong>정확한 이항 PMF (초록 선):</strong> 이론적으로 계산한 이항분포 확률질량함수</li>
+       </ul>
+       <p><strong>차이점:</strong> 정규분포 근사는 연속분포이므로 이산값 k에서의 확률을 구간 [k-0.5, k+0.5]의 확률로 근사합니다. 
+       정확한 이항 PMF는 이산분포의 실제 확률값을 보여줍니다.</p>
+     </div>
 
     <p id="meta"></p>
     <canvas id="chart" width="800" height="400" style="max-height: 400px; width: 100%;"></canvas>
