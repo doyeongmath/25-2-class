@@ -327,23 +327,10 @@ function drawSimpleTestChart() {
             font: {
               size: window.innerWidth < 768 ? 12 : 14
             },
-            usePointStyle: false, // 점 스타일 사용 안함
-            generateLabels: function(chart) {
-              const data = chart.data;
-              if (data.labels.length === 0) {
-                return [];
-              }
-              
-              return data.datasets.map((dataset, i) => ({
-                text: dataset.label,
-                fillStyle: 'transparent', // 채우기 색상 투명
-                strokeStyle: 'transparent', // 테두리 색상 투명
-                lineWidth: 0, // 선 두께 0
-                pointStyle: 'none', // 점 스타일 없음
-                hidden: false,
-                index: i
-              }));
-            }
+            usePointStyle: false,
+            boxWidth: 0, // 박스 너비 0
+            boxHeight: 0, // 박스 높이 0
+            padding: 10
           }
         }
       },
