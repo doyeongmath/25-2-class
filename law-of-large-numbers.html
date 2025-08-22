@@ -106,17 +106,13 @@
       </p>
 
       <div class="controls">
-        <div class="control-row">
-          <label>던진 횟수 \(n\): <input type="number" id="n" value="50" min="10" max="1000"></label>
-          <label>허용 오차 \(h\): <input type="number" step="0.01" id="h" value="0.1" min="0.01" max="0.5"></label>
-        </div>
-        <div class="control-row">
-          <label>반복 횟수 repeat: <input type="number" id="repeat" value="1000" min="100" max="10000"></label>
-          <button onclick="runSimulation()">실험 시작</button>
-        </div>
+        <label>던진 횟수 \(n\): <input type="number" id="n" value="50" min="10" max="1000"></label>
+        <label>허용 오차 \(h\): <input type="number" step="0.01" id="h" value="0.1" min="0.01" max="0.5"></label>
+        <label>반복 횟수 repeat: <input type="number" id="repeat" value="1000" min="100" max="10000"></label>
+        <button onclick="runSimulation()">실험 시작</button>
       </div>
 
-      <p id="result"></p>
+      <div id="result" class="result-display"></div>
       <canvas id="chart" height="300" style="min-height: 300px; width: 100%;"></canvas>
       
       <div class="experiment-explanation">
