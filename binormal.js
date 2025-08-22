@@ -192,7 +192,7 @@ class BinormalComparison {
             <strong>이항분포 B(${n}, ${p})</strong><br>
             기댓값: μ = ${n} × ${p} = ${mu.toFixed(2)}<br>
             표준편차: σ = √(${n} × ${p} × ${(1-p).toFixed(3)}) = ${sigma.toFixed(3)}<br>
-            정규근사: N(${mu.toFixed(2)}, ${(sigma*sigma).toFixed(3)})<br>
+            정규근사: N(${mu.toFixed(2)}, ${sigma.toFixed(3)})<br>
             샘플 수: ${repeat.toLocaleString()}회
         `;
 
