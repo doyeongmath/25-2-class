@@ -46,7 +46,8 @@ class BinormalComparison {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
+                aspectRatio: 2.5,
                 scales: {
                     x: {
                         title: {
@@ -92,7 +93,7 @@ class BinormalComparison {
 
         ['cc', 'showExact'].forEach(id => {
             document.getElementById(id).addEventListener('change', () => {
-                this.updateChart();
+                this.runComparison();
             });
         });
     }
@@ -125,12 +126,12 @@ class BinormalComparison {
         const sigma = Math.sqrt(n * p * (1 - p));
         
         if (useContinuityCorrection) {
-            // 연속성 보정: P(k) ≈ P(k-0.5 ≤ X ≤ k+0.5)
+            // 연속성 보정: P(X = k) ≈ P(k-0.5 ≤ X ≤ k+0.5)
             const lower = this.normalCDF(k - 0.5, mu, sigma);
             const upper = this.normalCDF(k + 0.5, mu, sigma);
             return upper - lower;
         } else {
-            // 연속성 보정 없음: P(k) ≈ f(k)
+            // 연속성 보정 없음: 구간 [k-0.5, k+0.5]의 확률밀도를 근사적으로 사용
             return this.normalPDF(k, mu, sigma);
         }
     }
@@ -232,5 +233,9 @@ class BinormalComparison {
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    new BinormalComparison();
+    const comparison = new BinormalComparison();
+    // 초기 비교 실행
+    setTimeout(() => {
+        comparison.runComparison();
+    }, 100);
 });
