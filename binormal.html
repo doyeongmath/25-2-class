@@ -6,10 +6,60 @@
   <title>이항↔정규 분포 근사 비교</title>
   <link rel="stylesheet" href="common-styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- MathJax 설정 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: ['base', 'ams', 'noerrors', 'noundefined']
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            console.log('MathJax 초기화 완료');
+          });
+        }
+      }
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>🎯 이항분포와 정규분포의 관계</h1>
+    
+    <!-- 이론적 설명 섹션 -->
+    <div class="theory-section">
+      <h2>📚 이론적 배경</h2>
+      <p>
+        <strong>이항분포 \(B(n,p)\):</strong> \(n\)번의 독립 시행에서 성공 확률이 \(p\)인 확률분포
+      </p>
+      <p>
+        <strong>평균:</strong> \(\mu = np\), <strong>분산:</strong> \(\sigma^2 = np(1-p)\)
+      </p>
+      <p>
+        <strong>De Moivre–Laplace 정리:</strong> \(n\)이 충분히 크고 \(p\)가 0이나 1에 치우치지 않으면,
+        이항분포는 정규분포로 근사됩니다:
+      </p>
+      <p class="math-center">
+        \[B(n,p) \approx N(np, np(1-p))\]
+      </p>
+      <p>
+        즉, 이항분포의 확률질량함수가 정규분포 곡선으로 근사됩니다. 
+        이는 중심극한정리의 특수한 경우입니다.
+      </p>
+    </div>
+    
     <p class="note">
       B(n,p)는 n이 크고 p가 0이나 1에 치우치지 않을 때 정규분포 N(μ=np, σ²=npq)로 근사됩니다.
       아래에서 샘플링한 이항 분포(막대)와 정규 근사(선)를 비교합니다. (연속성 보정 옵션 포함)
