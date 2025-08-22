@@ -43,7 +43,13 @@ function runSimulation() {
 }
 
 function drawChart(data, p, h) {
-  const ctx = document.getElementById('chart').getContext('2d');
+  const ctx = document.getElementById('chart');
+  if (!ctx) {
+    console.error('chart canvas를 찾을 수 없음');
+    return;
+  }
+  
+  const context = ctx.getContext('2d');
   const bins = new Array(21).fill(0);
   
   data.forEach(v => {
@@ -56,11 +62,13 @@ function drawChart(data, p, h) {
     labels.push((i / 20).toFixed(2));
   }
   
-  if (window.chart) {
+  if (window.chart && typeof window.chart.destroy === 'function') {
     window.chart.destroy();
   }
   
-  window.chart = new Chart(ctx, {
+  console.log('실험결과 그래프 그리기 시작');
+  
+  window.chart = new Chart(context, {
     type: 'bar',
     data: {
       labels: labels,
@@ -111,6 +119,8 @@ function drawChart(data, p, h) {
       }
     }
   });
+  
+  console.log('실험결과 그래프 완성');
 }
 
 // 이론적 이항분포 그래프 그리기
