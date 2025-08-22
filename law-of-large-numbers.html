@@ -33,7 +33,7 @@
                 if (typeof drawTheoryChart === 'function') {
                   drawTheoryChart();
                 }
-              }, 100);
+              }, 200);
             }
           });
         }
@@ -42,6 +42,25 @@
   </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- MathJax 로딩 확인 스크립트 -->
+  <script>
+    function checkMathJax() {
+      if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+        console.log('MathJax 완전 로드됨');
+        // 페이지의 모든 수식 렌더링
+        MathJax.typesetPromise().then(() => {
+          console.log('MathJax 초기 렌더링 완료');
+        });
+      } else {
+        console.log('MathJax 아직 로딩 중...');
+        setTimeout(checkMathJax, 100);
+      }
+    }
+    
+    // 페이지 로드 후 MathJax 확인
+    window.addEventListener('load', checkMathJax);
+  </script>
 </head>
 <body>
   <div class="container">
