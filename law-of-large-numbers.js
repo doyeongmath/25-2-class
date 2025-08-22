@@ -156,18 +156,59 @@ function combination(n, k) {
 
 // Chart.js 로드 확인 및 이론적 그래프 그리기
 function waitForChartJS() {
+  console.log('Chart.js 확인 중...', typeof Chart);
+  
   if (typeof Chart !== 'undefined') {
     console.log('Chart.js 로드됨, 이론적 그래프 그리기 시작');
     try {
+      // 간단한 테스트 그래프 먼저 그리기
+      drawSimpleTestChart();
+      // 그 다음 이론적 그래프 그리기
       drawTheoryChart();
       console.log('이론적 그래프 그리기 완료');
     } catch (error) {
       console.error('그래프 그리기 오류:', error);
     }
   } else {
-    console.log('Chart.js 아직 로드되지 않음, 100ms 후 재시도...');
-    setTimeout(waitForChartJS, 100);
+    console.log('Chart.js 아직 로드되지 않음, 500ms 후 재시도...');
+    setTimeout(waitForChartJS, 500);
   }
+}
+
+// 간단한 테스트 그래프 그리기
+function drawSimpleTestChart() {
+  const ctx = document.getElementById('theoryChart');
+  if (!ctx) {
+    console.error('theoryChart canvas를 찾을 수 없음');
+    return;
+  }
+  
+  console.log('테스트 그래프 그리기 시작');
+  
+  const testChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['0', '1', '2', '3', '4', '5'],
+      datasets: [{
+        label: '테스트 데이터',
+        data: [0.1, 0.2, 0.3, 0.2, 0.1, 0.1],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: '테스트 그래프'
+        }
+      }
+    }
+  });
+  
+  console.log('테스트 그래프 완성');
 }
 
 // 페이지 로드 시 실행
