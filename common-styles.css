@@ -80,6 +80,26 @@ h3 {
   h3 {
     font-size: 1.2rem;
   }
+  
+  .controls {
+    flex-direction: column;
+  }
+  
+  .control-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .control-row label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .control-row button {
+    align-self: flex-start;
+    margin-top: 10px;
+  }
 }
 
 .theory-table {
@@ -134,6 +154,51 @@ h3 {
 .math-center {
   text-align: center;
   margin: 20px 0;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.control-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.control-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.control-row input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 80px;
+}
+
+.control-row button {
+  padding: 10px 20px;
+  background-color: #357edd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.control-row button:hover {
+  background-color: #2d6bb3;
 }
 
 .experiment-section {
