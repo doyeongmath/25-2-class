@@ -2,7 +2,7 @@ function runSimulation() {
   const n = parseInt(document.getElementById('n').value);
   const h = parseFloat(document.getElementById('h').value);
   const repeat = parseInt(document.getElementById('repeat').value);
-  const p = 0.5; // 성공 확률 (동전 앞면)
+  const p = 1/6; // 성공 확률 (주사위 3의 눈)
 
   let successCount = 0;
   let freqList = [];
@@ -22,7 +22,7 @@ function runSimulation() {
 
   const ratio = ((successCount / repeat) * 100).toFixed(2);
   document.getElementById('result').innerText =
-    `|X/n - p| < ${h} 를 만족한 비율: ${ratio}% (${successCount}/${repeat})`;
+    `|X/n - 1/6| < ${h} 를 만족한 비율: ${ratio}% (${successCount}/${repeat})`;
 
   drawChart(freqList, p, h);
 }
@@ -156,5 +156,11 @@ function combination(n, k) {
 
 // 페이지 로드 시 이론적 그래프 그리기
 document.addEventListener('DOMContentLoaded', function() {
-  drawTheoryChart();
+  console.log('DOM 로드 완료, Chart.js 확인:', typeof Chart);
+  if (typeof Chart !== 'undefined') {
+    console.log('Chart.js 로드됨, 이론적 그래프 그리기 시작');
+    drawTheoryChart();
+  } else {
+    console.error('Chart.js가 로드되지 않음');
+  }
 });
