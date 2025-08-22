@@ -66,3 +66,95 @@ function drawChart(data, p, h) {
     }
   });
 }
+
+// 이론적 확률분포 결과 그래프 그리기
+function drawTheoryChart() {
+  const ctx = document.getElementById('theoryChart').getContext('2d');
+  
+  // n 값들
+  const nValues = [10, 20, 30, 40, 50];
+  
+  // 각 n에 대한 이항분포 확률 계산
+  const datasets = nValues.map((n, index) => {
+    const p = 1/6; // 3의 눈이 나올 확률
+    const maxX = Math.min(n, Math.floor(n * p * 3)); // 그래프 범위 조정
+    
+    const data = [];
+    const labels = [];
+    
+    for (let x = 0; x <= maxX; x++) {
+      const prob = binomialPMF(n, p, x);
+      data.push(prob);
+      labels.push(x);
+    }
+    
+    const colors = [
+      'rgba(255, 99, 132, 0.7)',
+      'rgba(54, 162, 235, 0.7)',
+      'rgba(255, 206, 86, 0.7)',
+      'rgba(75, 192, 192, 0.7)',
+      'rgba(153, 102, 255, 0.7)'
+    ];
+    
+    return {
+      label: `n = ${n}`,
+      data: data,
+      backgroundColor: colors[index],
+      borderColor: colors[index].replace('0.7', '1'),
+      borderWidth: 1,
+      fill: false,
+      tension: 0.1
+    };
+  });
+  
+  if (window.theoryChart) window.theoryChart.destroy();
+  
+  window.theoryChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: datasets[0].data.map((_, i) => i),
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: '이론적 이항분포 (p = 1/6)'
+        },
+        legend: {
+          position: 'top'
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: '3의 눈이 나온 횟수 (X)' }
+        },
+        y: {
+          title: { display: true, text: '확률 P(X = x)' }
+        }
+      }
+    }
+  });
+}
+
+// 이항분포 확률질량함수
+function binomialPMF(n, p, x) {
+  if (x < 0 || x > n) return 0;
+  return combination(n, x) * Math.pow(p, x) * Math.pow(1 - p, n - x);
+}
+
+// 조합 계산
+function combination(n, k) {
+  if (k > n - k) k = n - k;
+  let result = 1;
+  for (let i = 0; i < k; i++) {
+    result = result * (n - i) / (i + 1);
+  }
+  return result;
+}
+
+// 페이지 로드 시 이론적 그래프 그리기
+document.addEventListener('DOMContentLoaded', function() {
+  drawTheoryChart();
+});
