@@ -57,10 +57,19 @@
                  즉, 이항분포 \(B(n,p)\)가 정규분포 \(N(m, \sigma^2)\)로 근사됩니다. 
          이는 중심극한정리의 특수한 경우입니다.
       </p>
-    </div>
+         </div>
+ 
+     <!-- 매개변수 설명 -->
+     <div class="parameter-explanation">
+       <h3> 매개변수 설명</h3>
+       <ul>
+         <li><strong>n (시행 횟수):</strong> 동전을 던지는 횟수. 클수록 정규분포에 가까워집니다.</li>
+         <li><strong>p (성공 확률):</strong> 동전이 앞면이 나올 확률 (0~1 사이)</li>
+         <li><strong>repeat (반복 횟수):</strong> 전체 실험을 반복하는 횟수. 클수록 안정적인 결과</li>
+       </ul>
+     </div>
 
-
-         <div class="controls">
+     <div class="controls">
        <label>n <input type="number" id="n" value="60" min="1"></label>
        <label>p <input type="number" id="p" value="0.5" min="0" max="1" step="0.01"></label>
        <label>샘플 수 repeat <input type="number" id="repeat" value="5000" min="100"></label>
