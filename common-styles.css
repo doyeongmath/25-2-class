@@ -214,6 +214,8 @@ h3 {
 
 .result-content p {
   margin: 8px 0;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .result-note {
