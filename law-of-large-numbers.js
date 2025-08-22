@@ -21,8 +21,20 @@ function runSimulation() {
   }
 
   const ratio = ((successCount / repeat) * 100).toFixed(2);
-  document.getElementById('result').innerText =
-    `|X/n - 1/6| < ${h} 를 만족한 비율: ${ratio}% (${successCount}/${repeat})`;
+  document.getElementById('result').innerHTML = `
+    <div class="result-content">
+      <p>|X/n - 1/6| < ${h} 를 만족한 비율:</p>
+      <p><strong>${ratio}%</strong> (${successCount}/${repeat})</p>
+      <p class="result-note">이론적 확률: 1/6 ≈ 0.1667</p>
+    </div>
+  `;
+  
+  // MathJax 재렌더링
+  if (window.MathJax) {
+    MathJax.typesetPromise([document.getElementById('result')]).catch((err) => {
+      console.log('MathJax 재렌더링 오류:', err);
+    });
+  }
 
   drawChart(freqList, p, h);
 }
