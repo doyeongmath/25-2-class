@@ -25,15 +25,17 @@ function runSimulation() {
     <div class="result-content">
       <p>|X/n - 1/6| < ${h} 를 만족한 비율:</p>
       <p><strong>${ratio}%</strong> (${successCount}/${repeat})</p>
-      <p class="result-note">이론적 확률: 1/6 ≈ 0.1667</p>
+      <p class="result-note">수학적 확률: 1/6 ≈ 0.1667</p>
     </div>
   `;
   
   // MathJax 재렌더링
-  if (window.MathJax) {
-    MathJax.typesetPromise([document.getElementById('result')]).catch((err) => {
-      console.log('MathJax 재렌더링 오류:', err);
-    });
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    setTimeout(() => {
+      MathJax.typesetPromise([document.getElementById('result')]).catch((err) => {
+        console.log('MathJax 재렌더링 오류:', err);
+      });
+    }, 50);
   }
 
   drawChart(freqList, p, h);
@@ -69,10 +71,19 @@ function drawChart(data, p, h) {
     options: {
       scales: {
         x: {
-          title: { display: true, text: '상대도수 X/n' }
+          title: { display: true, text: '상대도수 X/n' },
+          grid: {
+            display: false // x축 그리드 제거
+          },
+          ticks: {
+            stepSize: 0.05 // 0.05씩 증가하여 라벨 간소화
+          }
         },
         y: {
-          title: { display: true, text: '빈도' }
+          title: { display: true, text: '빈도' },
+          grid: {
+            display: false // y축 그리드 제거
+          }
         }
       }
     }
@@ -315,6 +326,23 @@ function drawSimpleTestChart() {
           labels: {
             font: {
               size: window.innerWidth < 768 ? 12 : 14
+            },
+            usePointStyle: false, // 점 스타일 사용 안함
+            generateLabels: function(chart) {
+              const data = chart.data;
+              if (data.labels.length === 0) {
+                return [];
+              }
+              
+              return data.datasets.map((dataset, i) => ({
+                text: dataset.label,
+                fillStyle: 'transparent', // 채우기 색상 투명
+                strokeStyle: 'transparent', // 테두리 색상 투명
+                lineWidth: 0, // 선 두께 0
+                pointStyle: 'none', // 점 스타일 없음
+                hidden: false,
+                index: i
+              }));
             }
           }
         }
@@ -330,13 +358,16 @@ function drawSimpleTestChart() {
           },
           min: 0,
           max: maxX,
+          grid: {
+            display: false // x축 그리드 제거
+          },
           ticks: {
             font: {
               size: window.innerWidth < 768 ? 10 : 12
             },
-            stepSize: 1, // 1씩 증가
+            stepSize: 2, // 2씩 증가하여 라벨 간소화
             callback: function(value, index, values) {
-              return value; // 모든 x값 표시
+              return value % 2 === 0 ? value : ''; // 짝수만 표시
             }
           }
         },
@@ -349,10 +380,14 @@ function drawSimpleTestChart() {
             }
           },
           beginAtZero: true,
+          grid: {
+            display: false // y축 그리드 제거
+          },
           ticks: {
             font: {
               size: window.innerWidth < 768 ? 10 : 12
             },
+            stepSize: 0.01, // 0.01씩 증가
             callback: function(value, index, values) {
               return value.toFixed(3); // 소수점 3자리까지 표시
             }
