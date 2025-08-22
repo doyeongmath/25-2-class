@@ -74,7 +74,8 @@ function drawChart(data, p, h) {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: 2.5,
       plugins: {
         title: {
           display: true,
@@ -160,7 +161,8 @@ function drawTheoryChart() {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: 2.5,
       plugins: {
         title: {
           display: true,
