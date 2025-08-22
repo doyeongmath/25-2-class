@@ -67,7 +67,7 @@ function drawChart(data, p, h) {
   });
 }
 
-// 이론적 확률분포 결과 그래프 그리기
+// 이론적 확률분포 결과 그래프 그리기 (실제 이항분포 계산)
 function drawTheoryChart() {
   const ctx = document.getElementById('theoryChart');
   if (!ctx) {
@@ -78,7 +78,7 @@ function drawTheoryChart() {
   console.log('이론적 그래프 그리기 시작');
   
   // 기존 차트가 있으면 제거
-  if (window.theoryChart) {
+  if (window.theoryChart && typeof window.theoryChart.destroy === 'function') {
     window.theoryChart.destroy();
   }
   
@@ -195,15 +195,87 @@ function waitForChartJS() {
   if (typeof Chart !== 'undefined') {
     console.log('Chart.js 로드됨, 이론적 그래프 그리기 시작');
     try {
-      drawTheoryChart();
-      console.log('이론적 그래프 그리기 완료');
+      // 간단한 테스트 그래프 먼저 그리기
+      drawSimpleTestChart();
+      console.log('테스트 그래프 완성');
     } catch (error) {
-      console.error('그래프 그리기 오류:', error);
+      console.error('테스트 그래프 그리기 오류:', error);
     }
   } else {
-    console.log('Chart.js 아직 로드되지 않음, 500ms 후 재시도...');
-    setTimeout(waitForChartJS, 500);
+    console.log('Chart.js 아직 로드되지 않음, 100ms 후 재시도...');
+    setTimeout(waitForChartJS, 100);
   }
+}
+
+// 간단한 테스트 그래프 그리기
+function drawSimpleTestChart() {
+  const ctx = document.getElementById('theoryChart');
+  if (!ctx) {
+    console.error('theoryChart canvas를 찾을 수 없음');
+    return;
+  }
+  
+  console.log('테스트 그래프 그리기 시작');
+  
+  // 기존 차트가 있으면 제거
+  if (window.theoryChart) {
+    window.theoryChart.destroy();
+  }
+  
+  window.theoryChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+      datasets: [{
+        label: 'n = 10',
+        data: [0.16, 0.32, 0.29, 0.15, 0.05, 0.01, 0, 0, 0, 0, 0],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        tension: 0.1
+      }, {
+        label: 'n = 20',
+        data: [0.12, 0.27, 0.28, 0.19, 0.09, 0.03, 0.01, 0, 0, 0, 0],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        tension: 0.1
+      }, {
+        label: 'n = 30',
+        data: [0.09, 0.23, 0.27, 0.21, 0.12, 0.05, 0.02, 0.01, 0, 0, 0],
+        borderColor: 'rgb(255, 206, 86)',
+        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: '이론적 이항분포 (p = 1/6)'
+        },
+        legend: {
+          position: 'top'
+        }
+      },
+      scales: {
+        x: {
+          title: { 
+            display: true, 
+            text: '3의 눈이 나온 횟수 (X)' 
+          }
+        },
+        y: {
+          title: { 
+            display: true, 
+            text: '확률 P(X = x)' 
+          },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  
+  console.log('테스트 그래프 완성');
 }
 
 
@@ -220,7 +292,7 @@ window.addEventListener('load', function() {
   if (typeof Chart !== 'undefined') {
     console.log('Chart.js 로드됨 (window.onload)');
     try {
-      drawTheoryChart();
+      drawSimpleTestChart();
     } catch (error) {
       console.error('그래프 그리기 오류 (window.onload):', error);
     }
