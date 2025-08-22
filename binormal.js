@@ -115,30 +115,31 @@ class BinormalComparison {
     }
 
     // 정규분포 PDF
-    normalPDF(x, mu, sigma) {
+    normalPDF(x, m, sigma) {
         return (1 / (sigma * Math.sqrt(2 * Math.PI))) * 
-               Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
+               Math.exp(-0.5 * Math.pow((x - m) / sigma, 2));
     }
 
     // 정규분포 근사 (연속성 보정 포함)
     normalApproximation(n, p, k, useContinuityCorrection = true) {
-        const mu = n * p;
-        const sigma = Math.sqrt(n * p * (1 - p));
+        const m = n * p;
+        const q = 1 - p;
+        const sigma = Math.sqrt(n * p * q);
         
         if (useContinuityCorrection) {
-            // 연속성 보정: P(X = k) ≈ P(k-0.5 ≤ X ≤ k+0.5)
-            const lower = this.normalCDF(k - 0.5, mu, sigma);
-            const upper = this.normalCDF(k + 0.5, mu, sigma);
+            // 연속성 보정: P(X = k) ≈ P(k-0.5 ≤ k+0.5)
+            const lower = this.normalCDF(k - 0.5, m, sigma);
+            const upper = this.normalCDF(k + 0.5, m, sigma);
             return upper - lower;
         } else {
             // 연속성 보정 없음: 구간 [k-0.5, k+0.5]의 확률밀도를 근사적으로 사용
-            return this.normalPDF(k, mu, sigma);
+            return this.normalPDF(k, m, sigma);
         }
     }
 
     // 정규분포 CDF (근사)
-    normalCDF(x, mu, sigma) {
-        return 0.5 * (1 + this.erf((x - mu) / (sigma * Math.sqrt(2))));
+    normalCDF(x, m, sigma) {
+        return 0.5 * (1 + this.erf((x - m) / (sigma * Math.sqrt(2))));
     }
 
     // 오차 함수 근사
@@ -186,13 +187,14 @@ class BinormalComparison {
         const showExact = document.getElementById('showExact').checked;
 
         // 메타 정보 업데이트
-        const mu = n * p;
-        const sigma = Math.sqrt(n * p * (1 - p));
+        const m = n * p;
+        const q = 1 - p;
+        const sigma = Math.sqrt(n * p * q);
         document.getElementById('meta').innerHTML = `
             <strong>이항분포 B(${n}, ${p})</strong><br>
-            기댓값: μ = ${n} × ${p} = ${mu.toFixed(2)}<br>
-            표준편차: σ = √(${n} × ${p} × ${(1-p).toFixed(3)}) = ${sigma.toFixed(3)}<br>
-            정규근사: N(${mu.toFixed(2)}, ${sigma.toFixed(3)})<br>
+            기댓값: m = ${n} × ${p} = ${m.toFixed(2)}<br>
+            표준편차: σ = √(${n} × ${p} × ${q.toFixed(3)}) = ${sigma.toFixed(3)}<br>
+            정규근사: N(${m.toFixed(2)}, ${(sigma*sigma).toFixed(3)})<br>
             샘플 수: ${repeat.toLocaleString()}회
         `;
 
