@@ -1,311 +1,132 @@
-function runSimulation() {
-  const n = parseInt(document.getElementById('n').value);
-  const h = parseFloat(document.getElementById('h').value);
-  const repeat = parseInt(document.getElementById('repeat').value);
-  const p = 1/6; // 성공 확률 (주사위 3의 눈)
-
-  let successCount = 0;
-  let freqList = [];
-
-  for (let i = 0; i < repeat; i++) {
-    let X = 0;
-    for (let j = 0; j < n; j++) {
-      if (Math.random() < p) X++;
-    }
-    const relFreq = X / n;
-    freqList.push(relFreq);
-
-    if (Math.abs(relFreq - p) < h) {
-      successCount++;
-    }
-  }
-
-  const ratio = ((successCount / repeat) * 100).toFixed(2);
-  document.getElementById('result').innerText =
-    `|X/n - 1/6| < ${h} 를 만족한 비율: ${ratio}% (${successCount}/${repeat})`;
-
-  drawChart(freqList, p, h);
-}
-
-function drawChart(data, p, h) {
-  const ctx = document.getElementById('chart').getContext('2d');
-  const bins = new Array(21).fill(0);
-
-  data.forEach(v => {
-    const idx = Math.min(20, Math.floor(v * 20));
-    bins[idx]++;
-  });
-
-  const labels = bins.map((_, i) => (i / 20).toFixed(2));
-  const backgroundColors = labels.map(label => {
-    const x = parseFloat(label);
-    return Math.abs(x - p) < h ? 'rgba(54, 162, 235, 0.7)' : 'rgba(200, 200, 200, 0.5)';
-  });
-
-  if (window.myChart) window.myChart.destroy();
-
-  window.myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'X/n 분포',
-        data: bins,
-        backgroundColor: backgroundColors
-      }]
-    },
-    options: {
-      scales: {
-        x: {
-          title: { display: true, text: '상대도수 X/n' }
-        },
-        y: {
-          title: { display: true, text: '빈도' }
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>큰수의 법칙 실험기 - 주사위</title>
+  <link rel="stylesheet" href="common-styles.css">
+  <!-- Chart.js 먼저 로드 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- MathJax 설정 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: ['base', 'ams', 'noerrors', 'noundefined']
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            console.log('MathJax 초기화 완료');
+            // MathJax 렌더링 완료 후 그래프 그리기
+            if (typeof Chart !== 'undefined') {
+              setTimeout(() => {
+                if (typeof drawSimpleTestChart === 'function') {
+                  drawSimpleTestChart();
+                }
+              }, 100);
+            }
+          });
         }
       }
-    }
-  });
-}
-
-// 이론적 확률분포 결과 그래프 그리기 (실제 이항분포 계산)
-function drawTheoryChart() {
-  const ctx = document.getElementById('theoryChart');
-  if (!ctx) {
-    console.error('theoryChart canvas를 찾을 수 없음');
-    return;
-  }
-  
-  console.log('이론적 그래프 그리기 시작');
-  
-  // 기존 차트가 있으면 제거
-  if (window.theoryChart && typeof window.theoryChart.destroy === 'function') {
-    window.theoryChart.destroy();
-  }
-  
-  // n 값들과 색상
-  const nValues = [10, 20, 30, 40, 50];
-  const colors = [
-    'rgb(255, 99, 132)',
-    'rgb(54, 162, 235)', 
-    'rgb(255, 206, 86)',
-    'rgb(75, 192, 192)',
-    'rgb(153, 102, 255)'
-  ];
-  
-  const p = 1/6; // 3의 눈이 나올 확률
-  
-  // x축 범위 설정 (0부터 15까지)
-  const maxX = 15;
-  const xLabels = [];
-  for (let x = 0; x <= maxX; x++) {
-    xLabels.push(x);
-  }
-  
-  // 각 n에 대한 데이터셋 생성
-  const datasets = nValues.map((n, index) => {
-    const data = [];
-    
-    for (let x = 0; x <= maxX; x++) {
-      if (x <= n) {
-        data.push(binomialPMF(n, p, x));
-      } else {
-        data.push(null); // n을 초과하는 값은 null
-      }
-    }
-    
-    return {
-      label: `n = ${n}`,
-      data: data,
-      borderColor: colors[index],
-      backgroundColor: colors[index] + '40', // 투명도 추가
-      borderWidth: 2,
-      fill: false,
-      tension: 0.1,
-      pointRadius: 2,
-      spanGaps: false
     };
-  });
-  
-  console.log('데이터셋 생성 완료');
-  
-  window.theoryChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: xLabels,
-      datasets: datasets
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        title: {
-          display: true,
-          text: '이론적 이항분포 (p = 1/6)',
-          font: {
-            size: 16
-          }
-        },
-        legend: {
-          position: 'top'
-        }
-      },
-      scales: {
-        x: {
-          title: { 
-            display: true, 
-            text: '3의 눈이 나온 횟수 (X)'
-          },
-          min: 0,
-          max: maxX
-        },
-        y: {
-          title: { 
-            display: true, 
-            text: '확률 P(X = x)' 
-          },
-          beginAtZero: true
-        }
-      }
-    }
-  });
-  
-  console.log('이론적 그래프 완성');
-}
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎲 큰수의 법칙 실험기 - 주사위</h1>
+    
+    <!-- 이론적 확률분포 결과 -->
+    <div class="theory-section">
+      <h2>📊 이론적 확률분포 결과</h2>
+      <p>
+        주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 할 때, 
+        \(n=10, 20, 30, 40, 50\)일 때의 확률분포:
+      </p>
+      
+      <div class="theory-chart">
+        <canvas id="theoryChart" height="300" style="min-height: 300px; width: 100%;"></canvas>
+      </div>
+      
+      <div class="theory-table">
+        <table>
+          <thead>
+            <tr>
+              <th>\(n\) (던진 횟수)</th>
+              <th>\(X\) (3의 눈 횟수)</th>
+              <th>\(P(|\frac{X}{n} - \frac{1}{6}| < 0.1)\)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>10</td><td>1, 2</td><td>0.6137</td></tr>
+            <tr><td>20</td><td>2, 3, 4, 5</td><td>0.7835</td></tr>
+            <tr><td>30</td><td>3, 4, 5, 6, 7</td><td>0.7835</td></tr>
+            <tr><td>40</td><td>4, 5, 6, 7, 8, 9</td><td>0.9455</td></tr>
+            <tr><td>50</td><td>5, 6, 7, 8, 9, 10, 11</td><td>0.9455</td></tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="math-explanation">
+        <h3>📚 수학적 정의</h3>
+        <p>
+          <strong>큰수의 법칙:</strong> 주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 하면,
+          이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
+        </p>
+        <p>
+          <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
+        </p>
+        <p>
+          <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
+          \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
+        </p>
+      </div>
+    </div>
 
-// 이항분포 확률질량함수
-function binomialPMF(n, p, x) {
-  if (x < 0 || x > n) return 0;
-  return combination(n, x) * Math.pow(p, x) * Math.pow(1 - p, n - x);
-}
+    <div class="experiment-section">
+      <h2>🔬 실험 프로그램</h2>
+      <p>
+        <strong>실험 설명:</strong> 주사위를 \(n\)번 던져서 3의 눈이 나오는 횟수 \(X\)를 구하고, 
+        상대도수 \(\frac{X}{n}\)이 이론적 확률 \(\frac{1}{6}\)에 수렴하는지 확인합니다.
+      </p>
+      <p>
+        사용자가 설정한 오차 범위 \(h\) 안에 들어오는 비율을 계산하여 
+        <strong>큰수의 법칙</strong>을 체험할 수 있습니다.
+      </p>
 
-// 조합 계산
-function combination(n, k) {
-  if (k > n - k) k = n - k;
-  let result = 1;
-  for (let i = 0; i < k; i++) {
-    result = result * (n - i) / (i + 1);
-  }
-  return result;
-}
+      <div class="controls">
+        <label>던진 횟수 \(n\): <input type="number" id="n" value="50" min="10" max="1000"></label>
+        <label>허용 오차 \(h\): <input type="number" step="0.01" id="h" value="0.1" min="0.01" max="0.5"></label>
+        <label>반복 횟수 repeat: <input type="number" id="repeat" value="1000" min="100" max="10000"></label>
+        <button onclick="runSimulation()">실험 시작</button>
+      </div>
 
-// Chart.js 로드 확인 및 이론적 그래프 그리기
-function waitForChartJS() {
-  console.log('Chart.js 확인 중...', typeof Chart);
-  
-  if (typeof Chart !== 'undefined') {
-    console.log('Chart.js 로드됨, 이론적 그래프 그리기 시작');
-    try {
-      // 간단한 테스트 그래프 먼저 그리기
-      drawSimpleTestChart();
-      console.log('테스트 그래프 완성');
-    } catch (error) {
-      console.error('테스트 그래프 그리기 오류:', error);
-    }
-  } else {
-    console.log('Chart.js 아직 로드되지 않음, 100ms 후 재시도...');
-    setTimeout(waitForChartJS, 100);
-  }
-}
+      <p id="result"></p>
+      <canvas id="chart" height="300" style="min-height: 300px; width: 100%;"></canvas>
+      
+      <div class="experiment-explanation">
+        <h3>🎯 실험 결과 해석</h3>
+        <p>
+          <strong>이론적 기댓값:</strong> \(E\left[\frac{X}{n}\right] = \frac{1}{6} \approx 0.1667\)
+        </p>
+        <p>
+          <strong>이론적 분산:</strong> \(V\left[\frac{X}{n}\right] = \frac{1}{n} \cdot \frac{1}{6} \cdot \frac{5}{6} = \frac{5}{36n}\)
+        </p>
 
-// 간단한 테스트 그래프 그리기
-function drawSimpleTestChart() {
-  const ctx = document.getElementById('theoryChart');
-  if (!ctx) {
-    console.error('theoryChart canvas를 찾을 수 없음');
-    return;
-  }
-  
-  console.log('테스트 그래프 그리기 시작');
-  
-  // 기존 차트가 있으면 제거 (안전하게)
-  if (window.theoryChart && typeof window.theoryChart.destroy === 'function') {
-    try {
-      window.theoryChart.destroy();
-    } catch (error) {
-      console.log('기존 차트 제거 중 오류:', error);
-    }
-  }
-  
-  // 전역 변수 초기화
-  window.theoryChart = null;
-  
-  // 새 차트 생성
-  const newChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-      datasets: [{
-        label: 'n = 10',
-        data: [0.16, 0.32, 0.29, 0.15, 0.05, 0.01, 0, 0, 0, 0, 0],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        tension: 0.1
-      }, {
-        label: 'n = 20',
-        data: [0.12, 0.27, 0.28, 0.19, 0.09, 0.03, 0.01, 0, 0, 0, 0],
-        borderColor: 'rgb(54, 162, 235)',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        tension: 0.1
-      }, {
-        label: 'n = 30',
-        data: [0.09, 0.23, 0.27, 0.21, 0.12, 0.05, 0.02, 0.01, 0, 0, 0],
-        borderColor: 'rgb(255, 206, 86)',
-        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-        tension: 0.1
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true,
-          text: '이론적 이항분포 (p = 1/6)'
-        },
-        legend: {
-          position: 'top'
-        }
-      },
-      scales: {
-        x: {
-          title: { 
-            display: true, 
-            text: '3의 눈이 나온 횟수 (X)' 
-          }
-        },
-        y: {
-          title: { 
-            display: true, 
-            text: '확률 P(X = x)' 
-          },
-          beginAtZero: true
-        }
-      }
-    }
-  });
-  
-  // 전역 변수에 할당
-  window.theoryChart = newChart;
-  
-  console.log('테스트 그래프 완성');
-}
-
-
-
-// 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM 로드 완료');
-  waitForChartJS();
-});
-
-// 추가로 window.onload에서도 시도
-window.addEventListener('load', function() {
-  console.log('Window 로드 완료');
-  if (typeof Chart !== 'undefined') {
-    console.log('Chart.js 로드됨 (window.onload)');
-    try {
-      drawSimpleTestChart();
-    } catch (error) {
-      console.error('그래프 그리기 오류 (window.onload):', error);
-    }
-  }
-});
+      </div>
+    </div>
+  </div>
+  <script src="law-of-large-numbers.js"></script>
+</body>
+</html>
