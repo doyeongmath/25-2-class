@@ -77,18 +77,28 @@ function drawTheoryChart() {
   
   console.log('이론적 그래프 그리기 시작');
   
-  // n 값들
+  // 기존 차트가 있으면 제거
+  if (window.theoryChart) {
+    window.theoryChart.destroy();
+  }
+  
+  // n 값들과 색상
   const nValues = [10, 20, 30, 40, 50];
+  const colors = [
+    'rgb(255, 99, 132)',
+    'rgb(54, 162, 235)', 
+    'rgb(255, 206, 86)',
+    'rgb(75, 192, 192)',
+    'rgb(153, 102, 255)'
+  ];
+  
   const p = 1/6; // 3의 눈이 나올 확률
   
-  // 모든 x 값의 범위 결정 (가장 큰 n에 대해)
-  const maxN = Math.max(...nValues);
-  const maxX = Math.min(maxN, Math.floor(maxN * p * 4)); // 그래프 범위 조정
-  
-  // x축 레이블 생성
+  // x축 범위 설정 (0부터 15까지)
+  const maxX = 15;
   const xLabels = [];
   for (let x = 0; x <= maxX; x++) {
-    xLabels.push(x.toString());
+    xLabels.push(x);
   }
   
   // 각 n에 대한 데이터셋 생성
@@ -97,41 +107,26 @@ function drawTheoryChart() {
     
     for (let x = 0; x <= maxX; x++) {
       if (x <= n) {
-        const prob = binomialPMF(n, p, x);
-        data.push(prob);
+        data.push(binomialPMF(n, p, x));
       } else {
-        data.push(0); // n보다 큰 x 값은 0
+        data.push(null); // n을 초과하는 값은 null
       }
     }
-    
-    const colors = [
-      'rgba(255, 99, 132, 0.8)',
-      'rgba(54, 162, 235, 0.8)',
-      'rgba(255, 206, 86, 0.8)',
-      'rgba(75, 192, 192, 0.8)',
-      'rgba(153, 102, 255, 0.8)'
-    ];
-    
-    console.log(`n=${n} 데이터:`, data.slice(0, 10)); // 처음 10개만 로그
     
     return {
       label: `n = ${n}`,
       data: data,
       borderColor: colors[index],
-      backgroundColor: colors[index].replace('0.8', '0.3'),
+      backgroundColor: colors[index] + '40', // 투명도 추가
       borderWidth: 2,
       fill: false,
       tension: 0.1,
-      pointRadius: 3
+      pointRadius: 2,
+      spanGaps: false
     };
   });
   
-  // 기존 차트가 있으면 제거
-  if (window.theoryChart) {
-    window.theoryChart.destroy();
-  }
-  
-  console.log('Chart 생성 시작, 레이블:', xLabels.slice(0, 10));
+  console.log('데이터셋 생성 완료');
   
   window.theoryChart = new Chart(ctx, {
     type: 'line',
@@ -141,10 +136,14 @@ function drawTheoryChart() {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: {
           display: true,
-          text: '이론적 이항분포 (p = 1/6)'
+          text: '이론적 이항분포 (p = 1/6)',
+          font: {
+            size: 16
+          }
         },
         legend: {
           position: 'top'
@@ -154,10 +153,10 @@ function drawTheoryChart() {
         x: {
           title: { 
             display: true, 
-            text: '3의 눈이 나온 횟수 (X)' 
+            text: '3의 눈이 나온 횟수 (X)'
           },
-          type: 'linear',
-          position: 'bottom'
+          min: 0,
+          max: maxX
         },
         y: {
           title: { 
