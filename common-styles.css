@@ -49,6 +49,37 @@ h3 {
   border-radius: 8px;
   margin: 20px 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-height: 300px;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .theory-chart {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .theory-chart canvas {
+    min-height: 250px !important;
+  }
+  
+  .container {
+    padding: 15px;
+    margin: 20px auto;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
 }
 
 .theory-table {
