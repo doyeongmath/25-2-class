@@ -64,8 +64,6 @@
        <label>n <input type="number" id="n" value="60" min="1"></label>
        <label>p <input type="number" id="p" value="0.5" min="0" max="1" step="0.01"></label>
        <label>샘플 수 repeat <input type="number" id="repeat" value="5000" min="100"></label>
-       <label><input type="checkbox" id="cc" checked> 연속성 보정</label>
-       <label><input type="checkbox" id="showExact"> 정확 이항 PMF도 표시</label>
        <button id="run">비교 실행</button>
      </div>
      
@@ -74,11 +72,10 @@
        <h3>📊 그래프 설명</h3>
        <ul>
          <li><strong>이항분포 샘플링 (파란 막대):</strong> 실제 시뮬레이션으로 얻은 상대도수</li>
-         <li><strong>정규분포 근사 (빨간 선):</strong> \(N(m, \sigma^2)\)로 근사한 연속 확률분포</li>
-         <li><strong>정확한 이항 PMF (초록 선):</strong> 이론적으로 계산한 이항분포 확률질량함수</li>
+         <li><strong>정규분포 근사 (빨간 선):</strong> \(N(m, \sigma^2)\)로 근사한 정규분포 곡선</li>
        </ul>
-       <p><strong>차이점:</strong> 정규분포 근사는 연속분포이므로 이산값 k에서의 확률을 구간 [k-0.5, k+0.5]의 확률로 근사합니다. 
-       정확한 이항 PMF는 이산분포의 실제 확률값을 보여줍니다.</p>
+       <p><strong>핵심 개념:</strong> n이 클수록 이항분포가 정규분포에 가까워집니다. 
+       이것이 바로 <strong>중심극한정리</strong>의 특수한 경우입니다!</p>
      </div>
 
     <p id="meta"></p>
