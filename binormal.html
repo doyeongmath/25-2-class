@@ -31,7 +31,6 @@
       }
     };
   </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -59,11 +58,7 @@
         이는 중심극한정리의 특수한 경우입니다.
       </p>
     </div>
-    
-    <p class="note">
-      B(n,p)는 n이 크고 p가 0이나 1에 치우치지 않을 때 정규분포 N(μ=np, σ²=npq)로 근사됩니다.
-      아래에서 샘플링한 이항 분포(막대)와 정규 근사(선)를 비교합니다. (연속성 보정 옵션 포함)
-    </p>
+
 
     <div class="controls">
       <label>n <input type="number" id="n" value="60" min="1"></label>
@@ -75,7 +70,7 @@
     </div>
 
     <p id="meta"></p>
-    <canvas id="chart" height="170"></canvas>
+    <canvas id="chart" width="800" height="400" style="max-height: 400px; width: 100%;"></canvas>
 
     <div class="footer">
       <a href="index.html">← 돌아가기</a>
