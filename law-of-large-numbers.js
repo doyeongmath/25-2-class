@@ -154,13 +154,37 @@ function combination(n, k) {
   return result;
 }
 
-// 페이지 로드 시 이론적 그래프 그리기
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM 로드 완료, Chart.js 확인:', typeof Chart);
+// Chart.js 로드 확인 및 이론적 그래프 그리기
+function waitForChartJS() {
   if (typeof Chart !== 'undefined') {
     console.log('Chart.js 로드됨, 이론적 그래프 그리기 시작');
-    drawTheoryChart();
+    try {
+      drawTheoryChart();
+      console.log('이론적 그래프 그리기 완료');
+    } catch (error) {
+      console.error('그래프 그리기 오류:', error);
+    }
   } else {
-    console.error('Chart.js가 로드되지 않음');
+    console.log('Chart.js 아직 로드되지 않음, 100ms 후 재시도...');
+    setTimeout(waitForChartJS, 100);
+  }
+}
+
+// 페이지 로드 시 실행
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM 로드 완료');
+  waitForChartJS();
+});
+
+// 추가로 window.onload에서도 시도
+window.addEventListener('load', function() {
+  console.log('Window 로드 완료');
+  if (typeof Chart !== 'undefined') {
+    console.log('Chart.js 로드됨 (window.onload)');
+    try {
+      drawTheoryChart();
+    } catch (error) {
+      console.error('그래프 그리기 오류 (window.onload):', error);
+    }
   }
 });
