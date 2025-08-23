@@ -82,8 +82,7 @@ function drawChart(data, p, h) {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
-      aspectRatio: 2.5,
+      maintainAspectRatio: false,
       plugins: {
         title: {
           display: true,
@@ -169,18 +168,17 @@ function drawTheoryChart() {
       labels: xLabels,
       datasets: datasets
     },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      aspectRatio: 2.5,
-      plugins: {
-        title: {
-          display: true,
-          text: '이론적 이항분포 (p = 1/6)',
-          font: {
-            size: 16
-          }
-        },
+          options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          title: {
+            display: true,
+            text: '이론적 이항분포 (p = 1/6)',
+            font: {
+              size: 16
+            }
+          },
         legend: {
           position: 'top',
           labels: {
