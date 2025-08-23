@@ -66,6 +66,12 @@ h3 {
     height: 300px !important;
   }
   
+  /* 이항-정규분포 페이지 차트 */
+  #chart {
+    min-height: 300px !important;
+    height: 300px !important;
+  }
+  
   .container {
     padding: 15px;
     margin: 20px auto;
