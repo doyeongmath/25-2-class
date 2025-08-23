@@ -51,6 +51,7 @@ h3 {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   height: auto;
   max-height: 500px;
+  min-height: 350px;
 }
 
 /* 모바일 반응형 */
@@ -61,7 +62,8 @@ h3 {
   }
   
   .theory-chart canvas {
-    min-height: 250px !important;
+    min-height: 300px !important;
+    height: 300px !important;
   }
   
   .container {
