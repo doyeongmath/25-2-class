@@ -338,8 +338,8 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab('analysis')">📊 통계 분석</button>
-            <button class="nav-tab" onclick="showTab('debate')">🤔 토론</button>
+            <button class="nav-tab active" onclick="showTab('debate')">🤔 토론 (시작)</button>
+            <button class="nav-tab" onclick="showTab('analysis')">📊 통계 분석</button>
             <button class="nav-tab" onclick="showTab('comparison')">⚖️ 방법 비교</button>
             <button class="nav-tab" onclick="showTab('conclusion')">🏁 결론</button>
         </div>
@@ -534,6 +534,10 @@
                                 <strong>🔬 과학적 방법</strong>
                                 IQR, Z-score 같은 객관적 기준이 있잖아
                             </li>
+                            <li>
+                                <strong>⚖️ 공정성</strong>
+                                한두 명의 장난이 전체를 망치면 안 돼
+                            </li>
                         </ul>
                     </div>
 
@@ -556,8 +560,87 @@
                                 <strong>😤 자의적 판단</strong>
                                 누가 정했어? 23세는 되고 20세는 안 되는 기준이?
                             </li>
+                            <li>
+                                <strong>🔬 연구 윤리</strong>
+                                원본 데이터를 함부로 조작하는 건 부정행위야!
+                            </li>
                         </ul>
                     </div>
+                </div>
+
+                <div class="method-explanation">
+                    <h4>💡 찬성팀의 핵심 주장</h4>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        "통계의 목적은 <strong>진짜 현실</strong>을 파악하는 것! 장난이나 실수로 인한 데이터는 
+                        <strong>노이즈(잡음)</strong>일 뿐이고, 이를 제거해야 <strong>진정한 패턴</strong>을 찾을 수 있다."
+                    </p>
+                </div>
+
+                <div class="method-explanation">
+                    <h4>💡 반대팀의 핵심 주장</h4>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        "모든 데이터는 <strong>의미</strong>가 있다! '이상하다'는 판단 자체가 
+                        <strong>연구자의 편견</strong>일 수 있고, 원본 데이터를 조작하는 것은 
+                        <strong>과학적 투명성</strong>을 해친다."
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🤯 실제 딜레마 상황들</h2>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: calc(100% - 100px);">
+                    <div class="explanation-box">
+                        <h4>🏥 병원 상황</h4>
+                        <p><strong>환자들의 키 데이터 수집 중</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>대부분: 160-180cm</li>
+                            <li>이상치: 50cm (입력 실수?), 250cm (장난?)</li>
+                        </ul>
+                        <div style="background: #fff; color: #333; padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>Q:</strong> 약 처방량 계산에 사용한다면?
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h4>🏫 학교 상황</h4>
+                        <p><strong>학생들의 용돈 조사</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>대부분: 1-5만원</li>
+                            <li>이상치: 0원, 100만원</li>
+                        </ul>
+                        <div style="background: #fff; color: #333; padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>Q:</strong> 평균 용돈 발표에 사용한다면?
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h4>📊 선거 조사</h4>
+                        <p><strong>지지율 여론조사</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>대부분: A후보 45%, B후보 40%</li>
+                            <li>이상치: "둘 다 싫어" → 어떻게 처리?</li>
+                        </ul>
+                        <div style="background: #fff; color: #333; padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>Q:</strong> 정치적으로 민감한 결과라면?
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h4>🍔 음식점 상황</h4>
+                        <p><strong>음식 평점 조사 (1-5점)</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>대부분: 3-4점</li>
+                            <li>이상치: 10점 (시스템 오류?)</li>
+                        </ul>
+                        <div style="background: #fff; color: #333; padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>Q:</strong> 사장님이 평균 올리고 싶어한다면?
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #ff6b6b; color: white; padding: 15px; border-radius: 15px; margin-top: 20px; text-align: center;">
+                    <strong>🎯 핵심 질문: 누가, 언제, 어떤 기준으로 결정할 것인가?</strong>
                 </div>
             </div>
 
@@ -573,6 +656,20 @@
                         IQR이 더 엄격한데, 이게 더 좋은 건가?
                     </div>
                 </div>
+            </div>
+
+            <div class="discussion-guide">
+                <h3>🎭 토론 가이드</h3>
+                <p><strong>토론 시간: 20분</strong></p>
+                <div class="time-schedule">
+                    <div class="time-box">5분<br>개인 생각 정리</div>
+                    <div class="time-box">10분<br>팀별 토론</div>
+                    <div class="time-box">3분<br>팀별 발표</div>
+                    <div class="time-box">2분<br>전체 정리</div>
+                </div>
+                <p style="margin-top: 15px;">
+                    <strong>토론 주제:</strong> "우리 반 데이터에서 이상치를 제거해야 할까?"
+                </p>
             </div>
         </div>
 
