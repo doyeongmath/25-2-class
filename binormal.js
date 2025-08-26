@@ -13,36 +13,26 @@ class BinormalComparison {
             type: 'bar',
             data: {
                 labels: [],
-                datasets: [
-                    {
-                        label: '이항분포 샘플링',
-                        data: [],
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                        yAxisID: 'y'
-                    },
-                    {
-                        label: '정규분포 근사',
-                        data: [],
-                        type: 'line',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                        borderWidth: 2,
-                        fill: false,
-                        yAxisID: 'y'
-                    },
-                    {
-                        label: '정확한 이항 PMF',
-                        data: [],
-                        type: 'line',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
-                        borderWidth: 2,
-                        fill: false,
-                        yAxisID: 'y'
-                    }
-                ]
+                                 datasets: [
+                     {
+                         label: '이항분포 샘플링',
+                         data: [],
+                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                         borderColor: 'rgba(54, 162, 235, 1)',
+                         borderWidth: 1,
+                         yAxisID: 'y'
+                     },
+                     {
+                         label: '정규분포 근사',
+                         data: [],
+                         type: 'line',
+                         borderColor: 'rgba(255, 99, 132, 1)',
+                         backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                         borderWidth: 2,
+                         fill: false,
+                         yAxisID: 'y'
+                     }
+                 ]
             },
             options: {
                 responsive: true,
@@ -89,74 +79,27 @@ class BinormalComparison {
                 this.runComparison();
             });
         });
-
-        ['cc', 'showExact'].forEach(id => {
-            document.getElementById(id).addEventListener('change', () => {
-                this.updateChart();
-            });
-        });
     }
 
-    // 이항분포 계산
-    binomialPMF(n, p, k) {
-        if (k < 0 || k > n) return 0;
-        return this.combination(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
-    }
 
-    // 조합 계산
-    combination(n, k) {
-        if (k > n - k) k = n - k;
-        let result = 1;
-        for (let i = 0; i < k; i++) {
-            result = result * (n - i) / (i + 1);
-        }
-        return result;
-    }
 
     // 정규분포 PDF
-    normalPDF(x, mu, sigma) {
+    normalPDF(x, m, sigma) {
         return (1 / (sigma * Math.sqrt(2 * Math.PI))) * 
-               Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
+               Math.exp(-0.5 * Math.pow((x - m) / sigma, 2));
     }
 
-    // 정규분포 근사 (연속성 보정 포함)
-    normalApproximation(n, p, k, useContinuityCorrection = true) {
-        const mu = n * p;
-        const sigma = Math.sqrt(n * p * (1 - p));
+    // 정규분포 근사 (단순화)
+    normalApproximation(n, p, k) {
+        const m = n * p;
+        const q = 1 - p;
+        const sigma = Math.sqrt(n * p * q);
         
-        if (useContinuityCorrection) {
-            // 연속성 보정: P(k) ≈ P(k-0.5 ≤ X ≤ k+0.5)
-            const lower = this.normalCDF(k - 0.5, mu, sigma);
-            const upper = this.normalCDF(k + 0.5, mu, sigma);
-            return upper - lower;
-        } else {
-            // 연속성 보정 없음: P(k) ≈ f(k)
-            return this.normalPDF(k, mu, sigma);
-        }
+        // 정규분포 PDF 값 사용 (간단한 근사)
+        return this.normalPDF(k, m, sigma);
     }
 
-    // 정규분포 CDF (근사)
-    normalCDF(x, mu, sigma) {
-        return 0.5 * (1 + this.erf((x - mu) / (sigma * Math.sqrt(2))));
-    }
 
-    // 오차 함수 근사
-    erf(x) {
-        const a1 =  0.254829592;
-        const a2 = -0.284496736;
-        const a3 =  1.421413741;
-        const a4 = -1.453152027;
-        const a5 =  1.061405429;
-        const p  =  0.3275911;
-
-        const sign = x >= 0 ? 1 : -1;
-        x = Math.abs(x);
-
-        const t = 1.0 / (1.0 + p * x);
-        const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
-
-        return sign * y;
-    }
 
     // 이항분포 시뮬레이션
     simulateBinomial(n, p, repeat) {
@@ -181,33 +124,29 @@ class BinormalComparison {
         const n = parseInt(document.getElementById('n').value);
         const p = parseFloat(document.getElementById('p').value);
         const repeat = parseInt(document.getElementById('repeat').value);
-        const useCC = document.getElementById('cc').checked;
-        const showExact = document.getElementById('showExact').checked;
 
         // 메타 정보 업데이트
-        const mu = n * p;
-        const sigma = Math.sqrt(n * p * (1 - p));
+        const m = n * p;
+        const q = 1 - p;
+        const sigma = Math.sqrt(n * p * q);
         document.getElementById('meta').innerHTML = `
             <strong>이항분포 B(${n}, ${p})</strong><br>
-            기댓값: μ = ${n} × ${p} = ${mu.toFixed(2)}<br>
-            표준편차: σ = √(${n} × ${p} × ${(1-p).toFixed(3)}) = ${sigma.toFixed(3)}<br>
-            정규근사: N(${mu.toFixed(2)}, ${(sigma*sigma).toFixed(3)})<br>
+            기댓값: m = ${n} × ${p} = ${m.toFixed(2)}<br>
+            표준편차: σ = √(${n} × ${p} × ${q.toFixed(3)}) = ${sigma.toFixed(3)}<br>
+            정규근사: N(${m.toFixed(2)}, ${(sigma*sigma).toFixed(3)})<br>
             샘플 수: ${repeat.toLocaleString()}회
         `;
 
         // 데이터 생성
         const labels = Array.from({length: n + 1}, (_, i) => i);
         const simulatedData = this.simulateBinomial(n, p, repeat);
-        const normalData = labels.map(k => this.normalApproximation(n, p, k, useCC));
-        const exactData = labels.map(k => this.binomialPMF(n, p, k));
+        const normalData = labels.map(k => this.normalApproximation(n, p, k));
 
         // 차트 업데이트
         this.chart.data.labels = labels;
         this.chart.data.datasets[0].data = simulatedData;
         this.chart.data.datasets[1].data = normalData;
-        this.chart.data.datasets[2].data = showExact ? exactData : [];
         
-        this.chart.data.datasets[2].hidden = !showExact;
         this.chart.update();
 
         // 조건 확인
@@ -232,5 +171,9 @@ class BinormalComparison {
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    new BinormalComparison();
+    const comparison = new BinormalComparison();
+    // 초기 비교 실행
+    setTimeout(() => {
+        comparison.runComparison();
+    }, 100);
 });

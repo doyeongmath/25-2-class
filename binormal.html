@@ -31,7 +31,6 @@
       }
     };
   </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -44,38 +43,52 @@
       <p>
         <strong>이항분포 \(B(n,p)\):</strong> \(n\)번의 독립 시행에서 성공 확률이 \(p\)인 확률분포
       </p>
-      <p>
-        <strong>평균:</strong> \(m = np\), <strong>분산:</strong> \(\sigma^2 = np(1-p)\)
-      </p>
+             <p>
+         <strong>평균:</strong> \(m = np\), <strong>분산:</strong> \(\sigma^2 = npq\) (여기서 \(q = 1-p\))
+       </p>
       <p>
         <strong>De Moivre–Laplace 정리:</strong> \(n\)이 충분히 크고 \(p\)가 0이나 1에 치우치지 않으면,
         이항분포는 정규분포로 근사됩니다:
       </p>
       <p class="math-center">
-        \[B(n,p) \approx N(m, np(1-p))\]
+        \[B(n,p) \approx N(m, \sigma^2)\]
       </p>
       <p>
-        즉, 이항분포의 확률질량함수가 정규분포 곡선으로 근사됩니다. 
-        이는 중심극한정리의 특수한 경우입니다.
+                 즉, 이항분포 \(B(n,p)\)가 정규분포 \(N(m, \sigma^2)\)로 근사됩니다. 
+         이는 중심극한정리의 특수한 경우입니다.
       </p>
-    </div>
-    
-    <p class="note">
-      B(n,p)는 n이 크고 p가 0이나 1에 치우치지 않을 때 정규분포 N(μ=np, σ²=npq)로 근사됩니다.
-      아래에서 샘플링한 이항 분포(막대)와 정규 근사(선)를 비교합니다. (연속성 보정 옵션 포함)
-    </p>
+         </div>
+ 
+     <!-- 매개변수 설명 -->
+     <div class="parameter-explanation">
+       <h3> 매개변수 설명</h3>
+       <ul>
+         <li><strong>n (시행 횟수):</strong> 동전을 던지는 횟수. 클수록 정규분포에 가까워집니다.</li>
+         <li><strong>p (성공 확률):</strong> 동전이 앞면이 나올 확률 (0~1 사이)</li>
+         <li><strong>repeat (반복 횟수):</strong> 전체 실험을 반복하는 횟수. 클수록 안정적인 결과</li>
+       </ul>
+     </div>
 
-    <div class="controls">
-      <label>n <input type="number" id="n" value="60" min="1"></label>
-      <label>p <input type="number" id="p" value="0.5" min="0" max="1" step="0.01"></label>
-      <label>샘플 수 repeat <input type="number" id="repeat" value="5000" min="100"></label>
-      <label><input type="checkbox" id="cc" checked> 연속성 보정</label>
-      <label><input type="checkbox" id="showExact"> 정확 이항 PMF도 표시</label>
-      <button id="run">비교 실행</button>
-    </div>
+     <div class="controls">
+       <label>n <input type="number" id="n" value="60" min="1"></label>
+       <label>p <input type="number" id="p" value="0.5" min="0" max="1" step="0.01"></label>
+       <label>샘플 수 repeat <input type="number" id="repeat" value="5000" min="100"></label>
+       <button id="run">비교 실행</button>
+     </div>
+     
+     <!-- 차이점 설명 -->
+     <div class="explanation-section">
+       <h3>📊 그래프 설명</h3>
+       <ul>
+         <li><strong>이항분포 샘플링 (파란 막대):</strong> 실제 시뮬레이션으로 얻은 상대도수</li>
+         <li><strong>정규분포 근사 (빨간 선):</strong> \(N(m, \sigma^2)\)로 근사한 정규분포 곡선</li>
+       </ul>
+       <p><strong>핵심 개념:</strong> n이 클수록 이항분포가 정규분포에 가까워집니다. 
+       이것이 바로 <strong>중심극한정리</strong>의 특수한 경우입니다!</p>
+     </div>
 
     <p id="meta"></p>
-    <canvas id="chart" height="170"></canvas>
+    <canvas id="chart" width="800" height="400" style="max-height: 400px; width: 100%;"></canvas>
 
     <div class="footer">
       <a href="index.html">← 돌아가기</a>

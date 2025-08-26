@@ -49,6 +49,66 @@ h3 {
   border-radius: 8px;
   margin: 20px 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: auto;
+  max-height: 500px;
+  min-height: 350px;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .theory-chart {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .theory-chart canvas {
+    min-height: 300px !important;
+    height: 300px !important;
+  }
+  
+  /* 이항-정규분포 페이지 차트 */
+  #chart {
+    min-height: 300px !important;
+    height: 300px !important;
+  }
+  
+  .container {
+    padding: 15px;
+    margin: 20px auto;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+  
+  .control-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .control-row label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .control-row button {
+    align-self: flex-start;
+    margin-top: 10px;
+  }
 }
 
 .theory-table {
@@ -105,6 +165,75 @@ h3 {
   margin: 20px 0;
 }
 
+.controls {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin: 20px 0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.controls input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 80px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  background-color: #357edd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.controls button:hover {
+  background-color: #2d6bb3;
+}
+
+.result-display {
+  background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 5px solid #28a745;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.result-display strong {
+  color: #155724;
+  font-size: 18px;
+}
+
+.result-content p {
+  margin: 8px 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.result-note {
+  font-size: 14px;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: 15px;
+}
+
 .experiment-section {
   background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
   padding: 25px;
@@ -132,20 +261,23 @@ h3 {
 
 .controls {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 20px;
   background: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
+  align-items: center;
 }
 
 label {
   flex: 1;
   min-width: 150px;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }
 
 label span {

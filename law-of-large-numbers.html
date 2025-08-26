@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>큰수의 법칙 실험기 - 주사위</title>
   <link rel="stylesheet" href="common-styles.css">
+  <!-- Chart.js 먼저 로드 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <!-- MathJax 설정 -->
@@ -26,13 +27,39 @@
         pageReady: () => {
           return MathJax.startup.defaultPageReady().then(() => {
             console.log('MathJax 초기화 완료');
+            // MathJax 렌더링 완료 후 그래프 그리기
+            if (typeof Chart !== 'undefined') {
+              setTimeout(() => {
+                if (typeof drawTheoryChart === 'function') {
+                  drawTheoryChart();
+                }
+              }, 200);
+            }
           });
         }
       }
     };
   </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- MathJax 로딩 확인 스크립트 -->
+  <script>
+    function checkMathJax() {
+      if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+        console.log('MathJax 완전 로드됨');
+        // 페이지의 모든 수식 렌더링
+        MathJax.typesetPromise().then(() => {
+          console.log('MathJax 초기 렌더링 완료');
+        });
+      } else {
+        console.log('MathJax 아직 로딩 중...');
+        setTimeout(checkMathJax, 100);
+      }
+    }
+    
+    // 페이지 로드 후 MathJax 확인
+    window.addEventListener('load', checkMathJax);
+  </script>
 </head>
 <body>
   <div class="container">
@@ -47,7 +74,7 @@
       </p>
       
       <div class="theory-chart">
-        <canvas id="theoryChart" height="200"></canvas>
+        <canvas id="theoryChart" width="800" height="400" style="max-height: 400px; width: 100%;"></canvas>
       </div>
       
       <div class="theory-table">
@@ -79,7 +106,7 @@
           <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
         </p>
         <p>
-          <strong>수렴 조건:</strong> 임의의 작은 양수 \(h\)에 대하여,
+          <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
           \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
         </p>
       </div>
@@ -87,12 +114,24 @@
 
     <div class="experiment-section">
       <h2>🔬 실험 프로그램</h2>
+      
+      <!-- 매개변수 설명 -->
+      <div class="parameter-explanation">
+        <h3> 매개변수 설명</h3>
+        <ul>
+          <li><strong>n (던진 횟수):</strong> 주사위를 던지는 횟수. 클수록 수학적 확률에 가까워집니다.</li>
+          <li><strong>h (허용 오차):</strong> 상대도수가 수학적 확률에서 벗어날 수 있는 허용 범위</li>
+          <li><strong>repeat (반복 횟수):</strong> 전체 실험을 반복하는 횟수. 클수록 안정적인 결과</li>
+        </ul>
+      </div>
+      
       <p>
         <strong>실험 설명:</strong> 주사위를 \(n\)번 던져서 3의 눈이 나오는 횟수 \(X\)를 구하고, 
-        상대도수 \(\frac{X}{n}\)이 이론적 확률 \(\frac{1}{6}\)에 수렴하는지 확인합니다.
+        상대도수 \(\frac{X}{n}\)이 수학적 확률 \(\frac{1}{6}\)에 수렴하는지 확인합니다.
       </p>
       <p>
-        사용자가 설정한 오차 범위 \(h\) 안에 들어오는 비율을 계산하여 큰수의 법칙을 체험할 수 있습니다.
+        사용자가 설정한 오차 범위 \(h\) 안에 들어오는 비율을 계산하여 
+        <strong>큰수의 법칙</strong>을 체험할 수 있습니다.
       </p>
 
       <div class="controls">
@@ -102,8 +141,8 @@
         <button onclick="runSimulation()">실험 시작</button>
       </div>
 
-      <p id="result"></p>
-      <canvas id="chart" height="200"></canvas>
+      <div id="result" class="result-display"></div>
+      <canvas id="chart" width="800" height="400" style="max-height: 400px; width: 100%;"></canvas>
       
       <div class="experiment-explanation">
         <h3>🎯 실험 결과 해석</h3>
