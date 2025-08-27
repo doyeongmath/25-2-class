@@ -259,6 +259,160 @@
             border: 2px solid #c0392b;
         }
 
+        /* 인터랙티브 데이터 표시 스타일 */
+        .data-item.raw-data {
+            background: #95a5a6;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .data-item.raw-data:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 숨김 상태 */
+        .hidden {
+            display: none;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        /* 인터랙티브 섹션 스타일 */
+        .interactive-data-section {
+            margin: 20px 0;
+        }
+
+        .activity-instruction {
+            margin-bottom: 30px;
+        }
+
+        .instruction-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+
+        .instruction-box ul {
+            margin: 15px 0 0 20px;
+            padding: 0;
+        }
+
+        .instruction-box li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .data-display-area {
+            margin: 20px 0;
+        }
+
+        .reveal-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .reveal-btn {
+            background: linear-gradient(135deg, #ff7675 0%, #e17055 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 118, 117, 0.3);
+        }
+
+        .reveal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 118, 117, 0.4);
+        }
+
+        .reveal-btn:active {
+            transform: translateY(0);
+        }
+
+        .reveal-hint {
+            color: #666;
+            font-size: 0.9em;
+            margin: 10px 0 0 0;
+            font-style: italic;
+        }
+
+        /* 이상치 표시 애니메이션 */
+        .data-item.revealing {
+            animation: revealOutlier 0.8s ease forwards;
+        }
+
+        @keyframes revealOutlier {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 범례 스타일 */
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 8px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 5px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .legend-color.extreme-low {
+            background: #e74c3c;
+        }
+
+        .legend-color.low-value {
+            background: #f39c12;
+        }
+
+        .legend-color.normal {
+            background: #3498db;
+        }
+
+        .legend-color.high-value {
+            background: #f39c12;
+        }
+
+        .legend-color.extreme-high {
+            background: #e74c3c;
+        }
+
+        .data-info-panel {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* 정렬된 데이터 컨테이너 */
         .sorted-data-container {
             margin: 20px 0;
@@ -748,99 +902,115 @@
                     <h2>📊 원본 데이터 현황</h2>
                     <div class="data-display">
                         <h3>🎯 평균 맞히기 게임 결과 - 선생님 나이 추측 (115명 응답)</h3>
-                        <!-- 📊 정렬된 데이터 표시 (오름차순) -->
-                        <div class="sorted-data-container">
-                            <h4>🔢 크기 순서대로 정렬된 데이터</h4>
-                            <div class="data-grid sorted">
-                                <!-- 극단적 낮은 값 -->
-                                <div class="data-item extreme-low">3</div>
-                                <div class="data-item extreme-low">3</div>
 
-                                <!-- 낮은 값 -->
-                                <div class="data-item low-value">20</div>
-                                <div class="data-item low-value">25</div>
-                                <div class="data-item low-value">26</div>
+                        <!-- 🎮 학생들이 직접 이상치를 찾아보도록 유도하는 인터랙티브 섹션 -->
+                        <div class="interactive-data-section">
+                            <div class="activity-instruction">
+                                <h4>🔍 활동: 이상치를 찾아라!</h4>
+                                <div class="instruction-box">
+                                    <p><strong>📊 아래 데이터를 보고 다음 질문에 답해보세요:</strong></p>
+                                    <ul>
+                                        <li>어떤 값들이 이상하게 느껴지나요?</li>
+                                        <li>왜 그 값들이 이상할까요?</li>
+                                        <li>몇 개의 이상치를 찾을 수 있나요?</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-                                <!-- 정상 범위 값들 -->
-                                <div class="data-item normal">27</div>
-                                <div class="data-item normal">27</div>
-                                <div class="data-item normal">27</div>
-                                <div class="data-item normal">27</div>
-                                <div class="data-item normal">27</div>
-                                <div class="data-item normal">28</div>
-                                <div class="data-item normal">28</div>
-                                <div class="data-item normal">28</div>
-                                <div class="data-item normal">28</div>
-                                <div class="data-item normal">28</div>
-                                <div class="data-item normal">28</div>
-                                <div class="data-item normal">28</div>
-                                <div class="data-item normal">29</div>
-                                <div class="data-item normal">29</div>
-                                <div class="data-item normal">29</div>
-                                <div class="data-item normal">29</div>
-                                <div class="data-item normal">29</div>
-                                <div class="data-item normal">29</div>
-                                <div class="data-item normal">29</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">30</div>
-                                <div class="data-item normal">31</div>
-                                <div class="data-item normal">31</div>
-                                <div class="data-item normal">31</div>
-                                <div class="data-item normal">31</div>
-                                <div class="data-item normal">31</div>
-                                <div class="data-item normal">31</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">32</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">33</div>
-                                <div class="data-item normal">34</div>
-                                <div class="data-item normal">34</div>
-                                <div class="data-item normal">34</div>
-                                <div class="data-item normal">34</div>
-                                <div class="data-item normal">34.5</div>
-                                <div class="data-item normal">35</div>
-                                <div class="data-item normal">35</div>
-                                <div class="data-item normal">35</div>
-                                <div class="data-item normal">35</div>
-                                <div class="data-item normal">36</div>
-                                <div class="data-item normal">37</div>
-                                <div class="data-item normal">37</div>
-                                <div class="data-item normal">38</div>
+                            <!-- 데이터 표시 영역 -->
+                            <div class="data-display-area">
+                                <h4>🔢 크기 순서대로 정렬된 데이터</h4>
+                                <div class="data-grid sorted" id="dataGrid">
+                                    <!-- 처음에는 모두 같은 스타일로 표시 -->
+                                    <div class="data-item raw-data">3</div>
+                                    <div class="data-item raw-data">3</div>
+                                    <div class="data-item raw-data">20</div>
+                                    <div class="data-item raw-data">25</div>
+                                    <div class="data-item raw-data">26</div>
+                                    <div class="data-item raw-data">27</div>
+                                    <div class="data-item raw-data">27</div>
+                                    <div class="data-item raw-data">27</div>
+                                    <div class="data-item raw-data">27</div>
+                                    <div class="data-item raw-data">27</div>
+                                    <div class="data-item raw-data">28</div>
+                                    <div class="data-item raw-data">28</div>
+                                    <div class="data-item raw-data">28</div>
+                                    <div class="data-item raw-data">28</div>
+                                    <div class="data-item raw-data">28</div>
+                                    <div class="data-item raw-data">28</div>
+                                    <div class="data-item raw-data">28</div>
+                                    <div class="data-item raw-data">29</div>
+                                    <div class="data-item raw-data">29</div>
+                                    <div class="data-item raw-data">29</div>
+                                    <div class="data-item raw-data">29</div>
+                                    <div class="data-item raw-data">29</div>
+                                    <div class="data-item raw-data">29</div>
+                                    <div class="data-item raw-data">29</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">30</div>
+                                    <div class="data-item raw-data">31</div>
+                                    <div class="data-item raw-data">31</div>
+                                    <div class="data-item raw-data">31</div>
+                                    <div class="data-item raw-data">31</div>
+                                    <div class="data-item raw-data">31</div>
+                                    <div class="data-item raw-data">31</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">32</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">33</div>
+                                    <div class="data-item raw-data">34</div>
+                                    <div class="data-item raw-data">34</div>
+                                    <div class="data-item raw-data">34</div>
+                                    <div class="data-item raw-data">34</div>
+                                    <div class="data-item raw-data">34.5</div>
+                                    <div class="data-item raw-data">35</div>
+                                    <div class="data-item raw-data">35</div>
+                                    <div class="data-item raw-data">35</div>
+                                    <div class="data-item raw-data">35</div>
+                                    <div class="data-item raw-data">36</div>
+                                    <div class="data-item raw-data">37</div>
+                                    <div class="data-item raw-data">37</div>
+                                    <div class="data-item raw-data">38</div>
+                                    <div class="data-item raw-data">57</div>
+                                    <div class="data-item raw-data">58</div>
+                                    <div class="data-item raw-data">65</div>
+                                    <div class="data-item raw-data">84</div>
+                                    <div class="data-item raw-data">84</div>
+                                    <div class="data-item raw-data">99,999,999세</div>
+                                    <div class="data-item raw-data">99,999,999,999세</div>
+                                </div>
 
-                                <!-- 높은 값 -->
-                                <div class="data-item high-value">57</div>
-                                <div class="data-item high-value">58</div>
-                                <div class="data-item high-value">65</div>
-                                <div class="data-item high-value">84</div>
-                                <div class="data-item high-value">84</div>
-
-                                <!-- 극단적 높은 값 -->
-                                <div class="data-item extreme-high">99,999,999세</div>
-                                <div class="data-item extreme-high">99,999,999,999세</div>
+                                <!-- 이상치 표시 버튼 -->
+                                <div class="reveal-controls">
+                                    <button id="revealOutliersBtn" class="reveal-btn">
+                                        🎯 이상치 표시하기
+                                    </button>
+                                    <p class="reveal-hint">버튼을 클릭하면 이상치가 색상으로 구분되어 표시됩니다</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- 📋 이상치 분석 결과 -->
-                        <div class="outlier-analysis">
+                        <!-- 📋 이상치 분석 결과 (처음에는 숨김) -->
+                        <div class="outlier-analysis hidden" id="outlierAnalysis">
                             <h4>🎯 이상치 분석 결과</h4>
                             <div class="analysis-grid">
                                 <div class="analysis-item">
@@ -876,9 +1046,26 @@
                                 </div>
                             </div>
                         </div>
-                        <p style="text-align: center; margin-top: 15px; color: #666;">
-                            <strong>총 115개 데이터</strong> | <span style="color: #e74c3c;">빨간색: 의심되는 극단값</span>
-                        </p>
+                        <div class="data-info-panel" id="dataInfoPanel" style="display: none;">
+                            <p style="text-align: center; margin-top: 15px; color: #666;">
+                                <strong>총 115개 데이터</strong> |
+                                <span class="legend-item">
+                                    <span class="legend-color extreme-low"></span>극단적 낮은 값
+                                </span> |
+                                <span class="legend-item">
+                                    <span class="legend-color low-value"></span>의심되는 낮은 값
+                                </span> |
+                                <span class="legend-item">
+                                    <span class="legend-color normal"></span>정상 범위
+                                </span> |
+                                <span class="legend-item">
+                                    <span class="legend-color high-value"></span>의심되는 높은 값
+                                </span> |
+                                <span class="legend-item">
+                                    <span class="legend-color extreme-high"></span>극단적 높은 값
+                                </span>
+                            </p>
+                        </div>
                     </div>
 
                     <div class="result-box">
@@ -1122,6 +1309,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             try {
                 initializeTabs();
+                initializeOutlierReveal();
 
                 // 키보드 네비게이션 추가
                 document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -1129,11 +1317,128 @@
                 });
 
                 console.log('통계적 사고와 이상치 분석 페이지가 성공적으로 로드되었습니다.');
+                console.log('🔍 이상치를 찾아보세요!');
 
             } catch (error) {
                 console.error('페이지 초기화 중 오류 발생:', error);
             }
         });
+
+        // 인터랙티브 이상치 표시 기능
+        function initializeOutlierReveal() {
+            const revealBtn = document.getElementById('revealOutliersBtn');
+            const dataGrid = document.getElementById('dataGrid');
+            const outlierAnalysis = document.getElementById('outlierAnalysis');
+
+            if (!revealBtn || !dataGrid) return;
+
+            revealBtn.addEventListener('click', function() {
+                // 버튼 비활성화 및 텍스트 변경
+                revealBtn.disabled = true;
+                revealBtn.textContent = '🔍 이상치 분석 중...';
+
+                // 데이터 아이템들을 순차적으로 색상 변경
+                const dataItems = dataGrid.querySelectorAll('.data-item');
+                let delay = 0;
+
+                dataItems.forEach((item, index) => {
+                    const value = item.textContent;
+
+                    setTimeout(() => {
+                        // raw-data 클래스 제거
+                        item.classList.remove('raw-data');
+                        item.classList.add('revealing');
+
+                        // 값에 따라 적절한 클래스 추가
+                        if (value === '3' || value === '3세') {
+                            item.classList.add('extreme-low');
+                        } else if (value === '20' || value === '25' || value === '26') {
+                            item.classList.add('low-value');
+                        } else if (value === '57' || value === '58' || value === '65' || value === '84' || value === '84세') {
+                            item.classList.add('high-value');
+                        } else if (value.includes('99,999,999')) {
+                            item.classList.add('extreme-high');
+                        } else {
+                            item.classList.add('normal');
+                        }
+
+                        // 마지막 아이템 처리 후 분석 결과 표시
+                        if (index === dataItems.length - 1) {
+                            setTimeout(() => {
+                                revealBtn.textContent = '✅ 이상치 표시 완료!';
+                                revealBtn.style.background = 'linear-gradient(135deg, #00b894 0%, #00a085 100%)';
+
+                                // 이상치 분석 결과 표시
+                                if (outlierAnalysis) {
+                                    outlierAnalysis.classList.remove('hidden');
+                                    outlierAnalysis.classList.add('revealing');
+
+                                    // 분석 결과를 부드럽게 표시
+                                    setTimeout(() => {
+                                        outlierAnalysis.style.opacity = '1';
+                                    }, 100);
+                                }
+
+                                // 데이터 정보 패널 표시
+                                const dataInfoPanel = document.getElementById('dataInfoPanel');
+                                if (dataInfoPanel) {
+                                    dataInfoPanel.style.display = 'block';
+                                }
+
+                                // 성공 메시지 표시
+                                showSuccessMessage();
+                            }, 500);
+                        }
+                    }, delay);
+
+                    delay += 50; // 각 아이템 간 50ms 간격
+                });
+            });
+        }
+
+        // 성공 메시지 표시 함수
+        function showSuccessMessage() {
+            const message = document.createElement('div');
+            message.innerHTML = '🎉 <strong>잘하셨어요!</strong> 이상치를 성공적으로 찾아냈습니다!<br><small>이제 분석 결과를 확인해보세요 👇</small>';
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 25px;
+                font-weight: bold;
+                z-index: 1000;
+                box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+                animation: slideDown 0.5s ease;
+            `;
+
+            document.body.appendChild(message);
+
+            // 3초 후 메시지 제거
+            setTimeout(() => {
+                message.style.animation = 'slideUp 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(message);
+                }, 500);
+            }, 3000);
+        }
+
+        // 메시지 애니메이션
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+            @keyframes slideUp {
+                from { transform: translateX(-50%) translateY(0); opacity: 1; }
+                to { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
 
         // 성능 모니터링
         window.addEventListener('load', function() {
