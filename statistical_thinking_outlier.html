@@ -1015,48 +1015,55 @@
         }
 
         .summary-table {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 1px;
-            background: rgba(255,255,255,0.2);
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.1);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .summary-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+        .summary-table th {
+            background: rgba(255,255,255,0.3);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1em;
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
         }
 
-        .summary-cell {
-            padding: 18px 12px;
+        .summary-table td {
+            padding: 16px 12px;
             text-align: center;
             font-size: 0.95em;
             background: rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             transition: background-color 0.2s ease;
         }
 
-        .summary-cell:hover {
+        .summary-table td:hover {
             background: rgba(255,255,255,0.2);
         }
 
-        .summary-cell.criteria {
-            background: rgba(255,255,255,0.25);
-            font-weight: 600;
-            color: #ffffff;
-            font-size: 1em;
-        }
-
-        .summary-row:first-child .summary-cell {
-            background: rgba(255,255,255,0.3);
-            font-weight: 700;
-            font-size: 1.05em;
-            color: #ffffff;
-        }
-
-        .summary-row:nth-child(even) .summary-cell:not(.criteria) {
+        .summary-table tr:nth-child(even) td {
             background: rgba(255,255,255,0.08);
+        }
+
+        .summary-table tr:nth-child(even) td:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .summary-table td:first-child {
+            background: rgba(255,255,255,0.2);
+            font-weight: 600;
+            color: #ffd700;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .summary-table tr:nth-child(even) td:first-child {
+            background: rgba(255,255,255,0.15);
         }
 
         /* 모바일 반응성 - 깔끔한 디자인 */
