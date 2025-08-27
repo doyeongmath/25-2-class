@@ -686,6 +686,13 @@
         .conclusion-box h3 {
             color: white;
             margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .conclusion-box h4 {
+            color: white;
+            font-size: 1.4em;
+            margin: 15px 0;
         }
 
         .conclusion-box ul {
@@ -695,8 +702,75 @@
         }
 
         .conclusion-box li {
-            margin: 15px 0;
-            line-height: 1.6;
+            margin: 18px 0;
+            line-height: 1.9;
+            font-size: 1.2em;
+        }
+
+        .conclusion-box strong {
+            font-size: 1.3em;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .conclusion-box p {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        /* 결론 탭의 특별한 텍스트 크기 조정 */
+        #conclusion .conclusion-box ul li strong:first-child {
+            font-size: 1.4em;
+            color: #ffd700;
+        }
+
+        #conclusion .conclusion-box h4 {
+            font-size: 1.5em;
+            margin: 20px 0 15px 0;
+        }
+
+        /* 결론 탭 전용 섹션 스타일 */
+        .conclusion-section {
+            text-align: left;
+            margin: 25px 0;
+        }
+
+        .conclusion-highlight {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+        }
+
+        .conclusion-highlight h4 {
+            color: white;
+            margin-bottom: 18px;
+            font-size: 1.4em;
+        }
+
+        .conclusion-highlight p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin: 12px 0;
+        }
+
+        .conclusion-insight {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+        }
+
+        .conclusion-insight h4 {
+            color: white;
+            margin-bottom: 18px;
+            font-size: 1.4em;
+        }
+
+        .conclusion-insight p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin: 12px 0;
         }
 
         /* 모바일 반응성 개선 */
@@ -859,122 +933,120 @@
                         <div class="data-display-area">
                             <h4>🔢 크기 순서대로 정렬된 데이터</h4>
                             <div class="data-grid sorted" id="dataGrid">
-                                <!-- 원본 데이터 -->
-                                <div class="data-item raw-data">99999999</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">37</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">29</div>
+                                <!-- 오름차순 정렬된 원본 데이터 -->
+                                <div class="data-item raw-data">3</div>
+                                <div class="data-item raw-data">3</div>
                                 <div class="data-item raw-data">20</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">27</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">38</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">99999999999</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">34</div>
-                                <div class="data-item raw-data">58</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">27</div>
-                                <div class="data-item raw-data">34</div>
-                                <div class="data-item raw-data">57</div>
-                                <div class="data-item raw-data">35</div>
-                                <div class="data-item raw-data">34.5</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">34</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">3</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">35</div>
-                                <div class="data-item raw-data">3</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">26</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">27</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">84</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">84</div>
-                                <div class="data-item raw-data">27</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">27</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">35</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">28</div>
                                 <div class="data-item raw-data">25</div>
-                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">26</div>
                                 <div class="data-item raw-data">27</div>
+                                <div class="data-item raw-data">27</div>
+                                <div class="data-item raw-data">27</div>
+                                <div class="data-item raw-data">27</div>
+                                <div class="data-item raw-data">27</div>
+                                <div class="data-item raw-data">27</div>
+                                <div class="data-item raw-data">27</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
+                                <div class="data-item raw-data">28</div>
                                 <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">33</div>
                                 <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">65</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
+                                <div class="data-item raw-data">29</div>
                                 <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">35</div>
-                                <div class="data-item raw-data">27</div>
-                                <div class="data-item raw-data">27</div>
-                                <div class="data-item raw-data">32</div>
                                 <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
+                                <div class="data-item raw-data">30</div>
                                 <div class="data-item raw-data">30</div>
                                 <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">32</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">33</div>
                                 <div class="data-item raw-data">34</div>
+                                <div class="data-item raw-data">34</div>
+                                <div class="data-item raw-data">34</div>
+                                <div class="data-item raw-data">34</div>
+                                <div class="data-item raw-data">34</div>
+                                <div class="data-item raw-data">34.5</div>
                                 <div class="data-item raw-data">35</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">29</div>
-                                <div class="data-item raw-data">31</div>
+                                <div class="data-item raw-data">35</div>
+                                <div class="data-item raw-data">35</div>
+                                <div class="data-item raw-data">35</div>
+                                <div class="data-item raw-data">35</div>
+                                <div class="data-item raw-data">35</div>
                                 <div class="data-item raw-data">36</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">33</div>
-                                <div class="data-item raw-data">32</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">34</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">30</div>
-                                <div class="data-item raw-data">34</div>
-                                <div class="data-item raw-data">28</div>
-                                <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">33</div>
+                                <div class="data-item raw-data">36</div>
                                 <div class="data-item raw-data">37</div>
+                                <div class="data-item raw-data">37</div>
+                                <div class="data-item raw-data">37</div>
+                                <div class="data-item raw-data">37</div>
+                                <div class="data-item raw-data">38</div>
+                                <div class="data-item raw-data">38</div>
+                                <div class="data-item raw-data">38</div>
+                                <div class="data-item raw-data">38</div>
+                                <div class="data-item raw-data">57</div>
+                                <div class="data-item raw-data">58</div>
+                                <div class="data-item raw-data">65</div>
+                                <div class="data-item raw-data">84</div>
+                                <div class="data-item raw-data">84</div>
+                                <div class="data-item raw-data">99999999</div>
+                                <div class="data-item raw-data">99999999999</div>
                             </div>
 
                             <!-- 이상치 표시 버튼 -->
@@ -1144,8 +1216,8 @@
             <div class="conclusion-box">
                 <h3>🏁 최종 결론과 권장사항</h3>
                 
-                <div style="text-align: left; margin: 20px 0;">
-                    <h4 style="color: white; margin: 15px 0;">📋 권장 방법:</h4>
+                <div class="conclusion-section">
+                    <h4>📋 권장 방법:</h4>
                     <ul>
                         <li><strong>1단계:</strong> 원본 데이터를 그대로 보여주기 (투명성)</li>
                         <li><strong>2단계:</strong> 이상치의 영향을 직접 체험하게 하기</li>
@@ -1154,8 +1226,8 @@
                     </ul>
                 </div>
                 
-                <div style="text-align: left; margin: 20px 0;">
-                    <h4 style="color: white; margin: 15px 0;">💡 핵심 교훈:</h4>
+                <div class="conclusion-section">
+                    <h4>💡 핵심 교훈:</h4>
                     <ul>
                         <li><strong>통계적 사고:</strong> 데이터를 맹신하지 말고 비판적으로 보기</li>
                         <li><strong>윤리적 판단:</strong> 데이터 조작과 투명성의 균형</li>
@@ -1164,17 +1236,17 @@
                     </ul>
                 </div>
                 
-                <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.2); border-radius: 10px;">
-                    <h4 style="color: white; margin-bottom: 15px;">🎯 다음 단계:</h4>
-                    <p style="font-size: 1.1em; line-height: 1.6;">
+                <div class="conclusion-highlight">
+                    <h4>🎯 다음 단계:</h4>
+                    <p>
                         이제 여러분이 직접 다른 데이터셋으로 이상치 분석을 해보세요!<br>
                         통계는 단순한 계산이 아니라, 세상을 바라보는 새로운 눈입니다.
                     </p>
                 </div>
-                
-                <div style="margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 10px;">
-                    <h4 style="color: white; margin-bottom: 15px;">🏫 교육적 시사점:</h4>
-                    <p style="font-size: 1em; line-height: 1.6;">
+
+                <div class="conclusion-insight">
+                    <h4>🏫 교육적 시사점:</h4>
+                    <p>
                         <strong>🎲 게임을 통한 학습:</strong> "평균 맞히기 게임"은 단순한 수업 활동이 아니라,<br>
                         학생들이 통계적 사고를 체험적으로 학습할 수 있는 훌륭한 도구입니다.<br>
                         <strong>😄 창의성과 유머:</strong> 99억세 같은 극단적인 답변은 학생들의 창의성과<br>
