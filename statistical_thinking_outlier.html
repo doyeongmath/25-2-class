@@ -2515,59 +2515,59 @@
                             <thead>
                                 <tr>
                                     <th>비교 항목</th>
-                                    <th>원본 그대로</th>
-                                    <th>IQR로 처리</th>
-                                    <th>Z-score로 처리</th>
+                                    <th style="background:rgba(255,255,255,0.28)">원본 그대로</th>
+                                    <th style="background:rgba(255,255,255,0.28)">IQR로 처리</th>
+                                    <th style="background:rgba(255,255,255,0.28)">Z-score로 처리</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td data-label="남은 데이터 개수">남은 데이터 개수</td>
-                                    <td data-label="원본 그대로">115개 (전체)</td>
-                                    <td data-label="IQR로 처리">105개 (10개 제거)</td>
-                                    <td data-label="Z-score로 처리">105개 (10개 제거)</td>
+                                    <td data-label="원본 그대로"><span style="display:inline-block; padding:4px 10px; border-radius:999px; background:#ffe0e0; color:#c0392b; font-weight:700;">115개</span> <small style="opacity:.85;">(전체)</small></td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:999px; background:#e6fffa; color:#0f766e; font-weight:700;">105개</span> <small style="opacity:.85;">(10개 제거)</small></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:999px; background:#e6fffa; color:#0f766e; font-weight:700;">105개</span> <small style="opacity:.85;">(10개 제거)</small></td>
                                 </tr>
                                 <tr>
                                     <td data-label="평균 나이">평균 나이</td>
-                                    <td data-label="원본 그대로">약 8.7억세 😵</td>
-                                    <td data-label="IQR로 처리">약 31.5세 😊</td>
-                                    <td data-label="Z-score로 처리">약 31.5세 😊</td>
+                                    <td data-label="원본 그대로"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background:#ffe0e0; color:#c0392b; font-weight:700;">≈ 8.7억</span> <small>😵</small></td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background:#dcfce7; color:#166534; font-weight:700;">≈ 31.5</span> <small>😊</small></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background:#dcfce7; color:#166534; font-weight:700;">≈ 31.5</span> <small>😊</small></td>
                                 </tr>
                                 <tr>
                                     <td data-label="표준편차">표준편차</td>
-                                    <td data-label="원본 그대로">약 42,000세</td>
-                                    <td data-label="IQR로 처리">약 3.0세</td>
-                                    <td data-label="Z-score로 처리">약 3.0세</td>
+                                    <td data-label="원본 그대로"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background:#ffe0e0; color:#c0392b; font-weight:700;">≈ 42,000</span></td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background:#dcfce7; color:#166534; font-weight:700;">≈ 3.0</span></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background:#dcfce7; color:#166534; font-weight:700;">≈ 3.0</span></td>
                                 </tr>
                                 <tr>
                                     <td data-label="결과 신뢰성">결과 신뢰성</td>
-                                    <td data-label="원본 그대로">❌ 왜곡됨</td>
-                                    <td data-label="IQR로 처리">✅ 현실적</td>
-                                    <td data-label="Z-score로 처리">✅ 현실적</td>
+                                    <td data-label="원본 그대로"><span style="display:inline-block; padding:4px 10px; border-radius:999px; background:#ffe0e0; color:#c0392b; font-weight:700;">왜곡</span></td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:999px; background:#e6fffa; color:#0f766e; font-weight:700;">현실적</span></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:999px; background:#e6fffa; color:#0f766e; font-weight:700;">현실적</span></td>
                                 </tr>
                                 <tr>
                                     <td data-label="분포 적합성">분포 적합성</td>
                                     <td data-label="원본 그대로">-</td>
-                                    <td data-label="IQR로 처리">✅ 비정규분포 OK</td>
-                                    <td data-label="Z-score로 처리">⚠️ 정규분포 가정</td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:4px; background:#e6fffa; color:#0f766e; font-weight:700;">비정규 OK</span></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:4px; background:#fff7ed; color:#b45309; font-weight:700;">정규 가정</span></td>
                                 </tr>
                                 <tr>
                                     <td data-label="극단값 민감도">극단값 민감도</td>
-                                    <td data-label="원본 그대로">❌ 매우 높음</td>
-                                    <td data-label="IQR로 처리">✅ 낮음 (안정적)</td>
-                                    <td data-label="Z-score로 처리">❌ 높음</td>
+                                    <td data-label="원본 그대로"><span style="display:inline-block; padding:4px 10px; border-radius:4px; background:#ffe0e0; color:#c0392b; font-weight:700;">매우 높음</span></td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:4px; background:#dcfce7; color:#166534; font-weight:700;">낮음</span> <small>(안정적)</small></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-block; padding:4px 10px; border-radius:4px; background:#fff7ed; color:#b45309; font-weight:700;">높음</span></td>
                                 </tr>
                                 <tr>
                                     <td data-label="사용 난이도">사용 난이도</td>
-                                    <td data-label="원본 그대로">⭐ 매우 쉬움</td>
-                                    <td data-label="IQR로 처리">⭐⭐ 보통</td>
-                                    <td data-label="Z-score로 처리">⭐⭐⭐ 어려움</td>
+                                    <td data-label="원본 그대로"><span style="display:inline-block; padding:4px 8px; border-radius:6px; background:#e5e7eb; color:#374151; font-weight:700;">⭐ 쉬움</span></td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-block; padding:4px 8px; border-radius:6px; background:#e5e7eb; color:#374151; font-weight:700;">⭐⭐ 보통</span></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-block; padding:4px 8px; border-radius:6px; background:#e5e7eb; color:#374151; font-weight:700;">⭐⭐⭐ 어려움</span></td>
                                 </tr>
                                 <tr>
                                     <td data-label="추천도">추천도</td>
-                                    <td data-label="원본 그대로">🚫 비추천</td>
-                                    <td data-label="IQR로 처리">👍 강력 추천</td>
-                                    <td data-label="Z-score로 처리">👍 조건부 추천</td>
+                                    <td data-label="원본 그대로"><span style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:#ffe0e0; color:#c0392b; font-weight:700;">🚫 비추천</span></td>
+                                    <td data-label="IQR로 처리"><span style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:#dcfce7; color:#166534; font-weight:700;">👍 강력 추천</span></td>
+                                    <td data-label="Z-score로 처리"><span style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:#fff7ed; color:#b45309; font-weight:700;">👍 조건부 추천</span></td>
                                 </tr>
                             </tbody>
                         </table>
