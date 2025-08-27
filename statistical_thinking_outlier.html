@@ -2144,9 +2144,9 @@
                         <div class="method-card iqr-method">
                             <h3>📐 IQR 방법으로 제거</h3>
                             <div class="method-stats">
-                                <div class="stat-value">평균: 약 31.5세</div>
-                                <div class="stat-value">표준편차: 약 3.0세</div>
-                                <div class="stat-value">데이터 수: 105개</div>
+                                <div class="stat-value">평균: 약 9,000세 (원본 기준)</div>
+                                <div class="stat-value">표준편차: 약 42,000세 (원본 기준)</div>
+                                <div class="stat-value">데이터 수: 115개 (원본)</div>
                             </div>
 
                             <div class="method-description">
@@ -2323,9 +2323,9 @@
                         <div class="method-card zscore-method">
                             <h3>📈 Z-score 방법으로 제거</h3>
                             <div class="method-stats">
-                                <div class="stat-value">평균: 약 31.5세</div>
-                                <div class="stat-value">표준편차: 약 3.0세</div>
-                                <div class="stat-value">데이터 수: 105개</div>
+                                <div class="stat-value">평균(m*): 약 31.5세</div>
+                                <div class="stat-value">표준편차(s*): 약 3.0세</div>
+                                <div class="stat-value">데이터 수: 105개 (최종)</div>
                             </div>
 
                             <div class="method-description">
@@ -2345,11 +2345,19 @@
                                         <div class="step-content">
                                             <div class="stats-grid">
                                                 <div class="stat-item">
-                                                    <div class="stat-label">평균 (μ)</div>
+                                                    <div class="stat-label">초기 평균 (m0)</div>
+                                                    <div class="stat-value">약 9,000세</div>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <div class="stat-label">초기 표준편차 (s0)</div>
+                                                    <div class="stat-value">약 42,000세</div>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <div class="stat-label">반복 후 평균 (m*)</div>
                                                     <div class="stat-value">31.5세</div>
                                                 </div>
                                                 <div class="stat-item">
-                                                    <div class="stat-label">표준편차 (σ)</div>
+                                                    <div class="stat-label">반복 후 표준편차 (s*)</div>
                                                     <div class="stat-value">3.0세</div>
                                                 </div>
                                             </div>
@@ -2365,7 +2373,7 @@
                                         <div class="step-content">
                                             <div class="formula-display">
                                                 <div class="formula-box">
-                                                    <strong>Z = (값 - μ) ÷ σ = (값 - 31.5) ÷ 3.0</strong>
+                                                    <strong>Z = (값 - m) ÷ s</strong>
                                                 </div>
                                                 <p style="margin: 8px 0; font-size: 0.9em; color: #666;">
                                                     Z-score는 해당 값이 평균에서 몇 표준편차만큼 떨어져 있는지를 나타냅니다.
@@ -2407,22 +2415,22 @@
                                         <div class="step-content">
                                             <div class="example-calc">
                                                 <div class="example-item">
-                                                    <div class="example-label">극단값: 99999999999세</div>
-                                                    <div class="example-formula">Z = (99999999999 - 31.5) ÷ 3.0</div>
-                                                    <div class="example-result">Z ≈ 31,249,999,990</div>
-                                                    <div class="example-desc">매우 큰 양수 → 강한 이상치</div>
+                                                    <div class="example-label">반복 0단계 (m0, s0):</div>
+                                                    <div class="example-formula">m0 ≈ 9,000, s0 ≈ 42,000</div>
+                                                    <div class="example-result">제거: 99999999, 99999999999 (2개)</div>
+                                                    <div class="example-desc">초기에는 초대형 값만 제거</div>
                                                 </div>
                                                 <div class="example-item">
-                                                    <div class="example-label">낮은 값: 3세</div>
-                                                    <div class="example-formula">Z = (3 - 31.5) ÷ 3.0</div>
-                                                    <div class="example-result">Z ≈ -9.5</div>
-                                                    <div class="example-desc">|Z| > 3 → 강한 이상치</div>
+                                                    <div class="example-label">반복 1단계 (m1, s1):</div>
+                                                    <div class="example-formula">m1 ≈ 31.5, s1 ≈ 3.0</div>
+                                                    <div class="example-result">제거: 3, 3, 20, 57, 58, 65, 84, 84 (8개)</div>
+                                                    <div class="example-desc">|Z| > 3 기준으로 낮은/높은 값 제거</div>
                                                 </div>
                                                 <div class="example-item">
-                                                    <div class="example-label">정상값: 30세</div>
-                                                    <div class="example-formula">Z = (30 - 31.5) ÷ 3.0</div>
-                                                    <div class="example-result">Z ≈ -0.5</div>
-                                                    <div class="example-desc">|Z| < 2 → 정상 범위</div>
+                                                    <div class="example-label">반복 2단계 (수렴):</div>
+                                                    <div class="example-formula">m* ≈ 31.5, s* ≈ 3.0, n = 105</div>
+                                                    <div class="example-result">추가 제거 없음</div>
+                                                    <div class="example-desc">반복 종료 (수렴)</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2437,13 +2445,10 @@
                                         <div class="step-content">
                                             <div class="detection-result">
                                                 <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
-                                                    <strong>|Z| > 2인 값:</strong> 3, 3, 20, 57, 58, 65, 84, 84, 99999999, 99999999999세 (10개)
-                                                </p>
-                                                <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
-                                                    <strong>|Z| > 3인 값:</strong> 3, 3, 20, 57, 58, 65, 84, 84, 99999999, 99999999999세 (10개)
+                                                    <strong>반복형 Z-score 최종 이상치:</strong> 3, 3, 20, 57, 58, 65, 84, 84, 99999999, 99999999999 (10개)
                                                 </p>
                                                 <p style="margin: 8px 0; font-size: 0.9em; color: #e74c3c; font-weight: bold;">
-                                                    <strong>총 이상치: 10개</strong> (모든 극단값이 |Z| > 3 기준 충족)
+                                                    <strong>총 이상치: 10개</strong> (반복 수렴 결과)
                                                 </p>
                                             </div>
                                         </div>
@@ -2459,10 +2464,9 @@
                                         <li><strong>|Z| > 2</strong>: 표준편차 2배 이상 떨어진 값 (이상치로 간주)</li>
                                         <li><strong>|Z| > 3</strong>: 표준편차 3배 이상 떨어진 값 (강한 이상치)</li>
                                     </ul>
-                                    <p><strong>|Z| > 2인 값 (10개):</strong> 3세, 3세, 20세, 57세, 58세, 65세, 84세, 84세, 99999999세, 99999999999세</p>
+                                    <p><strong>최종 제거(반복형, 10개):</strong> 3세, 3세, 20세, 57세, 58세, 65세, 84세, 84세, 99999999세, 99999999999세</p>
                                     <p style="font-size: 0.85em; color: #8b5a3c; margin-top: 10px;">
-                                        <strong>💡 참고:</strong> Z-score 방법은 IQR과 마찬가지로 원본 데이터에서 직접 계산하여 
-                                        동일한 10개의 이상치를 제거합니다. 이제 두 방법의 결과가 일치합니다.
+                                        <strong>💡 참고:</strong> 원본 m, s로 시작해 제거 시마다 m, s를 갱신하여 수렴할 때까지 반복합니다.
                                     </p>
                                     
                                     <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #3498db;">
@@ -2476,7 +2480,7 @@
                                                 <p style="margin: 5px 0; font-size: 0.9em; color: #e74c3c;"><strong>범위 차이:</strong> 약 100억세 😵</p>
                                             </div>
                                             <div style="background: #d1ecf1; padding: 12px; border-radius: 6px; border: 1px solid #bee5eb;">
-                                                <h6 style="color: #0c5460; margin-bottom: 8px;">🟢 Z-score 제거 후</h6>
+                                                <h6 style="color: #0c5460; margin-bottom: 8px;">🟢 Z-score(반복) 제거 후</h6>
                                                 <p style="margin: 5px 0; font-size: 0.9em;"><strong>최솟값:</strong> 27세</p>
                                                 <p style="margin: 5px 0; font-size: 0.9em;"><strong>최댓값:</strong> 38세</p>
                                                 <p style="margin: 5px 0; font-size: 0.9em;"><strong>범위:</strong> 27세 ~ 38세</p>
