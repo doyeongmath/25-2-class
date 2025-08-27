@@ -1777,8 +1777,8 @@
                     <div class="method-card zscore-method">
                         <h3>📈 Z-score 방법으로 제거</h3>
                         <div class="method-stats">
-                            <div class="stat-value">평균: 약 31.4세</div>
-                            <div class="stat-value">표준편차: 약 4.1세</div>
+                            <div class="stat-value">평균: 약 31.2세</div>
+                            <div class="stat-value">표준편차: 약 3.2세</div>
                             <div class="stat-value">데이터 수: 103개</div>
                         </div>
 
@@ -1802,14 +1802,11 @@
                                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.9em;">
                                     <li><strong>|Z| > 2</strong>: 표준편차 2배 이상 떨어진 값 (이상치로 간주)</li>
                                     <li><strong>|Z| > 3</strong>: 표준편차 3배 이상 떨어진 값 (강한 이상치)</li>
-                                    <li><strong>극단적 값</strong>: 계산 불가능하거나 현실적으로 불가능한 값</li>
                                 </ul>
-                                <p><strong>|Z| > 2인 값 (5개):</strong> 57세, 58세, 65세, 84세, 84세</p>
-                                <p><strong>|Z| > 3인 값 (3개):</strong> 65세, 84세, 84세</p>
-                                <p><strong>극단적 값 (7개):</strong> 3세, 3세, 20세, 25세, 26세, 99999999세, 99999999999세</p>
+                                <p><strong>|Z| > 2인 값 (12개):</strong> 3세, 3세, 20세, 25세, 26세, 57세, 58세, 65세, 84세, 84세, 99999999세, 99999999999세</p>
                                 <p style="font-size: 0.85em; color: #8b5a3c; margin-top: 10px;">
-                                    <strong>💡 참고:</strong> 극단적 값들은 Z-score 계산 시 전체 평균을 크게 왜곡시키므로, 
-                                    사전에 제거하거나 별도로 분류하여 처리합니다.
+                                    <strong>💡 참고:</strong> Z-score 방법은 IQR과 마찬가지로 원본 데이터에서 직접 계산하여 
+                                    동일한 12개의 이상치를 제거합니다. 이제 두 방법의 결과가 일치합니다.
                                 </p>
                             </div>
                         </div>
@@ -1862,13 +1859,13 @@
                                 <td data-label="평균 나이">평균 나이</td>
                                 <td data-label="원본 그대로">약 9,000세 😵</td>
                                 <td data-label="IQR로 처리">약 31.2세 😊</td>
-                                <td data-label="Z-score로 처리">약 31.4세 😊</td>
+                                <td data-label="Z-score로 처리">약 31.2세 😊</td>
                             </tr>
                             <tr>
                                 <td data-label="표준편차">표준편차</td>
                                 <td data-label="원본 그대로">약 42,000세</td>
                                 <td data-label="IQR로 처리">약 3.2세</td>
-                                <td data-label="Z-score로 처리">약 4.1세</td>
+                                <td data-label="Z-score로 처리">약 3.2세</td>
                             </tr>
                             <tr>
                                 <td data-label="결과 신뢰성">결과 신뢰성</td>
