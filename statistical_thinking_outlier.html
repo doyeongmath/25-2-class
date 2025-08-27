@@ -1375,6 +1375,312 @@
                 padding: 12px;
             }
         }
+
+        /* 🧮 계산 과정 디자인 스타일 */
+        .calculation-details {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+            border: 1px solid #cbd5e0;
+        }
+
+        .calc-step {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .calc-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1em;
+        }
+
+        .step-content {
+            margin-left: 40px;
+        }
+
+        /* 사분위수 그리드 */
+        .quartile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .quartile-item {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #81e6d9;
+        }
+
+        .quartile-label {
+            font-weight: 600;
+            color: #2c7a7b;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .quartile-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c7a7b;
+            margin-bottom: 4px;
+        }
+
+        .quartile-desc {
+            font-size: 0.8em;
+            color: #4a5568;
+        }
+
+        /* IQR 공식 */
+        .iqr-formula {
+            text-align: center;
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+            color: #c53030;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: 2px solid #fc8181;
+            margin: 12px 0;
+            box-shadow: 0 2px 8px rgba(197, 48, 48, 0.2);
+        }
+
+        /* 경계 계산 */
+        .boundary-calc {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+
+        .boundary-item {
+            background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 100%);
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #66b3ff;
+        }
+
+        .boundary-label {
+            font-weight: 600;
+            color: #2b6cb0;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .boundary-formula {
+            font-family: monospace;
+            background: rgba(255,255,255,0.5);
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-size: 0.9em;
+            color: #2b6cb0;
+        }
+
+        .boundary-result {
+            font-weight: bold;
+            color: #2b6cb0;
+            font-size: 1.1em;
+            margin: 8px 0;
+        }
+
+        .boundary-desc {
+            font-size: 0.8em;
+            color: #4a5568;
+        }
+
+        /* 통계 그리드 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #9ae6b4;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: #2f855a;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2f855a;
+        }
+
+        /* 임계값 그리드 */
+        .threshold-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+
+        .threshold-item {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #feb2b2;
+        }
+
+        .threshold-label {
+            font-weight: 600;
+            color: #c53030;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .threshold-value {
+            font-family: monospace;
+            background: rgba(255,255,255,0.5);
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-size: 1.1em;
+            color: #c53030;
+            font-weight: bold;
+        }
+
+        .threshold-desc {
+            font-size: 0.8em;
+            color: #4a5568;
+            margin-bottom: 4px;
+        }
+
+        .threshold-prob {
+            font-size: 0.8em;
+            color: #e53e3e;
+            font-weight: 600;
+        }
+
+        /* 공식 표시 */
+        .formula-display {
+            text-align: center;
+        }
+
+        /* 계산 예시 */
+        .example-calc {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .example-item {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .example-label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .example-formula {
+            font-family: monospace;
+            background: rgba(255,255,255,0.8);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-size: 0.9em;
+            color: #4a5568;
+            border: 1px solid #cbd5e0;
+        }
+
+        .example-result {
+            font-weight: bold;
+            color: #2d3748;
+            font-size: 1em;
+            margin: 8px 0;
+        }
+
+        .example-desc {
+            font-size: 0.8em;
+            color: #718096;
+            font-style: italic;
+        }
+
+        /* 이상치 탐지 결과 */
+        .outlier-detection, .detection-result {
+            background: rgba(254, 215, 215, 0.3);
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid #feb2b2;
+        }
+
+        /* 모바일 반응성 */
+        @media (max-width: 768px) {
+            .quartile-grid, .boundary-calc, .stats-grid, .threshold-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .step-content {
+                margin-left: 20px;
+            }
+            
+            .calculation-details {
+                padding: 16px;
+            }
+            
+            .calc-step {
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1732,21 +2038,129 @@
                     <div class="method-card iqr-method">
                         <h3>📐 IQR 방법으로 제거</h3>
                         <div class="method-stats">
-                            <div class="stat-value">평균: 약 31.2세</div>
-                            <div class="stat-value">표준편차: 약 3.2세</div>
-                            <div class="stat-value">데이터 수: 103개</div>
+                            <div class="stat-value">평균: 약 31.5세</div>
+                            <div class="stat-value">표준편차: 약 3.0세</div>
+                            <div class="stat-value">데이터 수: 105개</div>
                         </div>
 
                         <div class="method-description">
                             <h4>🔍 방법 설명</h4>
                             <p>사분위 범위(IQR)를 기준으로 Q1-1.5×IQR 미만 또는 Q3+1.5×IQR 초과 값을 이상치로 간주하여 제거합니다.</p>
+                            
+                            <!-- 🧮 실제 계산 과정 표시 -->
+                            <div class="calculation-details">
+                                <h5 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">🧮 계산 과정</h5>
+                                
+                                <!-- 1단계: 정렬된 데이터 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">1</span>
+                                        <span class="step-title">데이터 정렬</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
+                                            <strong>정렬된 데이터 (일부):</strong> 3, 3, 20, 25, 26, 27, 27, ..., 38, 57, 58, 65, 84, 84, 99999999, 99999999999
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- 2단계: 사분위수 계산 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">2</span>
+                                        <span class="step-title">사분위수 계산</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="quartile-grid">
+                                            <div class="quartile-item">
+                                                <div class="quartile-label">Q1 (25%)</div>
+                                                <div class="quartile-value">28세</div>
+                                                <div class="quartile-desc">하위 25% 경계</div>
+                                            </div>
+                                            <div class="quartile-item">
+                                                <div class="quartile-label">Q2 (50%)</div>
+                                                <div class="quartile-value">31세</div>
+                                                <div class="quartile-desc">중앙값</div>
+                                            </div>
+                                            <div class="quartile-item">
+                                                <div class="quartile-label">Q3 (75%)</div>
+                                                <div class="quartile-value">33세</div>
+                                                <div class="quartile-desc">상위 25% 경계</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 3단계: IQR 계산 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">3</span>
+                                        <span class="step-title">IQR 계산</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="iqr-formula">
+                                            <div class="formula-box">
+                                                <strong>IQR = Q3 - Q1 = 33 - 28 = 5</strong>
+                                            </div>
+                                            <p style="margin: 8px 0; font-size: 0.9em; color: #666;">
+                                                사분위 범위는 데이터의 중간 50%가 분포하는 범위입니다.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 4단계: 이상치 경계 계산 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">4</span>
+                                        <span class="step-title">이상치 경계 계산</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="boundary-calc">
+                                            <div class="boundary-item">
+                                                <div class="boundary-label">하한 경계</div>
+                                                <div class="boundary-formula">Q1 - 1.5 × IQR</div>
+                                                <div class="boundary-result">28 - 1.5 × 5 = 20.5</div>
+                                                <div class="boundary-desc">20.5세 미만 = 이상치</div>
+                                            </div>
+                                            <div class="boundary-item">
+                                                <div class="boundary-label">상한 경계</div>
+                                                <div class="boundary-formula">Q3 + 1.5 × IQR</div>
+                                                <div class="boundary-result">33 + 1.5 × 5 = 40.5</div>
+                                                <div class="boundary-desc">40.5세 초과 = 이상치</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 5단계: 이상치 탐지 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">5</span>
+                                        <span class="step-title">이상치 탐지</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="outlier-detection">
+                                            <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
+                                                <strong>하한 경계(20.5세) 미만:</strong> 3, 3, 20세 (3개)
+                                            </p>
+                                            <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
+                                                <strong>상한 경계(40.5세) 초과:</strong> 57, 58, 65, 84, 84, 99999999, 99999999999세 (7개)
+                                            </p>
+                                            <p style="margin: 8px 0; font-size: 0.9em; color: #e74c3c; font-weight: bold;">
+                                                <strong>총 이상치: 10개</strong> (3개 + 7개)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="outlier-detected">
-                            <h4>🎯 발견된 이상치 (12개)</h4>
+                            <h4>🎯 발견된 이상치 (10개)</h4>
                             <div class="outlier-list">
                                 <p><strong>극단적 낮은 값:</strong> 3세, 3세</p>
-                                <p><strong>의심되는 낮은 값:</strong> 20세, 25세, 26세</p>
+                                <p><strong>의심되는 낮은 값:</strong> 20세</p>
                                 <p><strong>의심되는 높은 값:</strong> 57세, 58세, 65세, 84세, 84세</p>
                                 <p><strong>극단적 높은 값:</strong> 99999999세, 99999999999세</p>
                             </div>
@@ -1801,36 +2215,146 @@
                     <div class="method-card zscore-method">
                         <h3>📈 Z-score 방법으로 제거</h3>
                         <div class="method-stats">
-                            <div class="stat-value">평균: 약 31.2세</div>
-                            <div class="stat-value">표준편차: 약 3.2세</div>
-                            <div class="stat-value">데이터 수: 103개</div>
+                            <div class="stat-value">평균: 약 31.5세</div>
+                            <div class="stat-value">표준편차: 약 3.0세</div>
+                            <div class="stat-value">데이터 수: 105개</div>
                         </div>
 
                         <div class="method-description">
                             <h4>🔍 방법 설명</h4>
                             <p>각 데이터의 Z-score를 계산하여 이상치를 탐지합니다.</p>
-                            <div style="background: rgba(255,255,255,0.3); padding: 15px; border-radius: 8px; margin-top: 10px;">
-                                <p style="margin: 5px 0; font-size: 0.9em;"><strong>Z-score 공식:</strong> Z = (값 - 평균) ÷ 표준편차</p>
-                                <p style="margin: 5px 0; font-size: 0.9em;"><strong>이상치 기준:</strong></p>
-                                <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.85em;">
-                                    <li>|Z| > 2: 일반적인 이상치 (약 5% 확률)</li>
-                                    <li>|Z| > 3: 강한 이상치 (약 0.3% 확률)</li>
-                                </ul>
+                            
+                            <!-- 🧮 실제 계산 과정 표시 -->
+                            <div class="calculation-details">
+                                <h5 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">🧮 계산 과정</h5>
+                                
+                                <!-- 1단계: 기본 통계량 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">1</span>
+                                        <span class="step-title">기본 통계량 계산</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="stats-grid">
+                                            <div class="stat-item">
+                                                <div class="stat-label">평균 (μ)</div>
+                                                <div class="stat-value">31.2세</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-label">표준편차 (σ)</div>
+                                                <div class="stat-value">3.2세</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 2단계: Z-score 공식 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">2</span>
+                                        <span class="step-title">Z-score 공식</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="formula-display">
+                                            <div class="formula-box">
+                                                <strong>Z = (값 - μ) ÷ σ = (값 - 31.2) ÷ 3.2</strong>
+                                            </div>
+                                            <p style="margin: 8px 0; font-size: 0.9em; color: #666;">
+                                                Z-score는 해당 값이 평균에서 몇 표준편차만큼 떨어져 있는지를 나타냅니다.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 3단계: 이상치 기준 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">3</span>
+                                        <span class="step-title">이상치 기준 설정</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="threshold-grid">
+                                            <div class="threshold-item">
+                                                <div class="threshold-label">일반 이상치</div>
+                                                <div class="threshold-value">|Z| > 2</div>
+                                                <div class="threshold-desc">표준편차 2배 이상</div>
+                                                <div class="threshold-prob">약 5% 확률</div>
+                                            </div>
+                                            <div class="threshold-item">
+                                                <div class="threshold-label">강한 이상치</div>
+                                                <div class="threshold-value">|Z| > 3</div>
+                                                <div class="threshold-desc">표준편차 3배 이상</div>
+                                                <div class="threshold-prob">약 0.3% 확률</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 4단계: 실제 계산 예시 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">4</span>
+                                        <span class="step-title">실제 계산 예시</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="example-calc">
+                                            <div class="example-item">
+                                                <div class="example-label">극단값: 99999999999세</div>
+                                                <div class="example-formula">Z = (99999999999 - 31.2) ÷ 3.2</div>
+                                                <div class="example-result">Z ≈ 31,249,999,990</div>
+                                                <div class="example-desc">매우 큰 양수 → 강한 이상치</div>
+                                            </div>
+                                            <div class="example-item">
+                                                <div class="example-label">낮은 값: 3세</div>
+                                                <div class="example-formula">Z = (3 - 31.2) ÷ 3.2</div>
+                                                <div class="example-result">Z ≈ -8.8</div>
+                                                <div class="example-desc">|Z| > 3 → 강한 이상치</div>
+                                            </div>
+                                            <div class="example-item">
+                                                <div class="example-label">정상값: 30세</div>
+                                                <div class="example-formula">Z = (30 - 31.2) ÷ 3.2</div>
+                                                <div class="example-result">Z ≈ -0.375</div>
+                                                <div class="example-desc">|Z| < 2 → 정상 범위</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 5단계: 이상치 탐지 결과 -->
+                                <div class="calc-step">
+                                    <div class="step-header">
+                                        <span class="step-number">5</span>
+                                        <span class="step-title">이상치 탐지 결과</span>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="detection-result">
+                                            <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
+                                                <strong>|Z| > 2인 값:</strong> 3, 3, 20, 57, 58, 65, 84, 84, 99999999, 99999999999세 (10개)
+                                            </p>
+                                            <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
+                                                <strong>|Z| > 3인 값:</strong> 3, 3, 20, 57, 58, 65, 84, 84, 99999999, 99999999999세 (10개)
+                                            </p>
+                                            <p style="margin: 8px 0; font-size: 0.9em; color: #e74c3c; font-weight: bold;">
+                                                <strong>총 이상치: 10개</strong> (모든 극단값이 |Z| > 3 기준 충족)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="outlier-detected">
-                            <h4>🎯 발견된 이상치 (12개)</h4>
+                            <h4>🎯 발견된 이상치 (10개)</h4>
                             <div class="outlier-list">
                                 <p><strong>Z-score 기준 설명:</strong></p>
                                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.9em;">
                                     <li><strong>|Z| > 2</strong>: 표준편차 2배 이상 떨어진 값 (이상치로 간주)</li>
                                     <li><strong>|Z| > 3</strong>: 표준편차 3배 이상 떨어진 값 (강한 이상치)</li>
                                 </ul>
-                                <p><strong>|Z| > 2인 값 (12개):</strong> 3세, 3세, 20세, 25세, 26세, 57세, 58세, 65세, 84세, 84세, 99999999세, 99999999999세</p>
+                                <p><strong>|Z| > 2인 값 (10개):</strong> 3세, 3세, 20세, 57세, 58세, 65세, 84세, 84세, 99999999세, 99999999999세</p>
                                 <p style="font-size: 0.85em; color: #8b5a3c; margin-top: 10px;">
                                     <strong>💡 참고:</strong> Z-score 방법은 IQR과 마찬가지로 원본 데이터에서 직접 계산하여 
-                                    동일한 12개의 이상치를 제거합니다. 이제 두 방법의 결과가 일치합니다.
+                                    동일한 10개의 이상치를 제거합니다. 이제 두 방법의 결과가 일치합니다.
                                 </p>
                                 
                                 <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #3498db;">
@@ -1897,24 +2421,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-label="남은 데이터 개수">남은 데이터 개수</td>
-                                <td data-label="원본 그대로">115개 (전체)</td>
-                                <td data-label="IQR로 처리">103개 (12개 제거)</td>
-                                <td data-label="Z-score로 처리">103개 (12개 제거)</td>
-                            </tr>
-                            <tr>
-                                <td data-label="평균 나이">평균 나이</td>
-                                <td data-label="원본 그대로">약 9,000세 😵</td>
-                                <td data-label="IQR로 처리">약 31.2세 😊</td>
-                                <td data-label="Z-score로 처리">약 31.2세 😊</td>
-                            </tr>
-                            <tr>
-                                <td data-label="표준편차">표준편차</td>
-                                <td data-label="원본 그대로">약 42,000세</td>
-                                <td data-label="IQR로 처리">약 3.2세</td>
-                                <td data-label="Z-score로 처리">약 3.2세</td>
-                            </tr>
+                                                         <tr>
+                                 <td data-label="남은 데이터 개수">남은 데이터 개수</td>
+                                 <td data-label="원본 그대로">115개 (전체)</td>
+                                 <td data-label="IQR로 처리">105개 (10개 제거)</td>
+                                 <td data-label="Z-score로 처리">105개 (10개 제거)</td>
+                             </tr>
+                             <tr>
+                                 <td data-label="평균 나이">평균 나이</td>
+                                 <td data-label="원본 그대로">약 9,000세 😵</td>
+                                 <td data-label="IQR로 처리">약 31.5세 😊</td>
+                                 <td data-label="Z-score로 처리">약 31.5세 😊</td>
+                             </tr>
+                             <tr>
+                                 <td data-label="표준편차">표준편차</td>
+                                 <td data-label="원본 그대로">약 42,000세</td>
+                                 <td data-label="IQR로 처리">약 3.0세</td>
+                                 <td data-label="Z-score로 처리">약 3.0세</td>
+                             </tr>
                             <tr>
                                 <td data-label="결과 신뢰성">결과 신뢰성</td>
                                 <td data-label="원본 그대로">❌ 왜곡됨</td>
