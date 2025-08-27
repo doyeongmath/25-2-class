@@ -1750,6 +1750,30 @@
                                 <p><strong>의심되는 높은 값:</strong> 57세, 58세, 65세, 84세, 84세</p>
                                 <p><strong>극단적 높은 값:</strong> 99999999세, 99999999999세</p>
                             </div>
+                            
+                            <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #3498db;">
+                                <h5 style="color: #2c3e50; margin-bottom: 10px;">📊 데이터 범위 변화</h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div style="background: #fff3cd; padding: 12px; border-radius: 6px; border: 1px solid #ffeaa7;">
+                                        <h6 style="color: #856404; margin-bottom: 8px;">🔴 원본 데이터</h6>
+                                        <p style="margin: 5px 0; font-size: 0.9em;"><strong>최솟값:</strong> 3세</p>
+                                        <p style="margin: 5px 0; font-size: 0.9em;"><strong>최댓값:</strong> 99999999999세</p>
+                                        <p style="margin: 5px 0; font-size: 0.9em;"><strong>범위:</strong> 3세 ~ 99999999999세</p>
+                                        <p style="margin: 5px 0; font-size: 0.9em; color: #e74c3c;"><strong>범위 차이:</strong> 약 100억세 😵</p>
+                                    </div>
+                                    <div style="background: #d1ecf1; padding: 12px; border-radius: 6px; border: 1px solid #bee5eb;">
+                                        <h6 style="color: #0c5460; margin-bottom: 8px;">🟢 IQR 제거 후</h6>
+                                        <p style="margin: 5px 0; font-size: 0.9em;"><strong>최솟값:</strong> 27세</p>
+                                        <p style="margin: 5px 0; font-size: 0.9em;"><strong>최댓값:</strong> 38세</p>
+                                        <p style="margin: 5px 0; font-size: 0.9em;"><strong>범위:</strong> 27세 ~ 38세</p>
+                                        <p style="margin: 5px 0; font-size: 0.9em; color: #27ae60;"><strong>범위 차이:</strong> 11세 😊</p>
+                                    </div>
+                                </div>
+                                <p style="margin-top: 12px; font-size: 0.9em; color: #2c3e50; font-style: italic;">
+                                    💡 <strong>범위 압축 효과:</strong> 극단값 제거로 100억세 → 11세로 현실적 범위로 축소되어 
+                                    의미 있는 통계 분석이 가능해졌습니다!
+                                </p>
+                            </div>
                         </div>
 
                         <div class="method-pros-cons">
@@ -1808,6 +1832,30 @@
                                     <strong>💡 참고:</strong> Z-score 방법은 IQR과 마찬가지로 원본 데이터에서 직접 계산하여 
                                     동일한 12개의 이상치를 제거합니다. 이제 두 방법의 결과가 일치합니다.
                                 </p>
+                                
+                                <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #3498db;">
+                                    <h5 style="color: #2c3e50; margin-bottom: 10px;">📊 데이터 범위 변화</h5>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                        <div style="background: #fff3cd; padding: 12px; border-radius: 6px; border: 1px solid #ffeaa7;">
+                                            <h6 style="color: #856404; margin-bottom: 8px;">🔴 원본 데이터</h6>
+                                            <p style="margin: 5px 0; font-size: 0.9em;"><strong>최솟값:</strong> 3세</p>
+                                            <p style="margin: 5px 0; font-size: 0.9em;"><strong>최댓값:</strong> 99999999999세</p>
+                                            <p style="margin: 5px 0; font-size: 0.9em;"><strong>범위:</strong> 3세 ~ 99999999999세</p>
+                                            <p style="margin: 5px 0; font-size: 0.9em; color: #e74c3c;"><strong>범위 차이:</strong> 약 100억세 😵</p>
+                                        </div>
+                                        <div style="background: #d1ecf1; padding: 12px; border-radius: 6px; border: 1px solid #bee5eb;">
+                                            <h6 style="color: #0c5460; margin-bottom: 8px;">🟢 Z-score 제거 후</h6>
+                                            <p style="margin: 5px 0; font-size: 0.9em;"><strong>최솟값:</strong> 27세</p>
+                                            <p style="margin: 5px 0; font-size: 0.9em;"><strong>최댓값:</strong> 38세</p>
+                                            <p style="margin: 5px 0; font-size: 0.9em;"><strong>범위:</strong> 27세 ~ 38세</p>
+                                            <p style="margin: 5px 0; font-size: 0.9em; color: #27ae60;"><strong>범위 차이:</strong> 11세 😊</p>
+                                        </div>
+                                    </div>
+                                    <p style="margin-top: 12px; font-size: 0.9em; color: #2c3e50; font-style: italic;">
+                                        💡 <strong>범위 압축 효과:</strong> 극단값 제거로 100억세 → 11세로 현실적 범위로 축소되어 
+                                        의미 있는 통계 분석이 가능해졌습니다!
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
