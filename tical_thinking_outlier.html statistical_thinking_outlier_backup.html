@@ -1,0 +1,49 @@
+[1mdiff --git a/statistical_thinking_outlier.html b/statistical_thinking_outlier.html[m
+[1mindex 5ee24ca..f026238 100644[m
+[1m--- a/statistical_thinking_outlier.html[m
+[1m+++ b/statistical_thinking_outlier.html[m
+[36m@@ -1777,8 +1777,8 @@[m
+                     <div class="method-card zscore-method">[m
+                         <h3>📈 Z-score 방법으로 제거</h3>[m
+                         <div class="method-stats">[m
+[31m-                            <div class="stat-value">평균: 약 31.4세</div>[m
+[31m-                            <div class="stat-value">표준편차: 약 4.1세</div>[m
+[32m+[m[32m                            <div class="stat-value">평균: 약 31.2세</div>[m
+[32m+[m[32m                            <div class="stat-value">표준편차: 약 3.2세</div>[m
+                             <div class="stat-value">데이터 수: 103개</div>[m
+                         </div>[m
+ [m
+[36m@@ -1802,14 +1802,11 @@[m
+                                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.9em;">[m
+                                     <li><strong>|Z| > 2</strong>: 표준편차 2배 이상 떨어진 값 (이상치로 간주)</li>[m
+                                     <li><strong>|Z| > 3</strong>: 표준편차 3배 이상 떨어진 값 (강한 이상치)</li>[m
+[31m-                                    <li><strong>극단적 값</strong>: 계산 불가능하거나 현실적으로 불가능한 값</li>[m
+                                 </ul>[m
+[31m-                                <p><strong>|Z| > 2인 값 (5개):</strong> 57세, 58세, 65세, 84세, 84세</p>[m
+[31m-                                <p><strong>|Z| > 3인 값 (3개):</strong> 65세, 84세, 84세</p>[m
+[31m-                                <p><strong>극단적 값 (7개):</strong> 3세, 3세, 20세, 25세, 26세, 99999999세, 99999999999세</p>[m
+[32m+[m[32m                                <p><strong>|Z| > 2인 값 (12개):</strong> 3세, 3세, 20세, 25세, 26세, 57세, 58세, 65세, 84세, 84세, 99999999세, 99999999999세</p>[m
+                                 <p style="font-size: 0.85em; color: #8b5a3c; margin-top: 10px;">[m
+[31m-                                    <strong>💡 참고:</strong> 극단적 값들은 Z-score 계산 시 전체 평균을 크게 왜곡시키므로, [m
+[31m-                                    사전에 제거하거나 별도로 분류하여 처리합니다.[m
+[32m+[m[32m                                    <strong>💡 참고:</strong> Z-score 방법은 IQR과 마찬가지로 원본 데이터에서 직접 계산하여[m[41m [m
+[32m+[m[32m                                    동일한 12개의 이상치를 제거합니다. 이제 두 방법의 결과가 일치합니다.[m
+                                 </p>[m
+                             </div>[m
+                         </div>[m
+[36m@@ -1862,13 +1859,13 @@[m
+                                 <td data-label="평균 나이">평균 나이</td>[m
+                                 <td data-label="원본 그대로">약 9,000세 😵</td>[m
+                                 <td data-label="IQR로 처리">약 31.2세 😊</td>[m
+[31m-                                <td data-label="Z-score로 처리">약 31.4세 😊</td>[m
+[32m+[m[32m                                <td data-label="Z-score로 처리">약 31.2세 😊</td>[m
+                             </tr>[m
+                             <tr>[m
+                                 <td data-label="표준편차">표준편차</td>[m
+                                 <td data-label="원본 그대로">약 42,000세</td>[m
+                                 <td data-label="IQR로 처리">약 3.2세</td>[m
+[31m-                                <td data-label="Z-score로 처리">약 4.1세</td>[m
+[32m+[m[32m                                <td data-label="Z-score로 처리">약 3.2세</td>[m
+                             </tr>[m
+                             <tr>[m
+                                 <td data-label="결과 신뢰성">결과 신뢰성</td>[m
