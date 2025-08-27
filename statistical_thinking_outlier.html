@@ -1720,15 +1720,33 @@
 
                         <div class="method-description">
                             <h4>🔍 방법 설명</h4>
-                            <p>각 데이터의 Z-score(|Z| > 2)를 계산하여 표준편차의 2배 이상 떨어진 값을 이상치로 간주하여 제거합니다.</p>
+                            <p>각 데이터의 Z-score를 계산하여 이상치를 탐지합니다.</p>
+                            <div style="background: rgba(255,255,255,0.3); padding: 15px; border-radius: 8px; margin-top: 10px;">
+                                <p style="margin: 5px 0; font-size: 0.9em;"><strong>Z-score 공식:</strong> Z = (값 - 평균) ÷ 표준편차</p>
+                                <p style="margin: 5px 0; font-size: 0.9em;"><strong>이상치 기준:</strong></p>
+                                <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.85em;">
+                                    <li>|Z| > 2: 일반적인 이상치 (약 5% 확률)</li>
+                                    <li>|Z| > 3: 강한 이상치 (약 0.3% 확률)</li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="outlier-detected">
                             <h4>🎯 발견된 이상치 (12개)</h4>
                             <div class="outlier-list">
-                                <p><strong>|Z| > 2인 값:</strong> 57세, 58세, 65세, 84세, 84세</p>
-                                <p><strong>|Z| > 3인 값:</strong> 65세, 84세, 84세</p>
-                                <p><strong>극단적 값:</strong> 3세, 3세, 20세, 25세, 26세, 99999999세, 99999999999세</p>
+                                <p><strong>Z-score 기준 설명:</strong></p>
+                                <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.9em;">
+                                    <li><strong>|Z| > 2</strong>: 표준편차 2배 이상 떨어진 값 (이상치로 간주)</li>
+                                    <li><strong>|Z| > 3</strong>: 표준편차 3배 이상 떨어진 값 (강한 이상치)</li>
+                                    <li><strong>극단적 값</strong>: 계산 불가능하거나 현실적으로 불가능한 값</li>
+                                </ul>
+                                <p><strong>|Z| > 2인 값 (5개):</strong> 57세, 58세, 65세, 84세, 84세</p>
+                                <p><strong>|Z| > 3인 값 (3개):</strong> 65세, 84세, 84세</p>
+                                <p><strong>극단적 값 (7개):</strong> 3세, 3세, 20세, 25세, 26세, 99999999세, 99999999999세</p>
+                                <p style="font-size: 0.85em; color: #8b5a3c; margin-top: 10px;">
+                                    <strong>💡 참고:</strong> 극단적 값들은 Z-score 계산 시 전체 평균을 크게 왜곡시키므로, 
+                                    사전에 제거하거나 별도로 분류하여 처리합니다.
+                                </p>
                             </div>
                         </div>
 
@@ -1750,48 +1768,54 @@
                     </div>
                 </div>
 
-                <!-- 방법 비교 요약 -->
+                <!-- 한눈에 보는 결과 비교 -->
                 <div class="method-summary">
-                    <h3>📋 방법 비교 요약</h3>
+                    <h3>📊 한눈에 보는 결과 비교</h3>
                     <p style="text-align: center; color: rgba(255,255,255,0.9); font-size: 1em; margin-bottom: 15px; font-weight: 300;">
-                        각 방법의 핵심 특징을 한눈에 비교
+                        세 가지 방법으로 처리한 결과를 표로 정리했어요
                     </p>
                     <div class="summary-table">
                         <div class="summary-row">
-                            <div class="summary-cell criteria">기준</div>
-                            <div class="summary-cell">원본 데이터</div>
-                            <div class="summary-cell">IQR 방법</div>
-                            <div class="summary-cell">Z-score 방법</div>
+                            <div class="summary-cell criteria">비교 항목</div>
+                            <div class="summary-cell">원본 그대로</div>
+                            <div class="summary-cell">IQR로 처리</div>
+                            <div class="summary-cell">Z-score로 처리</div>
                         </div>
                         <div class="summary-row">
-                            <div class="summary-cell criteria">데이터 수</div>
-                            <div class="summary-cell">115개</div>
-                            <div class="summary-cell">103개</div>
-                            <div class="summary-cell">103개</div>
+                            <div class="summary-cell criteria">남은 데이터 개수</div>
+                            <div class="summary-cell">115개 (전체)</div>
+                            <div class="summary-cell">103개 (12개 제거)</div>
+                            <div class="summary-cell">103개 (12개 제거)</div>
                         </div>
                         <div class="summary-row">
-                            <div class="summary-cell criteria">평균</div>
-                            <div class="summary-cell">~9,000세</div>
-                            <div class="summary-cell">~31.2세</div>
-                            <div class="summary-cell">~31.4세</div>
+                            <div class="summary-cell criteria">평균 나이</div>
+                            <div class="summary-cell">약 9,000세 😵</div>
+                            <div class="summary-cell">약 31.2세 😊</div>
+                            <div class="summary-cell">약 31.4세 😊</div>
                         </div>
                         <div class="summary-row">
                             <div class="summary-cell criteria">표준편차</div>
-                            <div class="summary-cell">~42,000세</div>
-                            <div class="summary-cell">~3.2세</div>
-                            <div class="summary-cell">~4.1세</div>
+                            <div class="summary-cell">약 42,000세</div>
+                            <div class="summary-cell">약 3.2세</div>
+                            <div class="summary-cell">약 4.1세</div>
                         </div>
                         <div class="summary-row">
-                            <div class="summary-cell criteria">객관성</div>
-                            <div class="summary-cell">완벽함</div>
-                            <div class="summary-cell">높음</div>
-                            <div class="summary-cell">매우 높음</div>
+                            <div class="summary-cell criteria">결과 신뢰성</div>
+                            <div class="summary-cell">❌ 왜곡됨</div>
+                            <div class="summary-cell">✅ 현실적</div>
+                            <div class="summary-cell">✅ 현실적</div>
                         </div>
                         <div class="summary-row">
-                            <div class="summary-cell criteria">적용 용이성</div>
-                            <div class="summary-cell">매우 쉬움</div>
-                            <div class="summary-cell">보통</div>
-                            <div class="summary-cell">어려움</div>
+                            <div class="summary-cell criteria">사용 난이도</div>
+                            <div class="summary-cell">⭐ 매우 쉬움</div>
+                            <div class="summary-cell">⭐⭐ 보통</div>
+                            <div class="summary-cell">⭐⭐⭐ 어려움</div>
+                        </div>
+                        <div class="summary-row">
+                            <div class="summary-cell criteria">추천도</div>
+                            <div class="summary-cell">🚫 비추천</div>
+                            <div class="summary-cell">👍 추천</div>
+                            <div class="summary-cell">👍 추천</div>
                         </div>
                     </div>
                 </div>
