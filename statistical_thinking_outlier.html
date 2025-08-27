@@ -2296,79 +2296,7 @@
                                 </div>
                             </div>
 
-                            <!-- ✅ IQR 자동 계산 결과 (동적) -->
-                            <div class="iqr-results" id="iqrDynamic">
-                                <h4>⚙️ IQR 자동 계산 결과</h4>
-                                <div class="quartile-grid">
-                                    <div class="quartile-item">
-                                        <div class="quartile-label">Q1 (25%)</div>
-                                        <div class="quartile-value"><span id="q1Val">-</span>세</div>
-                                        <div class="quartile-desc">하위 25% 경계</div>
-                                    </div>
-                                    <div class="quartile-item">
-                                        <div class="quartile-label">Q2 (50%)</div>
-                                        <div class="quartile-value"><span id="q2Val">-</span>세</div>
-                                        <div class="quartile-desc">중앙값</div>
-                                    </div>
-                                    <div class="quartile-item">
-                                        <div class="quartile-label">Q3 (75%)</div>
-                                        <div class="quartile-value"><span id="q3Val">-</span>세</div>
-                                        <div class="quartile-desc">상위 25% 경계</div>
-                                    </div>
-                                </div>
-                                <div class="iqr-formula">
-                                    <div class="formula-box">
-                                        <strong>IQR = <span id="iqrVal">-</span></strong>
-                                    </div>
-                                    <p style="margin: 8px 0; font-size: 0.9em; color: #666;">실제 데이터로부터 자동 계산됩니다.</p>
-                                </div>
-                                <div class="boundary-calc">
-                                    <div class="boundary-item">
-                                        <div class="boundary-label">하한 경계 (1.5 × IQR)</div>
-                                        <div class="boundary-formula">Q1 - 1.5 × IQR</div>
-                                        <div class="boundary-result"><span id="lowerFence15">-</span></div>
-                                        <div class="boundary-desc"><span id="lowerFence15Desc">하한 미만 = 이상치</span></div>
-                                    </div>
-                                    <div class="boundary-item">
-                                        <div class="boundary-label">상한 경계 (1.5 × IQR)</div>
-                                        <div class="boundary-formula">Q3 + 1.5 × IQR</div>
-                                        <div class="boundary-result"><span id="upperFence15">-</span></div>
-                                        <div class="boundary-desc"><span id="upperFence15Desc">상한 초과 = 이상치</span></div>
-                                    </div>
-                                </div>
-                                <div class="boundary-calc">
-                                    <div class="boundary-item">
-                                        <div class="boundary-label">하한 경계 (3.0 × IQR)</div>
-                                        <div class="boundary-formula">Q1 - 3.0 × IQR</div>
-                                        <div class="boundary-result"><span id="lowerFence30">-</span></div>
-                                        <div class="boundary-desc">강한 이상치 하한</div>
-                                    </div>
-                                    <div class="boundary-item">
-                                        <div class="boundary-label">상한 경계 (3.0 × IQR)</div>
-                                        <div class="boundary-formula">Q3 + 3.0 × IQR</div>
-                                        <div class="boundary-result"><span id="upperFence30">-</span></div>
-                                        <div class="boundary-desc">강한 이상치 상한</div>
-                                    </div>
-                                </div>
-                                <div class="outlier-detection">
-                                    <p style="margin: 5px 0; font-size: 0.9em; color: #666;">
-                                        <strong>일반 이상치(1.5×IQR):</strong> <span id="iqrMildCount">0</span>개
-                                    </p>
-                                    <p id="iqrMildList" style="margin: 5px 0; font-size: 0.9em; color: #666;"></p>
-                                    <p style="margin: 8px 0; font-size: 0.9em; color: #e74c3c; font-weight: bold;">
-                                        <strong>강한 이상치(3.0×IQR):</strong> <span id="iqrExtremeCount">0</span>개
-                                    </p>
-                                    <p id="iqrExtremeList" style="margin: 5px 0; font-size: 0.9em; color: #666;"></p>
-                                    <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <button id="highlightIqrBtn" class="reveal-btn" style="padding: 8px 12px;">
-                                            🎨 데이터에 IQR 기준 적용
-                                        </button>
-                                        <button id="runIqrCalcBtn" class="reveal-btn" style="padding: 8px 12px; background: #6c5ce7;">
-                                            🔄 다시 계산
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="method-pros-cons">
                                 <div class="pros-section">
@@ -2692,6 +2620,21 @@
                     </p>
                 </div>
 
+                <!-- 📮 수업 피드백 설문 QR -->
+                <div class="conclusion-section" style="margin-top: 22px;">
+                    <h4>📝 수업 피드백 남기기</h4>
+                    <p style="color:#a0aec0; margin:6px 0 12px 0;">아래 QR 또는 링크로 접속해 오늘 수업에 대한 느낀점을 적어주세요.</p>
+                    <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
+                        <div style="background:white; padding:12px; border-radius:12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); border:1px solid #e2e8f0;">
+                            <img alt="수업 피드백 설문 QR" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLSe_2gj_6zsILGrx3_MnnBCVyyzRblJUNsyumJTIHrtboZdS3Q%2Fviewform%3Fusp%3Dsharing%26ouid%3D103803591367437811814" width="180" height="180" style="display:block;" />
+                        </div>
+                        <div>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe_2gj_6zsILGrx3_MnnBCVyyzRblJUNsyumJTIHrtboZdS3Q/viewform?usp=sharing&ouid=103803591367437811814" target="_blank" rel="noopener" style="color:#63b3ed; text-decoration:underline;">설문 링크 열기</a>
+                            <div style="font-size:0.9em; color:#cbd5e0; margin-top:6px;">링크가 열리지 않으면 QR을 스캔해주세요.</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="conclusion-section">
                     <h4>🏫 교육적 의의와 학생 참여:</h4>
                     <ul>
@@ -2789,7 +2732,7 @@
                 initializeTabs();
                 initializeOutlierReveal();
                 initializeMethodTabs();
-                initializeIqrCalculation();
+                
 
                 // 키보드 네비게이션 추가
                 document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -2940,139 +2883,11 @@
                         targetPanel.classList.add('active');
                     }
 
-                    // IQR 탭을 열 때 자동 계산 실행
-                    if (targetMethod === 'iqr') {
-                        try { initializeIqrCalculation(); } catch (e) { console.warn('IQR 초기화 실패:', e); }
-                    }
+                    
                 });
             });
         }
-
-        // IQR 계산 유틸리티
-        function parseDataGridNumbers() {
-            const grid = document.getElementById('dataGrid');
-            if (!grid) return [];
-            const items = Array.from(grid.querySelectorAll('.data-item'));
-            return items.map(el => parseFloat(el.textContent)).filter(v => !Number.isNaN(v));
-        }
-
-        function computeQuantile(sortedValues, q) {
-            const n = sortedValues.length;
-            if (n === 0) return NaN;
-            const pos = (n - 1) * q;
-            const lowerIndex = Math.floor(pos);
-            const upperIndex = Math.ceil(pos);
-            if (lowerIndex === upperIndex) return sortedValues[lowerIndex];
-            const weight = pos - lowerIndex;
-            return sortedValues[lowerIndex] * (1 - weight) + sortedValues[upperIndex] * weight;
-        }
-
-        function computeIqrStats(values) {
-            const arr = values.slice().sort((a, b) => a - b);
-            const n = arr.length;
-            const q1 = computeQuantile(arr, 0.25);
-            const q2 = computeQuantile(arr, 0.5);
-            const q3 = computeQuantile(arr, 0.75);
-            const iqr = q3 - q1;
-            const lower15 = q1 - 1.5 * iqr;
-            const upper15 = q3 + 1.5 * iqr;
-            const lower30 = q1 - 3.0 * iqr;
-            const upper30 = q3 + 3.0 * iqr;
-
-            const mild = [];
-            const extreme = [];
-            for (const v of arr) {
-                if (v < lower30 || v > upper30) {
-                    extreme.push(v);
-                } else if (v < lower15 || v > upper15) {
-                    mild.push(v);
-                }
-            }
-            return { n, q1, q2, q3, iqr, lower15, upper15, lower30, upper30, mild, extreme };
-        }
-
-        function updateIqrResultsDom(stats) {
-            const setText = (id, value) => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = (typeof value === 'number') ? (Number.isInteger(value) ? value.toString() : value.toFixed(2)) : String(value);
-            };
-            setText('q1Val', stats.q1);
-            setText('q2Val', stats.q2);
-            setText('q3Val', stats.q3);
-            setText('iqrVal', stats.iqr);
-            setText('lowerFence15', stats.lower15);
-            setText('upperFence15', stats.upper15);
-            setText('lowerFence30', stats.lower30);
-            setText('upperFence30', stats.upper30);
-
-            setText('iqrMildCount', stats.mild.length);
-            setText('iqrExtremeCount', stats.extreme.length);
-
-            const mildList = document.getElementById('iqrMildList');
-            if (mildList) mildList.textContent = stats.mild.length ? `→ ${stats.mild.join(', ')}` : '';
-            const extremeList = document.getElementById('iqrExtremeList');
-            if (extremeList) extremeList.textContent = stats.extreme.length ? `→ ${stats.extreme.join(', ')}` : '';
-        }
-
-        function clearDataItemClasses(el) {
-            el.classList.remove('extreme-low', 'low-value', 'normal', 'high-value', 'extreme-high', 'raw-data', 'revealing');
-        }
-
-        function highlightIqrOnGrid(stats) {
-            const grid = document.getElementById('dataGrid');
-            if (!grid) return;
-            const items = Array.from(grid.querySelectorAll('.data-item'));
-            items.forEach(item => {
-                const v = parseFloat(item.textContent);
-                clearDataItemClasses(item);
-                if (Number.isNaN(v)) {
-                    item.classList.add('normal');
-                    return;
-                }
-                if (v < stats.lower30) {
-                    item.classList.add('extreme-low');
-                } else if (v < stats.lower15) {
-                    item.classList.add('low-value');
-                } else if (v > stats.upper30) {
-                    item.classList.add('extreme-high');
-                } else if (v > stats.upper15) {
-                    item.classList.add('high-value');
-                } else {
-                    item.classList.add('normal');
-                }
-            });
-        }
-
-        function initializeIqrCalculation() {
-            try {
-                const values = parseDataGridNumbers();
-                if (!values.length) return;
-                const stats = computeIqrStats(values);
-                updateIqrResultsDom(stats);
-
-                if (!window.__iqrBinded) {
-                    const recalcBtn = document.getElementById('runIqrCalcBtn');
-                    const hlBtn = document.getElementById('highlightIqrBtn');
-                    if (recalcBtn) {
-                        recalcBtn.addEventListener('click', () => {
-                            const vals = parseDataGridNumbers();
-                            const st = computeIqrStats(vals);
-                            updateIqrResultsDom(st);
-                        });
-                    }
-                    if (hlBtn) {
-                        hlBtn.addEventListener('click', () => {
-                            const vals = parseDataGridNumbers();
-                            const st = computeIqrStats(vals);
-                            highlightIqrOnGrid(st);
-                        });
-                    }
-                    window.__iqrBinded = true;
-                }
-            } catch (e) {
-                console.warn('IQR 계산 중 오류:', e);
-            }
-        }
+        
 
         // 성능 모니터링
         window.addEventListener('load', function() {
