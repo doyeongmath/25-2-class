@@ -2324,14 +2324,76 @@
                             <h3>📈 Z-score 방법으로 제거</h3>
                             <div class="method-stats">
                                 <div class="stat-value">평균(m*): 약 31.5세</div>
-                                <div class="stat-value">표준편차(s*): 약 3.0세</div>
+                                <div class="stat-value">표준편차(σ*): 약 3.0세</div>
                                 <div class="stat-value">데이터 수: 105개 (최종)</div>
                             </div>
 
                             <div class="method-description">
                                 <h4>🔍 방법 설명</h4>
                                 <p>각 데이터의 Z-score를 계산하여 이상치를 탐지합니다.</p>
-                                
+
+                                <!-- 반복 결과 요약(스크롤해도 고정) -->
+                                <div style="position: sticky; top: 10px; z-index: 1; background: #f1f7ff; border-left: 4px solid #3b82f6; padding: 12px 14px; border-radius: 10px; box-shadow: 0 6px 18px rgba(59,130,246,0.15); margin: 12px 0 18px 0;">
+                                    <div style="display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 10px; align-items: center;">
+                                        <div style="font-weight: 700; color: #1e3a8a;">반복형 Z-score 최종</div>
+                                        <div><strong>m*</strong>: 31.5</div>
+                                        <div><strong>σ*</strong>: 3.0</div>
+                                        <div><strong>남은 n</strong>: 105</div>
+                                    </div>
+                                    <div style="margin-top: 8px; font-size: 0.92em; color: #0f172a;">
+                                        <strong>제거된 이상치(10)</strong>: 3, 3, 20, 57, 58, 65, 84, 84, 99999999, 99999999999
+                                    </div>
+                                </div>
+
+                                <!-- 반복 단계 로그 -->
+                                <div style="background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 12px; margin: 12px 0 18px 0;">
+                                    <h5 style="margin: 0 0 10px 0; color: #1f2937;">반복 단계별 계산 로그</h5>
+                                    <div style="overflow-x: auto;">
+                                        <table style="width: 100%; border-collapse: collapse; font-size: 0.95em;">
+                                            <thead>
+                                                <tr style="background: #f8fafc;">
+                                                    <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e5e7eb;">단계</th>
+                                                    <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e5e7eb;">평균(m)</th>
+                                                    <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e5e7eb;">표준편차(σ)</th>
+                                                    <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e5e7eb;">기준</th>
+                                                    <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e5e7eb;">제거된 값</th>
+                                                    <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e5e7eb;">누적 제거</th>
+                                                    <th style="text-align: left; padding: 10px; border-bottom: 1px solid #e5e7eb;">남은 n</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">0 (초기)</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">≈ 9,000</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">≈ 42,000</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">|Z| > 3</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">99999999, 99999999999</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">2</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">113</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">1</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">31.5</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">3.0</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">|Z| > 3</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">3, 3, 20, 57, 58, 65, 84, 84</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">10</td>
+                                                    <td style="padding: 9px 10px; border-bottom: 1px solid #f1f5f9;">105</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 9px 10px;">2 (수렴)</td>
+                                                    <td style="padding: 9px 10px;">31.5</td>
+                                                    <td style="padding: 9px 10px;">3.0</td>
+                                                    <td style="padding: 9px 10px;">|Z| > 3</td>
+                                                    <td style="padding: 9px 10px;">-</td>
+                                                    <td style="padding: 9px 10px;">10</td>
+                                                    <td style="padding: 9px 10px;">105</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                                 <!-- 🧮 실제 계산 과정 표시 -->
                                 <div class="calculation-details">
                                     <h5 style="color: #2c3e50; margin: 15px 0 10px 0; font-size: 1.1em;">🧮 계산 과정</h5>
@@ -2349,7 +2411,7 @@
                                                     <div class="stat-value">약 9,000세</div>
                                                 </div>
                                                 <div class="stat-item">
-                                                    <div class="stat-label">초기 표준편차 (s0)</div>
+                                                    <div class="stat-label">초기 표준편차 (σ0)</div>
                                                     <div class="stat-value">약 42,000세</div>
                                                 </div>
                                                 <div class="stat-item">
@@ -2373,7 +2435,7 @@
                                         <div class="step-content">
                                             <div class="formula-display">
                                                 <div class="formula-box">
-                                                    <strong>Z = (값 - m) ÷ s</strong>
+                                                    <strong>Z = (값 - m) ÷ σ</strong>
                                                 </div>
                                                 <p style="margin: 8px 0; font-size: 0.9em; color: #666;">
                                                     Z-score는 해당 값이 평균에서 몇 표준편차만큼 떨어져 있는지를 나타냅니다.
