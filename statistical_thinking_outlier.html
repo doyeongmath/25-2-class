@@ -773,165 +773,243 @@
             margin: 12px 0;
         }
 
-        /* 방법 비교 탭 스타일 */
+        /* 방법 비교 탭 스타일 - 깔끔한 디자인 */
         .method-comparison-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
         }
 
         .method-card {
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border: 3px solid #e9ecef;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #f1f3f4;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
 
         .method-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
-        .original-method {
-            border-color: #ffeaa7;
-            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+        .original-method::before {
+            background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 100%);
         }
 
-        .iqr-method {
-            border-color: #a8e6cf;
-            background: linear-gradient(135deg, #a8e6cf 0%, #81ecec 100%);
+        .iqr-method::before {
+            background: linear-gradient(90deg, #a8edea 0%, #fed6e3 100%);
         }
 
-        .zscore-method {
-            border-color: #dda0dd;
-            background: linear-gradient(135deg, #dda0dd 0%, #fd79a8 100%);
+        .zscore-method::before {
+            background: linear-gradient(90deg, #d299c2 0%, #fef9d7 100%);
         }
 
         .method-card h3 {
-            color: #2c3e50;
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            color: #1a202c;
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 24px;
             text-align: center;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
-            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .method-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 1px;
         }
 
         .method-stats {
-            background: rgba(255,255,255,0.9);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            text-align: center;
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid #e2e8f0;
         }
 
         .method-stats .stat-value {
             font-size: 1.1em;
-            margin: 8px 0;
             font-weight: 600;
+            margin: 10px 0;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .method-stats .stat-value::before {
+            content: '📊';
+            margin-right: 8px;
         }
 
         .method-description {
-            background: rgba(255,255,255,0.7);
-            padding: 18px;
-            border-radius: 10px;
-            margin: 20px 0;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border-left: 3px solid #667eea;
         }
 
         .method-description h4 {
-            color: #2c3e50;
-            font-size: 1.2em;
+            color: #2d3748;
+            font-size: 1.1em;
+            font-weight: 600;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .method-description h4::before {
+            content: '🔍';
+            margin-right: 8px;
         }
 
         .method-description p {
-            color: #34495e;
-            font-size: 1em;
-            line-height: 1.6;
+            color: #4a5568;
+            font-size: 0.95em;
+            line-height: 1.7;
+            margin: 0;
         }
 
         .outlier-detected {
-            background: rgba(255,255,255,0.8);
-            padding: 18px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid #e74c3c;
+            background: #fed7d7;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border-left: 4px solid #e53e3e;
         }
 
         .outlier-detected h4 {
-            color: #e74c3c;
-            font-size: 1.2em;
-            margin-bottom: 12px;
+            color: #c53030;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .outlier-detected h4::before {
+            content: '🎯';
+            margin-right: 8px;
         }
 
         .outlier-list p {
-            margin: 8px 0;
-            font-size: 0.95em;
-            line-height: 1.5;
+            margin: 10px 0;
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #742a2a;
         }
 
         .outlier-list strong {
-            color: #e74c3c;
+            color: #c53030;
+            font-weight: 600;
         }
 
         .method-pros-cons {
-            background: rgba(255,255,255,0.6);
-            padding: 18px;
-            border-radius: 10px;
-            margin: 20px 0;
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 24px 0;
         }
 
         .method-pros-cons h4 {
-            color: #2c3e50;
             font-size: 1.1em;
-            margin: 15px 0 10px 0;
+            font-weight: 600;
+            margin: 16px 0 12px 0;
+            display: flex;
+            align-items: center;
         }
 
         .method-pros-cons h4:first-child {
-            color: #27ae60;
-            margin-top: 0;
+            color: #38a169;
+        }
+
+        .method-pros-cons h4:first-child::before {
+            content: '✅';
+            margin-right: 8px;
         }
 
         .method-pros-cons h4:last-child {
-            color: #e74c3c;
+            color: #e53e3e;
+        }
+
+        .method-pros-cons h4:last-child::before {
+            content: '❌';
+            margin-right: 8px;
         }
 
         .method-pros-cons ul {
-            margin: 10px 0;
-            padding-left: 20px;
+            margin: 12px 0;
+            padding-left: 24px;
         }
 
         .method-pros-cons li {
-            margin: 6px 0;
-            font-size: 0.95em;
-            line-height: 1.5;
+            margin: 8px 0;
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #4a5568;
         }
 
-        /* 방법 비교 요약 테이블 */
+        /* 방법 비교 요약 테이블 - 깔끔한 디자인 */
         .method-summary {
-            margin-top: 40px;
-            padding: 30px;
+            margin-top: 50px;
+            padding: 40px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
+            border-radius: 24px;
             color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
         .method-summary h3 {
             text-align: center;
             font-size: 1.8em;
-            margin-bottom: 25px;
+            font-weight: 700;
+            margin-bottom: 30px;
             color: white;
+            position: relative;
+        }
+
+        .method-summary h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
         }
 
         .summary-table {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 2px;
+            gap: 1px;
             background: rgba(255,255,255,0.2);
-            border-radius: 10px;
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .summary-row {
@@ -940,29 +1018,52 @@
         }
 
         .summary-cell {
-            padding: 15px 10px;
+            padding: 18px 12px;
             text-align: center;
             font-size: 0.95em;
             background: rgba(255,255,255,0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        .summary-cell:hover {
+            background: rgba(255,255,255,0.2);
         }
 
         .summary-cell.criteria {
-            background: rgba(255,255,255,0.3);
-            font-weight: bold;
-            color: #ffd700;
-        }
-
-        .summary-row:first-child .summary-cell {
-            background: rgba(255,255,255,0.4);
-            font-weight: bold;
+            background: rgba(255,255,255,0.25);
+            font-weight: 600;
+            color: #ffffff;
             font-size: 1em;
         }
 
-        /* 모바일 반응성 */
+        .summary-row:first-child .summary-cell {
+            background: rgba(255,255,255,0.3);
+            font-weight: 700;
+            font-size: 1.05em;
+            color: #ffffff;
+        }
+
+        .summary-row:nth-child(even) .summary-cell:not(.criteria) {
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* 모바일 반응성 - 깔끔한 디자인 */
+        @media (max-width: 1200px) {
+            .method-comparison-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 25px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .method-comparison-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 30px;
+            }
+
+            .method-card {
+                margin: 0 auto;
+                max-width: 500px;
             }
 
             .summary-table {
@@ -970,21 +1071,51 @@
             }
 
             .summary-cell {
-                padding: 12px 8px;
+                padding: 14px 10px;
             }
         }
 
         @media (max-width: 768px) {
             .method-card {
-                padding: 20px;
+                padding: 24px;
+                border-radius: 20px;
             }
 
             .method-card h3 {
                 font-size: 1.3em;
             }
 
+            .method-card h3::after {
+                width: 30px;
+            }
+
             .method-stats {
-                padding: 15px;
+                padding: 20px;
+            }
+
+            .method-stats .stat-value {
+                font-size: 1em;
+            }
+
+            .method-description {
+                padding: 16px;
+            }
+
+            .outlier-detected {
+                padding: 16px;
+            }
+
+            .method-pros-cons {
+                padding: 16px;
+            }
+
+            .method-summary {
+                padding: 30px 20px;
+                margin-top: 40px;
+            }
+
+            .method-summary h3 {
+                font-size: 1.6em;
             }
 
             .summary-table {
@@ -999,15 +1130,81 @@
             .summary-cell {
                 display: flex;
                 justify-content: space-between;
-                padding: 10px 15px;
+                padding: 12px 16px;
+                font-size: 0.9em;
+            }
+
+            .summary-cell.criteria {
+                background: rgba(255,255,255,0.3);
+                font-weight: 600;
             }
 
             .summary-cell.criteria::after {
                 content: ":";
+                margin-left: 8px;
             }
 
             .summary-cell:not(.criteria) {
-                background: rgba(255,255,255,0.15);
+                background: rgba(255,255,255,0.12);
+            }
+
+            .summary-row:nth-child(even) .summary-cell:not(.criteria) {
+                background: rgba(255,255,255,0.08);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .method-card {
+                padding: 20px;
+            }
+
+            .method-card h3 {
+                font-size: 1.2em;
+            }
+
+            .method-stats {
+                padding: 16px;
+            }
+
+            .method-stats .stat-value {
+                font-size: 0.95em;
+            }
+
+            .method-description h4 {
+                font-size: 1em;
+            }
+
+            .method-description p {
+                font-size: 0.9em;
+            }
+
+            .outlier-detected h4 {
+                font-size: 1em;
+            }
+
+            .outlier-list p {
+                font-size: 0.85em;
+            }
+
+            .method-pros-cons h4 {
+                font-size: 1em;
+            }
+
+            .method-pros-cons li {
+                font-size: 0.85em;
+            }
+
+            .method-summary {
+                padding: 24px 16px;
+            }
+
+            .method-summary h3 {
+                font-size: 1.4em;
+            }
+
+            .summary-cell {
+                padding: 10px 14px;
+                font-size: 0.85em;
             }
         }
 
@@ -1420,6 +1617,9 @@
             <div id="comparison" class="tab-content" role="tabpanel" aria-labelledby="tab-comparison">
             <div class="section">
                 <h2>⚖️ 방법별 결과 비교</h2>
+                <p style="text-align: center; color: #666; font-size: 1.1em; margin-bottom: 20px;">
+                    세 가지 접근법의 특징과 결과를 한눈에 비교해보세요
+                </p>
 
                 <!-- 3열 그리드 레이아웃 -->
                 <div class="method-comparison-grid">
@@ -1539,6 +1739,9 @@
                 <!-- 방법 비교 요약 -->
                 <div class="method-summary">
                     <h3>📋 방법 비교 요약</h3>
+                    <p style="text-align: center; color: rgba(255,255,255,0.9); font-size: 1em; margin-bottom: 15px; font-weight: 300;">
+                        각 방법의 핵심 특징을 한눈에 비교
+                    </p>
                     <div class="summary-table">
                         <div class="summary-row">
                             <div class="summary-cell criteria">기준</div>
