@@ -2030,7 +2030,7 @@
                         <div style="font-size: 2em; margin: 20px 0;">평균이??</div>
                         <p>99억이 하나만 들어가도<br>평균이 엄청나게 커짐!</p>
                         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-                            평균 ≈ 900만세 😂
+                            평균 ≈ 9억세 😂
                         </div>
                     </div>
                     
@@ -2107,8 +2107,8 @@
                         <div class="method-card original-method">
                             <h3>📊 원본 데이터 그대로</h3>
                             <div class="method-stats">
-                                <div class="stat-value">평균: 약 9,000세</div>
-                                <div class="stat-value">표준편차: 약 42,000세</div>
+                                <div class="stat-value">평균: 약 8.7억세</div>
+                                <div class="stat-value">표준편차: 수억 세 수준</div>
                                 <div class="stat-value">데이터 수: 115개</div>
                             </div>
 
@@ -2144,8 +2144,8 @@
                         <div class="method-card iqr-method">
                             <h3>📐 IQR 방법으로 제거</h3>
                             <div class="method-stats">
-                                <div class="stat-value">평균: 약 9,000세 (원본 기준)</div>
-                                <div class="stat-value">표준편차: 약 42,000세 (원본 기준)</div>
+                                <div class="stat-value">평균: 약 8.7억세 (원본 기준)</div>
+                                <div class="stat-value">표준편차: 수억 세 수준 (원본 기준)</div>
                                 <div class="stat-value">데이터 수: 115개 (원본)</div>
                             </div>
 
@@ -2397,6 +2397,44 @@
                                             <p style="margin: 6px 0; color: #555; font-size: 0.95em;">
                                                 - 반복 2단계: 수렴(추가 제거 없음) → 최종 m*≈31.5, σ*≈3.0, 남은 n=105
                                             </p>
+
+                                            <!-- 단계별 통계 요약 표 -->
+                                            <div style="margin-top: 10px; overflow-x: auto;">
+                                                <table style="width: 100%; border-collapse: collapse; font-size: 0.93em;">
+                                                    <thead>
+                                                        <tr style="background:#f8fafc;">
+                                                            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid #e5e7eb;">단계</th>
+                                                            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid #e5e7eb;">평균(m)</th>
+                                                            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid #e5e7eb;">표준편차(σ)</th>
+                                                            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid #e5e7eb;">제거 수</th>
+                                                            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid #e5e7eb;">남은 n</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">0단계 (초기)</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">≈ 8.7억</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">수억 수준</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">0</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">115</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">1단계 (2개 제거 후)</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">31.5</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">3.0</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">2</td>
+                                                            <td style="padding:8px 10px; border-bottom:1px solid #f1f5f9;">113</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding:8px 10px;">2단계 (추가 8개 제거 후)</td>
+                                                            <td style="padding:8px 10px;">31.5</td>
+                                                            <td style="padding:8px 10px;">3.0</td>
+                                                            <td style="padding:8px 10px;">+8 (누적 10)</td>
+                                                            <td style="padding:8px 10px;">105</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -2469,7 +2507,7 @@
                             </tr>
                             <tr>
                                 <td data-label="평균 나이">평균 나이</td>
-                                <td data-label="원본 그대로">약 9,000세 😵</td>
+                                <td data-label="원본 그대로">약 8.7억세 😵</td>
                                 <td data-label="IQR로 처리">약 31.5세 😊</td>
                                 <td data-label="Z-score로 처리">약 31.5세 😊</td>
                             </tr>
