@@ -206,6 +206,196 @@
             font-weight: bold;
         }
 
+        /* 개선된 이상치 표시 스타일 */
+        .data-item.extreme-low {
+            background: #e74c3c;
+            color: white;
+            font-weight: bold;
+            border: 2px solid #c0392b;
+        }
+
+        .data-item.low-value {
+            background: #f39c12;
+            color: white;
+            font-weight: 600;
+            border: 1px solid #e67e22;
+        }
+
+        .data-item.normal {
+            background: #3498db;
+            color: white;
+            font-weight: 500;
+        }
+
+        .data-item.high-value {
+            background: #f39c12;
+            color: white;
+            font-weight: 600;
+            border: 1px solid #e67e22;
+        }
+
+        .data-item.extreme-high {
+            background: #e74c3c;
+            color: white;
+            font-weight: bold;
+            border: 2px solid #c0392b;
+        }
+
+        /* 정렬된 데이터 컨테이너 */
+        .sorted-data-container {
+            margin: 20px 0;
+        }
+
+        .sorted-data-container h4 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .data-grid.sorted {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 6px;
+            margin: 15px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        /* 이상치 분석 결과 스타일 */
+        .outlier-analysis {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .outlier-analysis h4 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .analysis-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .analysis-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .analysis-values {
+            margin-bottom: 8px;
+        }
+
+        .analysis-values span {
+            display: inline-block;
+            margin: 2px 4px 2px 0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .analysis-values .extreme-low {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .analysis-values .low-value {
+            background: #f39c12;
+            color: white;
+        }
+
+        .analysis-values .high-value {
+            background: #f39c12;
+            color: white;
+        }
+
+        .analysis-values .extreme-high {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .analysis-desc {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        /* IQR 및 Z-score 결과 스타일 */
+        .iqr-results, .zscore-results {
+            margin-top: 15px;
+        }
+
+        .iqr-results p, .zscore-results p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* 통합 분석 결과 스타일 */
+        .integrated-results {
+            margin-top: 20px;
+        }
+
+        .result-category {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .result-category h5 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .result-category p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .result-desc {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* 결과 카테고리별 색상 */
+        .result-category:nth-child(1) {
+            border-left-color: #e74c3c;
+        }
+
+        .result-category:nth-child(2) {
+            border-left-color: #f39c12;
+        }
+
+        .result-category:nth-child(3) {
+            border-left-color: #27ae60;
+        }
+
         .result-box {
             background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
             color: white;
@@ -219,6 +409,69 @@
             font-size: 1.3em;
             margin: 10px 0;
             font-weight: bold;
+        }
+
+        /* 통계 비교 스타일 */
+        .stat-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-group {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-group h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .stat-group .stat-value {
+            font-size: 1.1em;
+            margin: 8px 0;
+            text-align: center;
+        }
+
+        .stat-desc {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .stat-insight {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-insight h4 {
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .stat-insight ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .stat-insight li {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .stat-insight strong {
+            color: white;
         }
 
         .method-explanation {
@@ -391,122 +644,133 @@
                 <h2>📊 원본 데이터 현황</h2>
                 <div class="data-display">
                     <h3>🎯 평균 맞히기 게임 결과 - 선생님 나이 추측 (115명 응답)</h3>
-                    <div class="data-grid">
-                        <div class="data-item extreme-item">99,999,999</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">37</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">20</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">38</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item extreme-item">99,999,999,999</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">34</div>
-                        <div class="data-item extreme-item">58</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">34</div>
-                        <div class="data-item extreme-item">57</div>
-                        <div class="data-item">35</div>
-                        <div class="data-item">34.5</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">34</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item extreme-item">3</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">35</div>
-                        <div class="data-item extreme-item">3</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">26</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item extreme-item">84</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item extreme-item">84</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">35</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">25</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item extreme-item">65</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">35</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">27</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">34</div>
-                        <div class="data-item">35</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">29</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">36</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">32</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">34</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">30</div>
-                        <div class="data-item">34</div>
-                        <div class="data-item">28</div>
-                        <div class="data-item">31</div>
-                        <div class="data-item">33</div>
-                        <div class="data-item">37</div>
+                    <!-- 📊 정렬된 데이터 표시 (오름차순) -->
+                    <div class="sorted-data-container">
+                        <h4>🔢 크기 순서대로 정렬된 데이터</h4>
+                        <div class="data-grid sorted">
+                            <!-- 극단적 낮은 값 -->
+                            <div class="data-item extreme-low">3</div>
+                            <div class="data-item extreme-low">3</div>
+
+                            <!-- 낮은 값 -->
+                            <div class="data-item low-value">20</div>
+                            <div class="data-item low-value">25</div>
+                            <div class="data-item low-value">26</div>
+
+                            <!-- 정상 범위 값들 -->
+                            <div class="data-item normal">27</div>
+                            <div class="data-item normal">27</div>
+                            <div class="data-item normal">27</div>
+                            <div class="data-item normal">27</div>
+                            <div class="data-item normal">27</div>
+                            <div class="data-item normal">28</div>
+                            <div class="data-item normal">28</div>
+                            <div class="data-item normal">28</div>
+                            <div class="data-item normal">28</div>
+                            <div class="data-item normal">28</div>
+                            <div class="data-item normal">28</div>
+                            <div class="data-item normal">28</div>
+                            <div class="data-item normal">29</div>
+                            <div class="data-item normal">29</div>
+                            <div class="data-item normal">29</div>
+                            <div class="data-item normal">29</div>
+                            <div class="data-item normal">29</div>
+                            <div class="data-item normal">29</div>
+                            <div class="data-item normal">29</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">30</div>
+                            <div class="data-item normal">31</div>
+                            <div class="data-item normal">31</div>
+                            <div class="data-item normal">31</div>
+                            <div class="data-item normal">31</div>
+                            <div class="data-item normal">31</div>
+                            <div class="data-item normal">31</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">32</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">33</div>
+                            <div class="data-item normal">34</div>
+                            <div class="data-item normal">34</div>
+                            <div class="data-item normal">34</div>
+                            <div class="data-item normal">34</div>
+                            <div class="data-item normal">34.5</div>
+                            <div class="data-item normal">35</div>
+                            <div class="data-item normal">35</div>
+                            <div class="data-item normal">35</div>
+                            <div class="data-item normal">35</div>
+                            <div class="data-item normal">36</div>
+                            <div class="data-item normal">37</div>
+                            <div class="data-item normal">37</div>
+                            <div class="data-item normal">38</div>
+
+                            <!-- 높은 값 -->
+                            <div class="data-item high-value">57</div>
+                            <div class="data-item high-value">58</div>
+                            <div class="data-item high-value">65</div>
+                            <div class="data-item high-value">84</div>
+                            <div class="data-item high-value">84</div>
+
+                            <!-- 극단적 높은 값 -->
+                            <div class="data-item extreme-high">99,999,999</div>
+                            <div class="data-item extreme-high">99,999,999,999</div>
+                        </div>
+                    </div>
+
+                    <!-- 📋 이상치 분석 결과 -->
+                    <div class="outlier-analysis">
+                        <h4>🎯 이상치 분석 결과</h4>
+                        <div class="analysis-grid">
+                            <div class="analysis-item">
+                                <div class="analysis-label">극단적 낮은 값</div>
+                                <div class="analysis-values">
+                                    <span class="extreme-low">3세</span>, <span class="extreme-low">3세</span>
+                                </div>
+                                <div class="analysis-desc">현실적으로 불가능한 값</div>
+                            </div>
+
+                            <div class="analysis-item">
+                                <div class="analysis-label">의심되는 낮은 값</div>
+                                <div class="analysis-values">
+                                    <span class="low-value">20세</span>, <span class="low-value">25세</span>, <span class="low-value">26세</span>
+                                </div>
+                                <div class="analysis-desc">가능하지만 낮은 추측</div>
+                            </div>
+
+                            <div class="analysis-item">
+                                <div class="analysis-label">의심되는 높은 값</div>
+                                <div class="analysis-values">
+                                    <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span>
+                                </div>
+                                <div class="analysis-desc">높은 추측이지만 가능성 있음</div>
+                            </div>
+
+                            <div class="analysis-item">
+                                <div class="analysis-label">극단적 높은 값</div>
+                                <div class="analysis-values">
+                                    <span class="extreme-high">99,999,999세</span>, <span class="extreme-high">99,999,999,999세</span>
+                                </div>
+                                <div class="analysis-desc">장난이나 오류로 의심되는 값</div>
+                            </div>
+                        </div>
                     </div>
                     <p style="text-align: center; margin-top: 15px; color: #666;">
                         <strong>총 115개 데이터</strong> | <span style="color: #e74c3c;">빨간색: 의심되는 극단값</span>
@@ -514,10 +778,35 @@
                 </div>
 
                 <div class="result-box">
-                    <h3>📈 원본 데이터 통계</h3>
-                    <div class="stat-value">평균: 약 2,900만세 (왜곡됨)</div>
-                    <div class="stat-value">표준편차: 약 1,300만세 (왜곡됨)</div>
-                    <p>99억세 같은 극단값이 포함되어 있어 통계가 완전히 왜곡됨</p>
+                    <h3>📈 데이터 통계 비교</h3>
+
+                    <div class="stat-comparison">
+                        <div class="stat-group">
+                            <h4>🔴 원본 데이터 (왜곡됨)</h4>
+                            <div class="stat-value">평균: 약 2,900만세</div>
+                            <div class="stat-value">표준편차: 약 1,300만세</div>
+                            <div class="stat-value">중앙값: 31세</div>
+                            <p class="stat-desc">극단치(99억세 등)로 인해 평균이 완전히 왜곡됨</p>
+                        </div>
+
+                        <div class="stat-group">
+                            <h4>✅ 정상 범위 데이터 (26-38세)</h4>
+                            <div class="stat-value">평균: 약 31.8세</div>
+                            <div class="stat-value">표준편차: 약 3.2세</div>
+                            <div class="stat-value">중앙값: 32세</div>
+                            <p class="stat-desc">합리적인 추측 범위의 데이터만 포함</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-insight">
+                        <h4>💡 통계적 통찰</h4>
+                        <ul>
+                            <li><strong>평균 왜곡:</strong> 99억세 같은 값 2개가 전체 평균을 2,900만세로 끌어올림</li>
+                            <li><strong>표준편차 영향:</strong> 극단치로 인해 변동성이 매우 크게 나타남</li>
+                            <li><strong>중앙값 안정성:</strong> 중앙값은 극단치 영향이 적어 31-32세로 합리적</li>
+                            <li><strong>데이터 신뢰성:</strong> 103개 정상 데이터 vs 12개 이상치 데이터</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -530,17 +819,45 @@
                         Q1(25%) = 29세, Q3(75%) = 33세, IQR = 4세<br>
                         이상치 기준: Q1 - 1.5×IQR = 23세 미만, Q3 + 1.5×IQR = 39세 초과
                     </div>
-                    <p><strong>결과:</strong> 20, 57, 58, 65, 84, 84세 = 이상치 (6개)</p>
+                    <div class="iqr-results">
+                        <p><strong>🔴 극단적 이상치:</strong> <span class="extreme-low">3세</span>, <span class="extreme-low">3세</span>, <span class="extreme-high">99,999,999세</span>, <span class="extreme-high">99,999,999,999세</span></p>
+                        <p><strong>🟠 중간 이상치:</strong> <span class="low-value">20세</span>, <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span></p>
+                    </div>
                 </div>
 
                 <div class="method-explanation">
-                    <h4>📊 Z-score 방법</h4>
+                    <h4>📊 Z-score 방법 (정상 데이터만 기준)</h4>
                     <div class="calculation-box">
-                        Z = (개별값 - 평균) ÷ 표준편차<br>
-                        |Z| > 2: 약 5%에 해당, |Z| > 3: 약 0.3%에 해당
+                        정상 범위 데이터 (3세, 20세, 99억세 등 제외)의 평균과 표준편차 사용<br>
+                        정상 데이터 평균 ≈ 31.8세, 표준편차 ≈ 3.2세
                     </div>
-                    <p><strong>Z-score > 2 결과:</strong> 57, 58, 65, 84, 84세 (5개)</p>
-                    <p><strong>Z-score > 3 결과:</strong> 65, 84, 84세 (3개)</p>
+                    <div class="zscore-results">
+                        <p><strong>Z-score > 2:</strong> <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span> (5개)</p>
+                        <p><strong>Z-score > 3:</strong> <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span> (3개)</p>
+                    </div>
+                </div>
+
+                <div class="method-explanation">
+                    <h4>🎯 통합 분석 결과</h4>
+                    <div class="integrated-results">
+                        <div class="result-category">
+                            <h5>🚫 제거 권장 (극단적 이상치)</h5>
+                            <p><span class="extreme-low">3세, 3세</span> + <span class="extreme-high">99,999,999세, 99,999,999,999세</span></p>
+                            <p class="result-desc">현실적으로 불가능하거나 장난으로 의심되는 값</p>
+                        </div>
+
+                        <div class="result-category">
+                            <h5>⚠️ 검토 필요 (중간 이상치)</h5>
+                            <p><span class="low-value">20세</span> + <span class="high-value">57세, 58세, 65세, 84세, 84세</span></p>
+                            <p class="result-desc">가능성이 있지만 평균을 왜곡시키는 값들</p>
+                        </div>
+
+                        <div class="result-category">
+                            <h5>✅ 정상 범위</h5>
+                            <p>26세 ~ 38세 (총 103개)</p>
+                            <p class="result-desc">합리적인 추측 범위의 값들</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
