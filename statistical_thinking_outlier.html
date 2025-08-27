@@ -2419,7 +2419,7 @@
                                                     <div class="stat-value">31.5세</div>
                                                 </div>
                                                 <div class="stat-item">
-                                                    <div class="stat-label">반복 후 표준편차 (s*)</div>
+                                                    <div class="stat-label">반복 후 표준편차 (σ*)</div>
                                                     <div class="stat-value">3.0세</div>
                                                 </div>
                                             </div>
@@ -2477,20 +2477,20 @@
                                         <div class="step-content">
                                             <div class="example-calc">
                                                 <div class="example-item">
-                                                    <div class="example-label">반복 0단계 (m0, s0):</div>
-                                                    <div class="example-formula">m0 ≈ 9,000, s0 ≈ 42,000</div>
+                                                    <div class="example-label">반복 0단계 (m0, σ0):</div>
+                                                    <div class="example-formula">m0 ≈ 9,000, σ0 ≈ 42,000</div>
                                                     <div class="example-result">제거: 99999999, 99999999999 (2개)</div>
                                                     <div class="example-desc">초기에는 초대형 값만 제거</div>
                                                 </div>
                                                 <div class="example-item">
-                                                    <div class="example-label">반복 1단계 (m1, s1):</div>
-                                                    <div class="example-formula">m1 ≈ 31.5, s1 ≈ 3.0</div>
+                                                    <div class="example-label">반복 1단계 (m1, σ1):</div>
+                                                    <div class="example-formula">m1 ≈ 31.5, σ1 ≈ 3.0</div>
                                                     <div class="example-result">제거: 3, 3, 20, 57, 58, 65, 84, 84 (8개)</div>
                                                     <div class="example-desc">|Z| > 3 기준으로 낮은/높은 값 제거</div>
                                                 </div>
                                                 <div class="example-item">
                                                     <div class="example-label">반복 2단계 (수렴):</div>
-                                                    <div class="example-formula">m* ≈ 31.5, s* ≈ 3.0, n = 105</div>
+                                                    <div class="example-formula">m* ≈ 31.5, σ* ≈ 3.0, n = 105</div>
                                                     <div class="example-result">추가 제거 없음</div>
                                                     <div class="example-desc">반복 종료 (수렴)</div>
                                                 </div>
@@ -2528,7 +2528,7 @@
                                     </ul>
                                     <p><strong>최종 제거(반복형, 10개):</strong> 3세, 3세, 20세, 57세, 58세, 65세, 84세, 84세, 99999999세, 99999999999세</p>
                                     <p style="font-size: 0.85em; color: #8b5a3c; margin-top: 10px;">
-                                        <strong>💡 참고:</strong> 원본 m, s로 시작해 제거 시마다 m, s를 갱신하여 수렴할 때까지 반복합니다.
+                                        <strong>💡 참고:</strong> 원본 m, σ로 시작해 제거 시마다 m, σ를 갱신하여 수렴할 때까지 반복합니다.
                                     </p>
                                     
                                     <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #3498db;">
