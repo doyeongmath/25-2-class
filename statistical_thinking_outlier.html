@@ -1143,37 +1143,50 @@
             }
 
             .summary-table {
-                grid-template-columns: 1fr;
-                gap: 1px;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
             }
 
-            .summary-row {
-                grid-template-columns: 1fr;
+            .summary-table thead,
+            .summary-table tbody,
+            .summary-table th,
+            .summary-table td,
+            .summary-table tr {
+                display: block;
             }
 
-            .summary-cell {
-                display: flex;
-                justify-content: space-between;
-                padding: 12px 16px;
-                font-size: 0.9em;
+            .summary-table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
             }
 
-            .summary-cell.criteria {
-                background: rgba(255,255,255,0.3);
+            .summary-table tr {
+                border: 1px solid rgba(255,255,255,0.2);
+                margin-bottom: 10px;
+                border-radius: 8px;
+                background: rgba(255,255,255,0.1);
+                padding: 10px;
+            }
+
+            .summary-table td {
+                border: none;
+                position: relative;
+                padding: 8px 15px 8px 50%;
+                text-align: left;
+                white-space: nowrap;
+            }
+
+            .summary-table td:before {
+                content: attr(data-label) ": ";
+                position: absolute;
+                left: 15px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
                 font-weight: 600;
-            }
-
-            .summary-cell.criteria::after {
-                content: ":";
-                margin-left: 8px;
-            }
-
-            .summary-cell:not(.criteria) {
-                background: rgba(255,255,255,0.12);
-            }
-
-            .summary-row:nth-child(even) .summary-cell:not(.criteria) {
-                background: rgba(255,255,255,0.08);
+                color: #ffd700;
             }
         }
 
@@ -1784,50 +1797,66 @@
                     <p style="text-align: center; color: rgba(255,255,255,0.9); font-size: 1em; margin-bottom: 15px; font-weight: 300;">
                         세 가지 방법으로 처리한 결과를 표로 정리했어요
                     </p>
-                    <div class="summary-table">
-                        <div class="summary-row">
-                            <div class="summary-cell criteria">비교 항목</div>
-                            <div class="summary-cell">원본 그대로</div>
-                            <div class="summary-cell">IQR로 처리</div>
-                            <div class="summary-cell">Z-score로 처리</div>
-                        </div>
-                        <div class="summary-row">
-                            <div class="summary-cell criteria">남은 데이터 개수</div>
-                            <div class="summary-cell">115개 (전체)</div>
-                            <div class="summary-cell">103개 (12개 제거)</div>
-                            <div class="summary-cell">103개 (12개 제거)</div>
-                        </div>
-                        <div class="summary-row">
-                            <div class="summary-cell criteria">평균 나이</div>
-                            <div class="summary-cell">약 9,000세 😵</div>
-                            <div class="summary-cell">약 31.2세 😊</div>
-                            <div class="summary-cell">약 31.4세 😊</div>
-                        </div>
-                        <div class="summary-row">
-                            <div class="summary-cell criteria">표준편차</div>
-                            <div class="summary-cell">약 42,000세</div>
-                            <div class="summary-cell">약 3.2세</div>
-                            <div class="summary-cell">약 4.1세</div>
-                        </div>
-                        <div class="summary-row">
-                            <div class="summary-cell criteria">결과 신뢰성</div>
-                            <div class="summary-cell">❌ 왜곡됨</div>
-                            <div class="summary-cell">✅ 현실적</div>
-                            <div class="summary-cell">✅ 현실적</div>
-                        </div>
-                        <div class="summary-row">
-                            <div class="summary-cell criteria">사용 난이도</div>
-                            <div class="summary-cell">⭐ 매우 쉬움</div>
-                            <div class="summary-cell">⭐⭐ 보통</div>
-                            <div class="summary-cell">⭐⭐⭐ 어려움</div>
-                        </div>
-                        <div class="summary-row">
-                            <div class="summary-cell criteria">추천도</div>
-                            <div class="summary-cell">🚫 비추천</div>
-                            <div class="summary-cell">👍 추천</div>
-                            <div class="summary-cell">👍 추천</div>
-                        </div>
-                    </div>
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>비교 항목</th>
+                                <th>원본 그대로</th>
+                                <th>IQR로 처리</th>
+                                <th>Z-score로 처리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="남은 데이터 개수">남은 데이터 개수</td>
+                                <td data-label="원본 그대로">115개 (전체)</td>
+                                <td data-label="IQR로 처리">103개 (12개 제거)</td>
+                                <td data-label="Z-score로 처리">103개 (12개 제거)</td>
+                            </tr>
+                            <tr>
+                                <td data-label="평균 나이">평균 나이</td>
+                                <td data-label="원본 그대로">약 9,000세 😵</td>
+                                <td data-label="IQR로 처리">약 31.2세 😊</td>
+                                <td data-label="Z-score로 처리">약 31.4세 😊</td>
+                            </tr>
+                            <tr>
+                                <td data-label="표준편차">표준편차</td>
+                                <td data-label="원본 그대로">약 42,000세</td>
+                                <td data-label="IQR로 처리">약 3.2세</td>
+                                <td data-label="Z-score로 처리">약 4.1세</td>
+                            </tr>
+                            <tr>
+                                <td data-label="결과 신뢰성">결과 신뢰성</td>
+                                <td data-label="원본 그대로">❌ 왜곡됨</td>
+                                <td data-label="IQR로 처리">✅ 현실적</td>
+                                <td data-label="Z-score로 처리">✅ 현실적</td>
+                            </tr>
+                            <tr>
+                                <td data-label="분포 적합성">분포 적합성</td>
+                                <td data-label="원본 그대로">-</td>
+                                <td data-label="IQR로 처리">✅ 비정규분포 OK</td>
+                                <td data-label="Z-score로 처리">⚠️ 정규분포 가정</td>
+                            </tr>
+                            <tr>
+                                <td data-label="극단값 민감도">극단값 민감도</td>
+                                <td data-label="원본 그대로">❌ 매우 높음</td>
+                                <td data-label="IQR로 처리">✅ 낮음 (안정적)</td>
+                                <td data-label="Z-score로 처리">❌ 높음</td>
+                            </tr>
+                            <tr>
+                                <td data-label="사용 난이도">사용 난이도</td>
+                                <td data-label="원본 그대로">⭐ 매우 쉬움</td>
+                                <td data-label="IQR로 처리">⭐⭐ 보통</td>
+                                <td data-label="Z-score로 처리">⭐⭐⭐ 어려움</td>
+                            </tr>
+                            <tr>
+                                <td data-label="추천도">추천도</td>
+                                <td data-label="원본 그대로">🚫 비추천</td>
+                                <td data-label="IQR로 처리">👍 강력 추천</td>
+                                <td data-label="Z-score로 처리">👍 조건부 추천</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
