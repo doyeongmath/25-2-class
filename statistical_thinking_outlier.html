@@ -642,10 +642,7 @@
 
         <nav class="nav-tabs" role="navigation" aria-label="메인 네비게이션">
             <button class="nav-tab active" data-tab="debate" aria-selected="true" aria-controls="debate" id="tab-debate">
-                🤔 토론 (시작)
-            </button>
-            <button class="nav-tab" data-tab="analysis" aria-selected="false" aria-controls="analysis" id="tab-analysis">
-                📊 통계 분석
+                🤔 토론 & 분석
             </button>
             <button class="nav-tab" data-tab="comparison" aria-selected="false" aria-controls="comparison" id="tab-comparison">
                 ⚖️ 방법 비교
@@ -745,232 +742,233 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 통계 분석 섹션 추가 -->
+                <div class="section">
+                    <h2>📊 원본 데이터 현황</h2>
+                    <div class="data-display">
+                        <h3>🎯 평균 맞히기 게임 결과 - 선생님 나이 추측 (115명 응답)</h3>
+                        <!-- 📊 정렬된 데이터 표시 (오름차순) -->
+                        <div class="sorted-data-container">
+                            <h4>🔢 크기 순서대로 정렬된 데이터</h4>
+                            <div class="data-grid sorted">
+                                <!-- 극단적 낮은 값 -->
+                                <div class="data-item extreme-low">3</div>
+                                <div class="data-item extreme-low">3</div>
+
+                                <!-- 낮은 값 -->
+                                <div class="data-item low-value">20</div>
+                                <div class="data-item low-value">25</div>
+                                <div class="data-item low-value">26</div>
+
+                                <!-- 정상 범위 값들 -->
+                                <div class="data-item normal">27</div>
+                                <div class="data-item normal">27</div>
+                                <div class="data-item normal">27</div>
+                                <div class="data-item normal">27</div>
+                                <div class="data-item normal">27</div>
+                                <div class="data-item normal">28</div>
+                                <div class="data-item normal">28</div>
+                                <div class="data-item normal">28</div>
+                                <div class="data-item normal">28</div>
+                                <div class="data-item normal">28</div>
+                                <div class="data-item normal">28</div>
+                                <div class="data-item normal">28</div>
+                                <div class="data-item normal">29</div>
+                                <div class="data-item normal">29</div>
+                                <div class="data-item normal">29</div>
+                                <div class="data-item normal">29</div>
+                                <div class="data-item normal">29</div>
+                                <div class="data-item normal">29</div>
+                                <div class="data-item normal">29</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">30</div>
+                                <div class="data-item normal">31</div>
+                                <div class="data-item normal">31</div>
+                                <div class="data-item normal">31</div>
+                                <div class="data-item normal">31</div>
+                                <div class="data-item normal">31</div>
+                                <div class="data-item normal">31</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">32</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">33</div>
+                                <div class="data-item normal">34</div>
+                                <div class="data-item normal">34</div>
+                                <div class="data-item normal">34</div>
+                                <div class="data-item normal">34</div>
+                                <div class="data-item normal">34.5</div>
+                                <div class="data-item normal">35</div>
+                                <div class="data-item normal">35</div>
+                                <div class="data-item normal">35</div>
+                                <div class="data-item normal">35</div>
+                                <div class="data-item normal">36</div>
+                                <div class="data-item normal">37</div>
+                                <div class="data-item normal">37</div>
+                                <div class="data-item normal">38</div>
+
+                                <!-- 높은 값 -->
+                                <div class="data-item high-value">57</div>
+                                <div class="data-item high-value">58</div>
+                                <div class="data-item high-value">65</div>
+                                <div class="data-item high-value">84</div>
+                                <div class="data-item high-value">84</div>
+
+                                <!-- 극단적 높은 값 -->
+                                <div class="data-item extreme-high">99,999,999세</div>
+                                <div class="data-item extreme-high">99,999,999,999세</div>
+                            </div>
+                        </div>
+
+                        <!-- 📋 이상치 분석 결과 -->
+                        <div class="outlier-analysis">
+                            <h4>🎯 이상치 분석 결과</h4>
+                            <div class="analysis-grid">
+                                <div class="analysis-item">
+                                    <div class="analysis-label">극단적 낮은 값</div>
+                                    <div class="analysis-values">
+                                        <span class="extreme-low">3세</span>, <span class="extreme-low">3세</span>
+                                    </div>
+                                    <div class="analysis-desc">현실적으로 불가능한 값</div>
+                                </div>
+
+                                <div class="analysis-item">
+                                    <div class="analysis-label">의심되는 낮은 값</div>
+                                    <div class="analysis-values">
+                                        <span class="low-value">20세</span>, <span class="low-value">25세</span>, <span class="low-value">26세</span>
+                                    </div>
+                                    <div class="analysis-desc">가능하지만 낮은 추측</div>
+                                </div>
+
+                                <div class="analysis-item">
+                                    <div class="analysis-label">의심되는 높은 값</div>
+                                    <div class="analysis-values">
+                                        <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span>
+                                    </div>
+                                    <div class="analysis-desc">높은 추측이지만 가능성 있음</div>
+                                </div>
+
+                                <div class="analysis-item">
+                                    <div class="analysis-label">극단적 높은 값</div>
+                                    <div class="analysis-values">
+                                        <span class="extreme-high">99,999,999세</span>, <span class="extreme-high">99,999,999,999세</span>
+                                    </div>
+                                    <div class="analysis-desc">장난이나 오류로 의심되는 값</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 15px; color: #666;">
+                            <strong>총 115개 데이터</strong> | <span style="color: #e74c3c;">빨간색: 의심되는 극단값</span>
+                        </p>
+                    </div>
+
+                    <div class="result-box">
+                        <h3>📈 데이터 통계 비교</h3>
+
+                        <div class="stat-comparison">
+                            <div class="stat-group">
+                                <h4>🔴 원본 데이터 (왜곡됨)</h4>
+                                <div class="stat-value">평균: 약 2,900만세</div>
+                                <div class="stat-value">표준편차: 약 1,300만세</div>
+                                <div class="stat-value">중앙값: 31세</div>
+                                <p class="stat-desc">극단치(99억세 등)로 인해 평균이 완전히 왜곡됨</p>
+                            </div>
+
+                            <div class="stat-group">
+                                <h4>✅ 정상 범위 데이터 (26-38세)</h4>
+                                <div class="stat-value">평균: 약 31.8세</div>
+                                <div class="stat-value">표준편차: 약 3.2세</div>
+                                <div class="stat-value">중앙값: 32세</div>
+                                <p class="stat-desc">합리적인 추측 범위의 데이터만 포함</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-insight">
+                            <h4>💡 통계적 통찰</h4>
+                            <ul>
+                                <li><strong>평균 왜곡:</strong> 99억세 같은 값 2개가 전체 평균을 2,900만세로 끌어올림</li>
+                                <li><strong>표준편차 영향:</strong> 극단치로 인해 변동성이 매우 크게 나타남</li>
+                                <li><strong>중앙값 안정성:</strong> 중앙값은 극단치 영향이 적어 31-32세로 합리적</li>
+                                <li><strong>데이터 신뢰성:</strong> 103개 정상 데이터 vs 12개 이상치 데이터</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2>🔍 이상치 찾는 방법들</h2>
+
+                        <div class="method-explanation">
+                            <h4>📐 IQR (사분위 범위) 방법</h4>
+                            <div class="calculation-box">
+                                Q1(25%) = 29세, Q3(75%) = 33세, IQR = 4세<br>
+                                이상치 기준: Q1 - 1.5×IQR = 23세 미만, Q3 + 1.5×IQR = 39세 초과
+                            </div>
+                            <div class="iqr-results">
+                                <p><strong>🔴 극단적 이상치:</strong> <span class="extreme-low">3세</span>, <span class="extreme-low">3세</span>, <span class="extreme-high">99,999,999세</span>, <span class="extreme-high">99,999,999,999세</span></p>
+                                <p><strong>🟠 중간 이상치:</strong> <span class="low-value">20세</span>, <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span></p>
+                            </div>
+                        </div>
+
+                        <div class="method-explanation">
+                            <h4>📊 Z-score 방법 (정상 데이터만 기준)</h4>
+                            <div class="calculation-box">
+                                정상 범위 데이터 (3세, 20세, 99억세 등 제외)의 평균과 표준편차 사용<br>
+                                정상 데이터 평균 ≈ 31.8세, 표준편차 ≈ 3.2세
+                            </div>
+                            <div class="zscore-results">
+                                <p><strong>Z-score > 2:</strong> <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span> (5개)</p>
+                                <p><strong>Z-score > 3:</strong> <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span> (3개)</p>
+                            </div>
+                        </div>
+
+                        <div class="method-explanation">
+                            <h4>🎯 통합 분석 결과</h4>
+                            <div class="integrated-results">
+                                <div class="result-category">
+                                    <h5>🚫 제거 권장 (극단적 이상치)</h5>
+                                    <p><span class="extreme-low">3세, 3세</span> + <span class="extreme-high">99,999,999세, 99,999,999,999세</span></p>
+                                    <p class="result-desc">현실적으로 불가능하거나 장난으로 의심되는 값</p>
+                                </div>
+
+                                <div class="result-category">
+                                    <h5>⚠️ 검토 필요 (중간 이상치)</h5>
+                                    <p><span class="low-value">20세</span> + <span class="high-value">57세, 58세, 65세, 84세, 84세</span></p>
+                                    <p class="result-desc">가능성이 있지만 평균을 왜곡시키는 값들</p>
+                                </div>
+
+                                <div class="result-category">
+                                    <h5>✅ 정상 범위</h5>
+                                    <p>26세 ~ 38세 (총 103개)</p>
+                                    <p class="result-desc">합리적인 추측 범위의 값들</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-            <!-- 통계 분석 탭 -->
-            <div id="analysis" class="tab-content" role="tabpanel" aria-labelledby="tab-analysis">
-            <div class="section">
-                <h2>📊 원본 데이터 현황</h2>
-                <div class="data-display">
-                    <h3>🎯 평균 맞히기 게임 결과 - 선생님 나이 추측 (115명 응답)</h3>
-                    <!-- 📊 정렬된 데이터 표시 (오름차순) -->
-                    <div class="sorted-data-container">
-                        <h4>🔢 크기 순서대로 정렬된 데이터</h4>
-                        <div class="data-grid sorted">
-                            <!-- 극단적 낮은 값 -->
-                            <div class="data-item extreme-low">3</div>
-                            <div class="data-item extreme-low">3</div>
 
-                            <!-- 낮은 값 -->
-                            <div class="data-item low-value">20</div>
-                            <div class="data-item low-value">25</div>
-                            <div class="data-item low-value">26</div>
 
-                            <!-- 정상 범위 값들 -->
-                            <div class="data-item normal">27</div>
-                            <div class="data-item normal">27</div>
-                            <div class="data-item normal">27</div>
-                            <div class="data-item normal">27</div>
-                            <div class="data-item normal">27</div>
-                            <div class="data-item normal">28</div>
-                            <div class="data-item normal">28</div>
-                            <div class="data-item normal">28</div>
-                            <div class="data-item normal">28</div>
-                            <div class="data-item normal">28</div>
-                            <div class="data-item normal">28</div>
-                            <div class="data-item normal">28</div>
-                            <div class="data-item normal">29</div>
-                            <div class="data-item normal">29</div>
-                            <div class="data-item normal">29</div>
-                            <div class="data-item normal">29</div>
-                            <div class="data-item normal">29</div>
-                            <div class="data-item normal">29</div>
-                            <div class="data-item normal">29</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">30</div>
-                            <div class="data-item normal">31</div>
-                            <div class="data-item normal">31</div>
-                            <div class="data-item normal">31</div>
-                            <div class="data-item normal">31</div>
-                            <div class="data-item normal">31</div>
-                            <div class="data-item normal">31</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">32</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">33</div>
-                            <div class="data-item normal">34</div>
-                            <div class="data-item normal">34</div>
-                            <div class="data-item normal">34</div>
-                            <div class="data-item normal">34</div>
-                            <div class="data-item normal">34.5</div>
-                            <div class="data-item normal">35</div>
-                            <div class="data-item normal">35</div>
-                            <div class="data-item normal">35</div>
-                            <div class="data-item normal">35</div>
-                            <div class="data-item normal">36</div>
-                            <div class="data-item normal">37</div>
-                            <div class="data-item normal">37</div>
-                            <div class="data-item normal">38</div>
-
-                            <!-- 높은 값 -->
-                            <div class="data-item high-value">57</div>
-                            <div class="data-item high-value">58</div>
-                            <div class="data-item high-value">65</div>
-                            <div class="data-item high-value">84</div>
-                            <div class="data-item high-value">84</div>
-
-                            <!-- 극단적 높은 값 -->
-                            <div class="data-item extreme-high">99,999,999세</div>
-                            <div class="data-item extreme-high">99,999,999,999세</div>
-                        </div>
-                    </div>
-
-                    <!-- 📋 이상치 분석 결과 -->
-                    <div class="outlier-analysis">
-                        <h4>🎯 이상치 분석 결과</h4>
-                        <div class="analysis-grid">
-                            <div class="analysis-item">
-                                <div class="analysis-label">극단적 낮은 값</div>
-                                <div class="analysis-values">
-                                    <span class="extreme-low">3세</span>, <span class="extreme-low">3세</span>
-                                </div>
-                                <div class="analysis-desc">현실적으로 불가능한 값</div>
-                            </div>
-
-                            <div class="analysis-item">
-                                <div class="analysis-label">의심되는 낮은 값</div>
-                                <div class="analysis-values">
-                                    <span class="low-value">20세</span>, <span class="low-value">25세</span>, <span class="low-value">26세</span>
-                                </div>
-                                <div class="analysis-desc">가능하지만 낮은 추측</div>
-                            </div>
-
-                            <div class="analysis-item">
-                                <div class="analysis-label">의심되는 높은 값</div>
-                                <div class="analysis-values">
-                                    <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span>
-                                </div>
-                                <div class="analysis-desc">높은 추측이지만 가능성 있음</div>
-                            </div>
-
-                            <div class="analysis-item">
-                                <div class="analysis-label">극단적 높은 값</div>
-                                <div class="analysis-values">
-                                    <span class="extreme-high">99,999,999세</span>, <span class="extreme-high">99,999,999,999세</span>
-                                </div>
-                                <div class="analysis-desc">장난이나 오류로 의심되는 값</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p style="text-align: center; margin-top: 15px; color: #666;">
-                        <strong>총 115개 데이터</strong> | <span style="color: #e74c3c;">빨간색: 의심되는 극단값</span>
-                    </p>
-                </div>
-
-                <div class="result-box">
-                    <h3>📈 데이터 통계 비교</h3>
-
-                    <div class="stat-comparison">
-                        <div class="stat-group">
-                            <h4>🔴 원본 데이터 (왜곡됨)</h4>
-                            <div class="stat-value">평균: 약 2,900만세</div>
-                            <div class="stat-value">표준편차: 약 1,300만세</div>
-                            <div class="stat-value">중앙값: 31세</div>
-                            <p class="stat-desc">극단치(99억세 등)로 인해 평균이 완전히 왜곡됨</p>
-                        </div>
-
-                        <div class="stat-group">
-                            <h4>✅ 정상 범위 데이터 (26-38세)</h4>
-                            <div class="stat-value">평균: 약 31.8세</div>
-                            <div class="stat-value">표준편차: 약 3.2세</div>
-                            <div class="stat-value">중앙값: 32세</div>
-                            <p class="stat-desc">합리적인 추측 범위의 데이터만 포함</p>
-                        </div>
-                    </div>
-
-                    <div class="stat-insight">
-                        <h4>💡 통계적 통찰</h4>
-                        <ul>
-                            <li><strong>평균 왜곡:</strong> 99억세 같은 값 2개가 전체 평균을 2,900만세로 끌어올림</li>
-                            <li><strong>표준편차 영향:</strong> 극단치로 인해 변동성이 매우 크게 나타남</li>
-                            <li><strong>중앙값 안정성:</strong> 중앙값은 극단치 영향이 적어 31-32세로 합리적</li>
-                            <li><strong>데이터 신뢰성:</strong> 103개 정상 데이터 vs 12개 이상치 데이터</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>🔍 이상치 찾는 방법들</h2>
-                
-                <div class="method-explanation">
-                    <h4>📐 IQR (사분위 범위) 방법</h4>
-                    <div class="calculation-box">
-                        Q1(25%) = 29세, Q3(75%) = 33세, IQR = 4세<br>
-                        이상치 기준: Q1 - 1.5×IQR = 23세 미만, Q3 + 1.5×IQR = 39세 초과
-                    </div>
-                    <div class="iqr-results">
-                        <p><strong>🔴 극단적 이상치:</strong> <span class="extreme-low">3세</span>, <span class="extreme-low">3세</span>, <span class="extreme-high">99,999,999세</span>, <span class="extreme-high">99,999,999,999세</span></p>
-                        <p><strong>🟠 중간 이상치:</strong> <span class="low-value">20세</span>, <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span></p>
-                    </div>
-                </div>
-
-                <div class="method-explanation">
-                    <h4>📊 Z-score 방법 (정상 데이터만 기준)</h4>
-                    <div class="calculation-box">
-                        정상 범위 데이터 (3세, 20세, 99억세 등 제외)의 평균과 표준편차 사용<br>
-                        정상 데이터 평균 ≈ 31.8세, 표준편차 ≈ 3.2세
-                    </div>
-                    <div class="zscore-results">
-                        <p><strong>Z-score > 2:</strong> <span class="high-value">57세</span>, <span class="high-value">58세</span>, <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span> (5개)</p>
-                        <p><strong>Z-score > 3:</strong> <span class="high-value">65세</span>, <span class="high-value">84세</span>, <span class="high-value">84세</span> (3개)</p>
-                    </div>
-                </div>
-
-                <div class="method-explanation">
-                    <h4>🎯 통합 분석 결과</h4>
-                    <div class="integrated-results">
-                        <div class="result-category">
-                            <h5>🚫 제거 권장 (극단적 이상치)</h5>
-                            <p><span class="extreme-low">3세, 3세</span> + <span class="extreme-high">99,999,999세, 99,999,999,999세</span></p>
-                            <p class="result-desc">현실적으로 불가능하거나 장난으로 의심되는 값</p>
-                        </div>
-
-                        <div class="result-category">
-                            <h5>⚠️ 검토 필요 (중간 이상치)</h5>
-                            <p><span class="low-value">20세</span> + <span class="high-value">57세, 58세, 65세, 84세, 84세</span></p>
-                            <p class="result-desc">가능성이 있지만 평균을 왜곡시키는 값들</p>
-                        </div>
-
-                        <div class="result-category">
-                            <h5>✅ 정상 범위</h5>
-                            <p>26세 ~ 38세 (총 103개)</p>
-                            <p class="result-desc">합리적인 추측 범위의 값들</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
             <!-- 방법 비교 탭 -->
             <div id="comparison" class="tab-content" role="tabpanel" aria-labelledby="tab-comparison">
