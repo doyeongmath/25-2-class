@@ -1681,6 +1681,97 @@
                 padding: 12px;
             }
         }
+
+        /* 🎯 방법 선택 탭 스타일 */
+        .method-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 8px;
+            margin: 30px 0;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .method-tab {
+            flex: 1;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #6c757d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .method-tab:hover::before {
+            opacity: 0.1;
+        }
+
+        .method-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .method-tab.active::before {
+            opacity: 1;
+        }
+
+        .method-content {
+            margin-top: 30px;
+        }
+
+        .method-panel {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .method-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 모바일 반응성 */
+        @media (max-width: 768px) {
+            .method-tabs {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .method-tab {
+                padding: 14px 16px;
+                font-size: 0.95em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1804,7 +1895,6 @@
                                 <div class="data-item raw-data">31</div>
                                 <div class="data-item raw-data">31</div>
                                 <div class="data-item raw-data">31</div>
-                                <div class="data-item raw-data">32</div>
                                 <div class="data-item raw-data">32</div>
                                 <div class="data-item raw-data">32</div>
                                 <div class="data-item raw-data">32</div>
@@ -3060,6 +3150,7 @@
             try {
                 initializeTabs();
                 initializeOutlierReveal();
+                initializeMethodTabs();
 
                 // 키보드 네비게이션 추가
                 document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -3189,6 +3280,29 @@
             }
         `;
         document.head.appendChild(style);
+
+        // 방법 탭 전환 기능
+        function initializeMethodTabs() {
+            const methodTabs = document.querySelectorAll('.method-tab');
+            const methodPanels = document.querySelectorAll('.method-panel');
+
+            methodTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetMethod = this.getAttribute('data-method');
+
+                    // 모든 탭 비활성화
+                    methodTabs.forEach(t => t.classList.remove('active'));
+                    methodPanels.forEach(p => p.classList.remove('active'));
+
+                    // 선택된 탭 활성화
+                    this.classList.add('active');
+                    const targetPanel = document.getElementById(targetMethod + '-panel');
+                    if (targetPanel) {
+                        targetPanel.classList.add('active');
+                    }
+                });
+            });
+        }
 
         // 성능 모니터링
         window.addEventListener('load', function() {
