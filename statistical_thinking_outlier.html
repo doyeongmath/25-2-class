@@ -937,44 +937,47 @@
             border-radius: 12px;
             margin: 24px 0;
             flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            display: grid;
+            grid-template-rows: auto 1fr auto 1fr;
+            gap: 10px;
         }
 
         .method-pros-cons h4 {
             font-size: 1.1em;
             font-weight: 600;
-            margin: 16px 0 12px 0;
+            margin: 0;
             display: flex;
             align-items: center;
         }
 
-        .method-pros-cons h4:first-child {
+        .method-pros-cons h4:nth-child(1) {
             color: #38a169;
         }
 
-        .method-pros-cons h4:first-child::before {
+        .method-pros-cons h4:nth-child(1)::before {
             content: '✅';
             margin-right: 8px;
         }
 
-        .method-pros-cons h4:last-child {
+        .method-pros-cons h4:nth-child(3) {
             color: #e53e3e;
         }
 
-        .method-pros-cons h4:last-child::before {
+        .method-pros-cons h4:nth-child(3)::before {
             content: '❌';
             margin-right: 8px;
         }
 
         .method-pros-cons ul {
-            margin: 12px 0;
+            margin: 0;
             padding-left: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .method-pros-cons li {
-            margin: 8px 0;
+            margin: 4px 0;
             font-size: 0.9em;
             line-height: 1.6;
             color: #4a5568;
