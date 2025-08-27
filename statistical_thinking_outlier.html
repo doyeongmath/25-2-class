@@ -16,6 +16,24 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* 성능 최적화 */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* 이미지 및 미디어 최적화 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 애니메이션 성능 최적화 */
+        .nav-tab, .data-item, .value-box {
+            transition: all 0.2s ease-in-out;
+            will-change: transform, background-color;
         }
 
         .container {
@@ -516,37 +534,130 @@
             line-height: 1.6;
         }
 
+        /* 모바일 반응성 개선 */
+        @media (max-width: 1024px) {
+            .container {
+                margin: 10px;
+                max-width: none;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .data-grid.sorted {
+                grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+                gap: 4px;
+            }
+        }
+
         @media (max-width: 768px) {
             .debate-sides {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
-            
+
             .nav-tabs {
                 flex-direction: column;
+                gap: 10px;
             }
-            
+
+            .nav-tab {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+
             .value-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .stat-comparison {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .section {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 5px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .data-grid.sorted {
+                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+                font-size: 0.8em;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .big-number {
+                font-size: 2.5em;
+            }
+        }
+
+        /* 터치 디바이스 최적화 */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-tab {
+                padding: 15px 20px;
+                min-height: 44px;
+            }
+
+            .data-item, .value-box {
+                min-height: 44px;
+                padding: 12px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <header class="header" role="banner">
             <h1>🧠 통계적 사고와 이상치 분석</h1>
             <p>데이터를 바라보는 새로운 관점 - 25-2반 확률과 통계</p>
-        </div>
+        </header>
 
-        <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab('debate')">🤔 토론 (시작)</button>
-            <button class="nav-tab" onclick="showTab('analysis')">📊 통계 분석</button>
-            <button class="nav-tab" onclick="showTab('comparison')">⚖️ 방법 비교</button>
-            <button class="nav-tab" onclick="showTab('conclusion')">🏁 결론</button>
-        </div>
+        <nav class="nav-tabs" role="navigation" aria-label="메인 네비게이션">
+            <button class="nav-tab active" data-tab="debate" aria-selected="true" aria-controls="debate" id="tab-debate">
+                🤔 토론 (시작)
+            </button>
+            <button class="nav-tab" data-tab="analysis" aria-selected="false" aria-controls="analysis" id="tab-analysis">
+                📊 통계 분석
+            </button>
+            <button class="nav-tab" data-tab="comparison" aria-selected="false" aria-controls="comparison" id="tab-comparison">
+                ⚖️ 방법 비교
+            </button>
+            <button class="nav-tab" data-tab="conclusion" aria-selected="false" aria-controls="conclusion" id="tab-conclusion">
+                🏁 결론
+            </button>
+        </nav>
 
-        <!-- 토론 탭 -->
-        <div id="debate" class="tab-content active">
+        <main role="main">
+            <!-- 토론 탭 -->
+            <div id="debate" class="tab-content active" role="tabpanel" aria-labelledby="tab-debate">
             <div class="section">
                 <h2>🤔 이상치 제거 토론</h2>
                 
@@ -638,8 +749,8 @@
             </div>
         </div>
 
-        <!-- 통계 분석 탭 -->
-        <div id="analysis" class="tab-content">
+            <!-- 통계 분석 탭 -->
+            <div id="analysis" class="tab-content" role="tabpanel" aria-labelledby="tab-analysis">
             <div class="section">
                 <h2>📊 원본 데이터 현황</h2>
                 <div class="data-display">
@@ -730,8 +841,8 @@
                             <div class="data-item high-value">84</div>
 
                             <!-- 극단적 높은 값 -->
-                            <div class="data-item extreme-high">99,999,999</div>
-                            <div class="data-item extreme-high">99,999,999,999</div>
+                            <div class="data-item extreme-high">99,999,999세</div>
+                            <div class="data-item extreme-high">99,999,999,999세</div>
                         </div>
                     </div>
 
@@ -862,8 +973,8 @@
             </div>
         </div>
 
-        <!-- 방법 비교 탭 -->
-        <div id="comparison" class="tab-content">
+            <!-- 방법 비교 탭 -->
+            <div id="comparison" class="tab-content" role="tabpanel" aria-labelledby="tab-comparison">
             <div class="section">
                 <h2>⚖️ 방법별 결과 비교</h2>
                 
@@ -895,8 +1006,8 @@
             </div>
         </div>
 
-        <!-- 결론 탭 -->
-        <div id="conclusion" class="tab-content">
+            <!-- 결론 탭 -->
+            <div id="conclusion" class="tab-content" role="tabpanel" aria-labelledby="tab-conclusion">
             <div class="conclusion-box">
                 <h3>🏁 최종 결론과 권장사항</h3>
                 
@@ -939,28 +1050,108 @@
                 </div>
             </div>
         </div>
+        </main>
     </div>
 
     <script>
-        function showTab(tabName) {
-            // 모든 탭 내용 숨기기
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // 모든 탭 버튼 비활성화
+        // 탭 전환 기능 개선
+        function initializeTabs() {
             const navTabs = document.querySelectorAll('.nav-tab');
+
             navTabs.forEach(tab => {
-                tab.classList.remove('active');
+                tab.addEventListener('click', function(e) {
+                    const targetTab = e.target.getAttribute('data-tab');
+
+                    try {
+                        // 모든 탭 내용 숨기기
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+
+                        // 모든 탭 버튼 비활성화
+                        document.querySelectorAll('.nav-tab').forEach(tab => {
+                            tab.classList.remove('active');
+                            tab.setAttribute('aria-selected', 'false');
+                        });
+
+                        // 선택된 탭 내용 보이기
+                        const targetElement = document.getElementById(targetTab);
+                        if (targetElement) {
+                            targetElement.classList.add('active');
+
+                            // 선택된 탭 버튼 활성화
+                            e.target.classList.add('active');
+                            e.target.setAttribute('aria-selected', 'true');
+
+                            // 부드러운 스크롤 (선택사항)
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        } else {
+                            handleTabError(targetTab);
+                        }
+
+                    } catch (error) {
+                        console.error(`탭 전환 중 오류 발생 (${targetTab}):`, error);
+                        handleTabError(targetTab);
+                    }
+                });
             });
-            
-            // 선택된 탭 내용 보이기
-            document.getElementById(tabName).classList.add('active');
-            
-            // 선택된 탭 버튼 활성화
-            event.target.classList.add('active');
         }
+
+        // 키보드 네비게이션 지원
+        function handleKeyboardNavigation(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.target.click();
+            }
+        }
+
+        // 오류 처리 및 사용자 경험 개선
+        function handleTabError(targetTab) {
+            console.warn(`탭 "${targetTab}"을 찾을 수 없습니다.`);
+            // 폴백: 첫 번째 탭으로 이동
+            const firstTab = document.querySelector('.tab-content');
+            if (firstTab) {
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                firstTab.classList.add('active');
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                initializeTabs();
+
+                // 키보드 네비게이션 추가
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.addEventListener('keydown', handleKeyboardNavigation);
+                });
+
+                console.log('통계적 사고와 이상치 분석 페이지가 성공적으로 로드되었습니다.');
+
+            } catch (error) {
+                console.error('페이지 초기화 중 오류 발생:', error);
+            }
+        });
+
+        // 성능 모니터링
+        window.addEventListener('load', function() {
+            // 로딩 시간 측정
+            const loadTime = performance.now();
+            console.log(`페이지 로딩 시간: ${loadTime.toFixed(2)}ms`);
+
+            // 메모리 사용량 확인 (개발자 도구에서만)
+            if (performance.memory) {
+                console.log('메모리 사용량:', {
+                    used: Math.round(performance.memory.usedJSHeapSize / 1048576) + 'MB',
+                    total: Math.round(performance.memory.totalJSHeapSize / 1048576) + 'MB'
+                });
+            }
+        });
     </script>
 </body>
 </html>
