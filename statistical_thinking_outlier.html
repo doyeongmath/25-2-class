@@ -2098,6 +2098,9 @@
                     <button class="method-tab" data-method="zscore">
                         📈 Z-score 방법
                     </button>
+                    <button class="method-tab" data-method="summary">
+                        🧾 한눈에 비교
+                    </button>
                 </div>
 
                 <!-- 방법별 상세 내용 -->
@@ -2485,72 +2488,74 @@
                     </div>
                 </div>
 
-                <!-- 한눈에 보는 결과 비교 -->
-                <div class="method-summary">
-                    <h3>📊 한눈에 보는 결과 비교</h3>
-                    <p style="text-align: center; color: rgba(255,255,255,0.9); font-size: 1em; margin-bottom: 15px; font-weight: 300;">
-                        세 가지 방법으로 처리한 결과를 표로 정리했어요
-                    </p>
-                    <table class="summary-table">
-                        <thead>
-                            <tr>
-                                <th>비교 항목</th>
-                                <th>원본 그대로</th>
-                                <th>IQR로 처리</th>
-                                <th>Z-score로 처리</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td data-label="남은 데이터 개수">남은 데이터 개수</td>
-                                <td data-label="원본 그대로">115개 (전체)</td>
-                                <td data-label="IQR로 처리">105개 (10개 제거)</td>
-                                <td data-label="Z-score로 처리">105개 (10개 제거)</td>
-                            </tr>
-                            <tr>
-                                <td data-label="평균 나이">평균 나이</td>
-                                <td data-label="원본 그대로">약 8.7억세 😵</td>
-                                <td data-label="IQR로 처리">약 31.5세 😊</td>
-                                <td data-label="Z-score로 처리">약 31.5세 😊</td>
-                            </tr>
-                            <tr>
-                                <td data-label="표준편차">표준편차</td>
-                                <td data-label="원본 그대로">약 42,000세</td>
-                                <td data-label="IQR로 처리">약 3.0세</td>
-                                <td data-label="Z-score로 처리">약 3.0세</td>
-                            </tr>
-                            <tr>
-                                <td data-label="결과 신뢰성">결과 신뢰성</td>
-                                <td data-label="원본 그대로">❌ 왜곡됨</td>
-                                <td data-label="IQR로 처리">✅ 현실적</td>
-                                <td data-label="Z-score로 처리">✅ 현실적</td>
-                            </tr>
-                            <tr>
-                                <td data-label="분포 적합성">분포 적합성</td>
-                                <td data-label="원본 그대로">-</td>
-                                <td data-label="IQR로 처리">✅ 비정규분포 OK</td>
-                                <td data-label="Z-score로 처리">⚠️ 정규분포 가정</td>
-                            </tr>
-                            <tr>
-                                <td data-label="극단값 민감도">극단값 민감도</td>
-                                <td data-label="원본 그대로">❌ 매우 높음</td>
-                                <td data-label="IQR로 처리">✅ 낮음 (안정적)</td>
-                                <td data-label="Z-score로 처리">❌ 높음</td>
-                            </tr>
-                            <tr>
-                                <td data-label="사용 난이도">사용 난이도</td>
-                                <td data-label="원본 그대로">⭐ 매우 쉬움</td>
-                                <td data-label="IQR로 처리">⭐⭐ 보통</td>
-                                <td data-label="Z-score로 처리">⭐⭐⭐ 어려움</td>
-                            </tr>
-                            <tr>
-                                <td data-label="추천도">추천도</td>
-                                <td data-label="원본 그대로">🚫 비추천</td>
-                                <td data-label="IQR로 처리">👍 강력 추천</td>
-                                <td data-label="Z-score로 처리">👍 조건부 추천</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- 한눈에 보는 결과 비교: 별도 방법 탭으로 분리 -->
+                <div class="method-panel" id="summary-panel">
+                    <div class="method-card">
+                        <h3>📊 한눈에 보는 결과 비교</h3>
+                        <p style="text-align: center; color: rgba(255,255,255,0.9); font-size: 1em; margin-bottom: 15px; font-weight: 300;">
+                            세 가지 방법으로 처리한 결과를 표로 정리했어요
+                        </p>
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th>비교 항목</th>
+                                    <th>원본 그대로</th>
+                                    <th>IQR로 처리</th>
+                                    <th>Z-score로 처리</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="남은 데이터 개수">남은 데이터 개수</td>
+                                    <td data-label="원본 그대로">115개 (전체)</td>
+                                    <td data-label="IQR로 처리">105개 (10개 제거)</td>
+                                    <td data-label="Z-score로 처리">105개 (10개 제거)</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="평균 나이">평균 나이</td>
+                                    <td data-label="원본 그대로">약 8.7억세 😵</td>
+                                    <td data-label="IQR로 처리">약 31.5세 😊</td>
+                                    <td data-label="Z-score로 처리">약 31.5세 😊</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="표준편차">표준편차</td>
+                                    <td data-label="원본 그대로">약 42,000세</td>
+                                    <td data-label="IQR로 처리">약 3.0세</td>
+                                    <td data-label="Z-score로 처리">약 3.0세</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="결과 신뢰성">결과 신뢰성</td>
+                                    <td data-label="원본 그대로">❌ 왜곡됨</td>
+                                    <td data-label="IQR로 처리">✅ 현실적</td>
+                                    <td data-label="Z-score로 처리">✅ 현실적</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="분포 적합성">분포 적합성</td>
+                                    <td data-label="원본 그대로">-</td>
+                                    <td data-label="IQR로 처리">✅ 비정규분포 OK</td>
+                                    <td data-label="Z-score로 처리">⚠️ 정규분포 가정</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="극단값 민감도">극단값 민감도</td>
+                                    <td data-label="원본 그대로">❌ 매우 높음</td>
+                                    <td data-label="IQR로 처리">✅ 낮음 (안정적)</td>
+                                    <td data-label="Z-score로 처리">❌ 높음</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="사용 난이도">사용 난이도</td>
+                                    <td data-label="원본 그대로">⭐ 매우 쉬움</td>
+                                    <td data-label="IQR로 처리">⭐⭐ 보통</td>
+                                    <td data-label="Z-score로 처리">⭐⭐⭐ 어려움</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="추천도">추천도</td>
+                                    <td data-label="원본 그대로">🚫 비추천</td>
+                                    <td data-label="IQR로 처리">👍 강력 추천</td>
+                                    <td data-label="Z-score로 처리">👍 조건부 추천</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
