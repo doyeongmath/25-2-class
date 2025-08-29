@@ -317,9 +317,10 @@ function fillTheoryTable() {
   tbody.innerHTML = '';
   const summary = [];
   nValues.forEach(n => {
-    // Strict: |X/n - p| < h  =>  n(p-h) < X < n(p+h)
-    const lower = Math.floor(n * (p - h)) + 1;
-    const upper = Math.ceil(n * (p + h)) - 1;
+    // Strict: |X/n - 1/6| < 0.1  =>  n/15 < X < 4n/15
+    // 부동소수 오차 방지를 위해 정수 산술로 경계 계산
+    const lower = Math.floor(n / 15) + 1;          // 최소 정수 X (n/15보다 큰 최소 정수)
+    const upper = Math.floor((4 * n - 1) / 15);    // 최대 정수 X (4n/15보다 작은 최대 정수)
     let prob = 0;
     for (let x = Math.max(0, lower); x <= Math.min(n, upper); x++) {
       prob += binomialPMF(n, p, x);
