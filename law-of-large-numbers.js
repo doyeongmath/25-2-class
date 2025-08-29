@@ -298,4 +298,49 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 100);
   }
+
+  // 이론 표 동적 계산 채우기
+  try {
+    fillTheoryTable();
+  } catch (e) {
+    console.error('이론 표 계산 중 오류', e);
+  }
 });
+
+// |X/n - 1/6| < h 를 만족하는 X의 정수 구간을 구해 합산
+function fillTheoryTable() {
+  const tbody = document.getElementById('theoryTableBody');
+  if (!tbody) return;
+  const p = 1/6;
+  const h = 0.1;
+  const nValues = [10,20,30,40,50];
+  tbody.innerHTML = '';
+  nValues.forEach(n => {
+    // Strict: |X/n - p| < h  =>  n(p-h) < X < n(p+h)
+    const lower = Math.floor(n * (p - h)) + 1;
+    const upper = Math.ceil(n * (p + h)) - 1;
+    let prob = 0;
+    for (let x = Math.max(0, lower); x <= Math.min(n, upper); x++) {
+      prob += binomialPMF(n, p, x);
+    }
+    const xRange = rangeList(lower, upper, 0, n);
+    const tr = document.createElement('tr');
+    const tdN = document.createElement('td');
+    const tdX = document.createElement('td');
+    const tdP = document.createElement('td');
+    tdN.textContent = String(n);
+    tdX.textContent = xRange;
+    tdP.textContent = prob.toFixed(4);
+    tr.appendChild(tdN); tr.appendChild(tdX); tr.appendChild(tdP);
+    tbody.appendChild(tr);
+  });
+}
+
+function rangeList(lower, upper, minX, maxX) {
+  const l = Math.max(minX, lower);
+  const u = Math.min(maxX, upper);
+  if (l > u) return '-';
+  const arr = [];
+  for (let x = l; x <= u; x++) arr.push(x);
+  return arr.join(', ');
+}
