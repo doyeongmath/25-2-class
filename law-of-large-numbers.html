@@ -91,22 +91,7 @@
           </tbody>
         </table>
       </div>
-      <div id="theorySummary" style="margin-top: 8px; font-size: 0.95rem;"></div>
       
-      <div class="math-explanation">
-        <h3>📚 수학적 정의</h3>
-        <p>
-          <strong>큰수의 법칙:</strong> 주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 하면,
-          이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
-        </p>
-        <p>
-          <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
-        </p>
-        <p>
-          <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
-          \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
-        </p>
-      </div>
     </div>
 
     <div class="experiment-section">
@@ -151,6 +136,22 @@
         </p>
 
       </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="math-explanation" style="margin-top: 24px;">
+      <h3>📚 수학적 정의</h3>
+      <p>
+        <strong>큰수의 법칙:</strong> 주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 하면,
+        이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
+      </p>
+      <p>
+        <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
+      </p>
+      <p>
+        <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
+        \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
+      </p>
     </div>
   </div>
   <script src="law-of-large-numbers.js?v=2"></script>

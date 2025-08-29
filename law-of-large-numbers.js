@@ -339,10 +339,7 @@ function fillTheoryTable() {
     summary.push(`n=${n}: ${prob.toFixed(4)}`);
   });
 
-  const summaryDiv = document.getElementById('theorySummary');
-  if (summaryDiv) {
-    summaryDiv.textContent = summary.join('  |  ');
-  }
+  // 요약 출력 제거 (요구사항에 따라 숨김)
 }
 
 function rangeList(lower, upper, minX, maxX) {
