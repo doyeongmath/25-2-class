@@ -315,6 +315,7 @@ function fillTheoryTable() {
   const h = 0.1;
   const nValues = [10,20,30,40,50];
   tbody.innerHTML = '';
+  const summary = [];
   nValues.forEach(n => {
     // Strict: |X/n - p| < h  =>  n(p-h) < X < n(p+h)
     const lower = Math.floor(n * (p - h)) + 1;
@@ -333,7 +334,14 @@ function fillTheoryTable() {
     tdP.textContent = prob.toFixed(4);
     tr.appendChild(tdN); tr.appendChild(tdX); tr.appendChild(tdP);
     tbody.appendChild(tr);
+
+    summary.push(`n=${n}: ${prob.toFixed(4)}`);
   });
+
+  const summaryDiv = document.getElementById('theorySummary');
+  if (summaryDiv) {
+    summaryDiv.textContent = summary.join('  |  ');
+  }
 }
 
 function rangeList(lower, upper, minX, maxX) {
