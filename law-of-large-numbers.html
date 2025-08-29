@@ -160,11 +160,10 @@
           이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
         </p>
         <p>
-          <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
-        </p>
-        <p>
-          <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
-          \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
+          <strong>약한 큰수의 법칙(WLLN):</strong> 지시확률변수 \(I_i=\mathbf{1}_{\{i\text{번째 시행에서 3}\}}\)에 대해
+          표본평균 \(\overline{X}_n = \frac{1}{n}\sum_{i=1}^n I_i = \frac{X}{n}\)이라 두면, 모든 \(\varepsilon>0\)에 대하여
+          \[\lim_{n\to\infty} \Pr\big(|\overline{X}_n-\tfrac{1}{6}|<\varepsilon\big)=1,\]
+          즉 \(\overline{X}_n=\tfrac{X}{n}\)이 \(\tfrac{1}{6}\)에 <em>확률수렴</em>합니다.
         </p>
       </div>
       <div id="lln-tab-significance" class="lln-tab-pane">
