@@ -41,6 +41,14 @@
     };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    .lln-tabs { margin-top: 16px; }
+    .lln-tab-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+    .lln-tab-btn { padding: 6px 12px; border: 1px solid #d0d7de; background: #f6f8fa; border-radius: 6px; cursor: pointer; }
+    .lln-tab-btn.active { background: #0d6efd; color: #fff; border-color: #0d6efd; }
+    .lln-tab-pane { display: none; margin-top: 12px; }
+    .lln-tab-pane.active { display: block; }
+  </style>
   
   <!-- MathJax 로딩 확인 스크립트 -->
   <script>
@@ -139,25 +147,34 @@
     </div>
   </div>
   <div class="container">
-    <div class="math-explanation" style="margin-top: 24px;">
-      <h3>📚 수학적 정의</h3>
-      <p>
-        <strong>큰수의 법칙:</strong> 주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 하면,
-        이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
-      </p>
-      <p>
-        <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
-      </p>
-      <p>
-        <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
-        \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
-      </p>
-      <p>
-        <strong>의의:</strong> 시행 횟수 \(n\)이 충분히 클 때, 상대도수 \(\frac{X}{n}\)은 수학적 확률에 가까워지므로
-        임의의 사건 \(A\)에 대해 상대도수 \(\frac{X}{n}\)를 사건 \(A\)가 일어날 확률 \(P(A)\)로 볼 수 있습니다.
-        따라서 자연 현상이나 사회 현상처럼 수학적 확률을 직접 구하기 곤란한 경우에는 시행 횟수를 충분히 크게 한 후
-        통계적 확률을 이용할 수 있습니다.
-      </p>
+    <div class="lln-tabs">
+      <h2>🧠 학습 정리</h2>
+      <div class="lln-tab-buttons">
+        <button type="button" class="lln-tab-btn active" data-target="lln-tab-definition">수학적 정의</button>
+        <button type="button" class="lln-tab-btn" data-target="lln-tab-significance">의의</button>
+      </div>
+      <div id="lln-tab-definition" class="lln-tab-pane active">
+        <h3>📚 수학적 정의</h3>
+        <p>
+          <strong>큰수의 법칙:</strong> 주사위를 \(n\)번 던질 때 3의 눈이 나오는 횟수를 \(X\)라고 하면,
+          이항분포 \(B(n, \frac{1}{6})\)를 따릅니다.
+        </p>
+        <p>
+          <strong>상대도수:</strong> \(\frac{X}{n}\)은 \(n\)이 커질수록 이론적 확률 \(\frac{1}{6}\)에 수렴합니다.
+        </p>
+        <p>
+          <strong>수학적 정의:</strong> 임의의 작은 양수 \(h\)에 대하여,
+          \[\lim_{n \to \infty} P\left(\left|\frac{X}{n} - \frac{1}{6}\right| < h\right) = 1\]
+        </p>
+      </div>
+      <div id="lln-tab-significance" class="lln-tab-pane">
+        <h3>✨ 의의</h3>
+        <p>
+          시행 횟수 \(n\)이 충분히 클 때, 상대도수 \(\frac{X}{n}\)은 수학적 확률에 가까워지므로 임의의 사건 \(A\)에 대해
+          상대도수 \(\frac{X}{n}\)를 사건 \(A\)가 일어날 확률 \(P(A)\)로 쓸 수 있습니다. 따라서 자연 현상이나 사회 현상처럼
+          수학적 확률을 직접 구하기 곤란한 경우에는 시행 횟수를 충분히 크게 한 후 통계적 확률을 이용할 수 있습니다.
+        </p>
+      </div>
     </div>
   </div>
   <script src="law-of-large-numbers.js?v=2"></script>

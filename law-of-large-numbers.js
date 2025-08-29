@@ -305,6 +305,27 @@ document.addEventListener('DOMContentLoaded', function() {
   } catch (e) {
     console.error('이론 표 계산 중 오류', e);
   }
+
+  // 탭 전환 로직
+  try {
+    const buttons = document.querySelectorAll('.lln-tab-btn');
+    const panes = document.querySelectorAll('.lln-tab-pane');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        panes.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.getAttribute('data-target'));
+        if (target) target.classList.add('active');
+        // MathJax 재렌더링 (수식 있는 탭 전환 시)
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([target]).catch(()=>{});
+        }
+      });
+    });
+  } catch(e) {
+    console.error('탭 초기화 오류', e);
+  }
 });
 
 // |X/n - 1/6| < h 를 만족하는 X의 정수 구간을 구해 합산
