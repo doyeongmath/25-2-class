@@ -1,45 +1,127 @@
 // 큰수의 법칙 실험기 - 주사위 버전
 function runSimulation() {
+  // 입력값 검증
   const n = parseInt(document.getElementById('n').value);
   const h = parseFloat(document.getElementById('h').value);
   const repeat = parseInt(document.getElementById('repeat').value);
-  const p = 1/6; // 주사위 3의 눈 확률
   
-  let successCount = 0;
-  const freqList = [];
-  
-  for (let i = 0; i < repeat; i++) {
-    let count = 0;
-    for (let j = 0; j < n; j++) {
-      if (Math.random() < p) count++;
-    }
-    const freq = count / n;
-    freqList.push(freq);
-    
-    if (Math.abs(freq - p) < h) {
-      successCount++;
-    }
+  if (isNaN(n) || isNaN(h) || isNaN(repeat) || n < 10 || h <= 0 || repeat < 100) {
+    showError('입력값을 올바르게 입력해주세요.');
+    return;
   }
   
-  const ratio = ((successCount / repeat) * 100).toFixed(2);
+  // 로딩 상태 표시
+  showLoading();
+  
+  // 비동기 실행으로 UI 블로킹 방지
+  setTimeout(() => {
+    const p = 1/6; // 주사위 3의 눈 확률
+    
+    let successCount = 0;
+    const freqList = [];
+    const progressCallback = (progress) => {
+      updateProgress(progress);
+    };
+    
+    // 큰 repeat 값에 대해 진행상황 표시
+    const batchSize = Math.max(100, Math.floor(repeat / 10));
+    
+    for (let i = 0; i < repeat; i++) {
+      let count = 0;
+      for (let j = 0; j < n; j++) {
+        if (Math.random() < p) count++;
+      }
+      const freq = count / n;
+      freqList.push(freq);
+      
+      if (Math.abs(freq - p) < h) {
+        successCount++;
+      }
+      
+      // 진행상황 업데이트 (배치 단위로)
+      if (i % batchSize === 0) {
+        updateProgress((i / repeat) * 100);
+      }
+    }
+    
+    const ratio = ((successCount / repeat) * 100).toFixed(2);
+    const theoreticalProb = (1/6).toFixed(4);
+    
+    // 결과 표시 (개선된 UI)
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').innerHTML = `
+      <div style="text-align: center;">
+        <h3 style="color: #166534; margin: 0 0 15px 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span style="font-size: 1.5rem;">📊</span>
+          실험 결과
+        </h3>
+        <div style="background: white; padding: 20px; border-radius: 12px; margin: 15px 0; border: 1px solid #bbf7d0;">
+          <p style="margin: 0 0 10px 0; font-size: 1rem; color: #374151;">
+            \\(\\left|\\frac{X}{n} - \\frac{1}{6}\\right| < ${h}\\) 조건을 만족한 비율
+          </p>
+          <p class="result-highlight">${ratio}%</p>
+          <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #6b7280;">
+            (${successCount.toLocaleString()}/${repeat.toLocaleString()}회)
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border: 1px solid #bfdbfe;">
+            <p style="margin: 0; font-size: 0.9rem; color: #1e40af; font-weight: 600;">수학적 확률</p>
+            <p style="margin: 5px 0 0 0; font-size: 1.1rem; font-weight: 700;">\\(\\frac{1}{6} ≈ ${theoreticalProb}\\)</p>
+          </div>
+          <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border: 1px solid #bbf7d0;">
+            <p style="margin: 0; font-size: 0.9rem; color: #166534; font-weight: 600;">실험 평균</p>
+            <p style="margin: 5px 0 0 0; font-size: 1.1rem; font-weight: 700;">${(freqList.reduce((a, b) => a + b, 0) / freqList.length).toFixed(4)}</p>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // MathJax 재렌더링
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      setTimeout(() => {
+        MathJax.typesetPromise([document.getElementById('result')]).catch((err) => {
+          console.log('MathJax 재렌더링 오류:', err);
+        });
+      }, 50);
+    }
+    
+    // 차트 그리기
+    drawChart(freqList, p, h);
+    hideLoading();
+  }, 100);
+}
+
+// 로딩 상태 표시
+function showLoading() {
+  const button = document.querySelector('.btn-primary');
+  button.disabled = true;
+  button.innerHTML = '<span style="margin-right: 8px;">⏳</span>실험 진행 중...';
+}
+
+// 로딩 상태 해제
+function hideLoading() {
+  const button = document.querySelector('.btn-primary');
+  button.disabled = false;
+  button.innerHTML = '<span style="margin-right: 8px;">🚀</span>실험 시작';
+}
+
+// 진행상황 업데이트
+function updateProgress(progress) {
+  const button = document.querySelector('.btn-primary');
+  if (progress < 100) {
+    button.innerHTML = `<span style="margin-right: 8px;">⏳</span>진행 중... ${Math.round(progress)}%`;
+  }
+}
+
+// 오류 표시
+function showError(message) {
+  document.getElementById('result').style.display = 'block';
   document.getElementById('result').innerHTML = `
-    <div class="result-content">
-      <p>\\(\\left|\\frac{X}{n} - \\frac{1}{6}\\right| < ${h}\\) 를 만족한 비율:</p>
-      <p><strong>${ratio}%</strong> (${successCount}/${repeat})</p>
-      <p class="result-note">수학적 확률: \\(\\frac{1}{6} \\approx 0.1667\\)</p>
+    <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 15px; border-radius: 8px; text-align: center;">
+      <span style="margin-right: 8px;">⚠️</span>${message}
     </div>
   `;
-  
-  // MathJax 재렌더링
-  if (window.MathJax && window.MathJax.typesetPromise) {
-    setTimeout(() => {
-      MathJax.typesetPromise([document.getElementById('result')]).catch((err) => {
-        console.log('MathJax 재렌더링 오류:', err);
-      });
-    }, 50);
-  }
-  
-  drawChart(freqList, p, h);
 }
 
 function drawChart(data, p, h) {
@@ -50,23 +132,46 @@ function drawChart(data, p, h) {
   }
   
   const context = ctx.getContext('2d');
-  const bins = new Array(21).fill(0);
+  
+  // 더 세밀한 구간으로 히스토그램 생성 (50개 구간)
+  const numBins = 50;
+  const bins = new Array(numBins).fill(0);
+  const minVal = Math.min(...data);
+  const maxVal = Math.max(...data);
+  const range = maxVal - minVal || 1;
   
   data.forEach(v => {
-    const idx = Math.min(20, Math.floor(v * 20));
+    const idx = Math.min(numBins - 1, Math.floor((v - minVal) / range * numBins));
     bins[idx]++;
   });
   
   const labels = [];
-  for (let i = 0; i < 21; i++) {
-    labels.push((i / 20).toFixed(2));
+  for (let i = 0; i < numBins; i++) {
+    const binStart = minVal + (i / numBins) * range;
+    labels.push(binStart.toFixed(3));
   }
+  
+  // 허용 오차 범위 계산
+  const theoreticalLower = p - h;
+  const theoreticalUpper = p + h;
+  
+  // 색상 배열 생성 (허용 범위 내는 초록색, 외부는 빨간색)
+  const backgroundColors = bins.map((_, i) => {
+    const binCenter = minVal + ((i + 0.5) / numBins) * range;
+    if (binCenter >= theoreticalLower && binCenter <= theoreticalUpper) {
+      return 'rgba(34, 197, 94, 0.7)'; // 초록색 (성공)
+    } else {
+      return 'rgba(239, 68, 68, 0.7)'; // 빨간색 (실패)
+    }
+  });
+  
+  const borderColors = backgroundColors.map(color => 
+    color.replace('0.7', '1')
+  );
   
   if (window.chart && typeof window.chart.destroy === 'function') {
     window.chart.destroy();
   }
-  
-  console.log('실험결과 그래프 그리기 시작');
   
   window.chart = new Chart(context, {
     type: 'bar',
@@ -75,8 +180,8 @@ function drawChart(data, p, h) {
       datasets: [{
         label: '상대도수 분포',
         data: bins,
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
         borderWidth: 1
       }]
     },
@@ -86,38 +191,113 @@ function drawChart(data, p, h) {
       plugins: {
         title: {
           display: true,
-          text: '실험 결과: 상대도수 분포'
+          text: `실험 결과: 상대도수 분포 (허용 범위: ${theoreticalLower.toFixed(3)} ~ ${theoreticalUpper.toFixed(3)})`,
+          font: {
+            size: 16,
+            weight: 'bold'
+          },
+          padding: 20
         },
         legend: {
-          display: false
+          display: true,
+          labels: {
+            generateLabels: function(chart) {
+              return [
+                {
+                  text: `허용 범위 내 (|X/n - 1/6| < ${h})`,
+                  fillStyle: 'rgba(34, 197, 94, 0.7)',
+                  strokeStyle: 'rgba(34, 197, 94, 1)',
+                  lineWidth: 1
+                },
+                {
+                  text: `허용 범위 외`,
+                  fillStyle: 'rgba(239, 68, 68, 0.7)',
+                  strokeStyle: 'rgba(239, 68, 68, 1)',
+                  lineWidth: 1
+                }
+              ];
+            }
+          }
         }
       },
       scales: {
         x: {
           title: {
             display: true,
-            text: '상대도수 X/n'
+            text: '상대도수 (X/n)',
+            font: {
+              size: 14,
+              weight: 'bold'
+            }
           },
           grid: {
-            display: true
+            display: true,
+            alpha: 0.3
           },
           ticks: {
-            stepSize: 0.05
+            maxTicksLimit: 10,
+            callback: function(value, index, values) {
+              return parseFloat(this.getLabelForValue(value)).toFixed(2);
+            }
           }
         },
         y: {
           title: {
             display: true,
-            text: '빈도'
+            text: '빈도',
+            font: {
+              size: 14,
+              weight: 'bold'
+            }
           },
           beginAtZero: true,
           grid: {
-            display: true
+            display: true,
+            alpha: 0.3
           }
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   });
+  
+  // 이론적 확률 수직선 추가
+  const chartArea = window.chart.chartArea;
+  if (chartArea) {
+    const theoreticalX = chartArea.left + ((p - minVal) / range) * (chartArea.right - chartArea.left);
+    
+    // 수직선을 그리기 위한 플러그인 등록
+    Chart.register({
+      id: 'theoreticalLine',
+      afterDraw: function(chart) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        
+        if (theoreticalX >= chartArea.left && theoreticalX <= chartArea.right) {
+          ctx.save();
+          ctx.strokeStyle = '#dc2626';
+          ctx.lineWidth = 3;
+          ctx.setLineDash([5, 5]);
+          ctx.beginPath();
+          ctx.moveTo(theoreticalX, chartArea.top);
+          ctx.lineTo(theoreticalX, chartArea.bottom);
+          ctx.stroke();
+          ctx.restore();
+          
+          // 레이블 추가
+          ctx.save();
+          ctx.fillStyle = '#dc2626';
+          ctx.font = 'bold 12px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText('이론값 (1/6)', theoreticalX, chartArea.top - 5);
+          ctx.restore();
+        }
+      }
+    });
+  }
   
   console.log('실험결과 그래프 완성');
 }
@@ -306,10 +486,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.error('이론 표 계산 중 오류', e);
   }
 
-  // 탭 전환 로직
+  // 탭 전환 로직 (업데이트된 클래스명 사용)
   try {
-    const buttons = document.querySelectorAll('.lln-tab-btn');
-    const panes = document.querySelectorAll('.lln-tab-pane');
+    const buttons = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
