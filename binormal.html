@@ -237,24 +237,6 @@
       margin: 20px 0;
     }
     
-    .back-button {
-      background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      margin: 20px;
-    }
-    
-    .back-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(75, 85, 99, 0.3);
-    }
     
     @media (max-width: 768px) {
       body {
@@ -446,7 +428,7 @@
         <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e9d5ff;">
           <h4 style="color: #3b82f6; margin: 0 0 10px 0;">🔵 파란 막대 (이항분포 샘플링)</h4>
           <p style="margin: 0; line-height: 1.5;">
-            실제 몬테카를로 시뮬레이션으로 얻은 상대도수 히스토그램입니다.<br>
+            실제 시뮬레이션으로 얻은 상대도수 히스토그램입니다.<br>
             각 막대의 높이는 해당 성공 횟수가 나타난 확률을 보여줍니다.
           </p>
         </div>
@@ -466,11 +448,6 @@
       </div>
     </div>
 
-    <!-- 뒤로가기 버튼 -->
-    <a href="index.html" class="back-button">
-      <span>←</span>
-      돌아가기
-    </a>
   </div>
   <script src="binormal.js"></script>
 </body>
