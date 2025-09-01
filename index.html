@@ -25,9 +25,20 @@
       font-family: 'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color:#1f2937;
-      font-size:16px; line-height:1.8; letter-spacing:-.01em;
+      font-size:16px; line-height:1.6; letter-spacing:-.01em;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       min-height:100vh;
+      position: relative;
+    }
+
+    /* 배경 패턴 추가 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+      pointer-events: none;
+      z-index: -1;
     }
 
     h1,h2,h3,h4{line-height:1.35;margin-bottom:.5rem;font-weight:800}
@@ -35,20 +46,73 @@
 
     /* 헤더 */
     .header-gradient{
-      background:linear-gradient(135deg,#3182ce 0%,#805ad5 100%);
-      box-shadow:0 12px 28px rgba(79,70,229,.25);
-      border-radius:14px; color:white;
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+      box-shadow: 0 20px 40px rgba(79,70,229,.3), 0 0 0 1px rgba(255,255,255,.1) inset;
+      border-radius: 20px; 
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
     }
 
     /* 액션 타일 */
     .action-tile{
-      border-radius:16px; padding:24px; color:#fff; width:100%;
-      box-shadow:0 8px 24px rgba(0,0,0,.15);
-      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
-      position:relative; overflow:hidden; text-align:center; cursor:pointer; border:0;
+      border-radius: 20px; 
+      padding: 32px; 
+      color: #fff; 
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2), 0 0 0 1px rgba(255,255,255,.1) inset;
+      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative; 
+      overflow: hidden; 
+      text-align: center; 
+      cursor: pointer; 
+      border: 0;
       outline: none;
+      backdrop-filter: blur(10px);
     }
-    .action-tile:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(0,0,0,.2); filter:brightness(1.03)}
+    
+    .action-tile::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    
+    .action-tile:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0,0,0,.3), 0 0 0 1px rgba(255,255,255,.2) inset;
+    }
+    
+    .action-tile:hover::before {
+      opacity: 1;
+    }
+    
+    .action-tile h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+    
+    .action-tile p {
+      font-size: 1rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
     
     /* 그리드 라인 숨김 */
     .grid {
@@ -56,28 +120,75 @@
       outline: none;
     }
     .tile-blue{background:linear-gradient(135deg,#3b82f6 0%,#6366f1 100%)}
-    .tile-green{background:linear-gradient(135deg,#22c55e 0%,#3b82f6 100%)}
+    .tile-green{background:linear-gradient(135deg,#10b981 0%,#059669 100%)}
     .tile-purple{background:linear-gradient(135deg,#8b5cf6 0%,#a855f7 100%)}
     .tile-orange{background:linear-gradient(135deg,#f59e0b 0%,#f97316 100%)}
+    .tile-indigo{background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%)}
 
     /* 카드 공통 */
     .card{
-      background:#ffffff; border-radius:16px; padding:24px;
-      box-shadow:0 6px 20px rgba(0,0,0,.08);
-      border:1px solid rgba(0,0,0,.05);
-      transition:transform .18s ease, box-shadow .18s ease;
+      background: rgba(255,255,255,.95); 
+      backdrop-filter: blur(10px);
+      border-radius: 20px; 
+      padding: 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.1), 0 0 0 1px rgba(255,255,255,.2) inset;
+      border: 1px solid rgba(255,255,255,.3);
+      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.12)}
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .3s ease;
+      pointer-events: none;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(0,0,0,.15), 0 0 0 1px rgba(255,255,255,.3) inset;
+    }
+    
+    .card:hover::before {
+      opacity: 1;
+    }
 
     /* 검색바 */
     .search-container{
-      background:#fff; border-radius:9999px; padding:10px 14px;
-      box-shadow:0 6px 20px rgba(0,0,0,.10);
-      transition:box-shadow .18s ease, transform .18s ease;
+      background: rgba(255,255,255,.95); 
+      backdrop-filter: blur(10px);
+      border-radius: 50px; 
+      padding: 16px 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.1), 0 0 0 1px rgba(255,255,255,.2) inset;
+      border: 1px solid rgba(255,255,255,.3);
+      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
     }
-    .search-container:focus-within{transform:translateY(-1px); box-shadow:0 10px 28px rgba(0,0,0,.14)}
-    .search-input{border:none; outline:none; width:100%; background:transparent; font-size:16px; color:inherit}
-    .search-input::placeholder{color:#9aa3af}
+    
+    .search-container:focus-within {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 50px rgba(0,0,0,.15), 0 0 0 1px rgba(79,70,229,.3) inset;
+      border-color: rgba(79,70,229,.5);
+    }
+    
+    .search-input {
+      border: none; 
+      outline: none; 
+      width: 100%; 
+      background: transparent; 
+      font-size: 16px; 
+      color: inherit;
+      font-weight: 500;
+    }
+    
+    .search-input::placeholder {
+      color: #9ca3af;
+      font-weight: 400;
+    }
 
     /* 다크모드 스타일 */
     body.dark {
@@ -197,14 +308,28 @@
   <div class="max-w-7xl mx-auto p-6">
          <!-- 헤더 -->
      <header class="header-gradient p-8 mb-8">
-       <div class="flex flex-col gap-6">
-         <div>
-           <h1 class="text-3xl font-extrabold">확률과 통계 수업</h1>
-           <p class="text-indigo-100 font-semibold mt-1">2025년 2학기 • 담당: 박도영</p>
-           <div class="mt-4 flex items-center gap-2 text-sm">
-             <span class="bg-white/20 px-3 py-1 rounded-full">📚 수학</span>
-             <span class="bg-white/20 px-3 py-1 rounded-full">⏰ 3시간</span>
-             <span class="bg-white/20 px-3 py-1 rounded-full">🏫 2-6교실</span>
+       <div class="header-content flex flex-col gap-6">
+         <div class="text-center">
+           <div class="text-6xl mb-4">📊</div>
+           <h1 class="text-4xl md:text-5xl font-black bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">확률과 통계</h1>
+           <p class="text-xl text-blue-100 font-medium mt-3 opacity-90">2025년 2학기</p>
+           <div class="mt-6 flex flex-wrap justify-center items-center gap-3 text-sm">
+             <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 flex items-center gap-2">
+               <span class="text-lg">👨‍🏫</span>
+               <span class="font-medium">박도영</span>
+             </div>
+             <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 flex items-center gap-2">
+               <span class="text-lg">📚</span>
+               <span class="font-medium">수학</span>
+             </div>
+             <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 flex items-center gap-2">
+               <span class="text-lg">⏰</span>
+               <span class="font-medium">3시간</span>
+             </div>
+             <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 flex items-center gap-2">
+               <span class="text-lg">🏫</span>
+               <span class="font-medium">2-6교실</span>
+             </div>
            </div>
          </div>
          
@@ -281,32 +406,41 @@
       </h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="text-center p-5 rounded-xl border bg-blue-50/70 border-blue-200">
-          <div class="text-3xl mb-2">📝</div>
-          <h4 class="font-bold text-blue-800 mb-1">중간고사</h4>
-          <p class="text-blue-700 text-lg font-extrabold">30%</p>
-          <p class="text-blue-600 text-sm mt-1">9월 30일(화) 1교시</p>
+        <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200/50 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent"></div>
+          <div class="relative z-10">
+            <div class="text-4xl mb-3">📝</div>
+            <h4 class="font-black text-blue-800 mb-2 text-lg">중간고사</h4>
+            <p class="text-blue-700 text-2xl font-black mb-1">30%</p>
+            <p class="text-blue-600 text-sm font-semibold bg-blue-200/50 px-3 py-1 rounded-full">9월 30일(화) 1교시</p>
+          </div>
         </div>
 
-        <div class="text-center p-5 rounded-xl border bg-green-50/70 border-green-200">
-          <div class="text-3xl mb-2">📝</div>
-          <h4 class="font-bold text-green-800 mb-1">기말고사</h4>
-          <p class="text-green-700 text-lg font-extrabold">30%</p>
-          <p class="text-green-600 text-sm mt-1">12월 11일~17일</p>
+        <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200/50 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 to-transparent"></div>
+          <div class="relative z-10">
+            <div class="text-4xl mb-3">📝</div>
+            <h4 class="font-black text-green-800 mb-2 text-lg">기말고사</h4>
+            <p class="text-green-700 text-2xl font-black mb-1">30%</p>
+            <p class="text-green-600 text-sm font-semibold bg-green-200/50 px-3 py-1 rounded-full">12월 11일~17일</p>
+          </div>
         </div>
 
-        <div class="text-center p-5 rounded-xl border bg-purple-50/70 border-purple-200 md:col-span-2 lg:col-span-1">
-          <div class="text-3xl mb-2">🎯</div>
-          <h4 class="font-bold text-purple-800 mb-1">수행평가</h4>
-          <p class="text-purple-700 text-lg font-extrabold">40%</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-            <div class="rounded-lg p-3 bg-white/60">
-              <p class="font-semibold text-purple-700">📋 단계별 과정평가</p>
-              <p class="text-purple-600 text-sm">과정평가 1, 2 (30%)</p>
-            </div>
-            <div class="rounded-lg p-3 bg-white/60">
-              <p class="font-semibold text-purple-700">🎤 주제탐구발표</p>
-              <p class="text-purple-600 text-sm">자료 제출 (10%)</p>
+        <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200/50 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 relative overflow-hidden md:col-span-2 lg:col-span-1">
+          <div class="absolute inset-0 bg-gradient-to-br from-purple-400/10 to-transparent"></div>
+          <div class="relative z-10">
+            <div class="text-4xl mb-3">🎯</div>
+            <h4 class="font-black text-purple-800 mb-2 text-lg">수행평가</h4>
+            <p class="text-purple-700 text-2xl font-black mb-3">40%</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="rounded-xl p-3 bg-white/80 backdrop-blur-sm border border-purple-200/50">
+                <p class="font-bold text-purple-700 text-sm">📋 단계별 과정평가</p>
+                <p class="text-purple-600 text-xs font-semibold">과정평가 1, 2 (30%)</p>
+              </div>
+              <div class="rounded-xl p-3 bg-white/80 backdrop-blur-sm border border-purple-200/50">
+                <p class="font-bold text-purple-700 text-sm">🎤 주제탐구발표</p>
+                <p class="text-purple-600 text-xs font-semibold">자료 제출 (10%)</p>
+              </div>
             </div>
           </div>
         </div>
@@ -320,28 +454,68 @@
       </h3>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="rounded-xl border p-6 bg-blue-50/70 border-blue-200">
-          <h4 class="text-xl font-extrabold text-blue-800 mb-3 flex items-center gap-2">
-            <i data-lucide="calendar" class="w-5 h-5"></i> 중간고사
-          </h4>
-          <ul class="space-y-2 text-blue-900">
-            <li class="flex justify-between"><span class="font-semibold">시험 기간</span><span>9월 25일 ~ 10월 2일</span></li>
-            <li class="flex justify-between"><span class="font-semibold">시험 일시</span><span>9월 30일(화) 1교시</span></li>
-            <li class="flex justify-between"><span class="font-semibold">시험 시간</span><span>50분</span></li>
-            <li class="flex justify-between"><span class="font-semibold">시험 범위</span><span>Ⅲ-1. 확률분포</span></li>
-          </ul>
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200/50 shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-blue-600/5"></div>
+          <div class="relative z-10 p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="p-2 bg-blue-200/50 rounded-lg">
+                <i data-lucide="calendar" class="w-6 h-6 text-blue-700"></i>
+              </div>
+              <h4 class="text-2xl font-black text-blue-800">중간고사</h4>
+            </div>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center p-3 bg-white/60 rounded-xl backdrop-blur-sm border border-blue-200/30">
+                <span class="font-bold text-blue-800">시험 기간</span>
+                <span class="text-blue-700 font-semibold">9월 25일 ~ 10월 2일</span>
+              </div>
+              <div class="flex justify-between items-center p-3 bg-blue-200/40 rounded-xl backdrop-blur-sm border border-blue-300/50">
+                <span class="font-bold text-blue-800">시험 일시</span>
+                <span class="text-blue-700 font-bold">9월 30일(화) 1교시</span>
+              </div>
+              <div class="flex justify-between items-center p-3 bg-white/60 rounded-xl backdrop-blur-sm border border-blue-200/30">
+                <span class="font-bold text-blue-800">시험 시간</span>
+                <span class="text-blue-700 font-semibold">50분</span>
+              </div>
+              <div class="p-3 bg-gradient-to-r from-blue-200/50 to-blue-300/30 rounded-xl border border-blue-300/50">
+                <div class="text-center">
+                  <span class="font-bold text-blue-800 text-sm">시험 범위</span>
+                  <p class="text-blue-700 font-bold mt-1">Ⅲ-1. 확률분포</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="rounded-xl border p-6 bg-green-50/70 border-green-200">
-          <h4 class="text-xl font-extrabold text-green-800 mb-3 flex items-center gap-2">
-            <i data-lucide="calendar" class="w-5 h-5"></i> 기말고사
-          </h4>
-          <ul class="space-y-2 text-green-900">
-            <li class="flex justify-between"><span class="font-semibold">시험 기간</span><span>12월 11일 ~ 17일</span></li>
-            <li class="flex justify-between"><span class="font-semibold">시험 시간</span><span>50분</span></li>
-            <li class="flex justify-between"><span class="font-semibold">시험 범위</span><span>Ⅲ-1. 확률분포+ Ⅲ-2. 통계적 추정</span></li>
-            <li class="flex justify-between"><span class="font-semibold">특이사항</span><span>평가원 기출문제 포함</span></li>
-          </ul>
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200/50 shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+          <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 via-transparent to-green-600/5"></div>
+          <div class="relative z-10 p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="p-2 bg-green-200/50 rounded-lg">
+                <i data-lucide="calendar" class="w-6 h-6 text-green-700"></i>
+              </div>
+              <h4 class="text-2xl font-black text-green-800">기말고사</h4>
+            </div>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center p-3 bg-white/60 rounded-xl backdrop-blur-sm border border-green-200/30">
+                <span class="font-bold text-green-800">시험 기간</span>
+                <span class="text-green-700 font-semibold">12월 11일 ~ 17일</span>
+              </div>
+              <div class="flex justify-between items-center p-3 bg-white/60 rounded-xl backdrop-blur-sm border border-green-200/30">
+                <span class="font-bold text-green-800">시험 시간</span>
+                <span class="text-green-700 font-semibold">50분</span>
+              </div>
+              <div class="p-3 bg-gradient-to-r from-green-200/50 to-green-300/30 rounded-xl border border-green-300/50">
+                <div class="text-center">
+                  <span class="font-bold text-green-800 text-sm">시험 범위</span>
+                  <p class="text-green-700 font-bold mt-1">Ⅲ-1. 확률분포+ Ⅲ-2. 통계적 추정</p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center p-3 bg-orange-100/60 rounded-xl backdrop-blur-sm border border-orange-200/50">
+                <span class="font-bold text-orange-800">특이사항</span>
+                <span class="text-orange-700 font-bold">평가원 기출문제 포함</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -353,32 +527,79 @@
       </h3>
 
       <div class="space-y-4">
-        <article class="border-l-4 border-blue-500 pl-4 py-2">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold">📚 교재 준비 안내</h4>
+        <article class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-transparent"></div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="p-2 bg-blue-200/50 rounded-lg">
+                <span class="text-xl">📚</span>
+              </div>
+              <h4 class="font-black text-blue-800 text-lg">교재 준비 안내</h4>
+            </div>
+            <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-blue-200/50">
+              <p class="text-blue-800 font-semibold">주교재: 확률과 통계 (금성출판사)</p>
+              <p class="text-blue-700 font-medium mt-1">부교재: EBS 수능특강 확률과 통계</p>
+            </div>
           </div>
-          <p class="text-gray-700 mt-1">주교재: 확률과 통계 (금성출판사), 부교재: EBS 수능특강 확률과 통계</p>
         </article>
 
-        <article class="border-l-4 border-green-500 pl-4 py-2">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold">🎯 수행평가 안내</h4>
+        <article class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+          <div class="absolute inset-0 bg-gradient-to-r from-green-400/5 to-transparent"></div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="p-2 bg-green-200/50 rounded-lg">
+                <span class="text-xl">🎯</span>
+              </div>
+              <h4 class="font-black text-green-800 text-lg">수행평가 안내</h4>
+            </div>
+            <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-green-200/50">
+              <p class="text-green-800 font-semibold">주제탐구발표 자료 제출: 한글 파일 2쪽 이상</p>
+              <div class="mt-2 inline-block bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-bold">
+                ⚠️ 제출기한 초과 시 1일당 2점 감점
+              </div>
+            </div>
           </div>
-          <p class="text-gray-700 mt-1">주제탐구발표 자료 제출: 한글 파일 2쪽 이상, 제출기한 초과 시 1일당 2점 감점</p>
         </article>
 
-        <article class="border-l-4 border-purple-500 pl-4 py-2">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold">🏆 발표 권장사항</h4>
+        <article class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+          <div class="absolute inset-0 bg-gradient-to-r from-purple-400/5 to-transparent"></div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="p-2 bg-purple-200/50 rounded-lg">
+                <span class="text-xl">🏆</span>
+              </div>
+              <h4 class="font-black text-purple-800 text-lg">발표 권장사항</h4>
+            </div>
+            <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-purple-200/50">
+              <p class="text-purple-800 font-semibold">교과서 문제 풀이, 증명 발표 시 세특 기재 가능</p>
+              <div class="mt-2 inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-bold">
+                ✨ 필수는 아님, 적극 권장
+              </div>
+            </div>
           </div>
-          <p class="text-gray-700 mt-1">교과서 문제 풀이, 증명 발표 시 세특 기재 가능 (필수는 아님, 적극 권장)</p>
         </article>
 
-        <article class="border-l-4 border-orange-500 pl-4 py-2">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold">📊 수능 출제 비중</h4>
+        <article class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-50 to-orange-100 border-l-4 border-orange-500 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+          <div class="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-transparent"></div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="p-2 bg-orange-200/50 rounded-lg">
+                <span class="text-xl">📊</span>
+              </div>
+              <h4 class="font-black text-orange-800 text-lg">수능 출제 비중</h4>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-orange-200/50">
+                <p class="text-orange-800 font-bold text-center">공통과목</p>
+                <p class="text-orange-700 font-semibold text-center mt-1">22문항 (74점)</p>
+              </div>
+              <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-orange-200/50">
+                <p class="text-orange-800 font-bold text-center">선택과목</p>
+                <p class="text-orange-700 font-semibold text-center mt-1">8문항 (26점)</p>
+                <p class="text-orange-600 font-medium text-center text-xs mt-1">확률과 통계/미적분/기하</p>
+              </div>
+            </div>
           </div>
-          <p class="text-gray-700 mt-1">공통과목 22문항(74점), 선택과목 8문항(26점) - 확률과 통계/미적분/기하 중 선택</p>
         </article>
       </div>
     </section>
