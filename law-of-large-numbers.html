@@ -447,14 +447,16 @@
           <label class="control-label">허용 오차 \(h\)</label>
           <input type="number" step="0.01" id="h" value="0.1" min="0.01" max="0.5" class="control-input">
         </div>
-        <div class="control-group">
-          <label class="control-label">반복 횟수</label>
-          <input type="number" id="repeat" value="1000" min="100" max="10000" class="control-input">
+        <div class="control-group" style="display: flex; flex-direction: row; gap: 15px; align-items: end;">
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+            <label class="control-label">반복 횟수</label>
+            <input type="number" id="repeat" value="1000" min="100" max="10000" class="control-input">
+          </div>
+          <button onclick="runSimulation()" class="btn-primary" style="grid-column: unset; justify-self: unset; height: fit-content; padding: 12px 24px;">
+            <span style="margin-right: 8px;">🚀</span>
+            실험 시작
+          </button>
         </div>
-        <button onclick="runSimulation()" class="btn-primary">
-          <span style="margin-right: 8px;">🚀</span>
-          실험 시작
-        </button>
       </div>
 
       <div id="result" class="result-display" style="display: none;"></div>

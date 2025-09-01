@@ -292,7 +292,7 @@ function drawChart(data, p, h) {
           ctx.fillStyle = '#dc2626';
           ctx.font = 'bold 12px Arial';
           ctx.textAlign = 'center';
-          ctx.fillText('이론값 (1/6)', theoreticalX, chartArea.top - 5);
+          ctx.fillText(`이론값 (1/6 ≈ ${(1/6).toFixed(4)})`, theoreticalX, chartArea.top - 5);
           ctx.restore();
         }
       }
