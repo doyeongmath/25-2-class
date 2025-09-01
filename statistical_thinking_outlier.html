@@ -2581,67 +2581,28 @@
             <!-- 결론 탭 -->
             <div id="conclusion" class="tab-content" role="tabpanel" aria-labelledby="tab-conclusion">
             <div class="conclusion-box">
-                <h3>🏁 최종 결론과 권장사항</h3>
+                <h3>📋 정리 및 결론</h3>
 
                 <div class="conclusion-section">
-                    <h4>📋 이상치 처리의 올바른 접근법:</h4>
+                    <h4>핵심 내용 요약</h4>
                     <ul>
-                        <li><strong>1단계: 데이터 투명성 확보</strong><br>
-                           <small>원본 데이터를 있는 그대로 공개하여 신뢰성과 투명성 유지</small></li>
-                        <li><strong>2단계: 이상치 영향 체험</strong><br>
-                           <small>이상치가 통계에 미치는 영향을 직접 관찰하고 분석</small></li>
-                        <li><strong>3단계: 객관적 기준 적용</strong><br>
-                           <small>IQR 방법과 Z-score 방법을 비교하여 가장 적합한 이상치 탐지 기법 선택</small></li>
-                        <li><strong>4단계: 결과 비교 및 해석</strong><br>
-                           <small>원본 데이터와 이상치 제거 데이터의 결과를 비교하여 의미 있는 통찰 도출</small></li>
+                        <li><strong>이상치의 영향:</strong> 극값 2개만으로도 평균이 8.9억이 되어 통계가 무의미해짐</li>
+                        <li><strong>IQR 방법:</strong> 분포에 관계없이 안정적, 10개 이상치 탐지, 최종 평균 31.3세</li>
+                        <li><strong>Z-score 방법:</strong> 정규분포 가정 필요, 9개 이상치 탐지, 최종 평균 31.2세</li>
+                        <li><strong>방법 선택:</strong> 일반적으로 IQR 방법이 더 안정적이고 실용적</li>
                     </ul>
                 </div>
 
                 <div class="conclusion-section">
-                    <h4>🎯 이번 학습의 핵심 성과:</h4>
+                    <h4>실무 권장사항</h4>
                     <ul>
-                        <li><strong>📊 통계적 사고력 향상:</strong> 단순한 숫자 계산이 아닌 데이터의 의미를 비판적으로 분석하는 능력 습득</li>
-                        <li><strong>🔍 다각적 분석 기법 습득:</strong> IQR 방법과 Z-score 방법의 원리, 장단점, 그리고 상황별 적용 전략 학습</li>
-                        <li><strong>⚖️ 윤리적 판단 능력:</strong> 데이터 조작과 투명성 사이의 균형을 고려한 의사결정</li>
-                        <li><strong>💡 실무 적용력:</strong> 실제 데이터 분석 상황에서 적절한 방법 선택 및 적용</li>
+                        <li><strong>투명성:</strong> 원본 데이터와 처리 과정을 모두 공개</li>
+                        <li><strong>방법 선택:</strong> 데이터 분포를 모르면 IQR, 정규분포 확신시 Z-score 사용</li>
+                        <li><strong>결과 해석:</strong> 이상치 제거 전후 결과를 함께 제시하여 비교</li>
+                        <li><strong>맥락 고려:</strong> 이상치라도 의미있는 데이터일 수 있으므로 신중히 판단</li>
                     </ul>
                 </div>
 
-                                 <div class="conclusion-highlight">
-                     <h4>🎖️ 학습 목표 달성도:</h4>
-                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
-                         <div style="background: #2d3748; color: white; padding: 20px; border-radius: 12px; text-align: center; border: 2px solid #4a5568; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                             <div style="font-size: 2.5em; margin-bottom: 15px; color: #48bb78;">✅</div>
-                             <strong style="font-size: 1.2em; color: #f7fafc;">통계 개념 이해</strong><br>
-                             <small style="color: #a0aec0; font-size: 0.95em;">평균, 표준편차, 이상치의 의미</small>
-                         </div>
-                         <div style="background: #2d3748; color: white; padding: 20px; border-radius: 12px; text-align: center; border: 2px solid #4a5568; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                             <div style="font-size: 2.5em; margin-bottom: 15px; color: #48bb78;">✅</div>
-                             <strong style="font-size: 1.2em; color: #f7fafc;">분석 방법 습득</strong><br>
-                             <small style="color: #a0aec0; font-size: 0.95em;">IQR, Z-score 알고리즘</small>
-                         </div>
-                         <div style="background: #2d3748; color: white; padding: 20px; border-radius: 12px; text-align: center; border: 2px solid #4a5568; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                             <div style="font-size: 2.5em; margin-bottom: 15px; color: #48bb78;">✅</div>
-                             <strong style="font-size: 1.2em; color: #f7fafc;">비판적 사고</strong><br>
-                             <small style="color: #a0aec0; font-size: 0.95em;">데이터 해석과 의사결정</small>
-                         </div>
-                         <div style="background: #2d3748; color: white; padding: 20px; border-radius: 12px; text-align: center; border: 2px solid #4a5568; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                             <div style="font-size: 2.5em; margin-bottom: 15px; color: #48bb78;">✅</div>
-                             <strong style="font-size: 1.2em; color: #f7fafc;">실무 적용</strong><br>
-                             <small style="color: #a0aec0; font-size: 0.95em;">상황에 맞는 방법 선택</small>
-                         </div>
-                     </div>
-                 </div>
-
-                <div class="conclusion-insight">
-                    <h4>🚀 다음 단계로의 확장:</h4>
-                    <p>
-                        <strong>📈 고급 분석 기법:</strong> 이번에 배운 IQR과 Z-score 외에도 다양한 이상치 탐지 방법이 있습니다.<br>
-                        <strong>🤖 머신러닝 적용:</strong> 자동화된 이상치 탐지 알고리즘을 활용한 고급 분석<br>
-                        <strong>📊 실제 데이터 분석:</strong> 실무 데이터에서 이상치를 찾아보고 분석해보기<br>
-                        <strong>🎯 프로젝트 수행:</strong> 자신이 관심 있는 분야의 데이터를 수집하여 이상치 분석 실시
-                    </p>
-                </div>
 
                 <!-- 📮 수업 피드백 설문 QR -->
                 <div class="conclusion-section" style="margin-top: 22px;">
@@ -2659,22 +2620,13 @@
                 </div>
 
                 <div class="conclusion-section">
-                    <h4>🏫 교육적 의의와 학생 참여:</h4>
+                    <h4>학습 요점</h4>
                     <ul>
-                        <li><strong>🎲 체험적 학습:</strong> "평균 맞히기 게임"은 단순한 게임이 아니라, 통계적 사고를 몸으로 체득하는 교육적 도구</li>
-                        <li><strong>😄 창의성 발현:</strong> 99억세 같은 창의적인 답변은 학생들의 참여 의지와 수업 흥미도를 보여주는 증거</li>
-                        <li><strong>🤝 협동 학습:</strong> 친구들과 함께 이상치를 찾아보는 과정에서 협력과 소통 능력이 향상</li>
-                        <li><strong>💭 비판적 사고:</strong> "이 데이터가 정말 이상치인가?"라는 질문을 통해 논리적 사고력 개발</li>
+                        <li><strong>통계의 취약점:</strong> 극값에 민감한 평균의 한계를 직접 체험</li>
+                        <li><strong>방법론의 중요성:</strong> 같은 데이터라도 분석 방법에 따라 결과가 달라짐</li>
+                        <li><strong>객관적 기준:</strong> 감에 의존하지 않고 수학적 기준으로 이상치 판단</li>
+                        <li><strong>투명성의 가치:</strong> 원본 데이터와 분석 과정을 공개하여 신뢰성 확보</li>
                     </ul>
-                </div>
-
-                <div class="conclusion-highlight">
-                    <h4>🌟 마무리 메시지:</h4>
-                    <p style="font-size: 1.3em; text-align: center; margin: 20px 0;">
-                        <strong>"통계는 단순한 계산이 아니라, 세상을 바라보는 새로운 눈입니다."</strong><br><br>
-                        여러분은 이제 단순한 숫자를 넘어 데이터의 의미를 읽을 수 있는 능력을 갖추었습니다.<br>
-                        이 능력으로 세상을 더 깊이 이해하고, 더 현명한 결정을 내릴 수 있기를 기대합니다! 🚀✨
-                    </p>
                 </div>
             </div>
         </div>
