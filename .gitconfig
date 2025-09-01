@@ -1,8 +1,0 @@
-[core]
-    hooksPath = .git/hooks
-
-[commit]
-    template = .git/hooks/commit-template.txt
-
-[hooks]
-    prepare-commit-msg = .git/hooks/prepare-commit-msg.bat

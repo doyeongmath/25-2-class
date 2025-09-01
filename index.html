@@ -397,6 +397,12 @@
         <h3 class="text-xl font-extrabold">이항↔정규 분포 비교</h3>
         <p class="opacity-90">이항분포의 정규근사 시뮬레이션</p>
       </button>
+
+      <button class="action-tile tile-purple" onclick="handleViewStatisticalThinking()" aria-label="통계적 사고와 이상치 분석 열기">
+        <div class="text-3xl mb-2">🎯</div>
+        <h3 class="text-xl font-extrabold">통계적 사고와 이상치</h3>
+        <p class="opacity-90">이상치 탐지 방법 비교 분석</p>
+      </button>
     </section>
 
     <!-- 평가 방법 -->
@@ -734,6 +740,7 @@
     function handleViewGameResult(){ showInIframe('./average-game-result.html', '평균 맞히기 게임 결과'); }
     function handleViewLawOfLargeNumbers(){ showInIframe('./law-of-large-numbers.html', '큰수의 법칙 실험기'); }
     function handleViewBinormal(){ showInIframe('./binormal.html', '이항↔정규 분포 비교'); }
+    function handleViewStatisticalThinking(){ showInIframe('./statistical_thinking_outlier.html', '통계적 사고와 이상치 분석'); }
     function handleViewAfterSchoolSchedule(){ showInIframe('./after-school-schedule.html', '방과후 수업 계획'); }
     
 
@@ -744,6 +751,7 @@
     window.handleViewGameResult = handleViewGameResult;
     window.handleViewLawOfLargeNumbers = handleViewLawOfLargeNumbers;
     window.handleViewBinormal = handleViewBinormal;
+    window.handleViewStatisticalThinking = handleViewStatisticalThinking;
     window.handleViewAfterSchoolSchedule = handleViewAfterSchoolSchedule;
   </script>
 </body>
