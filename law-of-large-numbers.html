@@ -426,7 +426,7 @@
             <tr>
               <th>\(n\) (던진 횟수)</th>
               <th>\(X\) (3의 눈 횟수)</th>
-              <th>\(P(|\frac{X}{n} - \frac{1}{6}| < 0.1)\)</th>
+              <th>\(P(|\frac{X}{n} - p| < 0.1)\)</th>
             </tr>
           </thead>
           <tbody id="theoryTableBody">
@@ -459,7 +459,7 @@
       <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 20px; border-radius: 12px; margin: 20px 0; border-left: 4px solid #0ea5e9;">
         <p style="margin-bottom: 12px; font-weight: 500;">
           <strong>실험 설명:</strong> 주사위를 \(n\)번 던져서 3의 눈이 나오는 횟수 \(X\)를 구하고, 
-          상대도수 \(\frac{X}{n}\)이 수학적 확률 \(\frac{1}{6}\)에 수렴하는지 확인합니다.
+          상대도수 \(\frac{X}{n}\)이 수학적 확률 \(p\)에 수렴하는지 확인합니다.
         </p>
         <p style="margin: 0; font-weight: 500;">
           사용자가 설정한 오차 범위 \(h\) 안에 들어오는 비율을 계산하여 
@@ -500,11 +500,11 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
           <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb;">
             <p style="margin: 0; font-weight: 600; color: #7c3aed;">이론적 기댓값</p>
-            <p style="margin: 8px 0 0 0; font-size: 1.1rem;">\(E\left[\frac{X}{n}\right] = \frac{1}{6} \approx 0.1667\)</p>
+            <p style="margin: 8px 0 0 0; font-size: 1.1rem;">\(E\left[\frac{X}{n}\right] = p\)</p>
           </div>
           <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb;">
             <p style="margin: 0; font-weight: 600; color: #7c3aed;">이론적 분산</p>
-            <p style="margin: 8px 0 0 0; font-size: 1.1rem;">\(V\left[\frac{X}{n}\right] = \frac{5}{36n}\)</p>
+            <p style="margin: 8px 0 0 0; font-size: 1.1rem;">\(V\left[\frac{X}{n}\right] = \frac{p(1-p)}{n}\)</p>
           </div>
         </div>
       </div>
