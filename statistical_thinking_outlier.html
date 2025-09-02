@@ -1314,6 +1314,12 @@
         }
 
         @media (max-width: 768px) {
+            /* 전체 폰트 크기 증가 */
+            body {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
             .debate-sides {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -1326,18 +1332,20 @@
 
             .nav-tab {
                 width: 100%;
-                padding: 12px 15px;
-                font-size: 0.9em;
+                padding: 16px 18px;
+                font-size: 1em;
+                font-weight: 600;
+                line-height: 1.4;
             }
 
             .value-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
+                gap: 12px;
             }
 
             .stat-comparison {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 18px;
             }
 
             .analysis-grid {
@@ -1345,84 +1353,191 @@
             }
 
             .header {
-                padding: 20px;
+                padding: 24px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+                line-height: 1.2;
+            }
+
+            .header p {
+                font-size: 1.1em;
+                line-height: 1.5;
             }
 
             .section {
-                padding: 20px;
-                margin-bottom: 30px;
+                padding: 24px;
+                margin-bottom: 32px;
+                line-height: 1.6;
+            }
+
+            /* 텍스트 가독성 개선 */
+            h2, h3, h4 {
+                line-height: 1.3;
+                margin-bottom: 16px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            h3 {
+                font-size: 1.5em;
+            }
+
+            h4 {
+                font-size: 1.2em;
+            }
+
+            p, li {
+                line-height: 1.7;
+                margin-bottom: 12px;
+            }
+
+            /* 색상 대비 개선 */
+            .section {
+                background: #ffffff;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             }
         }
 
         @media (max-width: 480px) {
+            /* 전체 가독성 극대화 */
+            body {
+                font-size: 17px;
+                line-height: 1.8;
+            }
+
             .container {
-                margin: 5px;
+                margin: 8px;
+                border-radius: 16px;
             }
 
             .header {
-                padding: 16px;
+                padding: 20px;
             }
 
             .header h1 {
-                font-size: 1.8em;
+                font-size: 2em;
+                line-height: 1.2;
+                margin-bottom: 12px;
             }
 
             .header p {
-                font-size: 1em;
+                font-size: 1.1em;
+                line-height: 1.5;
             }
 
             .data-grid.sorted {
-                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-                font-size: 0.8em;
-                gap: 3px;
+                grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+                font-size: 0.9em;
+                gap: 4px;
             }
 
             .value-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             .big-number {
-                font-size: 2.5em;
+                font-size: 2.8em;
+                line-height: 1.1;
             }
             
-            /* 탭 개선 */
+            /* 탭 개선 - 가독성 향상 */
             .tab-content {
-                padding: 20px 16px;
+                padding: 24px 20px;
+                line-height: 1.7;
             }
             
             .nav-tabs {
-                margin: 20px 16px;
-                padding: 3px;
+                margin: 24px 20px;
+                padding: 4px;
             }
             
             .nav-tab {
-                padding: 10px 12px;
-                font-size: 0.85em;
+                padding: 16px 18px;
+                font-size: 0.95em;
+                font-weight: 600;
+                line-height: 1.3;
             }
             
-            /* 계산 과정 개선 */
+            /* 계산 과정 가독성 개선 */
             .calculation-details {
-                padding: 12px;
+                padding: 16px;
+                margin: 20px 0;
             }
             
             .calc-step {
-                padding: 10px;
-                margin: 10px 0;
+                padding: 14px;
+                margin: 16px 0;
             }
             
             .step-content {
-                margin-left: 16px;
-                font-size: 0.9em;
+                margin-left: 18px;
+                font-size: 0.95em;
+                line-height: 1.6;
             }
             
             .step-number {
-                width: 24px;
-                height: 24px;
-                font-size: 0.8em;
+                width: 28px;
+                height: 28px;
+                font-size: 0.85em;
             }
             
             .step-title {
+                font-size: 1.1em;
+                line-height: 1.3;
+            }
+
+            /* 텍스트 요소 가독성 강화 */
+            h2 {
+                font-size: 1.7em;
+                line-height: 1.3;
+                margin-bottom: 18px;
+            }
+
+            h3 {
+                font-size: 1.4em;
+                line-height: 1.3;
+                margin-bottom: 16px;
+            }
+
+            h4 {
+                font-size: 1.15em;
+                line-height: 1.4;
+                margin-bottom: 14px;
+            }
+
+            p, li {
                 font-size: 1em;
+                line-height: 1.7;
+                margin-bottom: 14px;
+            }
+
+            /* 데이터 항목 가독성 */
+            .data-item {
+                font-size: 0.95em;
+                padding: 10px 14px;
+                line-height: 1.4;
+            }
+
+            .value-box {
+                padding: 16px 20px;
+                font-size: 1em;
+                line-height: 1.4;
+            }
+
+            /* 메서드 카드 텍스트 개선 */
+            .method-card h3 {
+                font-size: 1.3em;
+                line-height: 1.3;
+            }
+
+            .method-card p {
+                font-size: 0.95em;
+                line-height: 1.6;
             }
         }
 
@@ -1761,41 +1876,66 @@
                 padding: 12px;
             }
             
-            /* 테이블 모바일 개선 */
+            /* 테이블 모바일 개선 - 가독성 향상 */
             .summary-table {
-                font-size: 0.85em;
+                font-size: 0.9em;
+                line-height: 1.5;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
             
-            /* 데이터 그리드 터치 개선 */
+            .summary-table th,
+            .summary-table td {
+                padding: 12px 10px;
+                line-height: 1.4;
+            }
+            
+            /* 데이터 그리드 터치 개선 - 가독성 향상 */
             .data-item {
-                min-height: 48px;
-                font-size: 0.9em;
-                padding: 8px 12px;
+                min-height: 52px;
+                font-size: 0.95em;
+                padding: 10px 14px;
+                line-height: 1.4;
             }
             
-            /* 값 박스 터치 개선 */
+            /* 값 박스 터치 개선 - 가독성 향상 */
             .value-box {
-                min-height: 48px;
-                padding: 12px 16px;
+                min-height: 52px;
+                padding: 14px 18px;
+                font-size: 1em;
+                line-height: 1.4;
             }
             
-            /* 메서드 카드 모바일 개선 */
+            /* 메서드 카드 모바일 개선 - 가독성 향상 */
             .method-card {
-                margin: 15px 0;
+                margin: 18px 0;
+                padding: 20px;
+            }
+            
+            .method-card h3 {
+                font-size: 1.4em;
+                line-height: 1.3;
+                margin-bottom: 12px;
+            }
+            
+            .method-card p {
+                font-size: 0.95em;
+                line-height: 1.6;
+                margin-bottom: 10px;
             }
             
             .method-tabs {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
             }
             
             .method-tab {
                 width: 100%;
                 text-align: center;
-                padding: 14px 16px;
-                font-size: 0.95em;
+                padding: 16px 18px;
+                font-size: 1em;
+                font-weight: 600;
+                line-height: 1.3;
             }
         }
 
