@@ -145,10 +145,16 @@ function drawChart(data, p, h) {
     bins[idx]++;
   });
   
-  const labels = [];
+  // 히스토그램 데이터를 연속적인 x축에 맞게 변환
+  const histogramData = [];
   for (let i = 0; i < numBins; i++) {
     const binStart = minVal + (i / numBins) * range;
-    labels.push(binStart.toFixed(3));
+    const binEnd = minVal + ((i + 1) / numBins) * range;
+    const binCenter = (binStart + binEnd) / 2;
+    histogramData.push({
+      x: binCenter,
+      y: bins[i]
+    });
   }
   
   // 허용 오차 범위 계산
@@ -156,9 +162,8 @@ function drawChart(data, p, h) {
   const theoreticalUpper = p + h;
   
   // 색상 배열 생성 (허용 범위 내는 초록색, 외부는 빨간색)
-  const backgroundColors = bins.map((_, i) => {
-    const binCenter = minVal + ((i + 0.5) / numBins) * range;
-    if (binCenter >= theoreticalLower && binCenter <= theoreticalUpper) {
+  const backgroundColors = histogramData.map(point => {
+    if (point.x >= theoreticalLower && point.x <= theoreticalUpper) {
       return 'rgba(34, 197, 94, 0.7)'; // 초록색 (성공)
     } else {
       return 'rgba(239, 68, 68, 0.7)'; // 빨간색 (실패)
@@ -176,10 +181,9 @@ function drawChart(data, p, h) {
   window.chart = new Chart(context, {
     type: 'bar',
     data: {
-      labels: labels,
       datasets: [{
         label: '상대도수 분포',
-        data: bins,
+        data: histogramData,
         backgroundColor: backgroundColors,
         borderColor: borderColors,
         borderWidth: 1
@@ -222,6 +226,7 @@ function drawChart(data, p, h) {
       },
       scales: {
         x: {
+          type: 'linear',
           title: {
             display: true,
             text: '상대도수 (X/n)',
@@ -230,6 +235,8 @@ function drawChart(data, p, h) {
               weight: 'bold'
             }
           },
+          min: minVal,
+          max: maxVal,
           grid: {
             display: true,
             alpha: 0.3
@@ -237,7 +244,7 @@ function drawChart(data, p, h) {
           ticks: {
             maxTicksLimit: 10,
             callback: function(value, index, values) {
-              return parseFloat(this.getLabelForValue(value)).toFixed(2);
+              return value.toFixed(2);
             }
           }
         },
