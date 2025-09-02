@@ -272,9 +272,8 @@ function drawChart(data, p, h) {
       const chartArea = chart.chartArea;
       const scales = chart.scales;
       
-      // p = 1/6의 실제 x축 위치 계산 (히스토그램 bin 인덱스로 변환)
-      const theoreticalBinIndex = (p - minVal) / range * numBins;
-      const theoreticalX = scales.x.getPixelForValue(theoreticalBinIndex);
+      // p = 1/6의 실제 x축 위치 계산 (실제 값으로 직접 계산)
+      const theoreticalX = scales.x.getPixelForValue(p);
       
       if (theoreticalX >= chartArea.left && theoreticalX <= chartArea.right) {
         ctx.save();
