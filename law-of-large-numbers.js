@@ -264,40 +264,39 @@ function drawChart(data, p, h) {
     }
   });
   
-  // 이론적 확률 수직선 추가
-  const chartArea = window.chart.chartArea;
-  if (chartArea) {
-    const theoreticalX = chartArea.left + ((p - minVal) / range) * (chartArea.right - chartArea.left);
-    
-    // 수직선을 그리기 위한 플러그인 등록
-    Chart.register({
-      id: 'theoreticalLine',
-      afterDraw: function(chart) {
-        const ctx = chart.ctx;
-        const chartArea = chart.chartArea;
+  // 이론적 확률 수직선을 그리기 위한 플러그인 등록
+  Chart.register({
+    id: 'theoreticalLine',
+    afterDraw: function(chart) {
+      const ctx = chart.ctx;
+      const chartArea = chart.chartArea;
+      const scales = chart.scales;
+      
+      // p = 1/6의 실제 x축 위치 계산 (히스토그램 bin 인덱스로 변환)
+      const theoreticalBinIndex = (p - minVal) / range * numBins;
+      const theoreticalX = scales.x.getPixelForValue(theoreticalBinIndex);
+      
+      if (theoreticalX >= chartArea.left && theoreticalX <= chartArea.right) {
+        ctx.save();
+        ctx.strokeStyle = '#dc2626';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.moveTo(theoreticalX, chartArea.top);
+        ctx.lineTo(theoreticalX, chartArea.bottom);
+        ctx.stroke();
+        ctx.restore();
         
-        if (theoreticalX >= chartArea.left && theoreticalX <= chartArea.right) {
-          ctx.save();
-          ctx.strokeStyle = '#dc2626';
-          ctx.lineWidth = 3;
-          ctx.setLineDash([5, 5]);
-          ctx.beginPath();
-          ctx.moveTo(theoreticalX, chartArea.top);
-          ctx.lineTo(theoreticalX, chartArea.bottom);
-          ctx.stroke();
-          ctx.restore();
-          
-          // 레이블 추가
-          ctx.save();
-          ctx.fillStyle = '#dc2626';
-          ctx.font = 'bold 12px Arial';
-          ctx.textAlign = 'center';
-          ctx.fillText(`이론값 (1/6 ≈ ${(1/6).toFixed(4)})`, theoreticalX, chartArea.top - 5);
-          ctx.restore();
-        }
+        // 레이블 추가
+        ctx.save();
+        ctx.fillStyle = '#dc2626';
+        ctx.font = 'bold 12px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(`이론값 (1/6 ≈ ${(1/6).toFixed(4)})`, theoreticalX, chartArea.top - 5);
+        ctx.restore();
       }
-    });
-  }
+    }
+  });
   
   console.log('실험결과 그래프 완성');
 }
