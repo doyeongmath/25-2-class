@@ -197,18 +197,22 @@ function drawChart(data, p, h) {
           display: true,
           text: `실험 결과: 상대도수 분포 (허용 범위: ${theoreticalLower.toFixed(3)} ~ ${theoreticalUpper.toFixed(3)})`,
           font: {
-            size: 16,
+            size: window.innerWidth < 768 ? 12 : 16,
             weight: 'bold'
           },
-          padding: 20
+          padding: window.innerWidth < 768 ? 10 : 20
         },
         legend: {
           display: true,
+          position: window.innerWidth < 768 ? 'bottom' : 'top',
           labels: {
+            font: {
+              size: window.innerWidth < 768 ? 10 : 12
+            },
             generateLabels: function(chart) {
               return [
                 {
-                  text: `허용 범위 내 (|X/n - 1/6| < ${h})`,
+                  text: window.innerWidth < 768 ? `범위 내 (< ${h})` : `허용 범위 내 (|X/n - 1/6| < ${h})`,
                   fillStyle: 'rgba(34, 197, 94, 0.7)',
                   strokeStyle: 'rgba(34, 197, 94, 1)',
                   lineWidth: 1
@@ -231,7 +235,7 @@ function drawChart(data, p, h) {
             display: true,
             text: '상대도수 (X/n)',
             font: {
-              size: 14,
+              size: window.innerWidth < 768 ? 10 : 14,
               weight: 'bold'
             }
           },
@@ -242,7 +246,10 @@ function drawChart(data, p, h) {
             alpha: 0.3
           },
           ticks: {
-            maxTicksLimit: 10,
+            maxTicksLimit: window.innerWidth < 768 ? 6 : 10,
+            font: {
+              size: window.innerWidth < 768 ? 8 : 11
+            },
             callback: function(value, index, values) {
               return value.toFixed(2);
             }
@@ -253,7 +260,7 @@ function drawChart(data, p, h) {
             display: true,
             text: '빈도',
             font: {
-              size: 14,
+              size: window.innerWidth < 768 ? 10 : 14,
               weight: 'bold'
             }
           },
@@ -261,6 +268,11 @@ function drawChart(data, p, h) {
           grid: {
             display: true,
             alpha: 0.3
+          },
+          ticks: {
+            font: {
+              size: window.innerWidth < 768 ? 8 : 11
+            }
           }
         }
       },

@@ -125,6 +125,7 @@
       padding: 20px;
       margin: 20px 0;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow-x: auto;
     }
     
     .controls-grid {
@@ -342,6 +343,34 @@
       
       .tab-buttons {
         flex-direction: column;
+      }
+      
+      .chart-container {
+        padding: 10px;
+        margin: 15px 0;
+      }
+      
+      .chart-container canvas {
+        min-height: 300px !important;
+        max-height: 350px !important;
+      }
+      
+      .modern-table {
+        font-size: 12px;
+      }
+      
+      .modern-table th,
+      .modern-table td {
+        padding: 8px 4px;
+      }
+      
+      .result-display {
+        padding: 15px;
+        margin: 15px 0;
+      }
+      
+      .result-highlight {
+        font-size: 20px;
       }
     }
   </style>
