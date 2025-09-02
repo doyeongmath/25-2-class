@@ -371,7 +371,7 @@ function drawTheoryChart() {
         plugins: {
           title: {
             display: true,
-            text: '이론적 이항분포 (p = 1/6)',
+            text: '이론적 이항분포',
             font: {
               size: 16
             }
