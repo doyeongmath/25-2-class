@@ -213,17 +213,17 @@
         .data-item {
             background: #3498db;
             color: white;
-            padding: 6px 8px;
+            padding: 5px 6px;
             border-radius: 8px;
             text-align: center;
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 50px;
+            min-width: 45px;
             height: auto;
-            min-height: 32px;
+            min-height: 30px;
             word-break: break-all;
             line-height: 1.2;
         }
@@ -231,16 +231,17 @@
         /* 긴 숫자 자동 조정 */
         .data-item.long-number {
             font-size: 0.7em;
-            min-width: 70px;
-            padding: 8px 6px;
+            min-width: 65px;
+            padding: 6px 4px;
         }
 
         .data-item.very-long-number {
-            font-size: 0.6em;
-            min-width: 90px;
-            padding: 10px 4px;
+            font-size: 0.55em;
+            min-width: 80px;
+            padding: 8px 3px;
             line-height: 1.1;
         }
+
 
         .data-item.extreme-item {
             background: #e74c3c;
@@ -507,21 +508,20 @@
 
         .data-grid.sorted {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 5px;
             margin: 15px 0;
-            max-height: 400px;
-            overflow-y: auto;
             padding: 15px;
             background: #f8f9fa;
             border-radius: 10px;
             border: 1px solid #e9ecef;
+            /* 스크롤 제거 - 모든 항목이 보이도록 */
         }
 
         /* 큰 숫자가 있는 경우 그리드 조정 */
         .data-grid.sorted.has-large-numbers {
-            grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 6px;
         }
 
         /* 이상치 분석 결과 스타일 */
@@ -1382,12 +1382,12 @@
             }
 
             .data-grid.sorted {
-                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
                 gap: 5px;
             }
 
             .data-grid.sorted.has-large-numbers {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
                 gap: 6px;
             }
         }
@@ -1509,14 +1509,14 @@
             }
 
             .data-grid.sorted {
-                grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-                font-size: 0.85em;
-                gap: 4px;
+                grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+                font-size: 0.8em;
+                gap: 3px;
             }
 
             .data-grid.sorted.has-large-numbers {
-                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-                gap: 5px;
+                grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+                gap: 4px;
             }
 
             /* 모바일에서 긴 숫자 처리 */
