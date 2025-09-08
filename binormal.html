@@ -241,18 +241,29 @@
       display: inline-block;
       position: relative;
       vertical-align: middle;
-      letter-spacing: 0.001em;
       text-align: center;
-      font-size: 0.95em;
+      font-size: 0.9em;
+      line-height: 1;
+      margin: 0 2px;
     }
     
     .fraction > span {
       display: block;
-      padding: 0.1em;
+      padding: 0;
+      margin: 0;
+      line-height: 1;
     }
     
     .fraction span.fup {
-      border-bottom: thin solid;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px;
+      margin-bottom: 1px;
+      font-size: 0.85em;
+    }
+    
+    .fraction span.fdn {
+      padding-top: 1px;
+      font-size: 0.85em;
     }
     
     .fraction span.bar {
@@ -416,12 +427,12 @@ n이 충분히 클 때: B(n, p) ≈ N(m, σ²)
       
       <!-- 예제 1 -->
       <div class="chart-container" style="margin-bottom: 30px;">
-        <h3 style="color: #22c55e; margin: 0 0 20px 0; font-size: 1.4rem; display: flex; align-items: center; gap: 0.5rem;">
+        <h3 style="color: #f59e0b; margin: 0 0 20px 0; font-size: 1.4rem; display: flex; align-items: center; gap: 0.5rem;">
           <span>📊</span> 예제 1
         </h3>
         
-        <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; border-left: 4px solid #22c55e; margin-bottom: 20px;">
-          <h4 style="color: #166534; margin: 0 0 15px 0; font-size: 1.2rem;">문제</h4>
+        <div style="background: #fef3c7; padding: 20px; border-radius: 12px; border-left: 4px solid #f59e0b; margin-bottom: 20px;">
+          <h4 style="color: #92400e; margin: 0 0 15px 0; font-size: 1.2rem;">문제</h4>
           <p style="margin: 0 0 15px 0; font-size: 1.1rem; line-height: 1.6;">
             이항분포 B(72, <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">3</span></span>)를 따르는 확률변수 X에 대하여 P(26 ≤ X ≤ 35)를 구해보세요.
           </p>
@@ -440,7 +451,7 @@ n이 충분히 클 때: B(n, p) ≈ N(m, σ²)
         </div>
         
         <div style="text-align: center; margin: 20px 0;">
-          <button id="btnEx1Visual" class="btn-primary" style="font-size: 1.1rem; padding: 15px 30px;">
+          <button id="btnEx1Visual" class="btn-primary" style="font-size: 1.1rem; padding: 15px 30px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
             <span style="margin-right: 8px;">📊</span>
             예제 1 시각화하기
           </button>
@@ -450,7 +461,7 @@ n이 충분히 클 때: B(n, p) ≈ N(m, σ²)
           <canvas id="ex1Chart" style="max-height: 400px; width: 100%;"></canvas>
         </div>
         <div style="background: white; padding: 25px; border-radius: 12px; border: 1px solid #e5e7eb;">
-          <h4 style="color: #22c55e; margin: 0 0 20px 0; font-size: 1.3rem;">📊 계산 결과</h4>
+          <h4 style="color: #f59e0b; margin: 0 0 20px 0; font-size: 1.3rem;">📊 계산 결과</h4>
           <div id="ex1Result" style="font-size: 1.1rem; line-height: 2;">
             <p style="color: #6b7280;">버튼을 눌러 계산해보세요!</p>
           </div>
