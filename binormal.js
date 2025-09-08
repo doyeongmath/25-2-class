@@ -1,10 +1,66 @@
-// 이항분포와 정규분포 비교 시뮬레이션
+// 이항분포와 정규분포 비교 시뮬레이션 (연속성 보정 없음)
 class BinormalComparison {
     constructor() {
         this.chart = null;
+        this.initialChart = null;
+        this.ex1Chart = null;
+        this.pr1Chart = null;
+        this.pr2Chart = null;
         this.isRunning = false;
         this.initChart();
         this.bindEvents();
+        this.initMath();
+    }
+
+    // 수학 유틸리티 초기화
+    initMath() {
+        // logGamma (Lanczos Approximation)
+        this.logGamma = function(z) {
+            const g = 7;
+            const p = [
+                0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+                771.32342877765313, -176.61502916214059, 12.507343278686905,
+                -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7
+            ];
+            if (z < 0.5) {
+                return Math.log(Math.PI) - Math.log(Math.sin(Math.PI * z)) - this.logGamma(1 - z);
+            }
+            z -= 1;
+            let x = p[0];
+            for (let i = 1; i < p.length; i++) x += p[i] / (z + i);
+            const t = z + g + 0.5;
+            return 0.5*Math.log(2*Math.PI) + (z + 0.5)*Math.log(t) - t + Math.log(x);
+        };
+
+        this.logChoose = function(n, k) {
+            if (k < 0 || k > n) return -Infinity;
+            return this.logGamma(n+1) - this.logGamma(k+1) - this.logGamma(n-k+1);
+        };
+
+        this.binomPMF = function(n, p, k) {
+            if (k < 0 || k > n) return 0;
+            const logp = this.logChoose(n,k) + k*Math.log(p) + (n-k)*Math.log(1-p);
+            return Math.exp(logp);
+        };
+
+        // 표준정규 PDF/CDF (erf 근사)
+        this.stdNormPDF = function(z) { 
+            return Math.exp(-0.5*z*z) / Math.sqrt(2*Math.PI); 
+        };
+
+        this.erf = function(x) { // Abramowitz & Stegun 7.1.26
+            const sign = x < 0 ? -1 : 1; 
+            x = Math.abs(x);
+            const a1=0.254829592, a2=-0.284496736, a3=1.421413741, a4=-1.453152027, a5=1.061405429;
+            const p=0.3275911; 
+            const t = 1/(1+p*x);
+            const y = 1 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t*Math.exp(-x*x);
+            return sign*y;
+        };
+
+        this.stdNormCDF = function(z) { 
+            return 0.5*(1+this.erf(z/Math.SQRT2)); 
+        };
     }
 
     // Chart.js 초기화
@@ -144,6 +200,30 @@ class BinormalComparison {
         runButton.addEventListener('click', () => {
             if (!this.isRunning) {
                 this.runComparison();
+            }
+        });
+
+        // 새로운 단계별 버튼들
+        document.getElementById('btnInitialPMF').addEventListener('click', () => {
+            this.drawInitialPMF();
+        });
+
+        document.getElementById('btnEx1Visual').addEventListener('click', () => {
+            this.visualizeExample1();
+        });
+
+        document.getElementById('btnPr1Visual').addEventListener('click', () => {
+            this.visualizeProblem1();
+        });
+
+        document.getElementById('btnPr2Visual').addEventListener('click', () => {
+            this.visualizeProblem2();
+        });
+
+        // Reset with R key
+        window.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'r') {
+                this.resetCharts();
             }
         });
 
@@ -424,6 +504,436 @@ class BinormalComparison {
         } finally {
             this.setLoading(false);
         }
+    }
+
+    // 새로운 메소드들 추가
+
+    // 차트 리셋 기능
+    resetCharts() {
+        const charts = [this.initialChart, this.ex1Chart, this.pr1Chart, this.pr2Chart];
+        const chartIds = ['initialChart', 'ex1Chart', 'pr1Chart', 'pr2Chart'];
+        
+        charts.forEach((chart, index) => {
+            if (chart) {
+                chart.destroy();
+                this[Object.keys(this).find(key => this[key] === chart)] = null;
+            }
+            const canvas = document.getElementById(chartIds[index]);
+            if (canvas) {
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+            }
+        });
+        
+        // 결과 텍스트 리셋
+        ['ex1Result', 'pr1Result', 'pr2Result'].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.innerHTML = '<p>버튼을 눌러 계산해보세요!</p>';
+            }
+        });
+    }
+
+    // 1단계: 초기 PMF 그리기 (n=15,30,50, p=1/3)
+    drawInitialPMF() {
+        const p = 1/3;
+        const ns = [15, 30, 50];
+        const datasets = ns.map((n, idx) => {
+            const x = Array.from({length:n+1}, (_,k)=>k);
+            const y = x.map(k => this.binomPMF(n,p,k));
+            const colors = ['#3b82f6', '#22c55e', '#ef4444'];
+            return { 
+                label:`n=${n}`, 
+                data:y, 
+                borderColor: colors[idx],
+                backgroundColor: colors[idx] + '30',
+                borderWidth:3, 
+                pointRadius:2,
+                pointHoverRadius:5,
+                fill: false
+            };
+        });
+
+        if (this.initialChart) this.initialChart.destroy();
+        this.initialChart = new Chart(document.getElementById('initialChart'), {
+            type:'line',
+            data:{ labels: Array.from({length:51},(_,k)=>k), datasets },
+            options:{
+                responsive:true,
+                maintainAspectRatio: false,
+                interaction:{ mode:'nearest', intersect:false },
+                plugins:{ 
+                    legend:{ 
+                        labels:{ color:'#374151', font: { size: 14, weight: 'bold' } },
+                        position: 'top'
+                    },
+                    title: { 
+                        display: true, 
+                        text: 'B(n, ⅓) - n값 변화에 따른 분포 모양', 
+                        color: '#374151',
+                        font: { size: 16, weight: 'bold' }
+                    }
+                },
+                scales:{
+                    x:{ 
+                        title:{ display:true, text:'성공 횟수 (k)', color:'#374151', font: { size: 14, weight: 'bold' } }, 
+                        ticks:{ color:'#6b7280', font: { size: 12 } }, 
+                        grid:{ color:'#e5e7eb' } 
+                    },
+                    y:{ 
+                        title:{ display:true, text:'확률 P(X=k)', color:'#374151', font: { size: 14, weight: 'bold' } }, 
+                        ticks:{ color:'#6b7280', font: { size: 12 } }, 
+                        grid:{ color:'#e5e7eb' } 
+                    }
+                }
+            }
+        });
+    }
+
+    // ② 시뮬레이션 (p=1/2) + 정규근사(무 CC)
+    simulateHeads(n, m) {
+        const counts = Array(n+1).fill(0);
+        for (let i=0;i<m;i++) {
+            let h=0; 
+            for (let j=0;j<n;j++) h += Math.random()<0.5 ? 1 : 0;
+            counts[h]++;
+        }
+        return counts;
+    }
+
+    runSimulation() {
+        const n = parseInt(document.getElementById('simN').value, 10);
+        const m = parseInt(document.getElementById('simM').value, 10);
+        const counts = this.simulateHeads(n,m);
+
+        // 정규근사(무 CC), 도수 스케일
+        const mu = n*0.5, sigma = Math.sqrt(n*0.25);
+        const x = Array.from({length:n+1}, (_,k)=>k);
+        const yNorm = x.map(k => this.stdNormPDF((k - mu)/sigma) * (1/sigma) * m);
+
+        if (this.simChart) this.simChart.destroy();
+        this.simChart = new Chart(document.getElementById('simChart'), {
+            data:{
+                labels:x,
+                datasets:[
+                    { 
+                        type:'bar', 
+                        label:'도수', 
+                        data:counts,
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)'
+                    },
+                    { 
+                        type:'line', 
+                        label:'정규근사(무 CC, m 스케일)', 
+                        data:yNorm, 
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth:2, 
+                        pointRadius:0,
+                        fill: false
+                    }
+                ]
+            },
+            options:{
+                responsive:true,
+                maintainAspectRatio: false,
+                plugins:{ 
+                    legend:{ labels:{ color:'#374151', font: { size: 10 } } },
+                    title: { display: true, text: `동전 ${n}번 던지기 (${m}회 시행)`, color: '#374151', font: { size: 12 } }
+                },
+                scales:{
+                    x:{ title:{ display:true, text:'앞면 횟수', color:'#374151' }, ticks:{ color:'#6b7280' }, grid:{ color:'#e5e7eb' } },
+                    y:{ title:{ display:true, text:'도수', color:'#374151' }, ticks:{ color:'#6b7280' }, grid:{ color:'#e5e7eb' } }
+                }
+            }
+        });
+    }
+
+    // ③ 정확값 vs 정규근사(무 CC) 계산 메소드들
+    binomIntervalProb(n,p,a,b) {
+        let s=0; 
+        for (let k=a;k<=b;k++) s += this.binomPMF(n,p,k); 
+        return s;
+    }
+
+    binomLE(n,p,k) { 
+        return this.binomIntervalProb(n,p,0,k); 
+    }
+
+    addRow(label, exact, approx) {
+        const tr = document.createElement('tr');
+        const err = approx - exact;
+        tr.innerHTML = `
+            <td style="padding: 6px; border: 1px solid #e5e7eb;">${label}</td>
+            <td style="padding: 6px; border: 1px solid #e5e7eb; text-align: right;">${exact.toFixed(6)}</td>
+            <td style="padding: 6px; border: 1px solid #e5e7eb; text-align: right;">${approx.toFixed(6)}</td>
+            <td style="padding: 6px; border: 1px solid #e5e7eb; text-align: right; color: ${Math.abs(err)>0.02? '#ef4444':'#22c55e'};">${err.toExponential(3)}</td>
+        `;
+        document.getElementById('resultBody').appendChild(tr);
+    }
+
+    // 예제1: Bin(72,1/3), P(26≤X≤34)
+    calculateExample1() {
+        const n=72, p=1/3, a=26, b=34;
+        const exact = this.binomIntervalProb(n,p,a,b);
+        const mu=n*p, sigma=Math.sqrt(n*p*(1-p));
+        const approx = this.stdNormCDF((b - mu)/sigma) - this.stdNormCDF((a - mu)/sigma);
+        this.addRow(`Bin(${n},1/3), P(${a}≤X≤${b})`, exact, approx);
+    }
+
+    // 문제1: Bin(100,1/2), P(45≤X≤54)
+    calculateProblem1() {
+        const n=100, p=1/2, a=45, b=54;
+        const exact = this.binomIntervalProb(n,p,a,b);
+        const mu=n*p, sigma=Math.sqrt(n*p*(1-p));
+        const approx = this.stdNormCDF((b - mu)/sigma) - this.stdNormCDF((a - mu)/sigma);
+        this.addRow(`Bin(${n},1/2), P(${a}≤X≤${b})`, exact, approx);
+    }
+
+    // 문제2: Bin(400,0.1), P(X≥33) = 1 - P(X≤32)
+    calculateProblem2() {
+        const n=400, p=0.1, k=32;
+        const exact = 1 - this.binomLE(n,p,k);
+        const mu=n*p, sigma=Math.sqrt(n*p*(1-p));
+        const approx = 1 - this.stdNormCDF((k - mu)/sigma);
+        this.addRow(`Bin(${n},0.1), P(X≥${k+1})`, exact, approx);
+    }
+
+    // 예제 1 시각화
+    visualizeExample1() {
+        const n=72, p=1/3, a=26, b=35;
+        const mu=n*p, sigma=Math.sqrt(n*p*(1-p));
+        
+        // 이항분포 PMF 계산
+        const x = Array.from({length: n+1}, (_, k) => k);
+        const binomData = x.map(k => this.binomPMF(n, p, k));
+        
+        // 정규분포 근사 계산
+        const normalData = x.map(k => this.stdNormPDF((k - mu)/sigma) / sigma);
+        
+        // 구간 [a,b] 표시를 위한 색상 데이터
+        const barColors = x.map(k => 
+            k >= a && k <= b ? 'rgba(34, 197, 94, 0.8)' : 'rgba(59, 130, 246, 0.3)'
+        );
+
+        if (this.ex1Chart) this.ex1Chart.destroy();
+        this.ex1Chart = new Chart(document.getElementById('ex1Chart'), {
+            type: 'bar',
+            data: {
+                labels: x,
+                datasets: [
+                    {
+                        label: '이항분포 B(72, ⅓)',
+                        data: binomData,
+                        backgroundColor: barColors,
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '정규분포 근사',
+                        data: normalData,
+                        type: 'line',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '예제 1: B(72, ⅓)에서 P(26 ≤ X ≤ 35)',
+                        font: { size: 14, weight: 'bold' }
+                    },
+                    legend: {
+                        labels: { font: { size: 12 } }
+                    }
+                },
+                scales: {
+                    x: { 
+                        title: { display: true, text: 'k', font: { weight: 'bold' } },
+                        ticks: { maxTicksLimit: 15 }
+                    },
+                    y: { 
+                        title: { display: true, text: '확률', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+
+        // 계산 결과 표시
+        const exact = this.binomIntervalProb(n, p, a, b);
+        const approx = this.stdNormCDF((b - mu)/sigma) - this.stdNormCDF((a - mu)/sigma);
+        const error = Math.abs(approx - exact);
+        
+        document.getElementById('ex1Result').innerHTML = `
+            <div style="border-left: 4px solid #22c55e; padding-left: 15px;">
+                <p><strong>이항분포 정확값:</strong><br>P(26 ≤ X ≤ 35) = <span style="color: #22c55e; font-weight: bold;">${exact.toFixed(6)}</span></p>
+                <p><strong>정규분포 근사값:</strong><br>P(26 ≤ X ≤ 35) ≈ <span style="color: #3b82f6; font-weight: bold;">${approx.toFixed(6)}</span></p>
+                <p><strong>오차:</strong><br><span style="color: ${error < 0.01 ? '#22c55e' : '#f59e0b'}; font-weight: bold;">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</span></p>
+            </div>
+        `;
+    }
+
+    // 문제 1 시각화
+    visualizeProblem1() {
+        const n=100, p=1/2, a=45, b=55;
+        const mu=n*p, sigma=Math.sqrt(n*p*(1-p));
+        
+        const x = Array.from({length: n+1}, (_, k) => k);
+        const binomData = x.map(k => this.binomPMF(n, p, k));
+        const normalData = x.map(k => this.stdNormPDF((k - mu)/sigma) / sigma);
+        
+        const barColors = x.map(k => 
+            k >= a && k <= b ? 'rgba(34, 197, 94, 0.8)' : 'rgba(59, 130, 246, 0.3)'
+        );
+
+        if (this.pr1Chart) this.pr1Chart.destroy();
+        this.pr1Chart = new Chart(document.getElementById('pr1Chart'), {
+            type: 'bar',
+            data: {
+                labels: x,
+                datasets: [
+                    {
+                        label: '이항분포 B(100, ½)',
+                        data: binomData,
+                        backgroundColor: barColors,
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '정규분포 근사',
+                        data: normalData,
+                        type: 'line',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '문제 1: B(100, ½)에서 P(45 ≤ X ≤ 55)',
+                        font: { size: 14, weight: 'bold' }
+                    },
+                    legend: {
+                        labels: { font: { size: 12 } }
+                    }
+                },
+                scales: {
+                    x: { 
+                        title: { display: true, text: 'k', font: { weight: 'bold' } },
+                        ticks: { maxTicksLimit: 20 }
+                    },
+                    y: { 
+                        title: { display: true, text: '확률', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+
+        const exact = this.binomIntervalProb(n, p, a, b);
+        const approx = this.stdNormCDF((b - mu)/sigma) - this.stdNormCDF((a - mu)/sigma);
+        const error = Math.abs(approx - exact);
+        
+        document.getElementById('pr1Result').innerHTML = `
+            <div style="border-left: 4px solid #3b82f6; padding-left: 15px;">
+                <p><strong>이항분포 정확값:</strong><br>P(45 ≤ X ≤ 55) = <span style="color: #22c55e; font-weight: bold;">${exact.toFixed(6)}</span></p>
+                <p><strong>정규분포 근사값:</strong><br>P(45 ≤ X ≤ 55) ≈ <span style="color: #3b82f6; font-weight: bold;">${approx.toFixed(6)}</span></p>
+                <p><strong>오차:</strong><br><span style="color: ${error < 0.01 ? '#22c55e' : '#f59e0b'}; font-weight: bold;">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</span></p>
+            </div>
+        `;
+    }
+
+    // 문제 2 시각화
+    visualizeProblem2() {
+        const n=400, p=0.1, threshold=34;
+        const mu=n*p, sigma=Math.sqrt(n*p*(1-p));
+        
+        // 관심 구간만 표시 (20~60 정도)
+        const startK = Math.max(0, Math.floor(mu - 4*sigma));
+        const endK = Math.min(n, Math.ceil(mu + 4*sigma));
+        const x = Array.from({length: endK - startK + 1}, (_, i) => startK + i);
+        
+        const binomData = x.map(k => this.binomPMF(n, p, k));
+        const normalData = x.map(k => this.stdNormPDF((k - mu)/sigma) / sigma);
+        
+        const barColors = x.map(k => 
+            k >= threshold ? 'rgba(239, 68, 68, 0.8)' : 'rgba(59, 130, 246, 0.3)'
+        );
+
+        if (this.pr2Chart) this.pr2Chart.destroy();
+        this.pr2Chart = new Chart(document.getElementById('pr2Chart'), {
+            type: 'bar',
+            data: {
+                labels: x,
+                datasets: [
+                    {
+                        label: '이항분포 B(400, 0.1)',
+                        data: binomData,
+                        backgroundColor: barColors,
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '정규분포 근사',
+                        data: normalData,
+                        type: 'line',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '문제 2: B(400, 0.1)에서 P(X ≥ 34)',
+                        font: { size: 14, weight: 'bold' }
+                    },
+                    legend: {
+                        labels: { font: { size: 12 } }
+                    }
+                },
+                scales: {
+                    x: { 
+                        title: { display: true, text: 'k', font: { weight: 'bold' } },
+                        ticks: { maxTicksLimit: 15 }
+                    },
+                    y: { 
+                        title: { display: true, text: '확률', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+
+        const exact = 1 - this.binomLE(n, p, threshold - 1);
+        const approx = 1 - this.stdNormCDF((threshold - mu)/sigma);
+        const error = Math.abs(approx - exact);
+        
+        document.getElementById('pr2Result').innerHTML = `
+            <div style="border-left: 4px solid #ef4444; padding-left: 15px;">
+                <p><strong>이항분포 정확값:</strong><br>P(X ≥ 34) = <span style="color: #22c55e; font-weight: bold;">${exact.toFixed(6)}</span></p>
+                <p><strong>정규분포 근사값:</strong><br>P(X ≥ 34) ≈ <span style="color: #ef4444; font-weight: bold;">${approx.toFixed(6)}</span></p>
+                <p><strong>오차:</strong><br><span style="color: ${error < 0.01 ? '#22c55e' : '#f59e0b'}; font-weight: bold;">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</span></p>
+            </div>
+        `;
     }
 
     // 차트 업데이트

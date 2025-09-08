@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>이항↔정규 분포 근사 비교</title>
+  <title>이항분포와 정규분포의 관계</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -294,118 +294,264 @@
     <!-- 헤더 -->
     <div class="header">
       <div class="header-content">
-        <div style="font-size: 4rem; margin-bottom: 1rem;">🎯</div>
-        <h1 style="font-size: 2.5rem; font-weight: 800; margin: 0;">이항분포 ↔ 정규분포</h1>
-        <p style="font-size: 1.2rem; margin: 0.5rem 0 0 0; opacity: 0.9;">드무아브르-라플라스 정리 시뮬레이션</p>
+        <div style="font-size: 4rem; margin-bottom: 1rem;">📈</div>
+        <h1 style="font-size: 2.5rem; font-weight: 800; margin: 0;">이항분포와 정규분포의 관계</h1>
+        <p style="font-size: 1.2rem; margin: 0.5rem 0 0 0; opacity: 0.9;">n이 커질수록 이항분포는 정규분포에 가까워집니다</p>
       </div>
     </div>
-    <!-- 이론적 설명 섹션 -->
+    <!-- 1단계: n 값 변화에 따른 관찰 -->
     <div class="section theory-section">
       <h2 style="color: #0ea5e9; font-size: 1.8rem; font-weight: 700; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="font-size: 1.5rem;">📚</span>
-        이론적 배경
+        <span style="font-size: 1.5rem;">📊</span>
+        1단계: n 값 변화 관찰하기
       </h2>
       
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e0f2fe;">
-          <h3 style="color: #0ea5e9; margin: 0 0 15px 0;">이항분포 B(n,p)</h3>
-          <p style="margin-bottom: 10px; line-height: 1.6;">
-            \(n\)번의 독립 시행에서 성공 확률이 \(p\)인 확률분포
-          </p>
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px;">
-            <p style="margin: 0; font-weight: 600;">평균: \(m = np\)</p>
-            <p style="margin: 5px 0 0 0; font-weight: 600;">분산: \(\sigma^2 = npq\)</p>
-            <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #6b7280;">(여기서 \(q = 1-p\))</p>
+      <p style="margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; color: #374151;">
+        이항분포 B(n, ⅓)에서 n = 15, 30, 50일 때 그래프를 그려보고, n 값이 커질수록 어떻게 변하는지 관찰해봅시다.
+      </p>
+      
+      <div style="text-align: center; margin: 20px 0;">
+        <button id="btnInitialPMF" class="btn-primary" style="font-size: 1.1rem; padding: 15px 30px;">
+          <span style="margin-right: 8px;">📈</span>
+B(n, ⅓) 그래프 그리기 (n = 15, 30, 50)
+        </button>
+      </div>
+      
+      <div class="chart-container">
+        <canvas id="initialChart" style="max-height: 400px; width: 100%;"></canvas>
+      </div>
+      
+      <div style="background: #f0f9ff; padding: 20px; border-radius: 12px; border-left: 4px solid #0ea5e9; margin: 20px 0;">
+        <h4 style="color: #0ea5e9; margin: 0 0 10px 0;">🤔 관찰해보세요!</h4>
+        <ul style="margin: 0; padding-left: 20px; line-height: 1.6; color: #374151;">
+          <li>n이 15일 때와 50일 때 그래프의 모양이 어떻게 다른가요?</li>
+          <li>n이 커질수록 그래프가 어떤 모양에 가까워지나요?</li>
+          <li>종 모양(정규분포 모양)에 가까워지는 것을 확인할 수 있나요?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2단계: 이항분포와 정규분포의 관계 설명 -->
+    <div class="section parameter-section">
+      <h2 style="color: #f59e0b; font-size: 1.8rem; font-weight: 700; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.5rem;">📚</span>
+        2단계: 이항분포와 정규분포의 관계
+      </h2>
+      
+      <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px; border-radius: 12px; border: 2px solid #f59e0b; margin: 20px 0;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+          <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="color: #f59e0b; margin: 0 0 15px 0; font-size: 1.3rem;">📊 이항분포 B(n,p)</h3>
+            <p style="margin-bottom: 15px; line-height: 1.6;">
+              동전을 n번 던져서 앞면이 나오는 횟수를 세는 분포
+            </p>
+            <div style="background: #fef3c7; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600;">• 평균: m = np</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600;">• 분산: σ² = np(1-p)</p>
+            </div>
+          </div>
+          
+          <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="color: #f59e0b; margin: 0 0 15px 0; font-size: 1.3rem;">🔔 정규분포 N(m,σ²)</h3>
+            <p style="margin-bottom: 15px; line-height: 1.6;">
+              종 모양의 연속적인 확률분포
+            </p>
+            <div style="background: #fef3c7; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600;">• 평균: m</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600;">• 분산: σ²</p>
+            </div>
           </div>
         </div>
         
-        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e0f2fe;">
-          <h3 style="color: #0ea5e9; margin: 0 0 15px 0;">드무아브르-라플라스 정리</h3>
-          <p style="margin-bottom: 15px; line-height: 1.6;">
-            \(n\)이 충분히 크고 \(p\)가 0이나 1에 치우치지 않으면:
-          </p>
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; text-align: center;">
-            <p style="margin: 0; font-size: 1.2rem; font-weight: 700; color: #0ea5e9;">
-              \[B(n,p) \approx N(m, \sigma^2)\]
+        <div style="background: white; padding: 25px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <h3 style="color: #f59e0b; margin: 0 0 20px 0; font-size: 1.4rem;">🎯 핵심 원리</h3>
+          <div style="font-size: 1.3rem; font-weight: 700; color: #f59e0b; margin: 20px 0;">
+n이 충분히 클 때: B(n, p) ≈ N(m, σ²)
+          </div>
+          <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 0; font-weight: 600; color: #0ea5e9; line-height: 1.6;">
+              💡 <strong>쉽게 말하면:</strong><br>
+              동전을 많이 던질수록 (n이 클수록) 이항분포의 모양이<br>
+              정규분포의 종 모양에 점점 가까워집니다!
             </p>
           </div>
-        </div>
-      </div>
-      
-      <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #f59e0b; margin: 20px 0;">
-        <p style="margin: 0; font-weight: 600; color: #92400e; line-height: 1.6;">
-          💡 <strong>핵심 아이디어:</strong> 이는 중심극한정리의 특수한 경우로, 
-          이항분포가 정규분포로 수렴하는 현상을 보여줍니다.
-        </p>
-      </div>
-      
-      <!-- 정규근사의 정확도 조건 -->
-      <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e0f2fe; margin: 20px 0;">
-        <h3 style="color: #0ea5e9; margin: 0 0 15px 0; font-size: 1.2rem;">정규근사의 정확도</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px;">
-            <h4 style="color: #0ea5e9; margin: 0 0 10px 0;">✅ 좋은 근사 조건</h4>
-            <p style="margin: 0; line-height: 1.5;">
-              <strong>np ≥ 5</strong> 그리고 <strong>n(1-p) ≥ 5</strong><br>
-              이 조건을 만족하면 정규근사가 매우 정확합니다.
+          
+          <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e;">
+            <p style="margin: 0; font-weight: 600; color: #166534; font-size: 0.95rem;">
+              ✅ <strong>정규근사가 잘 되는 조건:</strong> np ≥ 5 그리고 n(1-p) ≥ 5
             </p>
           </div>
-          <div style="background: #fef3c7; padding: 15px; border-radius: 8px;">
-            <h4 style="color: #f59e0b; margin: 0 0 10px 0;">⚠️ 주의 조건</h4>
-            <p style="margin: 0; line-height: 1.5;">
-              위 조건을 만족하지 않으면 근사의 정확도가 떨어질 수 있습니다.<br>
-              특히 p가 0이나 1에 가까운 경우 주의가 필요합니다.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
- 
-    <!-- 매개변수 설명 -->
-    <div class="section parameter-section">
-      <h2 style="color: #f59e0b; font-size: 1.8rem; font-weight: 700; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="font-size: 1.5rem;">⚙️</span>
-        매개변수 설명
-      </h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #fde68a;">
-          <h3 style="color: #f59e0b; margin: 0 0 10px 0; font-size: 1.1rem;">n (시행 횟수)</h3>
-          <p style="margin: 0; line-height: 1.5;">동전을 던지는 횟수. 클수록 정규분포에 가까워집니다.</p>
-        </div>
-        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #fde68a;">
-          <h3 style="color: #f59e0b; margin: 0 0 10px 0; font-size: 1.1rem;">p (성공 확률)</h3>
-          <p style="margin: 0; line-height: 1.5;">동전이 앞면이 나올 확률 (0~1 사이)</p>
-        </div>
-        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #fde68a;">
-          <h3 style="color: #f59e0b; margin: 0 0 10px 0; font-size: 1.1rem;">샘플 수</h3>
-          <p style="margin: 0; line-height: 1.5;">전체 실험을 반복하는 횟수. 클수록 안정적인 결과</p>
         </div>
       </div>
     </div>
 
-    <!-- 컨트롤 패널 -->
+    <!-- 3단계: 예제와 문제들 -->
     <div class="section experiment-section">
       <h2 style="color: #22c55e; font-size: 1.8rem; font-weight: 700; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="font-size: 1.5rem;">🔬</span>
-        시뮬레이션 실행
+        <span style="font-size: 1.5rem;">📝</span>
+        3단계: 예제와 문제 풀어보기
       </h2>
+      
+      <!-- 예제 1 -->
+      <div class="chart-container" style="margin-bottom: 30px;">
+        <h3 style="color: #22c55e; margin: 0 0 20px 0; font-size: 1.4rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>📊</span> 예제 1
+        </h3>
+        
+        <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; border-left: 4px solid #22c55e; margin-bottom: 20px;">
+          <h4 style="color: #166534; margin: 0 0 15px 0; font-size: 1.2rem;">문제</h4>
+          <p style="margin: 0 0 15px 0; font-size: 1.1rem; line-height: 1.6;">
+            이항분포 B(72, ⅓)를 따르는 확률변수 X에 대하여 P(26 ≤ X ≤ 35)를 구해보세요.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+            <div style="background: white; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600; color: #374151;">• n = 72, p = ⅓</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 평균 m = 72 × ⅓ = 24</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 분산 σ² = 72 × ⅓ × ⅔ = 16</p>
+            </div>
+            <div style="background: white; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600; color: #374151;">정규근사 조건 확인:</p>
+              <p style="margin: 8px 0 0 0; color: #22c55e;">• np = 24 ≥ 5 ✓</p>
+              <p style="margin: 8px 0 0 0; color: #22c55e;">• n(1-p) = 48 ≥ 5 ✓</p>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin: 20px 0;">
+          <button id="btnEx1Visual" class="btn-primary" style="font-size: 1.1rem; padding: 15px 30px;">
+            <span style="margin-right: 8px;">📊</span>
+            예제 1 시각화하기
+          </button>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <canvas id="ex1Chart" style="max-height: 350px; width: 100%;"></canvas>
+          <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb;">
+            <h4 style="color: #22c55e; margin: 0 0 15px 0;">계산 결과</h4>
+            <div id="ex1Result" style="font-size: 1.1rem; line-height: 1.8;">
+              <p>버튼을 눌러 계산해보세요!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 문제 1 -->
+      <div class="chart-container" style="margin-bottom: 30px;">
+        <h3 style="color: #3b82f6; margin: 0 0 20px 0; font-size: 1.4rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>📊</span> 문제 1
+        </h3>
+        
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 12px; border-left: 4px solid #3b82f6; margin-bottom: 20px;">
+          <h4 style="color: #1e40af; margin: 0 0 15px 0; font-size: 1.2rem;">문제</h4>
+          <p style="margin: 0 0 15px 0; font-size: 1.1rem; line-height: 1.6;">
+            이항분포 B(100, ½)를 따르는 확률변수 X에 대하여 P(45 ≤ X ≤ 55)를 구해보세요.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+            <div style="background: white; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600; color: #374151;">• n = 100, p = ½</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 평균 m = 100 × ½ = 50</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 분산 σ² = 100 × ½ × ½ = 25</p>
+            </div>
+            <div style="background: white; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600; color: #374151;">정규근사 조건 확인:</p>
+              <p style="margin: 8px 0 0 0; color: #22c55e;">• np = 50 ≥ 5 ✓</p>
+              <p style="margin: 8px 0 0 0; color: #22c55e;">• n(1-p) = 50 ≥ 5 ✓</p>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin: 20px 0;">
+          <button id="btnPr1Visual" class="btn-primary" style="font-size: 1.1rem; padding: 15px 30px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
+            <span style="margin-right: 8px;">📊</span>
+            문제 1 시각화하기
+          </button>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <canvas id="pr1Chart" style="max-height: 350px; width: 100%;"></canvas>
+          <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb;">
+            <h4 style="color: #3b82f6; margin: 0 0 15px 0;">계산 결과</h4>
+            <div id="pr1Result" style="font-size: 1.1rem; line-height: 1.8;">
+              <p>버튼을 눌러 계산해보세요!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 문제 2 -->
+      <div class="chart-container" style="margin-bottom: 30px;">
+        <h3 style="color: #ef4444; margin: 0 0 20px 0; font-size: 1.4rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>📊</span> 문제 2
+        </h3>
+        
+        <div style="background: #fef2f2; padding: 20px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 20px;">
+          <h4 style="color: #dc2626; margin: 0 0 15px 0; font-size: 1.2rem;">문제</h4>
+          <p style="margin: 0 0 15px 0; font-size: 1.1rem; line-height: 1.6;">
+            이항분포 B(400, 0.1)를 따르는 확률변수 X에 대하여 P(X ≥ 34)를 구해보세요.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+            <div style="background: white; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600; color: #374151;">• n = 400, p = 0.1</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 평균 m = 400 × 0.1 = 40</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 분산 σ² = 400 × 0.1 × 0.9 = 36</p>
+            </div>
+            <div style="background: white; padding: 15px; border-radius: 8px;">
+              <p style="margin: 0; font-weight: 600; color: #374151;">정규근사 조건 확인:</p>
+              <p style="margin: 8px 0 0 0; color: #22c55e;">• np = 40 ≥ 5 ✓</p>
+              <p style="margin: 8px 0 0 0; color: #22c55e;">• n(1-p) = 360 ≥ 5 ✓</p>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin: 20px 0;">
+          <button id="btnPr2Visual" class="btn-primary" style="font-size: 1.1rem; padding: 15px 30px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+            <span style="margin-right: 8px;">📊</span>
+            문제 2 시각화하기
+          </button>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <canvas id="pr2Chart" style="max-height: 350px; width: 100%;"></canvas>
+          <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb;">
+            <h4 style="color: #ef4444; margin: 0 0 15px 0;">계산 결과</h4>
+            <div id="pr2Result" style="font-size: 1.1rem; line-height: 1.8;">
+              <p>버튼을 눌러 계산해보세요!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 4단계: 시뮬레이션 -->
+    <div class="section experiment-section">
+      <h2 style="color: #7c3aed; font-size: 1.8rem; font-weight: 700; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.5rem;">🎮</span>
+        4단계: 시뮬레이션으로 확인하기
+      </h2>
+      
+      <p style="margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; color: #374151;">
+        직접 값을 조절해가며 이항분포가 정규분포에 얼마나 가까워지는지 확인해보세요!
+      </p>
       
       <div class="controls-grid">
         <div class="control-group">
           <label class="control-label">시행 횟수 (n)</label>
           <input type="number" id="n" value="60" min="1" max="200" class="control-input">
+          <p style="font-size: 0.8rem; color: #6b7280; margin: 5px 0 0 0;">클수록 정규분포에 가까워집니다</p>
         </div>
         <div class="control-group">
           <label class="control-label">성공 확률 (p)</label>
           <input type="number" id="p" value="0.5" min="0" max="1" step="0.01" class="control-input">
+          <p style="font-size: 0.8rem; color: #6b7280; margin: 5px 0 0 0;">0.5에 가까울수록 대칭적입니다</p>
         </div>
         <div class="control-group">
-          <label class="control-label">샘플 수</label>
+          <label class="control-label">시뮬레이션 횟수</label>
           <input type="number" id="repeat" value="5000" min="100" max="20000" class="control-input">
+          <p style="font-size: 0.8rem; color: #6b7280; margin: 5px 0 0 0;">클수록 더 정확한 결과가 나옵니다</p>
         </div>
-        <button id="run" class="btn-primary">
+        <button id="run" class="btn-primary" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);">
           <span style="margin-right: 8px;">🚀</span>
-          비교 실행
+          시뮬레이션 시작!
         </button>
       </div>
       
@@ -415,6 +561,15 @@
       <!-- 차트 컨테이너 -->
       <div class="chart-container">
         <canvas id="chart" width="800" height="400" style="max-height: 400px; width: 100%;"></canvas>
+      </div>
+      
+      <div style="background: #f3e8ff; padding: 20px; border-radius: 12px; border-left: 4px solid #7c3aed; margin: 20px 0;">
+        <h4 style="color: #7c3aed; margin: 0 0 15px 0;">💡 시뮬레이션 팁</h4>
+        <ul style="margin: 0; padding-left: 20px; line-height: 1.6; color: #374151;">
+          <li>n을 작게 해보고(예: 10), 다시 크게 해보세요(예: 100)</li>
+          <li>p를 0.1이나 0.9로 설정해보고 0.5와 비교해보세요</li>
+          <li>파란 막대(실제 데이터)와 빨간 선(정규분포 근사)이 얼마나 비슷한지 확인해보세요!</li>
+        </ul>
       </div>
     </div>
      
