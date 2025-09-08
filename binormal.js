@@ -568,7 +568,7 @@ class BinormalComparison {
                     },
                     title: { 
                         display: true, 
-                        text: 'B(n, ⅓) - n값 변화에 따른 분포 모양', 
+                        text: 'B(n, 1/3) - n값 변화에 따른 분포 모양', 
                         color: '#374151',
                         font: { size: 16, weight: 'bold' }
                     }
@@ -723,7 +723,7 @@ class BinormalComparison {
                 labels: x,
                 datasets: [
                     {
-                        label: '이항분포 B(72, ⅓)',
+                        label: '이항분포 B(72, 1/3)',
                         data: binomData,
                         backgroundColor: barColors,
                         borderColor: 'rgba(59, 130, 246, 1)',
@@ -747,7 +747,7 @@ class BinormalComparison {
                 plugins: {
                     title: {
                         display: true,
-                        text: '예제 1: B(72, ⅓)에서 P(26 ≤ X ≤ 35)',
+                        text: '예제 1: B(72, 1/3)에서 P(26 ≤ X ≤ 35)',
                         font: { size: 14, weight: 'bold' }
                     },
                     legend: {
@@ -772,10 +772,19 @@ class BinormalComparison {
         const error = Math.abs(approx - exact);
         
         document.getElementById('ex1Result').innerHTML = `
-            <div style="border-left: 4px solid #22c55e; padding-left: 15px;">
-                <p><strong>이항분포 정확값:</strong><br>P(26 ≤ X ≤ 35) = <span style="color: #22c55e; font-weight: bold;">${exact.toFixed(6)}</span></p>
-                <p><strong>정규분포 근사값:</strong><br>P(26 ≤ X ≤ 35) ≈ <span style="color: #3b82f6; font-weight: bold;">${approx.toFixed(6)}</span></p>
-                <p><strong>오차:</strong><br><span style="color: ${error < 0.01 ? '#22c55e' : '#f59e0b'}; font-weight: bold;">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</span></p>
+            <div style="display: grid; gap: 15px;">
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #166534; font-weight: 600;">이항분포 정확값</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #22c55e;">P(26 ≤ X ≤ 35) = ${exact.toFixed(6)}</p>
+                </div>
+                <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #1e40af; font-weight: 600;">정규분포 근사값</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #3b82f6;">P(26 ≤ X ≤ 35) ≈ ${approx.toFixed(6)}</p>
+                </div>
+                <div style="background: ${error < 0.01 ? '#f0fdf4' : '#fef3c7'}; padding: 15px; border-radius: 8px; border-left: 4px solid ${error < 0.01 ? '#22c55e' : '#f59e0b'};">
+                    <p style="margin: 0; font-size: 0.9rem; color: ${error < 0.01 ? '#166534' : '#92400e'}; font-weight: 600;">절대 오차</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: ${error < 0.01 ? '#22c55e' : '#f59e0b'};">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</p>
+                </div>
             </div>
         `;
     }
@@ -800,7 +809,7 @@ class BinormalComparison {
                 labels: x,
                 datasets: [
                     {
-                        label: '이항분포 B(100, ½)',
+                        label: '이항분포 B(100, 1/2)',
                         data: binomData,
                         backgroundColor: barColors,
                         borderColor: 'rgba(59, 130, 246, 1)',
@@ -824,7 +833,7 @@ class BinormalComparison {
                 plugins: {
                     title: {
                         display: true,
-                        text: '문제 1: B(100, ½)에서 P(45 ≤ X ≤ 55)',
+                        text: '문제 1: B(100, 1/2)에서 P(45 ≤ X ≤ 55)',
                         font: { size: 14, weight: 'bold' }
                     },
                     legend: {
@@ -848,10 +857,19 @@ class BinormalComparison {
         const error = Math.abs(approx - exact);
         
         document.getElementById('pr1Result').innerHTML = `
-            <div style="border-left: 4px solid #3b82f6; padding-left: 15px;">
-                <p><strong>이항분포 정확값:</strong><br>P(45 ≤ X ≤ 55) = <span style="color: #22c55e; font-weight: bold;">${exact.toFixed(6)}</span></p>
-                <p><strong>정규분포 근사값:</strong><br>P(45 ≤ X ≤ 55) ≈ <span style="color: #3b82f6; font-weight: bold;">${approx.toFixed(6)}</span></p>
-                <p><strong>오차:</strong><br><span style="color: ${error < 0.01 ? '#22c55e' : '#f59e0b'}; font-weight: bold;">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</span></p>
+            <div style="display: grid; gap: 15px;">
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #166534; font-weight: 600;">이항분포 정확값</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #22c55e;">P(45 ≤ X ≤ 55) = ${exact.toFixed(6)}</p>
+                </div>
+                <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #1e40af; font-weight: 600;">정규분포 근사값</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #3b82f6;">P(45 ≤ X ≤ 55) ≈ ${approx.toFixed(6)}</p>
+                </div>
+                <div style="background: ${error < 0.01 ? '#f0fdf4' : '#fef3c7'}; padding: 15px; border-radius: 8px; border-left: 4px solid ${error < 0.01 ? '#22c55e' : '#f59e0b'};">
+                    <p style="margin: 0; font-size: 0.9rem; color: ${error < 0.01 ? '#166534' : '#92400e'}; font-weight: 600;">절대 오차</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: ${error < 0.01 ? '#22c55e' : '#f59e0b'};">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</p>
+                </div>
             </div>
         `;
     }
@@ -928,10 +946,19 @@ class BinormalComparison {
         const error = Math.abs(approx - exact);
         
         document.getElementById('pr2Result').innerHTML = `
-            <div style="border-left: 4px solid #ef4444; padding-left: 15px;">
-                <p><strong>이항분포 정확값:</strong><br>P(X ≥ 34) = <span style="color: #22c55e; font-weight: bold;">${exact.toFixed(6)}</span></p>
-                <p><strong>정규분포 근사값:</strong><br>P(X ≥ 34) ≈ <span style="color: #ef4444; font-weight: bold;">${approx.toFixed(6)}</span></p>
-                <p><strong>오차:</strong><br><span style="color: ${error < 0.01 ? '#22c55e' : '#f59e0b'}; font-weight: bold;">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</span></p>
+            <div style="display: grid; gap: 15px;">
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #166534; font-weight: 600;">이항분포 정확값</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #22c55e;">P(X ≥ 34) = ${exact.toFixed(6)}</p>
+                </div>
+                <div style="background: #fef2f2; padding: 15px; border-radius: 8px; border-left: 4px solid #ef4444;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #dc2626; font-weight: 600;">정규분포 근사값</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #ef4444;">P(X ≥ 34) ≈ ${approx.toFixed(6)}</p>
+                </div>
+                <div style="background: ${error < 0.01 ? '#f0fdf4' : '#fef3c7'}; padding: 15px; border-radius: 8px; border-left: 4px solid ${error < 0.01 ? '#22c55e' : '#f59e0b'};">
+                    <p style="margin: 0; font-size: 0.9rem; color: ${error < 0.01 ? '#166534' : '#92400e'}; font-weight: 600;">절대 오차</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: ${error < 0.01 ? '#22c55e' : '#f59e0b'};">${error.toFixed(6)} (${(error*100).toFixed(4)}%)</p>
+                </div>
             </div>
         `;
     }
