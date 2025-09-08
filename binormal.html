@@ -237,6 +237,28 @@
       margin: 20px 0;
     }
     
+    .fraction {
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      letter-spacing: 0.001em;
+      text-align: center;
+      font-size: 0.95em;
+    }
+    
+    .fraction > span {
+      display: block;
+      padding: 0.1em;
+    }
+    
+    .fraction span.fup {
+      border-bottom: thin solid;
+    }
+    
+    .fraction span.bar {
+      display: none;
+    }
+    
     
     @media (max-width: 768px) {
       body {
@@ -307,13 +329,13 @@
       </h2>
       
       <p style="margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; color: #374151;">
-        이항분포 B(n, <sup>1</sup>/<sub>3</sub>)에서 n = 15, 30, 50일 때 그래프를 그려보고, n 값이 커질수록 어떻게 변하는지 관찰해봅시다.
+        이항분포 B(n, <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">3</span></span>)에서 n = 15, 30, 50일 때 그래프를 그려보고, n 값이 커질수록 어떻게 변하는지 관찰해봅시다.
       </p>
       
       <div style="text-align: center; margin: 20px 0;">
         <button id="btnInitialPMF" class="btn-primary" style="font-size: 1.1rem; padding: 15px 30px;">
           <span style="margin-right: 8px;">📈</span>
-B(n, <sup>1</sup>/<sub>3</sub>) 그래프 그리기 (n = 15, 30, 50)
+B(n, <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">3</span></span>) 그래프 그리기 (n = 15, 30, 50)
         </button>
       </div>
       
@@ -401,13 +423,13 @@ n이 충분히 클 때: B(n, p) ≈ N(m, σ²)
         <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; border-left: 4px solid #22c55e; margin-bottom: 20px;">
           <h4 style="color: #166534; margin: 0 0 15px 0; font-size: 1.2rem;">문제</h4>
           <p style="margin: 0 0 15px 0; font-size: 1.1rem; line-height: 1.6;">
-            이항분포 B(72, <sup>1</sup>/<sub>3</sub>)를 따르는 확률변수 X에 대하여 P(26 ≤ X ≤ 35)를 구해보세요.
+            이항분포 B(72, <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">3</span></span>)를 따르는 확률변수 X에 대하여 P(26 ≤ X ≤ 35)를 구해보세요.
           </p>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
             <div style="background: white; padding: 15px; border-radius: 8px;">
-              <p style="margin: 0; font-weight: 600; color: #374151;">• n = 72, p = <sup>1</sup>/<sub>3</sub></p>
-              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 평균 m = 72 × <sup>1</sup>/<sub>3</sub> = 24</p>
-              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 분산 σ² = 72 × <sup>1</sup>/<sub>3</sub> × <sup>2</sup>/<sub>3</sub> = 16</p>
+              <p style="margin: 0; font-weight: 600; color: #374151;">• n = 72, p = <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">3</span></span></p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 평균 m = 72 × <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">3</span></span> = 24</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 분산 σ² = 72 × <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">3</span></span> × <span class="fraction"><span class="fup">2</span><span class="bar">/</span><span class="fdn">3</span></span> = 16</p>
             </div>
             <div style="background: white; padding: 15px; border-radius: 8px;">
               <p style="margin: 0; font-weight: 600; color: #374151;">정규근사 조건 확인:</p>
@@ -444,13 +466,13 @@ n이 충분히 클 때: B(n, p) ≈ N(m, σ²)
         <div style="background: #f0f9ff; padding: 20px; border-radius: 12px; border-left: 4px solid #3b82f6; margin-bottom: 20px;">
           <h4 style="color: #1e40af; margin: 0 0 15px 0; font-size: 1.2rem;">문제</h4>
           <p style="margin: 0 0 15px 0; font-size: 1.1rem; line-height: 1.6;">
-            이항분포 B(100, <sup>1</sup>/<sub>2</sub>)를 따르는 확률변수 X에 대하여 P(45 ≤ X ≤ 55)를 구해보세요.
+            이항분포 B(100, <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">2</span></span>)를 따르는 확률변수 X에 대하여 P(45 ≤ X ≤ 55)를 구해보세요.
           </p>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
             <div style="background: white; padding: 15px; border-radius: 8px;">
-              <p style="margin: 0; font-weight: 600; color: #374151;">• n = 100, p = <sup>1</sup>/<sub>2</sub></p>
-              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 평균 m = 100 × <sup>1</sup>/<sub>2</sub> = 50</p>
-              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 분산 σ² = 100 × <sup>1</sup>/<sub>2</sub> × <sup>1</sup>/<sub>2</sub> = 25</p>
+              <p style="margin: 0; font-weight: 600; color: #374151;">• n = 100, p = <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">2</span></span></p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 평균 m = 100 × <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">2</span></span> = 50</p>
+              <p style="margin: 8px 0 0 0; font-weight: 600; color: #374151;">• 분산 σ² = 100 × <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">2</span></span> × <span class="fraction"><span class="fup">1</span><span class="bar">/</span><span class="fdn">2</span></span> = 25</p>
             </div>
             <div style="background: white; padding: 15px; border-radius: 8px;">
               <p style="margin: 0; font-weight: 600; color: #374151;">정규근사 조건 확인:</p>
