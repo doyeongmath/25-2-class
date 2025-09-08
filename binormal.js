@@ -888,7 +888,7 @@ class BinormalComparison {
         const normalData = x.map(k => this.stdNormPDF((k - mu)/sigma) / sigma);
         
         const barColors = x.map(k => 
-            k >= threshold ? 'rgba(239, 68, 68, 0.8)' : 'rgba(59, 130, 246, 0.3)'
+            k >= threshold ? 'rgba(59, 130, 246, 0.8)' : 'rgba(59, 130, 246, 0.3)'
         );
 
         if (this.pr2Chart) this.pr2Chart.destroy();
@@ -951,9 +951,9 @@ class BinormalComparison {
                     <p style="margin: 0; font-size: 0.9rem; color: #166534; font-weight: 600;">이항분포 정확값</p>
                     <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #22c55e;">P(X ≥ 34) = ${exact.toFixed(6)}</p>
                 </div>
-                <div style="background: #fef2f2; padding: 15px; border-radius: 8px; border-left: 4px solid #ef4444;">
-                    <p style="margin: 0; font-size: 0.9rem; color: #dc2626; font-weight: 600;">정규분포 근사값</p>
-                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #ef4444;">P(X ≥ 34) ≈ ${approx.toFixed(6)}</p>
+                <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #1e40af; font-weight: 600;">정규분포 근사값</p>
+                    <p style="margin: 5px 0 0 0; font-size: 1.2rem; font-weight: 700; color: #3b82f6;">P(X ≥ 34) ≈ ${approx.toFixed(6)}</p>
                 </div>
                 <div style="background: ${error < 0.01 ? '#f0fdf4' : '#fef3c7'}; padding: 15px; border-radius: 8px; border-left: 4px solid ${error < 0.01 ? '#22c55e' : '#f59e0b'};">
                     <p style="margin: 0; font-size: 0.9rem; color: ${error < 0.01 ? '#166534' : '#92400e'}; font-weight: 600;">절대 오차</p>
