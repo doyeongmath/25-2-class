@@ -271,58 +271,228 @@
     }
     
     
+    /* 상단 이동 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(79,70,229,0.9);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .scroll-to-top:hover {
+      transform: scale(1.1);
+      background: rgba(79,70,229,1);
+    }
+    
+    .scroll-to-top.visible {
+      display: flex;
+    }
+
     @media (max-width: 768px) {
       body {
         padding: 10px;
+        overflow-x: hidden;
       }
       
       .container {
         border-radius: 16px;
+        max-width: 100%;
       }
       
       .section {
-        margin: 20px 15px;
-        padding: 20px;
+        margin: 15px 5px;
+        padding: 20px 15px;
       }
       
       .header {
-        padding: 30px 20px;
+        padding: 25px 15px;
       }
       
       .header h1 {
         font-size: 2rem !important;
+        line-height: 1.2;
       }
       
       .header p {
         font-size: 1rem !important;
       }
       
+      /* 컨트롤 그리드 모바일 최적화 */
       .controls-grid {
         grid-template-columns: 1fr;
         gap: 15px;
+        padding: 20px 15px;
+      }
+      
+      .control-input {
+        min-height: 44px; /* 터치 영역 확대 */
+        font-size: 16px; /* iOS 줌 방지 */
       }
       
       .btn-primary {
         grid-column: span 1;
+        min-height: 48px; /* 터치 영역 확대 */
+        font-size: 16px;
+        padding: 16px 24px;
       }
       
+      /* 통계 그리드 모바일 최적화 */
       .stats-grid {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 12px;
       }
       
+      .stats-item {
+        padding: 16px;
+        min-height: 60px;
+      }
+      
+      /* 차트 컨테이너 모바일 최적화 */
       .chart-container {
-        padding: 15px;
-        margin: 15px 0;
+        padding: 15px 10px;
+        margin: 15px 5px;
       }
       
       canvas {
         min-height: 300px !important;
+        width: 100% !important;
+      }
+      
+      /* 설명 박스 모바일 최적화 */
+      .explanation-box {
+        margin: 15px 5px;
+        padding: 15px;
+      }
+      
+      .explanation-box .grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+      }
+      
+      /* 예제/문제 섹션 간격 조정 */
+      .section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+      
+      .section h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+      
+      /* 수식 가독성 향상 */
+      .fraction {
+        font-size: 1rem;
+        margin: 0 4px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 5px;
+      }
+      
+      .container {
+        border-radius: 12px;
+      }
+      
+      .section {
+        margin: 10px 2px;
+        padding: 15px 10px;
+      }
+      
+      .header {
+        padding: 20px 15px;
+      }
+      
+      .header h1 {
+        font-size: 1.8rem !important;
+      }
+      
+      .header p {
+        font-size: 0.9rem !important;
+      }
+      
+      .controls-grid {
+        padding: 15px 10px;
+        gap: 12px;
+      }
+      
+      .control-input {
+        padding: 14px;
+        font-size: 16px;
+      }
+      
+      .btn-primary {
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+      
+      .chart-container {
+        padding: 10px 5px;
+        margin: 10px 2px;
+      }
+      
+      .explanation-box {
+        padding: 12px;
+        margin: 10px 2px;
+      }
+      
+      /* 상단 이동 버튼 위치 조정 */
+      .scroll-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+      
+      /* 세부 텍스트 크기 조정 */
+      .section h2 {
+        font-size: 1.3rem;
+      }
+      
+      .section h3 {
+        font-size: 1.2rem;
+      }
+      
+      .section p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      
+      /* 예제 문제 카드 최적화 */
+      .chart-container > div[style*="background"] {
+        padding: 15px 12px !important;
+        margin: 10px 0 !important;
+      }
+      
+      /* 버튼 간격 조정 */
+      button {
+        margin: 8px 0;
       }
     }
   </style>
 </head>
 <body>
+  <!-- 상단 이동 버튼 -->
+  <button id="scrollToTop" class="scroll-to-top" aria-label="상단으로 이동">
+    ↑
+  </button>
+
   <div class="container">
     <!-- 헤더 -->
     <div class="header">
@@ -637,6 +807,28 @@ n이 충분히 클 때: B(n, p) ≈ N(m, σ²)
     </div>
 
   </div>
+  
+  <script>
+    // 상단 이동 버튼 기능
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    // 스크롤 감지
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    // 상단 이동 기능
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
   <script src="binormal.js"></script>
 </body>
 </html>

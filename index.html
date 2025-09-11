@@ -289,12 +289,167 @@
     .iframe-body{flex:1;}
     .iframe-body iframe{width:100%; height:100%; border:0; border-radius:0 0 14px 14px;}
 
+    /* 상단 이동 버튼 */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 998;
+      background: rgba(79,70,229,0.9);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .scroll-to-top:hover {
+      transform: scale(1.1);
+      background: rgba(79,70,229,1);
+    }
+    
+    .scroll-to-top.visible {
+      display: flex;
+    }
+
+    /* 모바일 최적화 개선 */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+        overflow-x: hidden;
+      }
+      
+      .max-w-7xl {
+        padding: 0 10px;
+      }
+      
+      /* 액션 타일 그리드를 모바일에서 1열로 */
+      .grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+      }
+      
+      /* 액션 타일 터치 영역 확대 */
+      .action-tile {
+        min-height: 120px;
+        padding: 24px;
+        font-size: 16px;
+      }
+      
+      .action-tile h3 {
+        font-size: 1.3rem;
+      }
+      
+      /* 평가 방법 카드 모바일 최적화 */
+      .grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* 시험 정보 카드 간격 조정 */
+      .grid.grid-cols-1.md\\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+      }
+      
+      /* 텍스트 가독성 향상 */
+      .card {
+        padding: 20px;
+        margin: 0 5px;
+      }
+      
+      /* 헤더 텍스트 조정 */
+      .header h1 {
+        font-size: 2.5rem !important;
+        line-height: 1.2;
+        margin-bottom: 16px;
+      }
+      
+      .header p {
+        font-size: 1.1rem !important;
+      }
+      
+      /* 검색바 모바일 최적화 */
+      .search-container {
+        margin: 0 5px 20px 5px;
+        padding: 16px 20px;
+      }
+      
+      .search-input {
+        font-size: 16px; /* iOS 줌 방지 */
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 5px;
+      }
+      
+      .max-w-7xl {
+        padding: 0 5px;
+      }
+      
+      .header {
+        padding: 20px 15px;
+        margin-bottom: 15px;
+      }
+      
+      .header h1 {
+        font-size: 2rem !important;
+      }
+      
+      .header p {
+        font-size: 1rem !important;
+      }
+      
+      .card {
+        padding: 16px;
+        margin: 0 2px;
+      }
+      
+      .action-tile {
+        min-height: 100px;
+        padding: 20px;
+      }
+      
+      .action-tile h3 {
+        font-size: 1.2rem;
+      }
+      
+      .action-tile p {
+        font-size: 0.9rem;
+      }
+      
+      /* 상단 이동 버튼 위치 조정 */
+      .scroll-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+      }
+      
+      /* 테마 토글 버튼 위치 조정 */
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+
     /* 모션 감소 선호 */
     @media (prefers-reduced-motion: reduce){
       .iframe-container{transition:none}
       .search-container{transition:none}
       .action-tile{transition:none}
       .card{transition:none}
+      .scroll-to-top{transition:none}
     }
   </style>
 </head>
@@ -303,6 +458,11 @@
   <!-- 다크모드 토글 버튼 -->
   <button id="themeToggle" class="theme-toggle" aria-label="테마 변경">
     🌙
+  </button>
+
+  <!-- 상단 이동 버튼 -->
+  <button id="scrollToTop" class="scroll-to-top" aria-label="상단으로 이동">
+    ↑
   </button>
 
   <div class="max-w-7xl mx-auto p-6">
@@ -658,6 +818,26 @@
     }
     
     themeToggle.addEventListener('click', toggleTheme);
+
+    // 상단 이동 버튼 기능
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    // 스크롤 감지
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    // 상단 이동 기능
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
 
     // 검색: 섹션 단위 필터링
     const searchInput = document.getElementById('searchInput');

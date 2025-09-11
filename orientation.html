@@ -571,6 +571,36 @@
             font-weight: bold;
         }
 
+        /* 상단 이동 버튼 */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(79,172,254,0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+            background: rgba(79,172,254,1);
+        }
+        
+        .scroll-to-top.visible {
+            display: flex;
+        }
+
         /* 반응형 디자인 */
         @media (max-width: 1200px) {
             .main-content {
@@ -586,19 +616,22 @@
         @media (max-width: 768px) {
             body { 
                 font-size: 14px;
+                overflow-x: hidden;
             }
             
             .container { 
                 padding: 12px;
+                max-width: 100%;
             }
             
             .header { 
-                padding: 20px;
+                padding: 20px 15px;
                 margin-bottom: 20px;
             }
             
             .header h1 { 
                 font-size: 2.2em;
+                line-height: 1.2;
             }
             
             .header p { 
@@ -606,18 +639,62 @@
             }
             
             .section {
-                padding: 20px;
+                padding: 20px 15px;
             }
             
             .section h3 {
                 font-size: 1.5em;
+                margin-bottom: 15px;
             }
             
+            /* 선생님 정보 최적화 */
             .teacher-info {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
             
+            .info-card {
+                padding: 16px;
+                min-height: 60px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            /* 교재 섹션 최적화 */
+            .textbooks {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .textbook-card {
+                padding: 16px;
+                min-height: 120px;
+            }
+            
+            /* 평가 방법 최적화 */
+            .evaluation-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .eval-card {
+                padding: 16px;
+                min-height: 80px;
+            }
+            
+            /* 지필평가 세부사항 최적화 */
+            .exam-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .exam-type-card {
+                padding: 16px;
+                min-height: 100px;
+            }
+            
+            /* 시험 정보 최적화 */
             .exam-info-container {
                 grid-template-columns: 1fr;
                 gap: 15px;
@@ -628,39 +705,157 @@
                 gap: 10px;
             }
             
-            .info-card, .exam-card, .suneung-card {
-                padding: 15px;
+            .exam-card {
+                padding: 20px 15px;
+            }
+            
+            /* 수능 정보 최적화 */
+            .suneung-card {
+                padding: 20px 15px;
             }
             
             .highlight-box {
-                padding: 20px;
+                padding: 20px 15px;
+            }
+            
+            /* 특별 처리 사항 최적화 */
+            .special-cases {
+                gap: 15px;
+            }
+            
+            .case-card {
+                padding: 15px;
+            }
+            
+            .case-content {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+            
+            /* 발표 권장 섹션 최적화 */
+            .presentation-types {
+                gap: 12px;
+            }
+            
+            .presentation-type {
+                padding: 12px;
+                font-size: 0.95em;
             }
         }
         
         @media (max-width: 480px) {
+            body { 
+                font-size: 13px;
+            }
+            
+            .container { 
+                padding: 8px;
+            }
+            
+            .header { 
+                padding: 15px 10px;
+                margin-bottom: 15px;
+            }
+            
             .header h1 { 
                 font-size: 1.8em;
             }
             
+            .header p { 
+                font-size: 1em;
+            }
+            
             .section {
-                padding: 15px;
+                padding: 15px 10px;
             }
             
             .section h3 {
                 font-size: 1.3em;
+                margin-bottom: 12px;
             }
             
-            .info-card, .exam-card, .suneung-card {
+            /* 카드들 패딩 최적화 */
+            .info-card, .textbook-card, .eval-card, .exam-type-card {
                 padding: 12px;
             }
             
+            .exam-card, .suneung-card {
+                padding: 15px 10px;
+            }
+            
             .highlight-box {
+                padding: 15px 10px;
+            }
+            
+            .case-card {
+                padding: 12px;
+            }
+            
+            .case-content {
+                padding: 10px;
+                font-size: 0.85em;
+                line-height: 1.3;
+            }
+            
+            /* 발표 관련 요소 최적화 */
+            .presentation-highlight {
+                padding: 12px;
+            }
+            
+            .presentation-type {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+            
+            .presentation-note {
+                font-size: 0.9em;
+            }
+            
+            /* 상단 이동 버튼 위치 조정 */
+            .scroll-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            /* 교재 이미지 크기 조정 */
+            .textbook-image {
+                width: 80px;
+                height: 60px;
+                font-size: 0.7em;
+            }
+            
+            /* 규칙 항목 최적화 */
+            .rule-item, .encouraged-item {
+                padding: 12px;
+                font-size: 1.1em;
+            }
+            
+            .penalty {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+            
+            /* 금지/권장 섹션 최적화 */
+            .prohibited-section, .encouraged-section {
                 padding: 15px;
+            }
+            
+            .prohibited-section h4, .encouraged-section h4 {
+                font-size: 1.3em;
+                margin-bottom: 10px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 상단 이동 버튼 -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="상단으로 이동">
+        ↑
+    </button>
+
     <div class="container">
         <div class="header">
             <h1>📚 확률과 통계 OT 자료</h1>
@@ -933,5 +1128,27 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        // 상단 이동 버튼 기능
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        // 스크롤 감지
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // 상단 이동 기능
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>
