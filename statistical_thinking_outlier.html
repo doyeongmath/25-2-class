@@ -175,10 +175,9 @@
             margin-bottom: 40px;
             padding: 35px;
             border-radius: 20px;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
         }
@@ -199,7 +198,6 @@
             margin-bottom: 25px;
             text-align: center;
             font-weight: 800;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .section h3 {
@@ -347,6 +345,16 @@
             padding: 25px;
             border-radius: 15px;
             margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .data-display h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .data-display p {
+            color: #4a5568;
         }
 
         .data-grid {
@@ -1087,6 +1095,11 @@
             position: relative;
         }
 
+        .method-card p, .method-card li {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
         .method-card h3::after {
             content: '';
             position: absolute;
@@ -1304,47 +1317,50 @@
         .summary-table {
             width: 100%;
             border-collapse: collapse;
-            background: rgba(255,255,255,0.1);
+            background: white;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
         }
 
         .summary-table th {
-            background: rgba(255,255,255,0.3);
+            background: #4a5568;
             color: #ffffff;
             font-weight: 700;
             font-size: 1.1em;
             padding: 20px 15px;
             text-align: center;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
+            border-bottom: 2px solid #e2e8f0;
         }
 
         .summary-table td {
             padding: 16px 12px;
             text-align: center;
             font-size: 0.95em;
-            background: rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
             transition: background-color 0.2s ease;
+            color: #2d3748;
+            font-weight: 500;
         }
 
         .summary-table td:hover {
-            background: rgba(255,255,255,0.2);
+            background: #f7fafc;
         }
 
         .summary-table tr:nth-child(even) td {
-            background: rgba(255,255,255,0.08);
+            background: #f7fafc;
         }
 
         .summary-table tr:nth-child(even) td:hover {
-            background: rgba(255,255,255,0.15);
+            background: #edf2f7;
         }
 
         .summary-table td:first-child {
-            background: rgba(255,255,255,0.2);
+            background: #edf2f7;
             font-weight: 600;
-            color: #1f2937;
+            color: #1a202c;
             text-align: left;
             padding-left: 20px;
             border-left: 3px solid rgba(251, 191, 36, 0.6);
@@ -3126,31 +3142,29 @@
                         </p>
                         
                         <!-- 방법 설명 표 -->
-                        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.2);">
-                            <h4 style="color: white; margin-bottom: 20px; font-size: 1.2em; text-align: center;">🔍 비교 방법 설명</h4>
-                            <table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden;">
+                        <div style="background: rgba(255,255,255,0.95); border-radius: 12px; padding: 25px; margin-bottom: 25px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #2d3748; margin-bottom: 20px; font-size: 1.2em; text-align: center; font-weight: 800;">🔍 세 가지 방법 비교</h4>
+                            <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
                                 <thead>
-                                    <tr style="background: rgba(255,255,255,0.15);">
-                                        <th style="padding: 15px; text-align: center; color: #ffd700; font-weight: bold; border-right: 1px solid rgba(255,255,255,0.2);">방법</th>
-                                        <th style="padding: 15px; text-align: center; color: #ffd700; font-weight: bold; border-right: 1px solid rgba(255,255,255,0.2);">기준</th>
-                                        <th style="padding: 15px; text-align: center; color: #ffd700; font-weight: bold;">특징</th>
+                                    <tr style="background: #4a5568; color: white;">
+                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #e2e8f0;">구분</th>
+                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #e2e8f0;">📊 원본 그대로</th>
+                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #e2e8f0;">📐 IQR 방법</th>
+                                        <th style="padding: 15px; text-align: center; font-weight: bold;">📈 Z-score 방법</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style="padding: 15px; text-align: center; font-weight: bold; color: white; border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">📊 원본 그대로</td>
-                                        <td style="padding: 15px; text-align: center; color: rgba(255,255,255,0.9); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">이상치 제거 안 함</td>
-                                        <td style="padding: 15px; text-align: center; color: rgba(255,255,255,0.9); border-bottom: 1px solid rgba(255,255,255,0.1);">모든 데이터 그대로 사용</td>
+                                    <tr style="background: #f7fafc;">
+                                        <td style="padding: 15px; text-align: center; font-weight: bold; color: #2d3748; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; background: #edf2f7;">제거 기준</td>
+                                        <td style="padding: 15px; text-align: center; color: #4a5568; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">제거하지 않음</td>
+                                        <td style="padding: 15px; text-align: center; color: #4a5568; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">Q1-1.5×IQR 미만<br>Q3+1.5×IQR 초과</td>
+                                        <td style="padding: 15px; text-align: center; color: #4a5568; border-bottom: 1px solid #e2e8f0;">|Z-score| > 2</td>
                                     </tr>
-                                    <tr>
-                                        <td style="padding: 15px; text-align: center; font-weight: bold; color: white; border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">📐 IQR 방법</td>
-                                        <td style="padding: 15px; text-align: center; color: rgba(255,255,255,0.9); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">Q1-1.5×IQR 미만<br>Q3+1.5×IQR 초과</td>
-                                        <td style="padding: 15px; text-align: center; color: rgba(255,255,255,0.9); border-bottom: 1px solid rgba(255,255,255,0.1);">분포에 관계없이 안정적</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 15px; text-align: center; font-weight: bold; color: white; border-right: 1px solid rgba(255,255,255,0.1);">📈 Z-score 방법</td>
-                                        <td style="padding: 15px; text-align: center; color: rgba(255,255,255,0.9); border-right: 1px solid rgba(255,255,255,0.1);">|Z-score| > 2</td>
-                                        <td style="padding: 15px; text-align: center; color: rgba(255,255,255,0.9);">정규분포 가정 필요</td>
+                                    <tr style="background: white;">
+                                        <td style="padding: 15px; text-align: center; font-weight: bold; color: #2d3748; border-right: 1px solid #e2e8f0; background: #edf2f7;">특징</td>
+                                        <td style="padding: 15px; text-align: center; color: #4a5568; border-right: 1px solid #e2e8f0;">모든 데이터 포함</td>
+                                        <td style="padding: 15px; text-align: center; color: #4a5568; border-right: 1px solid #e2e8f0;">분포 무관, 안정적</td>
+                                        <td style="padding: 15px; text-align: center; color: #4a5568;">정규분포 가정 필요</td>
                                     </tr>
                                 </tbody>
                             </table>
