@@ -2693,32 +2693,77 @@
             <div class="section">
                 <h2>⚖️ 찬반 토론</h2>
                 
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #2d3748; margin-bottom: 15px;">🎯 토론 가이드</h4>
+                    <p style="color: #4a5568; font-size: 0.95em; line-height: 1.6;">
+                        통계에서 이상치 처리는 중요한 쟁점입니다. 각 입장의 논리를 살펴보고, 어떤 상황에서 어떤 접근이 적절한지 생각해보세요.
+                    </p>
+                </div>
+
                 <div class="debate-sides">
                     <div class="debate-side pro-side">
-                        <h3>✅ 찬성: 이상치 제거해야 한다!</h3>
-                        <ul>
-                            <li><strong>현실성:</strong> 99억세는 물리적으로 불가능</li>
-                            <li><strong>의미성:</strong> 극단값이 평균을 왜곡시킴</li>
-                            <li><strong>신뢰성:</strong> 데이터 품질 향상</li>
-                            <li><strong>교육적:</strong> 학생들의 진지한 참여 유도</li>
-                        </ul>
-                        <div style="font-size: 1.5em; margin-top: 20px; font-weight: bold;">
-                            🎯 목적: 의미 있는 통계 분석
+                        <h3>✅ 찬성: 이상치를 제거해야 한다</h3>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                            <h4 style="color: white; margin-bottom: 10px;">📊 통계적 관점</h4>
+                            <ul style="margin: 0;">
+                                <li><strong>측정 정확성:</strong> 극값이 중심경향성을 심각하게 왜곡</li>
+                                <li><strong>예측 신뢰성:</strong> 모델의 예측력 향상</li>
+                                <li><strong>비교 가능성:</strong> 다른 데이터셋과의 합리적 비교</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            <h4 style="color: white; margin-bottom: 10px;">🎓 교육적 관점</h4>
+                            <ul style="margin: 0;">
+                                <li><strong>학습 효과:</strong> 통계의 한계와 주의점 학습</li>
+                                <li><strong>현실 적용:</strong> 실제 데이터 분석 기법 습득</li>
+                                <li><strong>비판적 사고:</strong> 데이터의 질 평가 능력 향상</li>
+                            </ul>
+                        </div>
+                        <div style="font-size: 1.3em; margin-top: 20px; font-weight: bold; text-align: center;">
+                            🎯 "질 높은 분석을 위한 필수 과정"
                         </div>
                     </div>
                     
                     <div class="debate-side con-side">
-                        <h3>❌ 반대: 원본 그대로 사용해야 한다!</h3>
-                        <ul>
-                            <li><strong>투명성:</strong> 모든 데이터를 그대로 공개</li>
-                            <li><strong>학습성:</strong> 이상치의 영향 직접 체험</li>
-                            <li><strong>윤리성:</strong> 데이터 조작 금지</li>
-                            <li><strong>현실성:</strong> 실제 연구에서도 이런 문제 발생</li>
-                        </ul>
-                        <div style="font-size: 1.5em; margin-top: 20px; font-weight: bold;">
-                            🎯 목적: 데이터의 원본성 보존
+                        <h3>❌ 반대: 원본 데이터를 유지해야 한다</h3>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                            <h4 style="color: white; margin-bottom: 10px;">🔬 연구 윤리적 관점</h4>
+                            <ul style="margin: 0;">
+                                <li><strong>데이터 무결성:</strong> 수집된 정보의 완전한 보존</li>
+                                <li><strong>투명성 확보:</strong> 모든 과정의 공개와 재현가능성</li>
+                                <li><strong>주관성 배제:</strong> 연구자의 자의적 판단 최소화</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            <h4 style="color: white; margin-bottom: 10px;">📚 교육적 관점</h4>
+                            <ul style="margin: 0;">
+                                <li><strong>현실 인식:</strong> 실제 데이터의 복잡성과 불완전성 체험</li>
+                                <li><strong>문제 의식:</strong> 통계의 한계와 오용 가능성 학습</li>
+                                <li><strong>비판적 해석:</strong> 결과 해석 시 주의사항 인식</li>
+                            </ul>
+                        </div>
+                        <div style="font-size: 1.3em; margin-top: 20px; font-weight: bold; text-align: center;">
+                            🎯 "진실한 데이터, 정직한 분석"
                         </div>
                     </div>
+                </div>
+
+                <!-- 종합적 관점 추가 -->
+                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 25px; border-radius: 15px; margin-top: 30px; text-align: center;">
+                    <h4 style="color: white; margin-bottom: 15px;">🤝 종합적 관점: 상황에 따른 선택</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            <h5 style="color: white; margin-bottom: 8px;">🏥 실무 상황</h5>
+                            <p style="font-size: 0.9em; margin: 0; opacity: 0.9;">의료, 금융 등에서는 이상치 제거가 중요</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            <h5 style="color: white; margin-bottom: 8px;">🔬 연구 상황</h5>
+                            <p style="font-size: 0.9em; margin: 0; opacity: 0.9;">연구 목적에 따라 원본 데이터도 의미있음</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.9;">
+                        <strong>✨ 핵심:</strong> 두 방법 모두 제시하고, 선택 근거를 명확히 밝히는 것이 최선!
+                    </p>
                 </div>
 
             </div>
@@ -3007,26 +3052,62 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- 2단계: 이상치 기준 -->
+                                    <!-- 2단계: 평균과 표준편차 계산 -->
                                     <div class="calc-step">
                                         <div class="step-header">
                                             <span class="step-number">2</span>
+                                            <span class="step-title">평균과 표준편차 계산</span>
+                                        </div>
+                                        <div class="step-content">
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 15px 0;">
+                                                <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+                                                    <h6 style="color: #2c3e50; margin-bottom: 8px; font-size: 1em;">📊 평균 (μ)</h6>
+                                                    <div style="font-size: 1.2em; font-weight: bold; color: #2980b9;">약 8.9억세</div>
+                                                    <p style="margin: 5px 0; font-size: 0.85em; color: #666;">극값 때문에 비현실적</p>
+                                                </div>
+                                                <div style="background: #fef9e7; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
+                                                    <h6 style="color: #2c3e50; margin-bottom: 8px; font-size: 1em;">📏 표준편차 (σ)</h6>
+                                                    <div style="font-size: 1.2em; font-weight: bold; color: #e67e22;">약 94억</div>
+                                                    <p style="margin: 5px 0; font-size: 0.85em; color: #666;">극값으로 인한 과대추정</p>
+                                                </div>
+                                            </div>
+                                            <div style="background: #fff3cd; padding: 12px; border-radius: 6px; margin-top: 10px; border: 1px solid #ffeaa7;">
+                                                <p style="margin: 0; font-size: 0.9em; color: #856404;">
+                                                    ⚠️ <strong>주의:</strong> 극값(99억세 등)이 포함된 상태에서 계산된 평균과 표준편차입니다.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3단계: 이상치 기준 -->
+                                    <div class="calc-step">
+                                        <div class="step-header">
+                                            <span class="step-number">3</span>
                                             <span class="step-title">이상치 기준 설정</span>
                                         </div>
                                         <div class="step-content">
                                             <div class="threshold-grid">
                                                 <div class="threshold-item">
-                                                    <div class="threshold-label">일반 이상치</div>
+                                                    <div class="threshold-label">일반 이상치 기준</div>
                                                     <div class="threshold-value">|Z| > 2</div>
-                                                    <div class="threshold-desc">표준편차 2배 이상</div>
-                                                    <div class="threshold-prob">약 5% 확률</div>
+                                                    <div class="threshold-desc">표준편차 2배 이상 벗어남</div>
+                                                    <div class="threshold-prob">정규분포에서 약 5% 확률</div>
                                                 </div>
                                                 <div class="threshold-item">
-                                                    <div class="threshold-label">강한 이상치</div>
+                                                    <div class="threshold-label">강한 이상치 기준</div>
                                                     <div class="threshold-value">|Z| > 3</div>
-                                                    <div class="threshold-desc">표준편차 3배 이상</div>
-                                                    <div class="threshold-prob">약 0.3% 확률</div>
+                                                    <div class="threshold-desc">표준편차 3배 이상 벗어남</div>
+                                                    <div class="threshold-prob">정규분포에서 약 0.3% 확률</div>
                                                 </div>
+                                            </div>
+                                            <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #3498db;">
+                                                <h6 style="color: #2c3e50; margin-bottom: 10px;">💡 이 수업에서는 |Z| > 2 기준 사용</h6>
+                                                <p style="margin: 5px 0; font-size: 0.9em; color: #2c3e50;">
+                                                    <strong>선택 이유:</strong> 너무 엄격하지 않으면서도 명확한 이상치를 탐지할 수 있는 균형잡힌 기준
+                                                </p>
+                                                <p style="margin: 5px 0; font-size: 0.9em; color: #2c3e50;">
+                                                    <strong>실제 적용:</strong> 95% 신뢰구간을 벗어나는 값들을 이상치로 간주
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -3250,13 +3331,66 @@
                 </div>
 
                 <div class="conclusion-section">
-                    <h4>실무 권장사항</h4>
-                    <ul>
-                        <li><strong>투명성:</strong> 원본 데이터와 처리 과정을 모두 공개</li>
-                        <li><strong>방법 선택:</strong> 데이터 분포를 모르면 IQR, 정규분포 확신시 Z-score 사용</li>
-                        <li><strong>결과 해석:</strong> 이상치 제거 전후 결과를 함께 제시하여 비교</li>
-                        <li><strong>맥락 고려:</strong> 이상치라도 의미있는 데이터일 수 있으므로 신중히 판단</li>
-                    </ul>
+                    <h4>📋 실무 적용 가이드라인</h4>
+                    
+                    <!-- 방법 선택 결정 트리 -->
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                        <h5 style="color: #2d3748; margin-bottom: 15px;">🎯 어떤 방법을 사용해야 할까?</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <strong style="color: #e53e3e;">📊 데이터 분포를 모르는 경우</strong>
+                                <p style="margin: 8px 0 0 0; color: #4a5568;">→ <strong>IQR 방법</strong> 추천 (분포에 무관하게 안정적)</p>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <strong style="color: #3182ce;">📈 정규분포 확신하는 경우</strong>
+                                <p style="margin: 8px 0 0 0; color: #4a5568;">→ <strong>Z-score 방법</strong> 사용 가능 (더 정밀한 기준)</p>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <strong style="color: #805ad5;">🔬 샘플 크기가 작은 경우 (n < 30)</strong>
+                                <p style="margin: 8px 0 0 0; color: #4a5568;">→ <strong>IQR 방법</strong> 더 안전 (중앙값 기반)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 산업별 적용 사례 -->
+                    <div style="background: #fff5f5; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #e53e3e;">
+                        <h5 style="color: #2d3748; margin-bottom: 15px;">🏭 실제 활용 분야</h5>
+                        <div style="display: grid; gap: 10px;">
+                            <div><strong>💰 금융:</strong> 이상 거래 탐지, 리스크 관리 (주로 Z-score)</div>
+                            <div><strong>🏥 의료:</strong> 환자 데이터 이상치 검출 (IQR 선호)</div>
+                            <div><strong>🏭 제조:</strong> 품질관리, 불량품 탐지 (IQR 안정적)</div>
+                            <div><strong>📊 마케팅:</strong> 고객 행동 분석, 세그멘테이션 (상황에 따라)</div>
+                        </div>
+                    </div>
+
+                    <!-- 실무 체크리스트 -->
+                    <div style="background: #f0fff4; padding: 20px; border-radius: 12px; border-left: 4px solid #38a169;">
+                        <h5 style="color: #2d3748; margin-bottom: 15px;">✅ 실무 적용 체크리스트</h5>
+                        <div style="display: grid; gap: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: #38a169;">☑️</span>
+                                <strong>투명성:</strong> 원본 데이터와 처리 과정을 모두 문서화
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: #38a169;">☑️</span>
+                                <strong>결과 비교:</strong> 이상치 제거 전후 결과를 함께 제시
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: #38a169;">☑️</span>
+                                <strong>맥락 고려:</strong> 이상치의 비즈니스 의미 분석
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: #38a169;">☑️</span>
+                                <strong>검증 단계:</strong> 다른 방법으로도 확인 후 최종 결정
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 주의사항 -->
+                    <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <h6 style="color: #92400e; margin-bottom: 8px;">⚠️ 주의사항</h6>
+                        <p style="color: #78350f; margin: 0; font-size: 0.9em;">이상치라고 해서 무조건 제거하지 말고, 해당 데이터가 가진 의미를 먼저 파악하세요. 때로는 이상치가 가장 중요한 인사이트를 제공할 수 있습니다.</p>
+                    </div>
                 </div>
 
 
