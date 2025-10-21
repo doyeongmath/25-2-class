@@ -2419,7 +2419,7 @@
                                 </li>
                                 <li style="margin: 8px 0; padding-left: 20px; position: relative;">
                                     <span style="position: absolute; left: 0;">🎭</span>
-                                    <strong>학생들의 유머와 창의성</strong>이 만들어낸 극값들
+                                    <strong>학생들의 유머와 창의성</strong>이 만들어낸 이상치들
                                 </li>
                                 <li style="margin: 8px 0; padding-left: 20px; position: relative;">
                                     <span style="position: absolute; left: 0;">📈</span>
@@ -2706,7 +2706,7 @@
                         <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
                             <h4 style="color: white; margin-bottom: 10px;">📊 통계적 관점</h4>
                             <ul style="margin: 0;">
-                                <li><strong>측정 정확성:</strong> 극값이 중심경향성을 심각하게 왜곡</li>
+                                <li><strong>측정 정확성:</strong> 이상치가 중심경향성을 심각하게 왜곡</li>
                                 <li><strong>예측 신뢰성:</strong> 모델의 예측력 향상</li>
                                 <li><strong>비교 가능성:</strong> 다른 데이터셋과의 합리적 비교</li>
                             </ul>
@@ -3063,17 +3063,17 @@
                                                 <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
                                                     <h6 style="color: #2c3e50; margin-bottom: 8px; font-size: 1em;">📊 평균 (μ)</h6>
                                                     <div style="font-size: 1.2em; font-weight: bold; color: #2980b9;">약 8.9억세</div>
-                                                    <p style="margin: 5px 0; font-size: 0.85em; color: #666;">극값 때문에 비현실적</p>
+                                                    <p style="margin: 5px 0; font-size: 0.85em; color: #666;">이상치 때문에 비현실적</p>
                                                 </div>
                                                 <div style="background: #fef9e7; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
                                                     <h6 style="color: #2c3e50; margin-bottom: 8px; font-size: 1em;">📏 표준편차 (σ)</h6>
                                                     <div style="font-size: 1.2em; font-weight: bold; color: #e67e22;">약 94억</div>
-                                                    <p style="margin: 5px 0; font-size: 0.85em; color: #666;">극값으로 인한 과대추정</p>
+                                                    <p style="margin: 5px 0; font-size: 0.85em; color: #666;">이상치로 인한 과대추정</p>
                                                 </div>
                                             </div>
                                             <div style="background: #fff3cd; padding: 12px; border-radius: 6px; margin-top: 10px; border: 1px solid #ffeaa7;">
                                                 <p style="margin: 0; font-size: 0.9em; color: #856404;">
-                                                    ⚠️ <strong>주의:</strong> 극값(99억세 등)이 포함된 상태에서 계산된 평균과 표준편차입니다.
+                                                    ⚠️ <strong>주의:</strong> 이상치(99억세 등)가 포함된 상태에서 계산된 평균과 표준편차입니다.
                                                 </p>
                                             </div>
                                         </div>
@@ -3228,10 +3228,10 @@
                             <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
                                 <thead>
                                     <tr style="background: #4a5568; color: white;">
-                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #e2e8f0;">구분</th>
-                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #e2e8f0;">📊 원본 그대로</th>
-                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #e2e8f0;">📐 IQR 방법</th>
-                                        <th style="padding: 15px; text-align: center; font-weight: bold;">📈 Z-score 방법</th>
+                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #718096; color: white;">구분</th>
+                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #718096; color: white;">📊 원본 그대로</th>
+                                        <th style="padding: 15px; text-align: center; font-weight: bold; border-right: 1px solid #718096; color: white;">📐 IQR 방법</th>
+                                        <th style="padding: 15px; text-align: center; font-weight: bold; color: white;">📈 Z-score 방법</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -3323,7 +3323,7 @@
                 <div class="conclusion-section">
                     <h4>핵심 내용 요약</h4>
                     <ul>
-                        <li><strong>이상치의 영향:</strong> 극값 2개만으로도 평균이 8.9억이 되어 통계가 무의미해짐</li>
+                        <li><strong>이상치의 영향:</strong> 이상치 2개만으로도 평균이 8.9억이 되어 통계가 무의미해짐</li>
                         <li><strong>IQR 방법:</strong> 분포에 관계없이 안정적, 10개 이상치 탐지, 최종 평균 31.3세</li>
                         <li><strong>Z-score 방법:</strong> 정규분포 가정 필요, 9개 이상치 탐지, 최종 평균 31.2세</li>
                         <li><strong>방법 선택:</strong> 일반적으로 IQR 방법이 더 안정적이고 실용적</li>
@@ -3449,7 +3449,7 @@
                 <div class="conclusion-section">
                     <h4>🎯 학습 요점 정리</h4>
                     <ul>
-                        <li><strong>통계의 취약점:</strong> 극값에 민감한 평균의 한계를 직접 체험</li>
+                        <li><strong>통계의 취약점:</strong> 이상치에 민감한 평균의 한계를 직접 체험</li>
                         <li><strong>방법론의 중요성:</strong> 같은 데이터라도 분석 방법에 따라 결과가 달라짐</li>
                         <li><strong>객관적 기준:</strong> 감에 의존하지 않고 수학적 기준으로 이상치 판단</li>
                         <li><strong>투명성의 가치:</strong> 원본 데이터와 분석 과정을 공개하여 신뢰성 확보</li>
