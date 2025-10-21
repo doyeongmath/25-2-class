@@ -1045,11 +1045,11 @@
         }
 
         .method-card {
-            background: white;
+            background: white !important;
             border-radius: 24px;
             padding: 32px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid #f1f3f4;
+            border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -1376,14 +1376,14 @@
             letter-spacing: 0.2px;
         }
         .summary-table tbody tr:hover td {
-            background: rgba(255,255,255,0.18);
+            background: #f7fafc;
         }
         .summary-table td {
             line-height: 1.5;
         }
 
         .summary-table tr:nth-child(even) td:first-child {
-            background: rgba(255,255,255,0.15);
+            background: #edf2f7;
         }
 
         /* 모바일 반응성 - 깔끔한 디자인 */
@@ -1483,10 +1483,10 @@
             }
 
             .summary-table tr {
-                border: 1px solid rgba(255,255,255,0.2);
+                border: 1px solid #e2e8f0;
                 margin-bottom: 10px;
                 border-radius: 8px;
-                background: rgba(255,255,255,0.1);
+                background: white;
                 padding: 10px;
             }
 
@@ -3135,9 +3135,9 @@
 
                 <!-- 한눈에 보는 결과 비교: 별도 방법 탭으로 분리 -->
                 <div class="method-panel" id="summary-panel">
-                    <div class="method-card summary-card">
-                        <h3>📊 한눈에 보는 결과 비교</h3>
-                        <p style="text-align: center; color: rgba(255,255,255,0.9); font-size: 1em; margin-bottom: 20px; font-weight: 300;">
+                    <div class="method-card summary-card" style="background: white;">
+                        <h3 style="color: #1a202c;">📊 한눈에 보는 결과 비교</h3>
+                        <p style="text-align: center; color: #4a5568; font-size: 1em; margin-bottom: 20px; font-weight: 500;">
                             세 가지 방법으로 처리한 결과를 표로 정리했어요
                         </p>
                         
@@ -3173,9 +3173,9 @@
                             <thead>
                                 <tr>
                                     <th>비교 항목</th>
-                                    <th style="background:rgba(255,255,255,0.28)">원본 그대로</th>
-                                    <th style="background:rgba(255,255,255,0.28)">IQR로 처리</th>
-                                    <th style="background:rgba(255,255,255,0.28)">Z-score로 처리</th>
+                                    <th>원본 그대로</th>
+                                    <th>IQR로 처리</th>
+                                    <th>Z-score로 처리</th>
                                 </tr>
                             </thead>
                             <tbody>
