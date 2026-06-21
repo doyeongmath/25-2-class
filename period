@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>민정이의 달력</title>
+<meta name="theme-color" content="#3A2F58" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="민정이의 달력" />
+<style>
+  :root{
+    --bg:#FBF2EF; --ink:#43243C; --muted:#A07F90; --card:#FFFFFF;
+    --line:#F1E1DE; --rose:#E2697F; --rose-soft:#F7D9DF; --rose-deep:#C24A63;
+    --sage:#7FB1A2; --sage-soft:#E1EEE9; --gold:#E0A24E;
+    --moon-dark:#322A4A; --moon-lit:#F7E8CB; --indigo:#4A3F6E;
+    --shadow:0 10px 30px -16px rgba(67,36,60,.45);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{
+    font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    background:
+      radial-gradient(120% 60% at 50% -10%, #FCE7E0 0%, rgba(252,231,224,0) 60%),
+      var(--bg);
+    color:var(--ink); min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom);
+  }
+  .wrap{max-width:440px; margin:0 auto; padding:20px 16px 40px}
+  .topbar{display:flex; align-items:baseline; justify-content:space-between; margin:4px 2px 16px}
+  .brand{font-size:14px; letter-spacing:.04em; color:var(--muted)}
+  .brand b{color:var(--rose-deep); font-weight:700}
+  .date-today{font-size:13px; color:var(--muted)}
+
+  .hero{
+    background:linear-gradient(160deg,#3A2F58 0%,#5A3C5E 55%,#7A4458 100%);
+    border-radius:26px; padding:22px 20px; color:#fff;
+    display:flex; align-items:center; gap:18px; box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+  }
+  .hero .stars{position:absolute; inset:0; opacity:.5; pointer-events:none}
+  .moon-wrap{flex:0 0 auto; width:104px; height:104px; position:relative; z-index:1}
+  .hero-txt{z-index:1; min-width:0}
+  .phase-chip{
+    display:inline-block; font-size:12px; font-weight:600; letter-spacing:.02em;
+    padding:3px 10px; border-radius:999px; background:rgba(255,255,255,.16); margin-bottom:8px;
+  }
+  .status-main{font-size:27px; font-weight:800; line-height:1.1; letter-spacing:-.01em}
+  .status-main .dnum{font-size:34px}
+  .status-sub{font-size:13px; color:rgba(255,255,255,.82); margin-top:7px; line-height:1.45}
+
+  .action{
+    width:100%; margin:14px 0 4px; border:0; border-radius:16px;
+    padding:15px; font-size:15px; font-weight:700; font-family:inherit;
+    background:var(--rose); color:#fff; box-shadow:0 8px 18px -10px var(--rose);
+    transition:transform .12s ease, background .15s ease; cursor:pointer;
+  }
+  .action:active{transform:scale(.985)}
+  .action.on{background:#fff; color:var(--rose-deep); border:1.5px solid var(--rose-soft); box-shadow:none}
+
+  .cal{background:var(--card); border-radius:24px; padding:16px 14px 18px; margin-top:14px; box-shadow:var(--shadow)}
+  .cal-head{display:flex; align-items:center; justify-content:space-between; padding:2px 4px 12px}
+  .cal-title{font-size:17px; font-weight:800; letter-spacing:.01em}
+  .navbtn{
+    width:38px; height:38px; border-radius:12px; border:0; background:#FBF1EE;
+    color:var(--ink); font-size:18px; cursor:pointer; display:grid; place-items:center; font-family:inherit;
+    transition:background .15s;
+  }
+  .navbtn:active{background:var(--rose-soft)}
+  .nav-mid{display:flex; gap:8px; align-items:center}
+  .today-btn{font-size:12px; font-weight:700; color:var(--rose-deep); background:transparent; border:0; cursor:pointer; padding:6px; font-family:inherit}
+
+  .dow{display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px}
+  .dow span{text-align:center; font-size:11px; font-weight:700; color:var(--muted); padding:4px 0}
+  .dow span.sun{color:var(--rose)} .dow span.sat{color:var(--indigo)}
+
+  .grid{display:grid; grid-template-columns:repeat(7,1fr); gap:3px}
+  .cell{
+    aspect-ratio:1/1; border:0; background:transparent; border-radius:13px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; color:var(--ink); cursor:pointer; position:relative; font-family:inherit;
+    transition:background .12s, transform .12s;
+  }
+  .cell:active{transform:scale(.92)}
+  .cell.pad{visibility:hidden}
+  .cell.fertile{background:var(--sage-soft)}
+  .cell.fertile .num{color:#3F7A6B}
+  .cell.predict{box-shadow:inset 0 0 0 1.6px var(--rose-soft)}
+  .cell.predict .num{color:var(--rose)}
+  .cell.period{background:var(--rose); color:#fff}
+  .cell.period .num{color:#fff; font-weight:700}
+  .cell.today .num{font-weight:800}
+  .cell.today::after{content:""; position:absolute; bottom:6px; width:4px; height:4px; border-radius:50%; background:currentColor}
+  .cell.period.today::after{background:#fff}
+  .num{line-height:1; z-index:1}
+  .ovu{position:absolute; top:5px; right:6px; width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 2px #fff}
+  .cell.period .ovu{box-shadow:0 0 0 2px var(--rose)}
+
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px}
+  .stat{background:var(--card); border-radius:18px; padding:14px 10px; text-align:center; box-shadow:var(--shadow)}
+  .stat .v{font-size:21px; font-weight:800; letter-spacing:-.01em}
+  .stat .v small{font-size:12px; font-weight:700; color:var(--muted); margin-left:1px}
+  .stat .k{font-size:11px; color:var(--muted); margin-top:4px}
+
+  .legend{display:flex; flex-wrap:wrap; gap:6px 14px; justify-content:center; margin:18px 4px 6px}
+  .lg{display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted)}
+  .dot{width:11px; height:11px; border-radius:50%}
+  .dot.p{background:var(--rose)} .dot.pr{background:#fff; box-shadow:inset 0 0 0 1.6px var(--rose-soft)}
+  .dot.f{background:var(--sage-soft); box-shadow:inset 0 0 0 1px var(--sage)} .dot.o{background:var(--gold)}
+  .empty-hint{font-size:12.5px; color:var(--muted); text-align:center; line-height:1.5; margin:8px 6px 0}
+
+  .tools{display:flex; gap:18px; justify-content:center; margin-top:18px}
+  .tools button{background:transparent; border:0; color:#C2A9B3; font-size:12px; cursor:pointer; font-family:inherit; text-decoration:underline; text-underline-offset:3px}
+  .tools button.danger{color:#D99}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><b>민정</b>이의 달력</div>
+    <div class="date-today" id="todayLabel"></div>
+  </div>
+
+  <div class="hero">
+    <svg class="stars" viewBox="0 0 440 130" preserveAspectRatio="none" aria-hidden="true">
+      <g fill="#fff">
+        <circle cx="300" cy="22" r="1.1"/><circle cx="340" cy="50" r="0.8"/>
+        <circle cx="380" cy="30" r="1.3"/><circle cx="410" cy="70" r="0.9"/>
+        <circle cx="360" cy="95" r="1"/><circle cx="320" cy="78" r="0.7"/>
+        <circle cx="400" cy="14" r="0.9"/>
+      </g>
+    </svg>
+    <div class="moon-wrap"><svg viewBox="0 0 104 104" id="moon" aria-hidden="true"></svg></div>
+    <div class="hero-txt">
+      <span class="phase-chip" id="phaseChip">—</span>
+      <div class="status-main" id="statusMain">불러오는 중…</div>
+      <div class="status-sub" id="statusSub"></div>
+    </div>
+  </div>
+
+  <button class="action" id="todayBtn">오늘 생리 기록</button>
+
+  <div class="cal">
+    <div class="cal-head">
+      <button class="navbtn" id="prevM" aria-label="이전 달">‹</button>
+      <div class="nav-mid">
+        <div class="cal-title" id="calTitle"></div>
+        <button class="today-btn" id="jumpToday">오늘</button>
+      </div>
+      <button class="navbtn" id="nextM" aria-label="다음 달">›</button>
+    </div>
+    <div class="dow">
+      <span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span class="sat">토</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v" id="stCycle">—</div><div class="k">평균 주기</div></div>
+    <div class="stat"><div class="v" id="stLen">—</div><div class="k">평균 생리 기간</div></div>
+    <div class="stat"><div class="v" id="stLast">—</div><div class="k">마지막 생리일</div></div>
+  </div>
+
+  <div class="legend">
+    <span class="lg"><span class="dot p"></span>생리</span>
+    <span class="lg"><span class="dot pr"></span>예상 생리</span>
+    <span class="lg"><span class="dot f"></span>가임기</span>
+    <span class="lg"><span class="dot o"></span>배란 예상</span>
+  </div>
+  <div class="empty-hint" id="emptyHint" style="display:none">달력에서 생리한 날을 눌러 기록해 보세요.<br>기록이 쌓이면 다음 주기를 예측해 드려요.</div>
+
+  <div class="tools">
+    <button id="backupBtn">백업</button>
+    <button id="restoreBtn">복원</button>
+    <button id="resetBtn" class="danger">초기화</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const KEY='minjeong:perioddays';
+  const DEFAULT_CYCLE=28, DEFAULT_LEN=5, DAY=86400000;
+
+  const strip=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  const fmt=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const parse=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);};
+  const addDays=(d,n)=>{const x=strip(d);x.setDate(x.getDate()+n);return x;};
+  const diff=(a,b)=>Math.round((strip(a)-strip(b))/DAY);
+  const KMON=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const kDate=d=>`${d.getMonth()+1}월 ${d.getDate()}일`;
+
+  let days=new Set(), viewY, viewM, mem=null;
+  const today=strip(new Date());
+
+  // ---- storage: localStorage with in-memory fallback ----
+  function rawGet(){ try{ return localStorage.getItem(KEY); }catch(e){ return mem; } }
+  function rawSet(v){ try{ localStorage.setItem(KEY,v); }catch(e){ mem=v; } }
+  function load(){ try{ const r=rawGet(); if(r) days=new Set(JSON.parse(r)); }catch(e){} }
+  function save(){ rawSet(JSON.stringify([...days])); }
+
+  function model(){
+    const sorted=[...days].sort();
+    const blocks=[];
+    for(const s of sorted){
+      const last=blocks[blocks.length-1];
+      if(last && diff(parse(s),parse(last.end))===1){last.end=s;last.len++;}
+      else blocks.push({start:s,end:s,len:1});
+    }
+    let avgLen=DEFAULT_LEN;
+    if(blocks.length){ avgLen=Math.max(2,Math.round(blocks.reduce((a,b)=>a+b.len,0)/blocks.length)); }
+    let avgCycle=DEFAULT_CYCLE, gaps=[];
+    for(let i=1;i<blocks.length;i++) gaps.push(diff(parse(blocks[i].start),parse(blocks[i-1].start)));
+    if(gaps.length){ avgCycle=Math.min(40,Math.max(21,Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length))); }
+    const lastStart=blocks.length?parse(blocks[blocks.length-1].start):null;
+    return {blocks,avgLen,avgCycle,lastStart,hasGaps:gaps.length>0};
+  }
+
+  function predictions(M){
+    const predPeriod=new Set(), fertile=new Set(), ovu=new Set();
+    if(!M.lastStart) return {predPeriod,fertile,ovu};
+    const base=M.lastStart, C=M.avgCycle, L=M.avgLen;
+    for(let i=0;i<=8;i++){
+      const cs=addDays(base,i*C);
+      if(i>=1){ for(let d=0;d<L;d++) predPeriod.add(fmt(addDays(cs,d))); }
+      const ov=addDays(cs,C-14);
+      ovu.add(fmt(ov));
+      for(let d=-5;d<=1;d++) fertile.add(fmt(addDays(ov,d)));
+    }
+    return {predPeriod,fertile,ovu};
+  }
+
+  function moonPath(phase,r){
+    const cos=Math.cos(2*Math.PI*phase), lit=phase<0.5, so=lit?1:0;
+    const si=cos>0?so:1-so, rx=Math.abs(cos)*r;
+    return `M 0 ${-r} A ${r} ${r} 0 0 ${so} 0 ${r} A ${rx} ${r} 0 0 ${si} 0 ${-r} Z`;
+  }
+  function drawMoon(phase){
+    const r=44,c=52;
+    document.getElementById('moon').innerHTML=`
+      <defs>
+        <radialGradient id="lit" cx="40%" cy="38%" r="75%">
+          <stop offset="0%" stop-color="#FFF6E2"/><stop offset="100%" stop-color="var(--moon-lit)"/>
+        </radialGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="3.2"/></filter>
+      </defs>
+      <circle cx="${c}" cy="${c}" r="${r+3}" fill="#FFE9C6" opacity="0.28" filter="url(#glow)"/>
+      <circle cx="${c}" cy="${c}" r="${r}" fill="var(--moon-dark)"/>
+      <g transform="translate(${c} ${c})"><path d="${moonPath(phase,r)}" fill="url(#lit)"/></g>
+      <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1"/>`;
+  }
+
+  function updateHero(M,P){
+    const chip=document.getElementById('phaseChip'), main=document.getElementById('statusMain'), sub=document.getElementById('statusSub');
+    if(!M.lastStart){ drawMoon(0.18); chip.textContent='기록 없음'; main.textContent='기록을 시작해요'; sub.textContent='생리한 날을 눌러 표시해 주세요.'; return; }
+    const tStr=fmt(today), C=M.avgCycle;
+    let ref=M.lastStart; if(diff(today,ref)<0){ ref=M.blocks.length?parse(M.blocks[0].start):today; }
+    let dayInCycle=((diff(today,ref)%C)+C)%C;
+    drawMoon(dayInCycle/C);
+    const ovDay=C-14;
+    const nextStart=addDays(ref, Math.ceil((diff(today,ref)+0.0001)/C)*C);
+    const dNext=diff(nextStart,today);
+    let phase;
+    if(days.has(tStr)) phase='생리기';
+    else if(Math.abs(dayInCycle-ovDay)<=1) phase='배란기';
+    else if(dayInCycle<ovDay) phase='난포기'; else phase='황체기';
+    chip.textContent=phase;
+    if(days.has(tStr)){
+      let n=1,d=addDays(today,-1); while(days.has(fmt(d))){n++;d=addDays(d,-1);}
+      main.innerHTML=`생리 <span class="dnum">${n}</span>일차`;
+      sub.textContent=`다음 예상일은 ${kDate(nextStart)}이에요.`;
+    } else if(P.fertile.has(tStr)){
+      main.textContent=P.ovu.has(tStr)?'배란 예상일':'가임기예요';
+      sub.textContent=`다음 생리까지 ${dNext}일 남았어요.`;
+    } else {
+      main.innerHTML=`생리까지 <span class="dnum">D-${dNext}</span>`;
+      sub.textContent=`${kDate(nextStart)} 예상 · 배란 ${kDate(addDays(nextStart,-14))}`;
+    }
+  }
+
+  function renderCal(M,P){
+    document.getElementById('calTitle').textContent=`${viewY}년 ${KMON[viewM]}`;
+    const grid=document.getElementById('grid'); grid.innerHTML='';
+    const startDow=new Date(viewY,viewM,1).getDay();
+    const dim=new Date(viewY,viewM+1,0).getDate();
+    for(let i=0;i<startDow;i++){const p=document.createElement('div');p.className='cell pad';grid.appendChild(p);}
+    for(let d=1;d<=dim;d++){
+      const date=new Date(viewY,viewM,d), s=fmt(date), logged=days.has(s);
+      const btn=document.createElement('button'); btn.className='cell';
+      if(logged) btn.classList.add('period');
+      else{ if(P.predPeriod.has(s))btn.classList.add('predict'); if(P.fertile.has(s))btn.classList.add('fertile'); }
+      if(diff(date,today)===0) btn.classList.add('today');
+      let inner=`<span class="num">${d}</span>`;
+      if(P.ovu.has(s)&&!logged) inner+=`<span class="ovu"></span>`;
+      btn.innerHTML=inner; btn.addEventListener('click',()=>toggle(s)); grid.appendChild(btn);
+    }
+  }
+
+  function renderStats(M){
+    document.getElementById('stCycle').innerHTML = M.hasGaps?`${M.avgCycle}<small>일</small>`:'—';
+    document.getElementById('stLen').innerHTML   = M.blocks.length?`${M.avgLen}<small>일</small>`:'—';
+    document.getElementById('stLast').textContent= M.lastStart?kDate(M.lastStart):'—';
+    document.getElementById('emptyHint').style.display = M.blocks.length?'none':'block';
+  }
+
+  function updateTodayBtn(){
+    const btn=document.getElementById('todayBtn');
+    if(days.has(fmt(today))){ btn.textContent='오늘 생리 기록 해제'; btn.classList.add('on'); }
+    else{ btn.textContent='오늘 생리 기록'; btn.classList.remove('on'); }
+  }
+
+  function render(){ const M=model(),P=predictions(M); updateHero(M,P); renderCal(M,P); renderStats(M); updateTodayBtn(); }
+  function toggle(s){ if(days.has(s))days.delete(s);else days.add(s); save(); render(); }
+
+  function init(){
+    const now=new Date(); viewY=now.getFullYear(); viewM=now.getMonth();
+    document.getElementById('todayLabel').textContent=`${now.getMonth()+1}.${String(now.getDate()).padStart(2,'0')} ${['일','월','화','수','목','금','토'][now.getDay()]}`;
+    document.getElementById('prevM').onclick=()=>{viewM--;if(viewM<0){viewM=11;viewY--;}render();};
+    document.getElementById('nextM').onclick=()=>{viewM++;if(viewM>11){viewM=0;viewY++;}render();};
+    document.getElementById('jumpToday').onclick=()=>{const n=new Date();viewY=n.getFullYear();viewM=n.getMonth();render();};
+    document.getElementById('todayBtn').onclick=()=>toggle(fmt(today));
+    document.getElementById('backupBtn').onclick=()=>{ window.prompt('이 백업 코드를 길게 눌러 복사한 뒤, 카톡 ‘나에게 보내기’ 등에 저장해 두세요.', JSON.stringify([...days])); };
+    document.getElementById('restoreBtn').onclick=()=>{
+      const t=window.prompt('백업 코드를 붙여넣으세요. 현재 기록은 덮어써집니다.');
+      if(t==null||t.trim()==='') return;
+      try{ const arr=JSON.parse(t.trim()); if(!Array.isArray(arr)) throw 0; days=new Set(arr); save(); render(); }
+      catch(e){ alert('코드 형식이 올바르지 않아요.'); }
+    };
+    document.getElementById('resetBtn').onclick=()=>{ if(confirm('모든 기록을 지울까요? 되돌릴 수 없어요.')){ days=new Set(); save(); render(); } };
+    render();
+  }
+
+  load(); init();
+})();
+</script>
+</body>
+</html>
